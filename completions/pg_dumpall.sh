@@ -22,6 +22,7 @@
 # @flag --disable-triggers                        disable triggers during data-only restore
 # @option --exclude-database <PATTERN>            exclude databases whose name matches PATTERN
 # @option --extra-float-digits <NUM>              override default setting for extra_float_digits
+# @option --filter <FILENAME>                     exclude databases based on expressions in FILENAME
 # @flag --if-exists                               use IF EXISTS when dropping objects
 # @flag --inserts                                 dump data as INSERT commands, rather than COPY
 # @flag --load-via-partition-root                 load partitions via the root table

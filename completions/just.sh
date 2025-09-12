@@ -1,15 +1,18 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
+# @option --alias-style[left|right|separate] <ALIAS_STYLE>  Set list command alias display style [env: JUST_ALIAS_STYLE=] [default: right]
 # @flag --check                                  Run `--fmt` in 'check' mode.
 # @option --chooser                              Override binary invoked by `--choose` [env: JUST_CHOOSER=]
 # @flag --clear-shell-args                       Clear shell arguments
-# @option --color[auto|always|never]             Print colorful output [env: JUST_COLOR=] [default: auto]
+# @option --color[always|auto|never]             Print colorful output [env: JUST_COLOR=] [default: auto]
 # @option --command-color[black|blue|cyan|green|purple|red|yellow]  Echo recipe lines in <COMMAND-COLOR> [env: JUST_COMMAND_COLOR=]
+# @option --cygpath                              Use binary at <CYGPATH> to convert between unix and Windows paths.
 # @option --dotenv-filename                      Search for environment file named <DOTENV-FILENAME> instead of `.env`
 # @option -E --dotenv-path                       Load <DOTENV-PATH> as environment file instead of searching for one
 # @flag -n --dry-run                             Print what just would do without doing it [env: JUST_DRY_RUN=]
 # @option --dump-format[json|just] <FORMAT>      Dump justfile as <FORMAT> [env: JUST_DUMP_FORMAT=] [default: just]
+# @flag --explain                                Print recipe doc comment before running it [env: JUST_EXPLAIN=]
 # @flag -g --global-justfile                     Use global justfile
 # @flag --highlight                              Highlight echoed recipe lines in bold [env: JUST_HIGHLIGHT=]
 # @option -f --justfile                          Use <JUSTFILE> as justfile [env: JUST_JUSTFILE=]
@@ -20,11 +23,14 @@
 # @flag --no-deps                                Don't run recipe dependencies [env: JUST_NO_DEPS=]
 # @flag --no-dotenv                              Don't load `.env` file [env: JUST_NO_DOTENV=]
 # @flag --no-highlight                           Don't highlight echoed recipe lines in bold [env: JUST_NO_HIGHLIGHT=]
+# @flag --one                                    Forbid multiple recipes from being invoked on the command line [env: JUST_ONE=]
 # @flag -q --quiet                               Suppress all output [env: JUST_QUIET=]
+# @flag --allow-missing                          Ignore missing recipe and module errors [env: JUST_ALLOW_MISSING=]
 # @option --set <VARIABLE> <VALUE>               Override <VARIABLE> with <VALUE>
 # @option --shell                                Invoke <SHELL> to run recipes
 # @option --shell-arg                            Invoke shell with <SHELL-ARG> as an argument
 # @flag --shell-command                          Invoke <COMMAND> with the shell used to run recipe lines and backticks
+# @option --tempdir                              Save temporary files to <TEMPDIR>.
 # @flag --timestamp                              Print recipe command timestamps [env: JUST_TIMESTAMP=]
 # @option --timestamp-format                     Timestamp format string [env: JUST_TIMESTAMP_FORMAT=] [default: %H:%M:%S]
 # @flag -u --unsorted                            Return list and summary entries in source order [env: JUST_UNSORTED=]
@@ -32,6 +38,8 @@
 # @flag -v --verbose*                            Use verbose output [env: JUST_VERBOSE=]
 # @option -d --working-directory                 Use <WORKING-DIRECTORY> as working directory.
 # @flag --yes                                    Automatically confirm all recipes.
+# @flag -h --help                                Print help
+# @flag -V --version                             Print version
 # @flag --changelog                              Print changelog
 # @flag --choose                                 Select one or more recipes to run using a binary chooser.
 # @option -c --command*[`_module_os_command`]    Run an arbitrary command with the working directory, `.env`, overrides, and exports set
@@ -42,13 +50,11 @@
 # @flag --fmt                                    Format and overwrite justfile
 # @flag --groups                                 List recipe groups
 # @flag --init                                   Initialize new justfile in project root
-# @option -l --list* <PATH>                      List available recipes
+# @option -l --list* <MODULE>                    List available recipes in <MODULE> or root if omitted
 # @flag --man                                    Print man page
 # @option -s --show* <PATH>                      Show recipe at <PATH>
 # @flag --summary                                List names of available recipes
 # @flag --variables                              List names of variables
-# @flag -h --help                                Print help
-# @flag -V --version                             Print version
 # @arg arguments*[`_choice_recipe`]              Overrides and recipe(s) to run, defaulting to the first recipe in the justfile
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"

@@ -100,7 +100,7 @@
 # @option -colorize <value>                  colorize the image with the fill color
 # @flag -color-matrix                        matrix apply color correction to the image
 # @flag -contrast                            enhance or reduce the image contrast
-# @option -contrast-stretch <geometry>       improve contrast by `stretching' the intensity range
+# @option -contrast-stretch <geometry>       improve contrast by ‘stretching' the intensity range
 # @option -convolve <coefficients>           apply a convolution kernel to the image
 # @option -cycle <amount>                    cycle the image colormap
 # @flag -despeckle                           reduce the speckles within an image
@@ -128,7 +128,7 @@
 # @option -lat <geometry>                    local adaptive thresholding
 # @option -layers <method>                   optimize or compare image layers
 # @option -level <value>                     adjust the level of image contrast
-# @option -linear-stretch <geometry>         improve contrast by `stretching with saturation' the intensity range
+# @option -linear-stretch <geometry>         improve contrast by ‘stretching with saturation' the intensity range
 # @option -median <geometry>                 apply a median filter to the image
 # @option -mode <geometry>                   make each pixel the 'predominant color' of the neighborhood
 # @option -modulate <value>                  vary the brightness, saturation, and hue

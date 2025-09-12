@@ -5,6 +5,7 @@
 # @flag --debug                    annotate the parsed date, and warn about questionable usage to stderr
 # @option -f --file <DATEFILE>     like --date; once for each line of DATEFILE
 # @option -I --iso-8601 <FMT>      output date/time in ISO 8601 format.
+# @flag --resolution               output the available resolution of timestamps Example: 0.000000001
 # @flag -R --rfc-email             output date and time in RFC 5322 format.
 # @option --rfc-3339 <FMT>         output date/time in RFC 3339 format.
 # @option -r --reference <FILE>    display the last modification time of FILE

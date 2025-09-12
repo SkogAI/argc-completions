@@ -2,6 +2,7 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @flag -h --help                                  show this help message and exit
+# @option --print-completion[bash|zsh|tcsh]        print shell completion script
 # @flag -V --version                               show program's version number and exit
 # @flag -d --debug                                 enable debug mode
 # @option -C --config <CONF_FILE>                  path to the configuration file
@@ -45,7 +46,7 @@
 # @option --export-process-filter <EXPORT_PROCESS_FILTER>  set the export process filter (comman separated list of regular expression)
 # @option -c --client                              connect to a Glances server by IPv4/IPv6 address or hostname
 # @flag -s --server                                run Glances in server mode
-# @flag --browser                                  start the client browser (list of servers)
+# @flag --browser                                  start TUI Central Glances Browser (use --browser -w to start WebUI Central Glances Browser)
 # @flag --disable-autodiscover                     disable autodiscover feature
 # @option -p --port                                define the client/server TCP port [default: 61209]
 # @option -B --bind <BIND_ADDRESS>                 bind server to the given IPv4/IPv6 address or hostname

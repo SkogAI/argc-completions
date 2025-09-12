@@ -3,13 +3,13 @@
 
 # @flag -0 --null                     end each output line with NUL, not newline
 # @flag -a --all                      write counts for all files, not just directories
-# @flag --apparent-size               print apparent sizes, rather than disk usage; although the apparent size is usually smaller, it may be larger due to holes in ('sparse') files, internal fragmentation, indirect blocks, and the like
+# @flag --apparent-size               print apparent sizes rather than device usage; although the apparent size is usually smaller, it may be larger due to holes in ('sparse') files, internal fragmentation, indirect blocks, and the like
 # @option -B --block-size <SIZE>      scale sizes by SIZE before printing them; e.g., '-BM' prints sizes in units of 1,048,576 bytes; see SIZE format below
 # @flag -b --bytes                    equivalent to '--apparent-size --block-size=1'
 # @flag -c --total                    produce a grand total
 # @flag -D --dereference-args         dereference only symlinks that are listed on the command line
 # @option -d --max-depth <N>          print the total for a directory (or file, with --all) only if it is N or fewer levels below the command line argument;  --max-depth=0 is the same as --summarize
-# @option --files0-from <F>           summarize disk usage of the NUL-terminated file names specified in file F; if F is -, then read names from standard input
+# @option --files0-from <F>           summarize device usage of the NUL-terminated file names specified in file F; if F is -, then read names from standard input
 # @flag -H                            equivalent to --dereference-args (-D)
 # @flag -h --human-readable           print sizes in human readable format (e.g., 1K 234M 2G)
 # @flag --inodes                      list inode usage information instead of block usage

@@ -10,7 +10,7 @@
 # @option --path-exclude <pattern>       Do not install paths which match a shell pattern.
 # @option --path-include <pattern>       Re-include a pattern after a previous exclusion.
 # @flag -O --selected-only               Skip packages not selected for install/upgrade.
-# @flag -E --skip-same-version           Skip packages whose same version is installed.
+# @flag -E --skip-same-version           Skip packages with same installed version/arch.
 # @flag -G --refuse-downgrade            Skip packages with earlier version than installed.
 # @flag -B --auto-deconfigure            Install even if it would break some other package.
 # @flag --triggers                       Skip or force consequential trigger processing.

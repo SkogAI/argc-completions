@@ -184,7 +184,7 @@ set-port-latency-offset() {
 # }} pactl set-port-latency-offset
 
 # {{ pactl get-sink-volume
-# @cmd Get the volume of the specified sink (identified by its symbolic name or numerical index) displayed in the same format as the `info` command.
+# @cmd Get the volume of the specified sink (identified by its symbolic name or numerical index) displayed in the same format as the ‘info‘ command.
 # @arg sink[`_choice_sink`]
 get-sink-volume() {
     :;
@@ -201,7 +201,7 @@ set-sink-volume() {
 # }} pactl set-sink-volume
 
 # {{ pactl get-source-volume
-# @cmd ``` Get the volume of the specified source (identified by its symbolic name or numerical index) displayed in the same format as the `info` command.
+# @cmd ‘‘‘ Get the volume of the specified source (identified by its symbolic name or numerical index) displayed in the same format as the ‘info‘ command.
 # @arg source[`_choice_source`]
 get-source-volume() {
     :;

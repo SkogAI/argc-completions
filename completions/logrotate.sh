@@ -3,7 +3,7 @@
 
 # @flag -d --debug                  Don't do anything, just test and print debug messages
 # @flag -f --force                  Force file rotation
-# @option -m --mail[`_module_os_command`] <command>  Command to send mail (instead of `/bin/mail')
+# @option -m --mail[`_module_os_command`] <command>  Command to send mail (instead of `/usr/bin/mail')
 # @option -s --state <statefile>    Path of state file
 # @flag --skip-state-lock           Do not lock the state file
 # @flag --wait-for-state-lock       Wait for lock on the state file

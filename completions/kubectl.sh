@@ -68,7 +68,7 @@
 # @option --raw <value>                           Raw URI to POST to the server.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @option --validate[strict|true|warn|ignore|false] <strict>  Must be one of: strict (or true), warn, ignore (or false).
@@ -761,7 +761,7 @@ create::secret() {
 # @option --docker-username <value>               Username for Docker registry authentication
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option --field-manager <kubectl-create>        Name of the manager used to track field ownership.
-# @option --from-file <file>                      Key files can be specified using their file path, in which case a default name will be given to them, or optionally with a name and file path, in which case the given name will be used.
+# @option --from-file <file>                      Key files can be specified using their file path, in which case a default name of .dockerconfigjson will be given to them, or optionally with a name and file path, in which case the given name will be used.
 # @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
@@ -1263,13 +1263,18 @@ expose() {
 # @flag --allow-missing-template-keys             If true, ignore any errors in templates when a field or map key is missing in the template.
 # @option --annotations* <value>                  Annotations to apply to the pod.
 # @flag --attach                                  If true, wait for the Pod to start running, and then attach to the Pod as if 'kubectl attach ...' were called.
+# @option --cascade <background>                  Must be "background", "orphan", or "foreground".
 # @flag --command                                 If true and extra arguments are present, use them as the 'command' field in the container, rather than the 'args' field which is the default.
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option --env* <value>                          Environment variables to set in the container.
 # @flag --expose                                  If true, create a ClusterIP service associated with the pod.
 # @option --field-manager <kubectl-run>           Name of the manager used to track field ownership.
+# @option -f --filename <file>                    to use to replace the resource.
+# @flag --force                                   If true, immediately remove resources from API and bypass graceful deletion.
+# @option --grace-period <-1>                     Period of time in seconds given to the resource to terminate gracefully.
 # @option --image[`_module_oci_docker_image`] <value>  The image for the container to run.
 # @option --image-pull-policy <value>             The image pull policy for the container.
+# @option -k --kustomize <dir>                    Process a kustomization directory.
 # @option -l --labels <value>                     Comma separated labels to apply to the pod.
 # @flag --leave-stdin-open                        If the pod is started in interactive mode or with stdin, leave stdin open after the first attach completes.
 # @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
@@ -1279,13 +1284,16 @@ expose() {
 # @option --port <value>                          The port that this container exposes.
 # @flag --privileged                              If true, run the container in privileged mode.
 # @flag -q --quiet                                If true, suppress prompt messages.
+# @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @option --restart[Always|OnFailure|Never] <Always>  The restart policy for this Pod.
 # @flag --rm                                      If true, delete the pod after it exits.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @flag -i --stdin                                Keep stdin open on the container in the pod, even if nothing is attached.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
+# @option --timeout <0s>                          The length of time to wait before giving up on a delete, zero means determine a timeout from the size of the object
 # @flag -t --tty                                  Allocate a TTY for the container in the pod.
+# @flag --wait                                    If true, wait for resources to be gone before returning.
 # @arg command[`_module_os_command`]
 # @arg args~[`_choice_args`]
 run() {
@@ -1372,7 +1380,7 @@ set() {
 # @option --prefix <value>                        Prefix to append to variable names
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @flag --resolve                                 If true, show secret or configmap references when listing variables
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @arg resource-name[`_choice_resource_type_and_name`]
@@ -1420,7 +1428,7 @@ set::env() {
 # @flag --local                                   If true, set image will NOT contact api-server but run locally.
 # @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @arg type-name[`_choice_resource_type_or_resource`]
@@ -1471,7 +1479,7 @@ set::image() {
 # @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @option --requests <value>                      The resource requirement requests for this container.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 set::resources() {
@@ -1613,7 +1621,7 @@ set::serviceaccount() {
 # @flag --local                                   If true, set subject will NOT contact api-server but run locally.
 # @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @option --serviceaccount* <value>               Service accounts to bind to the role
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
@@ -1653,9 +1661,9 @@ set::subject() {
 # @option -v --v <0>                              number for the log level verbosity
 # @option --vmodule*, <value>                     comma-separated list of pattern=N settings for file-filtered logging (only works for the default text log format)
 # @flag --warnings-as-errors                      Treat warnings received from the server as errors and exit with a non-zero exit code
-# @option --api-version <value>                   Use given api-version (group/version) of the resource.
-# @option --output[plaintext|plaintext-openapiv2] <plaintext>  Format in which to render the schema.
-# @flag --recursive                               When true, print the name of all the fields recursively.
+# @option --api-version <value>                   Get different explanations for particular API version (API group/version)
+# @option -o --output[plaintext|plaintext-openapiv2] <plaintext>  Format in which to render the schema
+# @flag --recursive                               Print the fields of fields (Currently only 1 level deep)
 # @arg type
 explain() {
     :;
@@ -1704,7 +1712,7 @@ explain() {
 # @flag --output-watch-events                     Output watch event objects when --watch or --watch-only is used.
 # @option --raw <value>                           Raw URI to request from the server.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --server-print                            If true, have the server return the appropriate table output.
 # @flag --show-kind                               If present, list the resource type for the requested object(s).
 # @flag --show-labels                             When printing, show all labels as the last column (default hide labels column)
@@ -1814,7 +1822,7 @@ edit() {
 # @option -o --output <value>                     Output mode.
 # @option --raw <value>                           Raw URI to DELETE to the server.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @option --timeout <0s>                          The length of time to wait before giving up on a delete, zero means determine a timeout from the size of the object
 # @flag --wait                                    If true, wait for resources to be gone before returning.
 # @arg type-name[`_choice_all_type`]
@@ -1892,7 +1900,7 @@ rollout() {
 # @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @option --revision <0>                          See the details, including podTemplate of the revision specified
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @arg resource-name[`_choice_resource_type_and_name`]
@@ -1936,7 +1944,7 @@ rollout::history() {
 # @option -k --kustomize <dir>                    Process the kustomization directory.
 # @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @arg resource-name[`_choice_resource_type_and_name`]
@@ -1980,7 +1988,7 @@ rollout::pause() {
 # @option -k --kustomize <dir>                    Process the kustomization directory.
 # @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @arg resource-name[`_choice_resource_type_and_name`]
@@ -2024,7 +2032,7 @@ rollout::restart() {
 # @option -k --kustomize <dir>                    Process the kustomization directory.
 # @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @arg resource-name[`_choice_resource_type_and_name`]
@@ -2066,7 +2074,7 @@ rollout::resume() {
 # @option -k --kustomize <dir>                    Process the kustomization directory.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @option --revision <0>                          Pin to a specific revision for showing its status.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @option --timeout <0s>                          The length of time to wait before ending watch, zero means never.
 # @flag -w --watch                                Watch the status of the rollout until it's done.
 # @arg resource-name[`_choice_resource_type_and_name`]
@@ -2110,7 +2118,7 @@ rollout::status() {
 # @option -k --kustomize <dir>                    Process the kustomization directory.
 # @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @option --to-revision <0>                       The revision to rollback to.
@@ -2160,7 +2168,7 @@ rollout::undo() {
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @option --replicas <0>                          The new desired number of replicas.
 # @option --resource-version <value>              Precondition for resource version.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @option --timeout <0s>                          The length of time to wait before giving up on a scale operation, zero means don't wait.
@@ -2477,7 +2485,7 @@ top() {
 # @option --vmodule*, <value>                     comma-separated list of pattern=N settings for file-filtered logging (only works for the default text log format)
 # @flag --warnings-as-errors                      Treat warnings received from the server as errors and exit with a non-zero exit code
 # @flag --no-headers                              If present, print output without headers
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-capacity                           Print node resources based on Capacity instead of Allocatable(default) of the nodes.
 # @option --sort-by <value>                       If non-empty, sort nodes list using specified field.
 # @flag --use-protocol-buffers                    Enables using protocol-buffers to access Metrics API.
@@ -2521,7 +2529,7 @@ top::node() {
 # @flag --containers                              If present, print usage of containers within a pod.
 # @option --field-selector <value>                Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-selector key1=value1,key2=value2).
 # @flag --no-headers                              If present, print output without headers.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @option --sort-by <value>                       If non-empty, sort pods list using specified field.
 # @flag --sum                                     Print the sum of the resource usage
 # @flag --use-protocol-buffers                    Enables using protocol-buffers to access Metrics API.
@@ -2562,7 +2570,7 @@ top::pod() {
 # @option --vmodule*, <value>                     comma-separated list of pattern=N settings for file-filtered logging (only works for the default text log format)
 # @flag --warnings-as-errors                      Treat warnings received from the server as errors and exit with a non-zero exit code
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @arg name[`_choice_node`]
 cordon() {
     :;
@@ -2599,7 +2607,7 @@ cordon() {
 # @option --vmodule*, <value>                     comma-separated list of pattern=N settings for file-filtered logging (only works for the default text log format)
 # @flag --warnings-as-errors                      Treat warnings received from the server as errors and exit with a non-zero exit code
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @arg name[`_choice_node`]
 uncordon() {
     :;
@@ -2643,7 +2651,7 @@ uncordon() {
 # @option --grace-period <-1>                     Period of time in seconds given to each pod to terminate gracefully.
 # @flag --ignore-daemonsets                       Ignore DaemonSet-managed pods.
 # @option --pod-selector <value>                  Label selector to filter pods on the node
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @option --skip-wait-for-delete-timeout <0>      If pod DeletionTimestamp older than N seconds, skip waiting for the pod.
 # @option --timeout <0s>                          The length of time to wait before giving up, zero means infinite
 # @arg name[`_choice_node`]
@@ -2687,7 +2695,7 @@ drain() {
 # @option --field-manager <kubectl-taint>         Name of the manager used to track field ownership.
 # @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --overwrite                               If true, allow taints to be overwritten, otherwise reject taint updates that overwrite existing taints.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @option --validate[strict|true|warn|ignore|false] <strict>  Must be one of: strict (or true), warn, ignore (or false).
@@ -2733,7 +2741,7 @@ taint() {
 # @option -f --filename <file>                    Filename, directory, or URL to files containing the resource to describe
 # @option -k --kustomize <dir>                    Process the kustomization directory.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-events                             If true, display events related to the described object.
 # @arg type-name[`_choice_all_type`]
 # @arg resource[`_choice_resource`]
@@ -2772,6 +2780,7 @@ describe() {
 # @option --vmodule*, <value>                     comma-separated list of pattern=N settings for file-filtered logging (only works for the default text log format)
 # @flag --warnings-as-errors                      Treat warnings received from the server as errors and exit with a non-zero exit code
 # @flag --all-containers                          Get all containers' logs in the pod(s).
+# @flag --all-pods                                Get logs from all pod(s).
 # @option -c --container[`_choice_filtered_container`] <value>  Print the logs of this container
 # @flag -f --follow                               Specify if the logs should be streamed.
 # @flag --ignore-errors                           If watching / following pod logs, allow for any errors that occur to be non-fatal
@@ -2781,7 +2790,7 @@ describe() {
 # @option --pod-running-timeout <20s>             The length of time (like 5s, 2m, or 3h, higher than zero) to wait until at least one pod is running
 # @flag --prefix                                  Prefix each log line with the log source (pod name and container name)
 # @flag -p --previous                             If true, print the logs for the previous instance of the container in a pod if it exists.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @option --since <0s>                            Only return logs newer than a relative duration like 5s, 2m, or 3h.
 # @option --since-time <value>                    Only return logs after a specific date (RFC3339).
 # @option --tail <-1>                             Lines of recent log file to display.
@@ -3188,10 +3197,17 @@ auth::whoami() {
 # @flag --attach                                  If true, wait for the container to start running, and then attach as if 'kubectl attach ...' were called.
 # @option -c --container[`_choice_filtered_container`] <value>  Container name to use for debug container.
 # @option --copy-to <value>                       Create a copy of the target Pod with this name.
+# @option --custom <value>                        Path to a JSON or YAML file containing a partial container spec to customize built-in debug profiles.
 # @option --env* <value>                          Environment variables to set in the container.
 # @option -f --filename <file>                    identifying the resource to debug
 # @option --image[`_module_oci_docker_image`] <value>  Container image to use for debug container.
 # @option --image-pull-policy <value>             The image pull policy for the container.
+# @flag --keep-annotations                        If true, keep the original pod annotations.(This flag only works when used with '--copy-to')
+# @flag --keep-init-containers                    Run the init containers for the pod.
+# @flag --keep-labels                             If true, keep the original pod labels.(This flag only works when used with '--copy-to')
+# @flag --keep-liveness                           If true, keep the original pod liveness probes.(This flag only works when used with '--copy-to')
+# @flag --keep-readiness                          If true, keep the original pod readiness probes.(This flag only works when used with '--copy-to')
+# @flag --keep-startup                            If true, keep the original startup probes.(This flag only works when used with '--copy-to')
 # @option --profile[legacy|general|baseline|netadmin|restricted] <legacy>  Options are "legacy", "general", "baseline", "netadmin", "restricted" or "sysadmin".
 # @flag -q --quiet                                If true, suppress informational messages.
 # @flag --replace                                 When used with '--copy-to', delete the original Pod.
@@ -3289,7 +3305,7 @@ events() {
 # @flag --prune                                   Include resources that would be deleted by pruning.
 # @option --prune-allowlist* <value>              Overwrite the default allowlist with <group/version/kind> for --prune
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --server-side                             If true, apply runs in the server instead of the client.
 # @flag --show-managed-fields                     If true, include managed fields in the diff.
 # @arg filename
@@ -3343,9 +3359,10 @@ diff() {
 # @flag --prune                                   Automatically delete resource objects, that do not appear in the configs and are created by either apply or create --save-config.
 # @option --prune-allowlist* <value>              Overwrite the default allowlist with <group/version/kind> for --prune
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --server-side                             If true, apply runs in the server instead of the client.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
+# @option --subresource <value>                   If specified, apply will operate on the subresource of the requested object.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @option --timeout <0s>                          The length of time to wait before giving up on a delete, zero means determine a timeout from the size of the object
 # @option --validate[strict|true|warn|ignore|false] <strict>  Must be one of: strict (or true), warn, ignore (or false).
@@ -3474,7 +3491,7 @@ apply::set-last-applied() {
 # @option -k --kustomize <dir>                    Process the kustomization directory.
 # @option -o --output[yaml|json] <yaml>           Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @arg type-name[`_choice_resource_type_or_resource`]
 apply::view-last-applied() {
     :;
@@ -3618,7 +3635,7 @@ replace() {
 # @flag --allow-missing-template-keys             If true, ignore any errors in templates when a field or map key is missing in the template.
 # @option --field-selector <value>                Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-selector key1=value1,key2=value2).
 # @option -f --filename <file>                    identifying the resource.
-# @option --for <value>                           The condition to wait on: [delete|condition=condition-name[=condition-value]|jsonpath='{JSONPath expression}'=[JSONPath value]].
+# @option --for <value>                           The condition to wait on: [create|delete|condition=condition-name[=condition-value]|jsonpath='{JSONPath expression}'=[JSONPath value]].
 # @flag --local                                   If true, annotation will NOT contact api-server but run locally.
 # @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
@@ -3666,7 +3683,10 @@ wait() {
 # @flag --enable-alpha-plugins                    enable kustomize plugins
 # @flag --enable-helm                             Enable use of the Helm chart inflator generator.
 # @option -e --env* <value>                       a list of environment variables to be used by functions
+# @option --helm-api-versions* <value>            Kubernetes api versions used by Helm for Capabilities.APIVersions
 # @option --helm-command <helm>                   helm command (path to executable)
+# @flag --helm-debug                              Enable debug output from the Helm chart inflator generator.
+# @option --helm-kube-version <value>             Kubernetes version used by Helm for Capabilities.KubeVersion
 # @option --load-restrictor <LoadRestrictionsRootOnly>  if set to 'LoadRestrictionsNone', local kustomizations may load files from outside their root.
 # @option --mount* <value>                        a list of storage options read from the filesystem
 # @flag --network                                 enable network access for functions that declare it
@@ -3721,7 +3741,7 @@ kustomize() {
 # @flag --overwrite                               If true, allow labels to be overwritten, otherwise reject label updates that overwrite existing labels.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @option --resource-version <value>              If non-empty, the labels update will only succeed if this is the current resource-version for the object.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @arg type-name[`_choice_all_type`]
@@ -3775,7 +3795,7 @@ label() {
 # @flag --overwrite                               If true, allow annotations to be overwritten, otherwise reject annotation updates that overwrite existing annotations.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @option --resource-version <value>              If non-empty, the annotation update will only succeed if this is the current resource-version for the object.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @arg type-name[`_choice_all_type`]

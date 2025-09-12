@@ -20,7 +20,9 @@
 # @flag --save-workspace-protocol       Save packages from the workspace with a "workspace:" protocol.
 # @flag --no-save-workspace-protocol    Save packages from the workspace with a "workspace:" protocol.
 # @flag --aggregate-output              Aggregate output from child processes that are run in parallel, and only print output when child process is finished.
-# @option -C --dir <dir>                Change to directory <dir> (default: /home/sigo/w/argc-completions)
+# @flag --allow-build                   A list of package names that are allowed to run postinstall scripts during installation
+# @flag --config                        Save the dependency to configurational dependencies
+# @option -C --dir <dir>                Change to directory <dir> (default: /home/skogix/.local/src/argc-completions)
 # @flag -g --global                     Install as a global package
 # @flag --global-dir                    Specify a custom directory to store global packages
 # @flag -h --help                       Output usage information
@@ -29,6 +31,8 @@
 # @flag --offline                       Trigger an error if any required dependencies are not available in local store
 # @flag --prefer-offline                Skip staleness checks for cached data, but request missing data from the server
 # @flag -r --recursive                  Run installation recursively in every package found in subdirectories or in every workspace package, when executed inside a workspace.
+# @flag --save-catalog                  Save package to the default catalog
+# @option --save-catalog-name <name>    Save package to the specified catalog
 # @flag -D --save-dev                   Save package to your `devDependencies`
 # @flag -O --save-optional              Save package to your `optionalDependencies`
 # @flag --save-peer                     Save package to your `peerDependencies` and `devDependencies`
@@ -68,8 +72,8 @@ import() {
 # @flag --no-verify-store-integrity           If false, doesn't check whether packages in the store were mutated
 # @flag --aggregate-output                    Aggregate output from child processes that are run in parallel, and only print output when child process is finished.
 # @option --child-concurrency <number>        Controls the number of child processes run parallelly to build node modules
-# @flag -D --dev                              Only `devDependencies` are installed regardless of the `NODE_ENV`
-# @option -C --dir <dir>                      Change to directory <dir> (default: /home/sigo/w/argc-completions)
+# @flag -D --dev                              Only `devDependencies` are installed
+# @option -C --dir <dir>                      Change to directory <dir> (default: /home/skogix/.local/src/argc-completions)
 # @flag --fix-lockfile                        Fix broken lockfile entries automatically
 # @option --force[cpu|os|arch]                Force reinstall dependencies: refetch packages modified in store, recreate a lockfile and/or modules directory created by a non-compatible version of pnpm.
 # @flag --global-dir                          Specify a custom directory to store global packages
@@ -88,6 +92,7 @@ import() {
 # @flag --no-lockfile                         Don't read or generate a `pnpm-lock.yaml` file
 # @flag --no-optional                         `optionalDependencies` are not installed
 # @flag --offline                             Trigger an error if any required dependencies are not available in local store
+# @flag --optimistic-repeat-install           Skip reinstall if the workspace state is up-to-date
 # @option --package-import-method[`_choice_pacakge_import_method`] <auto>  Import package method
 # @flag --prefer-frozen-lockfile              If the available `pnpm-lock.yaml` satisfies the `package.json` then perform a headless installation
 # @flag --prefer-offline                      Skip staleness checks for cached data, but request missing data from the server
@@ -107,7 +112,7 @@ import() {
 # @option --virtual-store-dir <dir>           The directory with links to the store (default is node_modules/.pnpm).
 # @flag -w --workspace-root                   Run the command on the root workspace project
 # @option --reporter[`_choice_reporter`] <append-only>  Set reporter.
-# @flag -s --silent                           No output is logged to the console, except fatal errors
+# @flag -s --silent                           No output is logged to the console, not even fatal errors
 # @option --changed-files-ignore-pattern <pattern>  Defines files to ignore when filtering for changed projects since the specified commit/branch.
 # @flag --fail-if-no-match                    If no projects are matched by the command, exit with exit code 1 (fail)
 # @option --filter[`_choice_workspace`] <selector>  Filtering allows you to restrict commands to specific subsets of packages.
@@ -132,14 +137,13 @@ it() {
 # @flag --color                Controls colors in the output.
 # @flag --no-color             Controls colors in the output.
 # @flag --aggregate-output     Aggregate output from child processes that are run in parallel, and only print output when child process is finished.
-# @option -C --dir <dir>       Change to directory <dir> (default: /home/sigo/w/argc-completions)
-# @flag -g --global            Link package to/from global node_modules
+# @option -C --dir <dir>       Change to directory <dir> (default: /home/skogix/.local/src/argc-completions)
 # @flag -h --help              Output usage information
 # @option --loglevel[debug|info|warn|error|silent] <level>  What level of logs to report.
 # @flag --stream               Stream output from child processes immediately, prefixed with the originating package directory.
 # @flag --use-stderr           Divert all output to stderr
 # @flag -w --workspace-root    Run the command on the root workspace project
-# @arg dir!
+# @arg dir-pkg-name! <dir|pkg name>
 ln() {
     :;
 }
@@ -150,7 +154,7 @@ ln() {
 # @flag --color                Controls colors in the output.
 # @flag --no-color             Controls colors in the output.
 # @flag --aggregate-output     Aggregate output from child processes that are run in parallel, and only print output when child process is finished.
-# @option -C --dir <dir>       Change to directory <dir> (default: /home/sigo/w/argc-completions)
+# @option -C --dir <dir>       Change to directory <dir> (default: /home/skogix/.local/src/argc-completions)
 # @flag -h --help              Output usage information
 # @flag --ignore-scripts       Don't run lifecycle scripts
 # @option --loglevel[debug|info|warn|error|silent] <level>  What level of logs to report.
@@ -170,7 +174,7 @@ prune() {
 # @flag --color                       Controls colors in the output.
 # @flag --no-color                    Controls colors in the output.
 # @flag --aggregate-output            Aggregate output from child processes that are run in parallel, and only print output when child process is finished.
-# @option -C --dir <dir>              Change to directory <dir> (default: /home/sigo/w/argc-completions)
+# @option -C --dir <dir>              Change to directory <dir> (default: /home/skogix/.local/src/argc-completions)
 # @flag -h --help                     Output usage information
 # @option --loglevel[debug|info|warn|error|silent] <level>  What level of logs to report.
 # @flag --pending                     Rebuild packages that were not build during installation.
@@ -196,7 +200,7 @@ rb() {
 # @flag --color                       Controls colors in the output.
 # @flag --no-color                    Controls colors in the output.
 # @flag --aggregate-output            Aggregate output from child processes that are run in parallel, and only print output when child process is finished.
-# @option -C --dir <dir>              Change to directory <dir> (default: /home/sigo/w/argc-completions)
+# @option -C --dir <dir>              Change to directory <dir> (default: /home/skogix/.local/src/argc-completions)
 # @flag --global-dir                  Specify a custom directory to store global packages
 # @flag -h --help                     Output usage information
 # @option --loglevel[debug|info|warn|error|silent] <level>  What level of logs to report.
@@ -223,7 +227,7 @@ rm() {
 # @flag --color                Controls colors in the output.
 # @flag --no-color             Controls colors in the output.
 # @flag --aggregate-output     Aggregate output from child processes that are run in parallel, and only print output when child process is finished.
-# @option -C --dir <dir>       Change to directory <dir> (default: /home/sigo/w/argc-completions)
+# @option -C --dir <dir>       Change to directory <dir> (default: /home/skogix/.local/src/argc-completions)
 # @flag -h --help              Output usage information
 # @option --loglevel[debug|info|warn|error|silent] <level>  What level of logs to report.
 # @flag -r --recursive         Unlink in every package found in subdirectories or in every workspace package, when executed inside a workspace.
@@ -244,7 +248,7 @@ unlink() {
 # @flag --aggregate-output            Aggregate output from child processes that are run in parallel, and only print output when child process is finished.
 # @option --depth <number>            How deep should levels of dependencies be inspected.
 # @flag -D --dev                      Update packages only in "devDependencies"
-# @option -C --dir <dir>              Change to directory <dir> (default: /home/sigo/w/argc-completions)
+# @option -C --dir <dir>              Change to directory <dir> (default: /home/skogix/.local/src/argc-completions)
 # @flag -g --global                   Update globally installed packages
 # @flag --global-dir                  Specify a custom directory to store global packages
 # @flag -h --help                     Output usage information
@@ -274,7 +278,9 @@ up() {
 # @option --audit-level <severity>    Only print advisories with severity greater than or equal to one of the following: low|moderate|high|critical.
 # @flag -D --dev                      Only audit "devDependencies"
 # @flag --fix                         Add overrides to the package.json file in order to force non-vulnerable versions of the dependencies
+# @option --ignore <vulnerability>    Ignore a vulnerability by CVE
 # @flag --ignore-registry-errors      Use exit code 0 if the registry responds with an error.
+# @flag --ignore-unfixable            Ignore all CVEs with no resolution
 # @flag --json                        Output audit report in JSON format
 # @flag --no-optional                 Don't audit "optionalDependencies"
 # @flag -P --prod                     Only audit "dependencies" and "optionalDependencies"
@@ -309,7 +315,8 @@ licenses() {
 # @flag --aggregate-output            Aggregate output from child processes that are run in parallel, and only print output when child process is finished.
 # @option --depth <number>            Max display depth of the dependency tree
 # @flag -D --dev                      Display only the dependency graph for packages in `devDependencies`
-# @option -C --dir <dir>              Change to directory <dir> (default: /home/sigo/w/argc-completions)
+# @option -C --dir <dir>              Change to directory <dir> (default: /home/skogix/.local/src/argc-completions)
+# @flag --exclude-peers               Exclude peer dependencies
 # @flag -g --global                   List packages in the global install prefix instead of in the current project
 # @flag --global-dir                  Specify a custom directory to store global packages
 # @flag -h --help                     Output usage information
@@ -342,7 +349,8 @@ ls() {
 # @flag --aggregate-output            Aggregate output from child processes that are run in parallel, and only print output when child process is finished.
 # @flag --compatible                  Print only versions that satisfy specs in package.json
 # @flag -D --dev                      Check only "devDependencies"
-# @option -C --dir <dir>              Change to directory <dir> (default: /home/sigo/w/argc-completions)
+# @option -C --dir <dir>              Change to directory <dir> (default: /home/skogix/.local/src/argc-completions)
+# @option --format <format>           Prints the outdated dependencies in the given format.
 # @flag --global-dir                  Specify a custom directory to store global packages
 # @flag -h --help                     Output usage information
 # @option --loglevel[debug|info|warn|error|silent] <level>  What level of logs to report.
@@ -351,6 +359,7 @@ ls() {
 # @flag --no-table                    Prints the outdated packages in a list.
 # @flag -P --prod                     Check only "dependencies" and "optionalDependencies"
 # @flag -r --recursive                Check for outdated dependencies in every package found in subdirectories or in every workspace package, when executed inside a workspace.
+# @flag --sort-by                     Specify the sorting method.
 # @flag --stream                      Stream output from child processes immediately, prefixed with the originating package directory.
 # @flag --use-stderr                  Divert all output to stderr
 # @flag -w --workspace-root           Run the command on the root workspace project
@@ -367,11 +376,26 @@ outdated() {
 
 # {{ pnpm exec
 # @cmd Executes a shell command in scope of a project
-# @flag --parallel          Completely disregard concurrency and topological sorting, running a given script immediately in all matching packages with prefixed streaming output.
-# @flag -r --recursive      Run the shell command in every package found in subdirectories or every workspace package, when executed inside a workspace.
-# @flag --report-summary    Save the execution results of every package to "pnpm-exec-summary.json".
-# @flag --resume-from       Command executed from given package
-# @flag -c --shell-mode     If exist, runs file inside of a shell.
+# @flag --color                       Controls colors in the output.
+# @flag --no-color                    Controls colors in the output.
+# @flag --aggregate-output            Aggregate output from child processes that are run in parallel, and only print output when child process is finished.
+# @option -C --dir <dir>              Change to directory <dir> (default: /home/skogix/.local/src/argc-completions)
+# @flag -h --help                     Output usage information
+# @option --loglevel[debug|info|warn|error|silent] <level>  What level of logs to report.
+# @flag --no-reporter-hide-prefix     Do not hide project name prefix from output of recursively running command.
+# @flag --parallel                    Completely disregard concurrency and topological sorting, running a given script immediately in all matching packages with prefixed streaming output.
+# @flag -r --recursive                Run the shell command in every package found in subdirectories or every workspace package, when executed inside a workspace.
+# @flag --report-summary              Save the execution results of every package to "pnpm-exec-summary.json".
+# @flag --resume-from                 Command executed from given package
+# @flag -c --shell-mode               If exist, runs file inside of a shell.
+# @flag --stream                      Stream output from child processes immediately, prefixed with the originating package directory.
+# @flag --use-stderr                  Divert all output to stderr
+# @flag -w --workspace-root           Run the command on the root workspace project
+# @option --changed-files-ignore-pattern <pattern>  Defines files to ignore when filtering for changed projects since the specified commit/branch.
+# @flag --fail-if-no-match            If no projects are matched by the command, exit with exit code 1 (fail)
+# @option --filter[`_choice_workspace`] <selector>  Filtering allows you to restrict commands to specific subsets of packages.
+# @option --filter-prod <pattern>     Restricts the scope to package names matching the given pattern similar to --filter, but it ignores devDependencies when searching for dependencies and dependents.
+# @option --test-pattern <pattern>    Defines files related to tests.
 # @arg command[`_choice_bin`]
 # @arg args*
 exec() {
@@ -384,7 +408,7 @@ exec() {
 # @flag --color                       Controls colors in the output.
 # @flag --no-color                    Controls colors in the output.
 # @flag --aggregate-output            Aggregate output from child processes that are run in parallel, and only print output when child process is finished.
-# @option -C --dir <dir>              Change to directory <dir> (default: /home/sigo/w/argc-completions)
+# @option -C --dir <dir>              Change to directory <dir> (default: /home/skogix/.local/src/argc-completions)
 # @flag -h --help                     Output usage information
 # @flag --if-present                  Avoid exiting with a non-zero exit code when the script is undefined
 # @option --loglevel[debug|info|warn|error|silent] <level>  What level of logs to report.
@@ -420,13 +444,6 @@ start() {
 # {{ pnpm test
 # @cmd Runs a package's "test" script, if one was provided
 # @alias t
-# @flag -r --recursive                Run the tests in every package found in subdirectories or every workspace package, when executed inside a workspace.
-# @option --changed-files-ignore-pattern <pattern>  Defines files to ignore when filtering for changed projects since the specified commit/branch.
-# @flag --fail-if-no-match            If no projects are matched by the command, exit with exit code 1 (fail)
-# @option --filter[`_choice_workspace`] <selector>  Filtering allows you to restrict commands to specific subsets of packages.
-# @option --filter-prod <pattern>     Restricts the scope to package names matching the given pattern similar to --filter, but it ignores devDependencies when searching for dependencies and dependents.
-# @option --test-pattern <pattern>    Defines files related to tests.
-# @arg args*
 test() {
     :;
 }
@@ -458,7 +475,16 @@ find-hash() {
 
 # {{ pnpm pack
 # @cmd Create a tarball from a package
-# @option --pack-destination <dir>    Directory in which `pnpm pack` will save tarballs.
+# @flag --json                                Prints the packed tarball and contents in the json format.
+# @option --out <path>                        Customizes the output path for the tarball.
+# @option --pack-destination <dir>            Directory in which `pnpm pack` will save tarballs.
+# @flag -r --recursive                        Pack all packages from the workspace
+# @option --workspace-concurrency <number>    Set the maximum number of concurrency.
+# @option --changed-files-ignore-pattern <pattern>  Defines files to ignore when filtering for changed projects since the specified commit/branch.
+# @flag --fail-if-no-match                    If no projects are matched by the command, exit with exit code 1 (fail)
+# @option --filter[`_choice_workspace`] <selector>  Filtering allows you to restrict commands to specific subsets of packages.
+# @option --filter-prod <pattern>             Restricts the scope to package names matching the given pattern similar to --filter, but it ignores devDependencies when searching for dependencies and dependents.
+# @option --test-pattern <pattern>            Defines files related to tests.
 pack() {
     :;
 }
@@ -545,7 +571,7 @@ store::status() {
 # @flag --no-color             Controls colors in the output.
 # @flag --aggregate-output     Aggregate output from child processes that are run in parallel, and only print output when child process is finished.
 # @flag -D --dev               Only development packages will be fetched
-# @option -C --dir <dir>       Change to directory <dir> (default: /home/sigo/w/argc-completions)
+# @option -C --dir <dir>       Change to directory <dir> (default: /home/skogix/.local/src/argc-completions)
 # @flag -h --help              Output usage information
 # @option --loglevel[debug|info|warn|error|silent] <level>  What level of logs to report.
 # @flag -P --prod              Development packages will not be fetched
@@ -590,7 +616,8 @@ dedup() {
 # @flag --aggregate-output            Aggregate output from child processes that are run in parallel, and only print output when child process is finished.
 # @option --depth <number>            Max display depth of the dependency graph
 # @flag -D --dev                      Display only the dependency graph for packages in `devDependencies`
-# @option -C --dir <dir>              Change to directory <dir> (default: /home/sigo/w/argc-completions)
+# @option -C --dir <dir>              Change to directory <dir> (default: /home/skogix/.local/src/argc-completions)
+# @flag --exclude-peers               Exclude peer dependencies
 # @flag -g --global                   List packages in the global install prefix instead of in the current project
 # @flag --global-dir                  Specify a custom directory to store global packages
 # @flag -h --help                     Output usage information
@@ -617,10 +644,11 @@ why() {
 
 # {{ pnpm dlx
 # @cmd Fetches a package from the registry without installing it as a dependency, hotloads it, and runs whatever default command binary it exposes.
+# @flag --allow-build      A list of package names that are allowed to run postinstall scripts during installation
 # @flag --package          The package to install before running the command
 # @flag -c --shell-mode    Runs the script inside of a shell.
 # @option --reporter[`_choice_reporter`] <append-only>  Set reporter.
-# @flag -s --silent        No output is logged to the console, except fatal errors
+# @flag -s --silent        No output is logged to the console, not even fatal errors
 dlx() {
     :;
 }
@@ -628,6 +656,7 @@ dlx() {
 
 # {{ pnpm create
 # @cmd Create a project from a create-* or @foo/create-* starter kit.
+# @flag --allow-build    A list of package names that are allowed to run postinstall scripts during installation
 # @arg name!
 create() {
     :;
@@ -687,7 +716,7 @@ env::use() {
 # @flag --no-verify-store-integrity         If false, doesn't check whether packages in the store were mutated
 # @flag --aggregate-output                  Aggregate output from child processes that are run in parallel, and only print output when child process is finished.
 # @flag --background                        Runs the server in the background
-# @option -C --dir <dir>                    Change to directory <dir> (default: /home/sigo/w/argc-completions)
+# @option -C --dir <dir>                    Change to directory <dir> (default: /home/skogix/.local/src/argc-completions)
 # @flag -h --help                           Output usage information
 # @flag --ignore-stop-requests              Disallows stopping the server using `pnpm server stop`
 # @flag --ignore-upload-requests            Disallows creating new side effect cache during install
@@ -743,6 +772,8 @@ setup() {
 
 # {{ pnpm init
 # @cmd Create a package.json file.
+# @flag --init-package-manager             Pin the project to the current pnpm version by adding a "packageManager" field to package.json
+# @option --init-type <commonjs|module>    Set the module system for the package.
 init() {
     :;
 }
@@ -750,7 +781,8 @@ init() {
 
 # {{ pnpm deploy
 # @cmd Deploy a package from a workspace.
-# @flag -D --dev                      Only `devDependencies` are installed regardless of the `NODE_ENV`
+# @flag -D --dev                      Only `devDependencies` are installed
+# @flag --legacy                      Force legacy deploy implementation
 # @flag --no-optional                 `optionalDependencies` are not installed
 # @flag -P --prod                     Packages in `devDependencies` won't be installed
 # @option --changed-files-ignore-pattern <pattern>  Defines files to ignore when filtering for changed projects since the specified commit/branch.
@@ -776,7 +808,7 @@ docker() {
 # @cmd Manage the configuration files.
 # @flag -g --global                      Sets the configuration in the global config file
 # @flag --json                           Show all the config settings in JSON format
-# @option --location <project|global>    When set to "project", the .npmrc file at the nearest package.json will be used
+# @option --location <project|global>    When set to "project", the .npmrc file at the nearest package.json will be used.
 config() {
     :;
 }

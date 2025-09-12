@@ -9,7 +9,7 @@
 # @flag -k                             like --block-size=1K
 # @flag -l --local                     limit listing to local file systems
 # @flag --no-sync                      do not invoke sync before getting usage info (default)
-# @option --output[`_choice_output`] <FIELD_LIST>  use the output format defined by FIELD_LIST, or print all fields if FIELD_LIST is omitted.
+# @option --output[`_choice_output`] <FIELD_LIST>  use the output format defined by FIELD_LIST, or print all fields if FIELD_LIST is omitted
 # @flag -P --portability               use the POSIX output format
 # @flag --sync                         invoke sync before getting usage info
 # @flag --total                        elide all entries insignificant to available space, and produce a grand total

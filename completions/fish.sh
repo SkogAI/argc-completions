@@ -4,8 +4,9 @@
 # @option -c --command                        Evaluate the specified commands instead of reading from the commandline, passing additional positional arguments through $argv.
 # @option -C --init-command <COMMANDS>        Evaluate specified commands after reading the configuration but before executing command specified by -c or reading interactive input.
 # @option -d --debug <DEBUG_CATEGORIES>       Enables debug output and specify a pattern for matching debug categories.
-# @option -o --debug-output <DEBUG_FILE>      Specifies a file path to receive the debug output, including categories and  fish_trace.
+# @option -o --debug-output <DEBUG_FILE>      Specifies a file path to receive the debug output, including categories and fish_trace.
 # @flag -i --interactive                      The shell is interactive.
+# @option --install <PATH>                    When built as self-installable (via cargo), this will unpack fish's data files and place them in ~/.local/share/fish/install/.
 # @flag -l --login                            Act as if invoked as a login shell.
 # @flag -N --no-config                        Do not read configuration files.
 # @flag -n --no-execute                       Do not execute any commands, only perform syntax checking.

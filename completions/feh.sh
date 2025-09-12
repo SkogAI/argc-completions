@@ -59,7 +59,7 @@
 # @option -D --slideshow-delay <float>            For slideshow mode, wait float seconds between automatically changing slides.
 # @option -S --sort[name|none|filename|dirname|mtime|width|height|pixels|size|format] <sort_type>  Sort file list according to image parameters.
 # @option --start-at <filename>                   Start the filelist at filename.
-# @option -T --theme <theme>                      Load options from config file with name theme - see THEMES CONFIG SYNTAX for more info.
+# @option -T --theme <theme>                      Load options from config file with name theme - see “THEMES CONFIG SYNTAX” for more info.
 # @flag -t --thumbnails                           Same as Index mode, but the thumbnails are clickable image launchers.
 # @option -~ --thumb-title <string>               Set title for windows opened from thumbnail mode.
 # @option -^ --title <title>                      Set window title.

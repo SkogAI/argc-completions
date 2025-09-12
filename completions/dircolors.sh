@@ -8,6 +8,7 @@
 # @flag --csh                  output C shell code to set LS_COLORS
 # @flag --c-shell              output C shell code to set LS_COLORS
 # @flag -p --print-database    output defaults
+# @flag --print-ls-colors      output fully escaped colors for display
 # @flag --help                 display this help and exit
 # @flag --version              output version information and exit
 # @arg file

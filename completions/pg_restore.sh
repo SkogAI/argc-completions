@@ -27,6 +27,7 @@
 # @flag -1 --single-transaction                    restore as a single transaction
 # @flag --disable-triggers                         disable triggers during data-only restore
 # @flag --enable-row-security                      enable row security
+# @option --filter <FILENAME>                      restore or skip objects based on expressions in FILENAME
 # @flag --if-exists                                use IF EXISTS when dropping objects
 # @flag --no-comments                              do not restore comments
 # @flag --no-data-for-failed-tables                do not restore data of tables that could not be created
@@ -37,6 +38,7 @@
 # @flag --no-tablespaces                           do not restore tablespace assignments
 # @option --section[pre-data|data|post-data]       restore named section (pre-data, data, or post-data)
 # @flag --strict-names                             require table and/or schema include patterns to match at least one entity each
+# @option --transaction-size <N>                   commit after every N objects
 # @flag --use-set-session-authorization            use SET SESSION AUTHORIZATION commands instead of ALTER OWNER commands to set ownership
 # @option -h --host[`_module_os_hostname`] <HOSTNAME>  database server host or socket directory
 # @option -p --port                                database server port number

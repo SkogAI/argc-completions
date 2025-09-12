@@ -3,7 +3,7 @@
 
 # @option --cache-folder <path>                 specify a custom folder that must be used to store the yarn cache
 # @flag --check-files                           install will verify file tree of packages for consistency
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @flag --disable-pnp                           disable the Plug'n'Play installation
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag --enable-pnp                            enable the Plug'n'Play installation
@@ -90,7 +90,7 @@
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -154,7 +154,7 @@ add() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -212,7 +212,7 @@ audit() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -270,7 +270,7 @@ autoclean() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -326,7 +326,7 @@ bin() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -407,7 +407,7 @@ cache::clean() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -465,7 +465,7 @@ check() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -554,7 +554,7 @@ config::list() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -611,7 +611,7 @@ create() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @flag --no-progress                           disable progress bar
@@ -669,7 +669,7 @@ generate-lock-entry() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -762,7 +762,7 @@ global::upgrade() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -818,7 +818,7 @@ import() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -874,7 +874,7 @@ info() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -934,7 +934,7 @@ init() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -998,7 +998,7 @@ install() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -1068,7 +1068,7 @@ licenses::generate-disclaimer() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -1124,7 +1124,7 @@ link() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -1182,7 +1182,7 @@ list() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -1238,7 +1238,7 @@ login() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -1294,7 +1294,7 @@ logout() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -1352,7 +1352,7 @@ node() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -1409,7 +1409,7 @@ outdated() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -1491,7 +1491,7 @@ owner::remove() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -1548,7 +1548,7 @@ pack() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -1613,7 +1613,7 @@ policies::set-version() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -1684,7 +1684,7 @@ publish() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -1742,7 +1742,7 @@ remove() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -1799,7 +1799,7 @@ run() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -1855,7 +1855,7 @@ tag() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -1960,7 +1960,7 @@ test() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -2016,7 +2016,7 @@ unlink() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -2075,7 +2075,7 @@ unplug() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -2140,7 +2140,7 @@ upgrade() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -2201,7 +2201,7 @@ upgrade-interactive() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -2269,7 +2269,7 @@ version() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -2325,7 +2325,7 @@ versions() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -2381,7 +2381,7 @@ why() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry
@@ -2439,7 +2439,7 @@ workspace() {
 # @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
 # @option --emoji <bool>                        enable emoji in output (default: false)
 # @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
-# @option --cwd <cwd>                           working directory to use (default: /home/sigo/w/argc-completions)
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
 # @option --proxy <host>
 # @option --https-proxy <host>
 # @option --registry <url>                      override configuration registry

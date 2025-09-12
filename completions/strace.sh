@@ -2,65 +2,67 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @meta combine-shorts
-# @option -E --env <var=val>                       Run command with var=val in its list of environment variables.
-# @option -p --attach[`_module_os_pid`] <pid>      Attach to the process with the process ID pid and begin tracing.
-# @option -u --user[`_module_os_user`] <username>  Run command with the user ID, group ID, and supplementary groups of username.
-# @option --argv0 <name>                           Set argv[0] of the command being executed to name.
-# @option -b --detach-on <syscall>                 If specified syscall is reached, detach from traced process.
-# @option -D --daemonize[`_choice_daemonize`] <grandchild>  Run tracer process as a grandchild, not as the parent of the tracee.
-# @flag -f --follow-forks                          Trace child processes as they are created by currently traced processes as a result of the fork(2), vfork(2) and clone(2) system calls.
-# @flag --output-separately                        If the --output=filename option is in effect, each processes trace is written to filename.pid where pid is the numeric process id of each process.
-# @option -I --interruptible[`_choice_interruptible`] <interruptible>  When strace can be interrupted by signals (such as pressing CTRL-C).
-# @option --syscall-limit <limit>                  Detach all tracees when limit number of syscalls have been captured.
-# @flag --kill-on-exit                             Apply PTRACE_O_EXITKILL ptrace option to all tracee processes (which sends a SIGKILL signal to the tracee if the tracer exits) and do not detach them on cleanup so they will not be left running after the tracer exit.
-# @option --trace*,[`_choice_trace`] <syscall_set>  Trace only the specified set of system calls.
-# @option --trace-fds <set>                        Trace only the syscalls that operate on the specified subset of (non-negative) file descriptors.
-# @option --signal*,[`_module_os_signal`] <set>    Trace only the specified subset of signals.
-# @option --status*,[`_choice_status`] <set>       Print only system calls with the specified return status.
-# @option -P --trace-path <path>                   Trace only system calls accessing path.
-# @flag -z --successful-only                       Print only syscalls that returned without an error code.
-# @flag -Z --failed-only                           Print only syscalls that returned with an error code.
-# @option -a --columns <column>                    Align return values in a specific column (default column 40).
-# @option --abbrev <syscall_set>                   Abbreviate the output from printing each member of large structures.
-# @option --verbose <syscall_set>                  Dereference structures for the specified set of system calls.
-# @option --raw <syscall_set>                      Print raw, undecoded arguments for the specified set of system calls.
-# @option --read <set>                             Perform a full hexadecimal and ASCII dump of all the data read from file descriptors listed in the specified set.
-# @option --write <set>                            Perform a full hexadecimal and ASCII dump of all the data written to file descriptors listed in the specified set.
-# @option --quiet*,[`_choice_quiet`] <set>         Suppress various information messages.
-# @option --silent*,[`_choice_quiet`] <set>        Suppress various information messages.
-# @option --silence*,[`_choice_quiet`] <set>       Suppress various information messages.
-# @option --decode-fds*,[`_choice_decode_fd`] <set>  Decode various information associated with file descriptors.
-# @option --decode-pids*,[`_choice_decode_pid`] <set>  Decode various information associated with process IDs (and also thread IDs, process group IDs, and session IDs).
-# @option --kvm <vcpu>                             Print the exit reason of kvm vcpu.
-# @flag -i --instruction-pointer                   Print the instruction pointer at the time of the system call.
-# @flag -n --syscall-number                        Print the syscall number.
-# @option -k --stack-trace <symbol>                Print the execution stack trace of the traced processes after each system call.
-# @option --stack-trace-frame-limit <limit>        Print no more than this amount of stack trace frames when backtracing a system call (the default is 256).
-# @option -o --output <filename>                   Write the trace output to the file filename rather than to stderr.
-# @flag -A --output-append-mode                    Open the file provided in the -o option in append mode.
-# @option -r --relative-timestamps <precision>     Print a relative timestamp upon entry to each system call.
-# @option -s --string-limit <strsize>              Specify the maximum string size to print (the default is 32).
-# @option --absolute-timestamps <[[format:]format],[[precision:]precision]>  Prefix each line of the trace with the wall clock time in the specified format with the specified precision.
-# @option --timestamps <[[format:]format],[[precision:]precision]>  Prefix each line of the trace with the wall clock time in the specified format with the specified precision.
-# @option -T --syscall-times <precision>           Show the time spent in system calls.
-# @flag -v --no-abbrev                             Print unabbreviated versions of environment, stat, termios, etc.
-# @option --strings-in-hex[`_choice_string_in_hex`] <option>  Control usage of escape sequences with hexadecimal numbers in the printed strings.
-# @option -X --const-print-style[`_choice_const_print_style`] <format>  Set the format for printing of named constants and flags.
-# @flag --always-show-pid                          Show PID prefix also for the process started by strace.
-# @flag -c --summary-only                          Count time, calls, and errors for each system call and report a summary on program exit, suppressing the regular output.
-# @flag -C --summary                               Like -c but also print regular output while processes are running.
-# @option -O --summary-syscall-overhead <overhead>  Set the overhead for tracing system calls to overhead.
-# @option -S --summary-sort-by <sortby>            Sort the output of the histogram printed by the -c option by the specified criterion.
-# @option -U --summary-columns*,[`_choice_column`] <columns>  Configure a set (and order) of columns being shown in the call summary.
-# @flag -w --summary-wall-clock                    Summarise the time difference between the beginning and end of each system call.
-# @option --inject <syscall_set[:error=errno|:retval=value][:signal=sig][:syscall=syscall][:delay_enter=delay][:delay_exit=delay][:poke_enter=@argN=DATAN,@argM=DATAM...][:poke_exit=@argN=DATAN,@argM=DATAM...][:when=expr]>  Perform syscall tampering for the specified set of syscalls.
-# @option --fault <syscall_set[:error=errno][:when=expr]>  Perform syscall fault injection for the specified set of syscalls.
-# @flag -d --debug                                 Show some debugging output of strace itself on the standard error.
+# @option -E --env <var=val>                       Runs the command with the environment variable var=val set for execution.
+# @option -p --attach[`_module_os_pid`] <pid>      Attaches to the process with the process ID pid and begin tracing.
+# @option -u --user[`_module_os_user`] <username>  Runs command with the user ID, group ID, and supplementary groups of username.
+# @option --argv0 <name>                           Sets the executed command's argv[0] to name.
+# @option -b --detach-on <syscall>                 Detaches from the traced process if the specified system call is reached.
+# @option -D --daemonize[`_choice_daemonize`] <grandchild>  Runs the tracer process as a grandchild of the tracee, not as its parent.
+# @flag -f --follow-forks                          Traces child processes as they are created by currently traced processes as a result of the fork(2), vfork(2) and clone(2) system calls.
+# @flag --output-separately                        If the --output=filename option is in effect, the trace for each process is written to a separate filename.pid file, where pid is the process ID.
+# @option -I --interruptible[`_choice_interruptible`] <interruptible>  Controls when strace can be interrupted by signals (such as pressing CTRL-C).
+# @option --syscall-limit <limit>                  Detaches all tracees after limit system calls have been captured.
+# @flag --kill-on-exit                             Applies the PTRACE_O_EXITKILL ptrace option to all tracees, which sends a SIGKILL signal to a tracee if the tracer exits.
+# @option --trace*,[`_choice_trace`] <syscall_set>  Traces only the specified set of system calls.
+# @option --trace-fds <set>                        Traces only the system calls that operate on the specified subset of (non-negative) file descriptors.
+# @option --signal*,[`_module_os_signal`] <set>    Traces only the specified subset of signals.
+# @option --status*,[`_choice_status`] <set>       Prints only system calls with the specified return status.
+# @option -P --trace-path <path>                   Traces only system calls accessing path.
+# @flag -z --successful-only                       Prints only system calls that returned without an error code.
+# @flag -Z --failed-only                           Prints only system calls that returned with an error code.
+# @option -a --columns <column>                    Aligns return values in a specific column (default column 40).
+# @option --abbrev <syscall_set>                   Abbreviates the output from printing each member of large structures.
+# @option --verbose <syscall_set>                  Dereferences structures for the specified set of system calls.
+# @option --raw <syscall_set>                      Prints raw, undecoded arguments for the specified set of system calls.
+# @option --read <set>                             Performs a full hexadecimal and ASCII dump of all the data read from file descriptors listed in the specified set.
+# @option --write <set>                            Performs a full hexadecimal and ASCII dump of all the data written to file descriptors listed in the specified set.
+# @option --quiet*,[`_choice_quiet`] <set>         Suppresses various information messages.
+# @option --silent*,[`_choice_quiet`] <set>        Suppresses various information messages.
+# @option --silence*,[`_choice_quiet`] <set>       Suppresses various information messages.
+# @option --decode-fds*,[`_choice_decode_fd`] <set>  Decodes various information associated with file descriptors.
+# @option --decode-pids*,[`_choice_decode_pid`] <set>  Decodes various information associated with process IDs (and also thread IDs, process group IDs, and session IDs).
+# @option --kvm <vcpu>                             Prints the exit reason of kvm vcpu.
+# @option --namespace <new>                        Prints the new namespaces entered by the tracee.
+# @flag -i --instruction-pointer                   Prints the instruction pointer at the time of the system call.
+# @flag -n --syscall-number                        Prints the system call number.
+# @flag -N --arg-names                             Prints the system call argument names.
+# @option -k --stack-trace <symbol>                Prints the execution stack trace of the traced processes after each system call.
+# @option --stack-trace-frame-limit <limit>        Prints no more than this amount of stack trace frames when backtracing a system call (the default is 256).
+# @option -o --output <filename>                   Writes the trace output to the file filename rather than to stderr.
+# @flag -A --output-append-mode                    Opens the file provided in the -o option in append mode.
+# @option -r --relative-timestamps <precision>     Prints a relative timestamp upon entry to each system call.
+# @option -s --string-limit <strsize>              Specifies the maximum string size to print (the default is 32).
+# @option --absolute-timestamps <[[format:]format],[[precision:]precision]>  Prefixes each line of the trace with the wall clock time in the specified format with the specified precision.
+# @option --timestamps <[[format:]format],[[precision:]precision]>  Prefixes each line of the trace with the wall clock time in the specified format with the specified precision.
+# @option -T --syscall-times <precision>           Shows the time spent in system calls.
+# @flag -v --no-abbrev                             Prints unabbreviated versions of environment, stat, termios, etc.
+# @option --strings-in-hex[`_choice_string_in_hex`] <option>  Controls the use of hexadecimal escape sequences when printing strings.
+# @option -X --const-print-style[`_choice_const_print_style`] <format>  Sets the format for printing of named constants and flags.
+# @flag --always-show-pid                          Shows PID prefix also for the process started by strace.
+# @flag -c --summary-only                          Counts time, calls, and errors for each system call and report a summary on program exit, suppressing the regular output.
+# @flag -C --summary                               Like -c, but also prints the regular output while processes are running.
+# @option -O --summary-syscall-overhead <overhead>  Sets the overhead for tracing system calls to overhead.
+# @option -S --summary-sort-by <sortby>            Sorts the output of the histogram printed by the -c option by the specified criterion.
+# @option -U --summary-columns*,[`_choice_column`] <columns>  Configures the set and order of columns shown in the call summary.
+# @flag -w --summary-wall-clock                    Summarizes the wall clock time for each system call, measured from its beginning to its end.
+# @option --inject <syscall_set[:error=errno|:retval=value][:signal=sig][:syscall=syscall][:delay_enter=delay][:delay_exit=delay][:poke_enter=@argN=DATAN,@argM=DATAM...][:poke_exit=@argN=DATAN,@argM=DATAM...][:when=expr]>  Performs system call tampering for the specified set of system calls.
+# @option --fault <syscall_set[:error=errno][:when=expr]>  Performs system call fault injection for the specified set of system calls.
+# @flag -d --debug                                 Shows some debugging output of strace itself on the standard error.
 # @flag -F                                         This option is deprecated.
-# @flag -h --help                                  Print the help summary.
-# @flag --seccomp-bpf                              Try to enable use of seccomp-bpf (see seccomp(2)) to have ptrace(2)-stops only when system calls that are being traced occur in the traced processes.
-# @option --tips <[[id:]id],[[format:]format]>     Show strace tips, tricks, and tweaks before exit.
-# @flag -V --version                               Print the version number of strace.
+# @flag -h --help                                  Prints the help summary.
+# @flag --seccomp-bpf                              Attempts to use seccomp-bpf (see seccomp(2)) to cause the kernel to stop the tracee only for the system calls that are being traced.
+# @option --tips <[[id:]id],[[format:]format]>     Shows strace tips, tricks, and tweaks before exit.
+# @flag -V --version                               Prints the version number of strace and the list of enabled optional features.
 # @option -e*[`_choice_filter`]                    A qualifying expression which modifies which events to trace or how to trace them.
 # @arg command[`_module_os_command`]
 # @arg args~[`_module_os_command_args`]

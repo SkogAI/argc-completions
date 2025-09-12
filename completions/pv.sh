@@ -7,24 +7,28 @@
 # @flag -I --fineta                           show absolute estimated time of arrival (completion)
 # @flag -r --rate                             show data transfer rate counter
 # @flag -a --average-rate                     show data transfer average rate counter
-# @option -m --average-rate-window <SEC>      compute average rate over past SEC seconds (default 30s)
 # @flag -b --bytes                            show number of bytes transferred
-# @flag -8 --bits                             show number of bits transferred
-# @flag -k --si                               treat suffixes as multiples of 1000 rather than 1024
 # @flag -T --buffer-percent                   show percentage of transfer buffer in use
 # @option -A --last-written <NUM>             show NUM bytes last written
 # @option -F --format                         set output format to FORMAT
 # @flag -n --numeric                          output percentages, not visual information
 # @flag -q --quiet                            do not output any transfer information at all
+# @flag -8 --bits                             show number of bits transferred
+# @flag -k --si                               treat suffixes as multiples of 1000 rather than 1024
 # @flag -W --wait                             display nothing until first byte transferred
 # @option -D --delay-start <SEC>              display nothing until SEC seconds have passed
 # @option -s --size                           set estimated data size to SIZE bytes
+# @flag -g --gauge                            if size unknown, show rate vs max rate
 # @flag -l --line-mode                        count lines instead of bytes
 # @flag -0 --null                             lines are null-terminated
 # @option -i --interval <SEC>                 update every SEC seconds
+# @option -m --average-rate-window <SEC>      compute average rate over past SEC seconds (default 30s)
 # @option -w --width                          assume terminal is WIDTH characters wide
 # @option -H --height                         assume terminal is HEIGHT rows high
 # @option -N --name                           prefix visual information with NAME
+# @option -u --bar-style <STYLE>              set default bar style to NAME
+# @flag -x --extra-display                    SPEC also send progress to SPEC
+# @flag -v --stats                            output transfer statistics at the end
 # @flag -f --force                            output even if standard error is not a terminal
 # @flag -c --cursor                           use cursor positioning escape sequences
 # @option -o --output <FILE>                  write output to FILE instead of stdout
@@ -37,9 +41,10 @@
 # @flag -Y --sync                             flush cache to disk after every write
 # @flag -K --direct-io                        use direct I/O to bypass cache
 # @flag -X --discard                          discard input instead of writing to output
+# @option -U --store-and-forward <FILE>       write all input to FILE before writing to output
+# @option -d --watchfd <PID[:FD]>             watch file FD opened by process PID
 # @option -R --remote[`_choice_pid`] <PID>    update settings of process PID
 # @option -P --pidfile <FILE>                 save process ID in FILE
-# @option -d --watchfd <PID[:FD]>             watch file FD opened by process PID
 # @flag -h --help                             show this help and exit
 # @flag -V --version                          show version information and exit
 # @arg file*

@@ -21,7 +21,7 @@ bug() {
 # @flag -asan                                 enable interoperation with address sanitizer.
 # @flag -cover                                enable code coverage instrumentation.
 # @option -covermode <set,count,atomic>       set the mode for coverage analysis.
-# @option -coverpkg <pattern1,pattern2,pattern3>  For a build that targets package 'main' (e.g. building a Go executable), apply coverage analysis to each package matching the patterns.
+# @option -coverpkg <pattern1,pattern2,pattern3>  For a build that targets package 'main' (e.g. building a Go executable), apply coverage analysis to each package whose import path matches the patterns.
 # @flag -v                                    print the names of packages as they are compiled.
 # @flag -work                                 print the name of the temporary work directory and do not delete it when exiting.
 # @flag -x                                    print the commands.
@@ -32,6 +32,7 @@ bug() {
 # @option -gccgoflags <[pattern=]arg list>    arguments to pass on each gccgo compiler/linker invocation.
 # @option -gcflags <[pattern=]arg list>       arguments to pass on each go tool compile invocation.
 # @option -installsuffix <suffix>             a suffix to use in the name of the package installation directory, in order to keep output separate from default builds.
+# @flag -json                                 Emit build output in JSON suitable for automated processing.
 # @option -ldflags <[pattern=]arg list>       arguments to pass on each go tool link invocation.
 # @flag -linkshared                           build code that will be linked against shared libraries previously created with -buildmode=shared.
 # @option -mod[readonly|vendor|mod] <mode>    module download mode to use: readonly, vendor, or mod.
@@ -60,7 +61,7 @@ build() {
 # @flag -asan                                 enable interoperation with address sanitizer.
 # @flag -cover                                enable code coverage instrumentation.
 # @option -covermode <set,count,atomic>       set the mode for coverage analysis.
-# @option -coverpkg <pattern1,pattern2,pattern3>  For a build that targets package 'main' (e.g. building a Go executable), apply coverage analysis to each package matching the patterns.
+# @option -coverpkg <pattern1,pattern2,pattern3>  For a build that targets package 'main' (e.g. building a Go executable), apply coverage analysis to each package whose import path matches the patterns.
 # @flag -v                                    print the names of packages as they are compiled.
 # @flag -work                                 print the name of the temporary work directory and do not delete it when exiting.
 # @flag -x                                    print the commands.
@@ -71,6 +72,7 @@ build() {
 # @option -gccgoflags <[pattern=]arg list>    arguments to pass on each gccgo compiler/linker invocation.
 # @option -gcflags <[pattern=]arg list>       arguments to pass on each go tool compile invocation.
 # @option -installsuffix <suffix>             a suffix to use in the name of the package installation directory, in order to keep output separate from default builds.
+# @flag -json                                 Emit build output in JSON suitable for automated processing.
 # @option -ldflags <[pattern=]arg list>       arguments to pass on each go tool link invocation.
 # @flag -linkshared                           build code that will be linked against shared libraries previously created with -buildmode=shared.
 # @option -mod[readonly|vendor|mod] <mode>    module download mode to use: readonly, vendor, or mod.
@@ -159,7 +161,7 @@ generate() {
 # @flag -asan                                 enable interoperation with address sanitizer.
 # @flag -cover                                enable code coverage instrumentation.
 # @option -covermode <set,count,atomic>       set the mode for coverage analysis.
-# @option -coverpkg <pattern1,pattern2,pattern3>  For a build that targets package 'main' (e.g. building a Go executable), apply coverage analysis to each package matching the patterns.
+# @option -coverpkg <pattern1,pattern2,pattern3>  For a build that targets package 'main' (e.g. building a Go executable), apply coverage analysis to each package whose import path matches the patterns.
 # @flag -v                                    print the names of packages as they are compiled.
 # @flag -work                                 print the name of the temporary work directory and do not delete it when exiting.
 # @flag -x                                    print the commands.
@@ -170,6 +172,7 @@ generate() {
 # @option -gccgoflags <[pattern=]arg list>    arguments to pass on each gccgo compiler/linker invocation.
 # @option -gcflags <[pattern=]arg list>       arguments to pass on each go tool compile invocation.
 # @option -installsuffix <suffix>             a suffix to use in the name of the package installation directory, in order to keep output separate from default builds.
+# @flag -json                                 Emit build output in JSON suitable for automated processing.
 # @option -ldflags <[pattern=]arg list>       arguments to pass on each go tool link invocation.
 # @flag -linkshared                           build code that will be linked against shared libraries previously created with -buildmode=shared.
 # @option -mod[readonly|vendor|mod] <mode>    module download mode to use: readonly, vendor, or mod.
@@ -201,7 +204,7 @@ get() {
 # @flag -asan                                 enable interoperation with address sanitizer.
 # @flag -cover                                enable code coverage instrumentation.
 # @option -covermode <set,count,atomic>       set the mode for coverage analysis.
-# @option -coverpkg <pattern1,pattern2,pattern3>  For a build that targets package 'main' (e.g. building a Go executable), apply coverage analysis to each package matching the patterns.
+# @option -coverpkg <pattern1,pattern2,pattern3>  For a build that targets package 'main' (e.g. building a Go executable), apply coverage analysis to each package whose import path matches the patterns.
 # @flag -v                                    print the names of packages as they are compiled.
 # @flag -work                                 print the name of the temporary work directory and do not delete it when exiting.
 # @flag -x                                    print the commands.
@@ -212,6 +215,7 @@ get() {
 # @option -gccgoflags <[pattern=]arg list>    arguments to pass on each gccgo compiler/linker invocation.
 # @option -gcflags <[pattern=]arg list>       arguments to pass on each go tool compile invocation.
 # @option -installsuffix <suffix>             a suffix to use in the name of the package installation directory, in order to keep output separate from default builds.
+# @flag -json                                 Emit build output in JSON suitable for automated processing.
 # @option -ldflags <[pattern=]arg list>       arguments to pass on each go tool link invocation.
 # @flag -linkshared                           build code that will be linked against shared libraries previously created with -buildmode=shared.
 # @option -mod[readonly|vendor|mod] <mode>    module download mode to use: readonly, vendor, or mod.
@@ -241,7 +245,7 @@ install() {
 # @flag -asan                                 enable interoperation with address sanitizer.
 # @flag -cover                                enable code coverage instrumentation.
 # @option -covermode <set,count,atomic>       set the mode for coverage analysis.
-# @option -coverpkg <pattern1,pattern2,pattern3>  For a build that targets package 'main' (e.g. building a Go executable), apply coverage analysis to each package matching the patterns.
+# @option -coverpkg <pattern1,pattern2,pattern3>  For a build that targets package 'main' (e.g. building a Go executable), apply coverage analysis to each package whose import path matches the patterns.
 # @flag -v                                    print the names of packages as they are compiled.
 # @flag -work                                 print the name of the temporary work directory and do not delete it when exiting.
 # @flag -x                                    print the commands.
@@ -252,6 +256,7 @@ install() {
 # @option -gccgoflags <[pattern=]arg list>    arguments to pass on each gccgo compiler/linker invocation.
 # @option -gcflags <[pattern=]arg list>       arguments to pass on each go tool compile invocation.
 # @option -installsuffix <suffix>             a suffix to use in the name of the package installation directory, in order to keep output separate from default builds.
+# @flag -json                                 Emit build output in JSON suitable for automated processing.
 # @option -ldflags <[pattern=]arg list>       arguments to pass on each go tool link invocation.
 # @flag -linkshared                           build code that will be linked against shared libraries previously created with -buildmode=shared.
 # @option -mod[readonly|vendor|mod] <mode>    module download mode to use: readonly, vendor, or mod.
@@ -430,7 +435,7 @@ work::vendor() {
 # @flag -asan                                 enable interoperation with address sanitizer.
 # @flag -cover                                enable code coverage instrumentation.
 # @option -covermode <set,count,atomic>       set the mode for coverage analysis.
-# @option -coverpkg <pattern1,pattern2,pattern3>  For a build that targets package 'main' (e.g. building a Go executable), apply coverage analysis to each package matching the patterns.
+# @option -coverpkg <pattern1,pattern2,pattern3>  For a build that targets package 'main' (e.g. building a Go executable), apply coverage analysis to each package whose import path matches the patterns.
 # @flag -v                                    print the names of packages as they are compiled.
 # @flag -work                                 print the name of the temporary work directory and do not delete it when exiting.
 # @flag -x                                    print the commands.
@@ -441,6 +446,7 @@ work::vendor() {
 # @option -gccgoflags <[pattern=]arg list>    arguments to pass on each gccgo compiler/linker invocation.
 # @option -gcflags <[pattern=]arg list>       arguments to pass on each go tool compile invocation.
 # @option -installsuffix <suffix>             a suffix to use in the name of the package installation directory, in order to keep output separate from default builds.
+# @flag -json                                 Emit build output in JSON suitable for automated processing.
 # @option -ldflags <[pattern=]arg list>       arguments to pass on each go tool link invocation.
 # @flag -linkshared                           build code that will be linked against shared libraries previously created with -buildmode=shared.
 # @option -mod[readonly|vendor|mod] <mode>    module download mode to use: readonly, vendor, or mod.
@@ -477,7 +483,7 @@ telemetry() {
 # @flag -asan                                 enable interoperation with address sanitizer.
 # @flag -cover                                enable code coverage instrumentation.
 # @option -covermode <set,count,atomic>       set the mode for coverage analysis.
-# @option -coverpkg <pattern1,pattern2,pattern3>  For a build that targets package 'main' (e.g. building a Go executable), apply coverage analysis to each package matching the patterns.
+# @option -coverpkg <pattern1,pattern2,pattern3>  For a build that targets package 'main' (e.g. building a Go executable), apply coverage analysis to each package whose import path matches the patterns.
 # @flag -v                                    print the names of packages as they are compiled.
 # @flag -work                                 print the name of the temporary work directory and do not delete it when exiting.
 # @flag -x                                    print the commands.
@@ -488,6 +494,7 @@ telemetry() {
 # @option -gccgoflags <[pattern=]arg list>    arguments to pass on each gccgo compiler/linker invocation.
 # @option -gcflags <[pattern=]arg list>       arguments to pass on each go tool compile invocation.
 # @option -installsuffix <suffix>             a suffix to use in the name of the package installation directory, in order to keep output separate from default builds.
+# @flag -json                                 Emit build output in JSON suitable for automated processing.
 # @option -ldflags <[pattern=]arg list>       arguments to pass on each go tool link invocation.
 # @flag -linkshared                           build code that will be linked against shared libraries previously created with -buildmode=shared.
 # @option -mod[readonly|vendor|mod] <mode>    module download mode to use: readonly, vendor, or mod.

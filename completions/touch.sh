@@ -8,8 +8,8 @@
 # @flag -h --no-dereference                affect each symbolic link instead of any referenced file (useful only on systems that can change the timestamps of a symlink)
 # @flag -m                                 change only the modification time
 # @option -r --reference <FILE>            use this file's times instead of current time
-# @option -t <STAMP>                       use [[CC]YY]MMDDhhmm[.ss] instead of current time
-# @option --time[`_choice_time`] <WORD>    change the specified time: WORD is access, atime, or use: equivalent to -a WORD is modify or mtime: equivalent to -m
+# @option -t <[[CC]YY]MMDDhhmm[.ss]>       use specified time instead of current time, with a date-time format that differs from -d's
+# @option --time[`_choice_time`] <WORD>    specify which time to change: access time (-a): 'access', 'atime', 'use'; modification time (-m): 'modify', 'mtime'
 # @flag --help                             display this help and exit
 # @flag --version                          output version information and exit
 # @arg file*

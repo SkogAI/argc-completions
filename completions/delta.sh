@@ -16,6 +16,7 @@
 # @flag --dark                                     Use default colors appropriate for a dark terminal background.
 # @option --default-language <LANG>                Default language used for syntax highlighting.
 # @option --detect-dark-light <DETECT_DARK_LIGHT>  Detect whether or not the terminal is dark or light by querying for its colors.
+# @option -@ --diff-args <STRING>                  Extra arguments to pass to `git diff` when using delta to diff two files.
 # @flag --diff-highlight                           Emulate diff-highlight.
 # @flag --diff-so-fancy                            Emulate diff-so-fancy.
 # @option --diff-stat-align-width <N>              Width allocated for file paths in a diff stat section.
@@ -64,6 +65,7 @@
 # @flag --list-syntax-themes                       List available syntax-highlighting color themes
 # @option --map-styles <STYLES_MAP>                Map styles encountered in raw input to desired output styles.
 # @option --max-line-distance <DIST>               Maximum line pair distance parameter in within-line diff algorithm.
+# @option --max-syntax-highlighting-length <N>     Stop syntax highlighting lines after this many characters.
 # @option --max-line-length <N>                    Truncate lines longer than this.
 # @option --merge-conflict-begin-symbol <STRING>   String marking the beginning of a merge conflict region.
 # @option --merge-conflict-end-symbol <STRING>     String marking the end of a merge conflict region.
@@ -108,8 +110,18 @@
 # @option --24-bit-color[auto|always|never] <auto|always|never>  Deprecated: use --true-color
 # @flag -h --help                                  Print help (see a summary with '-h')
 # @flag -V --version                               Print version
-# @arg minus_file                                  First file to be compared when delta is being used in diff mode
-# @arg plus_file                                   Second file to be compared when delta is being used in diff mode
+# @option --file-style <"#0e7c0e">
+# @option --file-style <"green">
+# @option --file-style <28>
+# @flag --line-numbers-left-format:                Change the contents of the left column
+# @flag --line-numbers-right-format:               Change the contents of the right column
+# @flag --line-numbers-left-style:                 Change the style applied to the left column
+# @flag --line-numbers-right-style:                Change the style applied to the right column
+# @flag --line-numbers-minus-style:                Change the style applied to line numbers in
+# @flag --line-numbers-zero-style:                 Change the style applied to line numbers in
+# @flag --line-numbers-plus-style:                 Change the style applied to line numbers in
+# @arg minus_file                                  First file to be compared when delta is being used to diff two files.
+# @arg plus_file                                   Second file to be compared when delta is being used to diff two files
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"
 

@@ -9,7 +9,7 @@
 # @flag -s                               do not print counts of output file sizes
 # @flag --quiet                          do not print counts of output file sizes
 # @flag --silent                         do not print counts of output file sizes
-# @flag -z --elide-empty-files           remove empty output files
+# @flag -z --elide-empty-files           suppress empty output files
 # @flag --help                           display this help and exit
 # @flag --version                        output version information and exit
 # @arg file

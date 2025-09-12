@@ -87,7 +87,7 @@ sevents() {
 # }} amixer sevents
 
 # {{ amixer events
-# @cmd show the mixer events for simple controls
+# @cmd show the mixer events for controls
 events() {
     :;
 }

@@ -18,8 +18,8 @@
 # @flag --stream                      parse the input value in streaming fashion;
 # @flag --stream-errors               implies --stream and report parse error as an array;
 # @flag --seq                         parse input/output as application/json-seq;
-# @option -f --from-file <file>       load filter from the file;
-# @option -L <directory>              search modules from the directory;
+# @flag -f --from-file                load the filter from a file;
+# @option -L --library-path <dir>     search modules from the directory;
 # @option --arg <name> <value>        set $name to the string value;
 # @option --argjson <name> <value>    set $name to the JSON value;
 # @flag --slurpfile                   name file set $name to an array of JSON values read from the file;

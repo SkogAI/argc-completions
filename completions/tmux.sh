@@ -176,6 +176,7 @@ confirm-before() {
 
 # {{ tmux copy-mode
 # @cmd
+# @flag -d
 # @flag -e
 # @flag -H
 # @flag -M
@@ -225,6 +226,7 @@ detach-client() {
 # {{ tmux display-menu
 # @cmd
 # @alias menu
+# @flag -M
 # @flag -O
 # @option -b <border-lines>
 # @option -c <target-client>
@@ -697,6 +699,7 @@ previous-window() {
 # @option -B <name:what:format>
 # @option -C <XxY>
 # @option -f <flags>
+# @option -r <pane:report>
 # @option -t <target-client>
 # @arg adjustment
 refresh-client() {
