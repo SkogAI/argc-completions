@@ -57,6 +57,15 @@ _patch_table() {
             echo "$table"
         fi
 
+    elif [[ "$*" == "gh cache"* ]]; then
+        if [[ "$*" == "gh cache delete" ]]; then
+            # Fix malformed parsing of "--succeed-on-no-caches --all" from help text
+            # The actual flag is just "--succeed-on-no-caches" (which requires --all)
+            echo "$table" | sed 's/--succeed-on-no-caches --all/--succeed-on-no-caches/'
+        else
+            echo "$table"
+        fi
+
     elif [[ "$*" == "gh gist"* ]]; then
         table="$(
             echo "$table" | \
