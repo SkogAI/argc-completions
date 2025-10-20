@@ -14,16 +14,18 @@
 # @flag --notruncate              don't truncate output
 # @option -o --output*,[`_choice_column`] <list>  define the columns to output
 # @flag --output-all              output all columns
-# @flag -p --pwd                  display information related to login by password.
+# @flag -p --pwd                  display information related to login by password
 # @flag -r --raw                  display in raw mode
 # @flag -s --system-accs          display system accounts
 # @option --time-format <type>    display dates in short, full or iso format
 # @flag -u --user-accs            display user accounts
+# @flag -y --shell                use column names to be usable as shell variable identifiers
 # @flag -Z --context              display SELinux contexts
 # @flag -z --print0               delimit user entries with a nul character
 # @option --wtmp-file <path>      set an alternate path for wtmp
 # @option --btmp-file <path>      set an alternate path for btmp
 # @option --lastlog <path>        set an alternate path for lastlog
+# @option --lastlog2 <path>       set an alternate path for lastlog2
 # @flag -h --help                 display this help
 # @flag -V --version              display version
 # @arg username*[`_module_os_user`]

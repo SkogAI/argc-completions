@@ -112,12 +112,20 @@ is-enabled() {
 # }} netctl is-enabled
 
 # {{ netctl edit
-# @cmd Edit a profile
+# @cmd Edit a profile file
 # @arg profile[`_choice_profile`]
 edit() {
     :;
 }
 # }} netctl edit
+
+# {{ netctl verify
+# @cmd Check the syntax of a profile file
+# @arg profile[`_choice_profile`]
+verify() {
+    :;
+}
+# }} netctl verify
 
 # {{ netctl wait-online
 # @cmd Wait for a profile to finish connecting

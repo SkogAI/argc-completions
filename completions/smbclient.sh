@@ -15,7 +15,7 @@
 # @option -c --command <command> <string>          command string is a semicolon-separated list of commands to be executed instead of prompting from stdin.
 # @flag -? --help                                  Print a summary of command line options.
 # @flag --usage                                    Display brief usage message.
-# @option -d --debuglevel                          level is an integer from 0 to 10.
+# @option -d --debuglevel <level>                  level is an integer from 0 to 10.
 # @flag --debug-stdout                             This will redirect debug output to STDOUT.
 # @option --configfile <configuration file>        The file specified contains the configuration details required by the client.
 # @option --option <<name>=<value>>                Set the smb.conf(5) option "<name>" to value "<value>" from the command line.

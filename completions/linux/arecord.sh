@@ -10,6 +10,7 @@
 # @option -t --file-type[voc|wav|raw|au] <TYPE>    file type (voc, wav, raw or au)
 # @option -c --channels <#>                        channels
 # @option -f --format[`_choice_format`]            sample format (case insensitive)
+# @option --subformat                              sample subformat (case insensitive)
 # @option -r --rate <#>                            sample rate
 # @option -d --duration <#>                        interrupt after ♯ seconds
 # @option -s --samples <#>                         interrupt after ♯ samples per channel

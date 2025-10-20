@@ -2,7 +2,7 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @flag -a                                   Get/set sector count for filesystem (software) read-ahead.
-# @flag -A                                   Get/set the IDE drive's read-lookahead feature (usually ON by default).
+# @flag -A                                   Get/set the IDE drive´s read-lookahead feature (usually ON by default).
 # @flag -b                                   Get/set bus state.
 # @flag -B                                   Get/set Advanced Power Management feature, if the drive supports it.
 # @flag -c                                   Get/set (E)IDE 32-bit I/O support.
@@ -11,7 +11,7 @@
 # @flag --dco-freeze                         DCO stands for Device Configuration Overlay, a way for vendors to selectively disable certain features of a drive.
 # @flag --dco-identify                       Query and dump information regarding drive configuration settings which can be disabled by the vendor or OEM installer.
 # @flag --dco-restore                        Reset all drive settings, features, and accessible capacities back to factory defaults and full capabilities.
-# @flag --direct                             Use the kernel's "O_DIRECT" flag when performing a -t timing test.
+# @flag --direct                             Use the kernel´s "O_DIRECT" flag when performing a -t timing test.
 # @flag --drq-hsm-error                      VERY DANGEROUS, DON'T EVEN THINK ABOUT USING IT.
 # @flag -D                                   Enable/disable the on-drive defect management feature, whereby the drive firmware tries to automatically manage defective sectors by relocating them to "spare" sectors reserved by the factory for such.
 # @flag -E                                   Set cd/dvd drive speed.
@@ -32,16 +32,16 @@
 # @flag --Istdout                            This option dumps the drive's identify data in hex to stdout, in a format similar to that from /proc/ide/*/identify, and suitable for later use with the --Istdin option.
 # @flag -J                                   Get/set the Western Digital (WD) Green Drive's "idle3" timeout value.
 # @flag -k                                   Get/set the "keep_settings_over_reset" flag for the drive.
-# @flag -K                                   Set the drive's "keep_features_over_reset" flag.
-# @flag -L                                   Set the drive's doorlock flag.
-# @flag -m                                   Get/set sector count for multiple sector I/O on the drive.
+# @flag -K                                   Set the drive´s "keep_features_over_reset" flag.
+# @flag -L                                   Set the drive´s doorlock flag.
+# @flag -m                                   Get/set  sector count for multiple sector I/O on the drive.
 # @flag --make-bad-sector                    Deliberately create a bad sector (aka.
 # @flag -M                                   Get/set Automatic Acoustic Management (AAM) setting.
 # @flag -n                                   Get or set the "ignore_write_errors" flag in the driver.
-# @flag -N                                   Get/set  max  visible  number of sectors, also known as the Host Protected Area setting.
+# @flag -N                                   Get/set max visible number of sectors, also known as the Host Protected Area setting.
 # @flag --offset                             Offsets to given number of GiB (1024*1024*1024) when performing -t timings of device reads.
 # @flag -p                                   Attempt to reprogram the IDE interface chipset for the specified PIO mode, or attempt to auto-tune for the "best" PIO mode supported by the drive.
-# @flag -P                                   Set the maximum sector count for the drive's internal prefetch mechanism.
+# @flag -P                                   Set the maximum sector count for the drive´s internal prefetch mechanism.
 # @flag --prefer-ata12                       When using the SAT (SCSI ATA Translation) protocol, hdparm normally prefers to use the 16-byte command format whenever possible.
 # @flag -q                                   Handle the next option quietly, suppressing normal output (but not error messages).
 # @flag -Q                                   Get or set the device's command queue_depth, if supported by the hardware.
@@ -50,7 +50,7 @@
 # @flag --read-sector                        Reads from the specified sector number, and dumps the contents in hex to standard output.
 # @flag --repair-sector                      This is an alias for the --write-sector option.
 # @flag -s                                   Enable/disable the power-on in standby feature, if supported by the drive.
-# @flag -S                                   Put  the  drive into idle (low-power) mode, and also set the standby (spindown) timeout for the drive.
+# @flag -S                                   Put the drive into idle (low-power) mode, and also set the standby (spindown) timeout for the drive.
 # @flag --set-sector-size                    For drives which support reconfiguring of the Logical Sector Size, this flag can be used to specify the new desired sector size in bytes.
 # @flag -t                                   Perform timings of device reads for benchmark and comparison purposes.
 # @flag -T                                   Perform timings of cache reads for benchmark and comparison purposes.
@@ -62,14 +62,14 @@
 # @flag --verbose                            Display extra diagnostics from some commands.
 # @flag -w                                   Perform a device reset (DANGEROUS).
 # @flag --write-sector                       Writes zeros to the specified sector number.
-# @flag -W                                   Get/set the IDE/SATA drive's write-caching feature.
+# @flag -W                                   Get/set the IDE/SATA drive´s write-caching feature.
 # @flag -X                                   Set the IDE transfer mode for (E)IDE/ATA drives.
 # @flag -y                                   Force an IDE drive to immediately enter the low power consumption standby mode, usually causing it to spin down.
 # @flag -Y                                   Force an IDE drive to immediately enter the lowest power consumption sleep mode, causing it to shut down completely.
 # @flag -z                                   Force a kernel re-read of the partition table of the specified device(s).
 # @flag -Z                                   Disable the automatic power-saving function of certain Seagate drives (ST3xxx models?), to prevent them from idling/spinning-down at inconvenient times.
 # @flag --security-help                      Display terse usage info for all of the --security-* options.
-# @flag --security-freeze                    Freeze the drive's security settings.
+# @flag --security-freeze                    Freeze the drive´s security settings.
 # @flag --security-prompt-for-password       Prompt for the --security PWD rather than getting from the command line args.
 # @option --security-unlock <PWD>            Unlock the drive, using password PWD.
 # @option --security-set-pass <PWD>          Lock the drive, using password PWD (Set Password) (DANGEROUS).

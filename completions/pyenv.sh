@@ -75,6 +75,7 @@ latest() {
 
 # {{ pyenv local
 # @cmd Set or show the local application-specific Python version(s)
+# @flag -f --force    Do not verify that the versions being set exist
 # @arg version*[`_choice_installed_version`]
 local() {
     :;
@@ -129,6 +130,7 @@ uninstall() {
 
 # {{ pyenv version
 # @cmd Show the current Python version(s) and its origin
+# @flag --bare    show just the version name.
 version() {
     :;
 }
@@ -144,6 +146,7 @@ version-file() {
 
 # {{ pyenv version-name
 # @cmd Show the current Python version
+# @flag -f --force    (Internal) If a version doesn't exist, print it as is rather than produce an error
 version-name() {
     :;
 }

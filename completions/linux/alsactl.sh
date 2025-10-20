@@ -9,7 +9,8 @@
 # @option -a --config-dir <dir>          boot / hotplug configuration directory (default /var/lib/alsa)
 # @flag -l --lock                        use file locking to serialize concurrent access
 # @flag -L --no-lock                     do not use file locking to serialize concurrent access
-# @option -O --lock-state-file <file>    state lock file path (default /var/lock/asound.state.lock)
+# @option -K --lock-dir <dir>            lock path (default /var/lock)
+# @option -O --lock-state-file <file>    state lock file path (default asound.state.lock)
 # @flag -F --force                       try to restore the matching controls as much as possible (default mode)
 # @flag -g --ignore                      ignore 'No soundcards found' error
 # @flag -P --pedantic                    do not restore mismatching controls (old default)
@@ -19,7 +20,7 @@
 # @option -p --period <value>            store period in seconds for the daemon command
 # @option -e --pid-file <file>           pathname for the process id (daemon mode)
 # @option -E --env <k=v>                 set environment variable for init phase (NAME=VALUE)
-# @option -i --initfile <file>           main configuration file for init phase (default /usr/share/alsa/init/00main)
+# @option -i --initfile <file>           main configuation file for init phase (default /usr/share/alsa/init/00main)
 # @flag -b --background                  run daemon in background
 # @flag -s --syslog                      use syslog for messages
 # @option -n --nice <value>              set the process priority (see 'man nice')
@@ -90,6 +91,13 @@ monitor() {
     :;
 }
 # }} alsactl monitor
+
+# {{ alsactl info
+# @cmd general information
+info() {
+    :;
+}
+# }} alsactl info
 
 # {{ alsactl clean
 # @cmd clean application controls

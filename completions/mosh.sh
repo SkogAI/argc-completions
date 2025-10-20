@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @option --client <PATH>                          mosh client on local machine (default: "/nix/store/x9s32j08df1n6gv5vqaw6mq61fqgrzjh-mosh-1.4.0/bin/mosh-client")
+# @option --client <PATH>                          mosh client on local machine (default: "mosh-client")
 # @option --server <COMMAND>                       mosh server on remote machine (default: "mosh-server")
 # @option --predict[`_choice_predict`] <experimental>  Predict setting"
 # @flag -o --predict-overwrite                     prediction overwrites instead of inserting
@@ -10,6 +10,7 @@
 # @option --port <PORT[:PORT2]>                    server-side UDP port or range (No effect on server-side SSH port)
 # @option --bind-server[ssh|any|IP]                ask the server to reply from an IP address (default: "ssh")
 # @option --ssh[`_module_os_command`] <COMMAND>    ssh command to run when setting up session (example: "ssh -p 2222") (default: "ssh")
+# @flag -A --forward-agent                         enable ssh agent forwarding
 # @flag --no-ssh-pty                               do not allocate a pseudo tty on ssh connection
 # @flag --no-init                                  do not send terminal initialization string
 # @flag --local                                    run mosh-server locally without using ssh

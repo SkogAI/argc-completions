@@ -26,7 +26,7 @@
 # @flag -h --help                                  Show usage message.
 # @option --shift-heading-level-by <NUMBER>        Shift heading levels by a positive or negative integer.
 # @option --base-header-level <NUMBER>             Deprecated.
-# @option --indented-code-classes <CLASSES>        Specify classes to use for indented code blocks–for example, perl,numberLines or haskell.
+# @option --indented-code-classes <CLASSES>        Specify classes to use for indented code blocks—for example, perl,numberLines or haskell.
 # @option --default-image-extension <EXTENSION>    Specify a default extension to use when image paths/URLs have no extension.
 # @option --file-scope[true|false]                 Parse each file individually before combining for multifile documents.
 # @option -F --filter <PROGRAM>                    Specify an executable to be used as a filter transforming the pandoc AST after the input is parsed and before the output is written.
@@ -65,18 +65,21 @@
 # @option --no-check-certificate[true|false]       Disable the certificate verification to allow access to unsecure HTTP resources (for example when the certificate is no longer valid or self signed).
 # @option --self-contained[true|false]             Deprecated synonym for --embed-resources --standalone.
 # @option --embed-resources[true|false]            Produce a standalone HTML file with no external dependencies, using data: URIs to incorporate the contents of linked scripts, stylesheets, images, and videos.
+# @option --link-images[true|false]                Include links to images instead of embedding the images in ODT.
 # @option --html-q-tags[true|false]                Use <q> tags for quotes in HTML.
 # @option --ascii[true|false]                      Use only ASCII characters in output.
 # @option --reference-links[true|false]            Use reference-style links, rather than inline links, in writing Markdown or reStructuredText.
 # @option --reference-location[block|section|document]  Specify whether footnotes (and references, if reference-links is set) are placed at the end of the current (top-level) block, the current section, or the document.
+# @option --figure-caption-position <above|below>  Specify whether figure captions go above or below figures (default is below).
+# @option --table-caption-position <above|below>   Specify whether table captions go above or below tables (default is above).
 # @option --markdown-headings <setext|atx>         Specify whether to use ATX-style (#-prefixed) or Setext-style (underlined) headings for level 1 and 2 headings in Markdown output.
 # @option --list-tables[true|false]                Render tables as list tables in RST output.
 # @option --top-level-division[default|section|chapter|part]  Treat top-level headings as the given division type in LaTeX, ConTeXt, DocBook, and TEI output.
-# @flag -N --number-sections                       Number section headings in LaTeX, ConTeXt, HTML, Docx, ms, or EPUB output.
-# @option --number-offset <NUMBER[,NUMBER,...]>    Offset for section headings in HTML output (ignored in other output formats).
+# @option -N --number-sections <true|false>        Number section headings in LaTeX, ConTeXt, HTML, Docx, ms, or EPUB output.
+# @option --number-offset <NUMBER[,NUMBER,...]>    Offsets for section heading numbers.
 # @option --listings[true|false]                   Use the listings package for LaTeX code blocks.
 # @option -i --incremental[true|false]             Make list items in slide shows display incrementally (one by one).
-# @option --slide-level <NUMBER>                   Specifies that headings with the specified level create slides (for beamer, s5, slidy, slideous, dzslides).
+# @option --slide-level <NUMBER>                   Specifies that headings with the specified level create slides (for beamer, revealjs, pptx, s5, slidy, slideous, dzslides).
 # @option --section-divs[true|false]               Wrap sections in <section> tags (or <div> tags for html4), and attach identifiers to the enclosing <section> (or <div>) rather than the heading itself (see Heading identifiers, below).
 # @option --email-obfuscation[none|javascript|references]  Specify a method for obfuscating mailto: links in HTML documents.
 # @option --id-prefix <STRING>                     Specify a prefix to be added to all identifiers and internal links in HTML and DocBook output, and to footnote numbers in Markdown and Haddock output.

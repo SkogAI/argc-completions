@@ -41,6 +41,7 @@
 # @option -W <scriptout-file>             Write all typed commands to file <scriptout>
 # @flag -x                                Edit encrypted files
 # @flag -X                                Do not connect to X server
+# @flag -Y                                Do not connect to Wayland compositor
 # @option --remote <files>                Edit <files> in a Vim server if possible
 # @option --remote-silent <files>         Same, don't complain if there is no server
 # @option --remote-wait <files>           As --remote but wait for files to have been edited

@@ -35,6 +35,7 @@
 # @option --batch-size <size>                      Maximum number of arguments to pass to the command given with -X.
 # @option --ignore-file <path>                     Add a custom ignore-file in '.gitignore' format.
 # @option -c --color <when>                        Declare when to use color for the pattern match output
+# @option --hyperlink <when>                       Add a terminal hyperlink to a file:// url for each path in the output.
 # @option -j --threads <num>                       Set number of threads to use for searching & executing (default: number of available CPU cores)
 # @option --max-results <count>                    Limit the number of search results to 'count' and quit immediately.
 # @flag -1                                         Limit the search to a single result and quit immediately.

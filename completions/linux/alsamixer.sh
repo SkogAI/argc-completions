@@ -9,6 +9,7 @@
 # @option -f --config <FILE>                     configuration file
 # @flag -F --no-config                           do not load configuration file
 # @option -V --view[playback|capture|all] <MODE>  starting view mode: playback/capture/all
+# @flag -B --black-background                    use black background color
 # @flag -g --no-color                            toggle using of colors
 # @option -a --abstraction[none|basic] <NAME>    mixer abstraction level: none/basic
 

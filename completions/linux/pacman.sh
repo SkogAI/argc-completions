@@ -20,6 +20,7 @@
 # @flag --confirm                     always ask for confirmation
 # @flag --debug                       display debug messages
 # @flag --disable-download-timeout    use relaxed timeouts for download
+# @flag --disable-sandbox             disable the sandbox used for the downloader process
 # @option --gpgdir <path>             set an alternate home directory for GnuPG
 # @option --hookdir <dir>             set an alternate hook location
 # @option --logfile <path>            set an alternate log file
@@ -48,6 +49,7 @@
 # @flag --confirm                     always ask for confirmation
 # @flag --debug                       display debug messages
 # @flag --disable-download-timeout    use relaxed timeouts for download
+# @flag --disable-sandbox             disable the sandbox used for the downloader process
 # @option --gpgdir <path>             set an alternate home directory for GnuPG
 # @option --hookdir <dir>             set an alternate hook location
 # @option --logfile <path>            set an alternate log file
@@ -88,6 +90,7 @@
 # @flag --confirm                                 always ask for confirmation
 # @flag --debug                                   display debug messages
 # @flag --disable-download-timeout                use relaxed timeouts for download
+# @flag --disable-sandbox                         disable the sandbox used for the downloader process
 # @option --gpgdir <path>                         set an alternate home directory for GnuPG
 # @option --hookdir <dir>                         set an alternate hook location
 # @option --logfile <path>                        set an alternate log file
@@ -120,6 +123,7 @@
 # @flag --dbonly                                  only modify database entries, not package files
 # @flag --debug                                   display debug messages
 # @flag --disable-download-timeout                use relaxed timeouts for download
+# @flag --disable-sandbox                         disable the sandbox used for the downloader process
 # @option --gpgdir <path>                         set an alternate home directory for GnuPG
 # @option --hookdir <dir>                         set an alternate hook location
 # @option --logfile <path>                        set an alternate log file
@@ -162,6 +166,7 @@
 # @flag --dbonly                                  only modify database entries, not package files
 # @flag --debug                                   display debug messages
 # @flag --disable-download-timeout                use relaxed timeouts for download
+# @flag --disable-sandbox                         disable the sandbox used for the downloader process
 # @option --gpgdir <path>                         set an alternate home directory for GnuPG
 # @option --hookdir <dir>                         set an alternate hook location
 # @option --ignore[`_choice_package`] <pkg>       ignore a package upgrade (can be used more than once)
@@ -193,6 +198,7 @@
 # @flag --confirm                     always ask for confirmation
 # @flag --debug                       display debug messages
 # @flag --disable-download-timeout    use relaxed timeouts for download
+# @flag --disable-sandbox             disable the sandbox used for the downloader process
 # @option --gpgdir <path>             set an alternate home directory for GnuPG
 # @option --hookdir <dir>             set an alternate hook location
 # @option --logfile <path>            set an alternate log file
@@ -224,6 +230,7 @@
 # @flag --dbonly                                  only modify database entries, not package files
 # @flag --debug                                   display debug messages
 # @flag --disable-download-timeout                use relaxed timeouts for download
+# @flag --disable-sandbox                         disable the sandbox used for the downloader process
 # @option --gpgdir <path>                         set an alternate home directory for GnuPG
 # @option --hookdir <dir>                         set an alternate hook location
 # @option --ignore[`_choice_package`] <pkg>       ignore a package upgrade (can be used more than once)

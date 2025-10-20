@@ -37,6 +37,7 @@
 # @option --denyfile <file>             This is the same functionality as --deny, except that excluded hosts are provided in a new-line delimited deny file, rather than directly on the command line.
 # @option -d --delay <time>             Set the delay interval for lines sent.
 # @option -i --idle-timeout <time>      Set a fixed timeout for idle connections.
+# @option -q <time>                     After EOF on stdin, wait the specified amount of time, then quit.
 # @option -w --wait <time>              Set a fixed timeout for connection attempts.
 # @option -o --output <file>            Dump session data to a file
 # @option -x --hex-dump <file>          Dump session data in hex to a file.

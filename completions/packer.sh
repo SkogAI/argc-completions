@@ -18,6 +18,7 @@
 # @option -var-file <path>            JSON or HCL2 file containing user variables, can be used multiple times.
 # @flag -warn-on-undeclared-var       Display warnings for user variable files containing undeclared variables.
 # @flag -ignore-prerelease-plugins    Disable the loading of prerelease plugin binaries (x.y.z-dev).
+# @flag -use-sequential-evaluation    Fallback to using a sequential approach for local/datasource evaluation.
 # @arg template
 build() {
     :;
@@ -26,9 +27,10 @@ build() {
 
 # {{ packer console
 # @cmd creates a console for testing variable interpolation
-# @option -var <key=value>    Variable for templates, can be used multiple times.
-# @option -var-file <path>    JSON or HCL2 file containing user variables.
-# @flag -config-type          Set to 'hcl2' to run in HCL2 mode when no file is passed.
+# @option -var <key=value>            Variable for templates, can be used multiple times.
+# @option -var-file <path>            JSON or HCL2 file containing user variables.
+# @flag -config-type                  Set to 'hcl2' to run in HCL2 mode when no file is passed.
+# @flag -use-sequential-evaluation    Fallback to using a sequential approach for local/datasource evaluation.
 # @arg template
 console() {
     :;
@@ -309,7 +311,8 @@ init() {
 
 # {{ packer inspect
 # @cmd see components of a template
-# @flag -machine-readable    Machine-readable output
+# @flag -machine-readable             Machine-readable output
+# @flag -use-sequential-evaluation    Fallback to using a sequential approach for local/datasource evaluation.
 # @arg template
 inspect() {
     :;
@@ -362,6 +365,7 @@ plugins::required() {
 # @flag -no-warn-undeclared-var       Disable warnings for user variable files containing undeclared variables.
 # @flag -evaluate-datasources         Evaluate data sources during validation (HCL2 only, may incur costs); Defaults to false.
 # @flag -ignore-prerelease-plugins    Disable the loading of prerelease plugin binaries (x.y.z-dev).
+# @flag -use-sequential-evaluation    Fallback to using a sequential approach for local/datasource evaluation.
 # @arg template
 validate() {
     :;

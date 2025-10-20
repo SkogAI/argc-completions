@@ -2,7 +2,7 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @flag -h --help    show this help message and exit
-# @arg setup-configure-dist-install-introspect-init-test-wrap-subprojects-rewrite-compile-devenv-env2mfile-format-fmt-help* <setup,configure,dist,install,introspect,init,test,wrap,subprojects,rewrite,compile,devenv,env2mfile,format,fmt,help>
+# @arg setup-configure-dist-install-introspect-init-test-wrap-subprojects-rewrite-compile-devenv-env2mfile-reprotest-format-fmt-help* <setup,configure,dist,install,introspect,init,test,wrap,subprojects,rewrite,compile,devenv,env2mfile,reprotest,format,fmt,help>
 
 # {{ meson setup
 # @cmd Configure the project
@@ -12,7 +12,7 @@
 # @option --datadir                                Data file directory (default: share).
 # @option --includedir                             Header file directory (default: include).
 # @option --infodir                                Info page directory (default: share/info).
-# @option --libdir                                 Library directory (default: lib/x86_64-linux-gnu).
+# @option --libdir                                 Library directory (default: lib).
 # @option --licensedir                             Licenses directory (default: ).
 # @option --libexecdir                             Library executable directory (default: libexec).
 # @option --localedir                              Locale data directory (default: share/locale).
@@ -27,22 +27,23 @@
 # @option --buildtype[plain|debug|debugoptimized|release|minsize|custom]  Build type to use (default: debug).
 # @flag --debug                                    Enable debug symbols and other information
 # @option --default-library[shared|static|both]    Default library type (default: shared).
+# @option --default-both-libraries[shared|static|auto]  Default library type for both_libraries (default: shared).
 # @flag --errorlogs                                Whether to print the logs from failing tests
-# @option --install-umask <INSTALL_UMASK>          Default umask to apply on permissions of installed files (default: 022).
+# @option --install-umask <INSTALL_UMASK>          Default umask to apply on permissions of installed files (default: 0o22).
 # @option --layout[mirror|flat]                    Build directory layout (default: mirror).
 # @option --optimization[plain|0|g|1|2|3|s]        Optimization level (default: 0).
 # @flag --prefer-static                            Whether to try static linking before shared linking
 # @flag --stdsplit                                 Split stdout and stderr in test logs
 # @flag --strip                                    Strip targets on install
 # @option --unity[on|off|subprojects]              Unity build (default: off).
-# @option --unity-size[2|None|4] <UNITY_SIZE>      Unity block size (default:).
+# @option --unity-size <UNITY_SIZE>                Unity block size (default: 4).
 # @option --warnlevel[0|1|2|3|everything]          Compiler warning level to use (default: 1).
 # @flag --werror                                   Treat warnings as errors
 # @option --wrap-mode[default|nofallback|nodownload|forcefallback|nopromote]  Wrap mode (default: default).
 # @option --force-fallback-for <FORCE_FALLBACK_FOR>  Force fallback for those subprojects (default: []).
 # @flag --vsenv                                    Activate Visual Studio environment
 # @flag --pkgconfig.relocatable                    Generate pkgconfig files as relocatable
-# @option --python.bytecompile                     Whether to compile bytecode (default: (-1, 2, 0)).
+# @option --python.bytecompile                     Whether to compile bytecode (default: 0).
 # @option --python.install-env[auto|prefix|system|venv]  Which python environment to install to (default: prefix).
 # @option --python.platlibdir                      Directory for site-specific, platform-specific files (default: ).
 # @option --python.purelibdir                      Directory for site-specific, non-platform-specific files (default: ).
@@ -51,7 +52,7 @@
 # @option --build.pkg-config-path <BUILD.PKG_CONFIG_PATH>  List of additional paths for pkg-config to search (default: []).
 # @option --cmake-prefix-path <CMAKE_PREFIX_PATH>  List of additional prefixes for cmake to search (default: []).
 # @option --build.cmake-prefix-path <BUILD.CMAKE_PREFIX_PATH>  List of additional prefixes for cmake to search (default: []).
-# @option -D <option>                              Set the value of an option, can be used several times to set multiple options.
+# @option -D <option=value>                        Set the value of an option, can be used several times to set multiple options.
 # @option --native-file <NATIVE_FILE>              File containing overrides for native compilation environment.
 # @option --cross-file <CROSS_FILE>                File describing cross compilation environment.
 # @flag -v --version                               show program's version number and exit
@@ -74,7 +75,7 @@ setup() {
 # @option --datadir                                Data file directory (default: share).
 # @option --includedir                             Header file directory (default: include).
 # @option --infodir                                Info page directory (default: share/info).
-# @option --libdir                                 Library directory (default: lib/x86_64-linux-gnu).
+# @option --libdir                                 Library directory (default: lib).
 # @option --licensedir                             Licenses directory (default: ).
 # @option --libexecdir                             Library executable directory (default: libexec).
 # @option --localedir                              Locale data directory (default: share/locale).
@@ -89,22 +90,23 @@ setup() {
 # @option --buildtype[plain|debug|debugoptimized|release|minsize|custom]  Build type to use (default: debug).
 # @flag --debug                                    Enable debug symbols and other information
 # @option --default-library[shared|static|both]    Default library type (default: shared).
+# @option --default-both-libraries[shared|static|auto]  Default library type for both_libraries (default: shared).
 # @flag --errorlogs                                Whether to print the logs from failing tests
-# @option --install-umask <INSTALL_UMASK>          Default umask to apply on permissions of installed files (default: 022).
+# @option --install-umask <INSTALL_UMASK>          Default umask to apply on permissions of installed files (default: 0o22).
 # @option --layout[mirror|flat]                    Build directory layout (default: mirror).
 # @option --optimization[plain|0|g|1|2|3|s]        Optimization level (default: 0).
 # @flag --prefer-static                            Whether to try static linking before shared linking
 # @flag --stdsplit                                 Split stdout and stderr in test logs
 # @flag --strip                                    Strip targets on install
 # @option --unity[on|off|subprojects]              Unity build (default: off).
-# @option --unity-size[2|None|4] <UNITY_SIZE>      Unity block size (default:).
+# @option --unity-size <UNITY_SIZE>                Unity block size (default: 4).
 # @option --warnlevel[0|1|2|3|everything]          Compiler warning level to use (default: 1).
 # @flag --werror                                   Treat warnings as errors
 # @option --wrap-mode[default|nofallback|nodownload|forcefallback|nopromote]  Wrap mode (default: default).
 # @option --force-fallback-for <FORCE_FALLBACK_FOR>  Force fallback for those subprojects (default: []).
 # @flag --vsenv                                    Activate Visual Studio environment
 # @flag --pkgconfig.relocatable                    Generate pkgconfig files as relocatable
-# @option --python.bytecompile                     Whether to compile bytecode (default: (-1, 2, 0)).
+# @option --python.bytecompile                     Whether to compile bytecode (default: 0).
 # @option --python.install-env[auto|prefix|system|venv]  Which python environment to install to (default: prefix).
 # @option --python.platlibdir                      Directory for site-specific, platform-specific files (default: ).
 # @option --python.purelibdir                      Directory for site-specific, non-platform-specific files (default: ).
@@ -113,9 +115,10 @@ setup() {
 # @option --build.pkg-config-path <BUILD.PKG_CONFIG_PATH>  List of additional paths for pkg-config to search (default: []).
 # @option --cmake-prefix-path <CMAKE_PREFIX_PATH>  List of additional prefixes for cmake to search (default: []).
 # @option --build.cmake-prefix-path <BUILD.CMAKE_PREFIX_PATH>  List of additional prefixes for cmake to search (default: []).
-# @option -D <option>                              Set the value of an option, can be used several times to set multiple options.
+# @option -D <option=value>                        Set the value of an option, can be used several times to set multiple options.
 # @flag --clearcache                               Clear cached state (e.g. found dependencies)
 # @flag --no-pager                                 Do not redirect output to a pager
+# @option -U <CMD_LINE_OPTIONS>                    Remove a subproject option.
 # @arg builddir
 configure() {
     :;
@@ -141,7 +144,7 @@ dist() {
 # @option -C <WD>         directory to cd into before running
 # @flag --no-rebuild      Do not rebuild before installing.
 # @flag --only-changed    Only overwrite files that are older than the copied file.
-# @flag --quiet           Do not print every file that was installed.
+# @flag -q --quiet        Do not print every file that was installed.
 # @option --destdir       Sets or overrides DESTDIR environment.
 # @flag -n --dry-run      Doesn't actually install, but print logs.
 # @option --skip-subprojects*[`_choice_subproject`] <SKIP_SUBPROJECTS>  Do not install files from given subprojects.
@@ -222,6 +225,7 @@ init() {
 # @option --setup                               Which test setup to use.
 # @option --test-args <TEST_ARGS>               Arguments to pass to the specified test(s) or all tests
 # @option --max-lines <MAX_LINES>               Maximum number of lines to show from a long test log.
+# @option --slice <SLICE/NUM_SLICES>            Split tests into NUM_SLICES slices and execute slice SLICE.
 # @arg args*[`_choice_test`]                    Optional list of test names to run.
 test() {
     :;
@@ -273,7 +277,7 @@ wrap::install() {
 # @option --types                               Comma-separated list of subproject types.
 # @option -j --num-processes <NUM_PROCESSES>    How many parallel processes to use (Since 0.59.0).
 # @flag --allow-insecure                        Allow insecure server connections.
-# @arg subprojects*                             List of subprojects (default: all)
+# @arg pattern                                  Patterns of subprojects to operate on (default: all)
 wrap::update() {
     :;
 }
@@ -334,7 +338,7 @@ subprojects() {
 # @option --types                               Comma-separated list of subproject types.
 # @option -j --num-processes <NUM_PROCESSES>    How many parallel processes to use (Since 0.59.0).
 # @flag --allow-insecure                        Allow insecure server connections.
-# @arg subprojects*                             List of subprojects (default: all)
+# @arg pattern                                  Patterns of subprojects to operate on (default: all)
 subprojects::update() {
     :;
 }
@@ -349,7 +353,7 @@ subprojects::update() {
 # @option -j --num-processes <NUM_PROCESSES>    How many parallel processes to use (Since 0.59.0).
 # @flag --allow-insecure                        Allow insecure server connections.
 # @arg branch_name                              Name of the branch to checkout or create (default: revision set in wrap file)
-# @arg subprojects*                             List of subprojects (default: all)
+# @arg pattern                                  Patterns of subprojects to operate on (default: all)
 subprojects::checkout() {
     :;
 }
@@ -362,7 +366,7 @@ subprojects::checkout() {
 # @option --types                               Comma-separated list of subproject types.
 # @option -j --num-processes <NUM_PROCESSES>    How many parallel processes to use (Since 0.59.0).
 # @flag --allow-insecure                        Allow insecure server connections.
-# @arg subprojects*                             List of subprojects (default: all)
+# @arg pattern                                  Patterns of subprojects to operate on (default: all)
 subprojects::download() {
     :;
 }
@@ -375,6 +379,7 @@ subprojects::download() {
 # @option --types                               Comma-separated list of subproject types.
 # @option -j --num-processes <NUM_PROCESSES>    How many parallel processes to use (Since 0.59.0).
 # @flag --allow-insecure                        Allow insecure server connections.
+# @option --filter <pattern>                    Patterns of subprojects to operate on (default: all)
 # @arg command                                  ...  Command to execute in each subproject directory
 subprojects::foreach() {
     :;
@@ -390,7 +395,7 @@ subprojects::foreach() {
 # @flag --allow-insecure                        Allow insecure server connections.
 # @flag --include-cache                         Remove the package cache as well
 # @flag --confirm                               Confirm the removal of subproject artifacts
-# @arg subprojects*                             List of subprojects (default: all)
+# @arg pattern                                  Patterns of subprojects to operate on (default: all)
 subprojects::purge() {
     :;
 }
@@ -405,7 +410,7 @@ subprojects::purge() {
 # @flag --allow-insecure                        Allow insecure server connections.
 # @flag --apply                                 Apply packagefiles to the subproject
 # @flag --save                                  Save packagefiles from the subproject
-# @arg subprojects*                             List of subprojects (default: all)
+# @arg pattern                                  Patterns of subprojects to operate on (default: all)
 subprojects::packagefiles() {
     :;
 }
@@ -496,6 +501,7 @@ devenv() {
 # @option -o <OUTFILE>                 The output file.
 # @flag --cross                        Generate a cross compilation file.
 # @flag --native                       Generate a native compilation file.
+# @flag --use-for-build                Use _FOR_BUILD envvars.
 # @option --system                     Define system for cross compilation.
 # @option --subsystem                  Define subsystem for cross compilation.
 # @option --kernel                     Define kernel for cross compilation.
@@ -508,16 +514,27 @@ env2mfile() {
 }
 # }} meson env2mfile
 
+# {{ meson reprotest
+# @cmd Test if project builds reproducibly
+# @flag -h --help           show this help message and exit
+# @flag --intermediaries    Check intermediate files.
+# @arg mesonargs*           Arguments to pass to "meson setup".
+reprotest() {
+    :;
+}
+# }} meson reprotest
+
 # {{ meson format
 # @cmd Format meson source file
-# @flag -h --help                              show this help message and exit
-# @flag -q --check-only                        exit with 1 if files would be modified by meson format
-# @flag -i --inplace                           format files in-place
-# @flag -r --recursive                         recurse subdirs (requires --check-only or --inplace option)
-# @option -c --configuration <meson.format>    read configuration from meson.format
-# @flag -e --editor-config                     try to read configuration from .editorconfig
-# @option -o --output                          output file (implies having exactly one input)
-# @arg files*                                  meson source files
+# @flag -h --help                                  show this help message and exit
+# @flag -q --check-only                            exit with 1 if files would be modified by meson format
+# @flag -i --inplace                               format files in-place
+# @flag -r --recursive                             recurse subdirs (requires --check-only or --inplace option)
+# @option -c --configuration <meson.format>        read configuration from meson.format
+# @flag -e --editor-config                         try to read configuration from .editorconfig
+# @option -o --output                              output file (implies having exactly one input)
+# @option --source-file-path <SOURCE_FILE_PATH>    path to use, when reading from stdin
+# @arg files*                                      meson source files
 format() {
     :;
 }

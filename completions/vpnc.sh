@@ -11,10 +11,12 @@
 # @option --vendor[cisco|netscreen|fortigate]     vendor of your IPSec gateway Default: cisco
 # @option --natt-mode[natt|none|force-natt|cisco-udp]  Which NAT-Traversal Method to use: •  natt -- NAT-T as defined in RFC3947 •  none -- disable use of any NAT-T method •  force-natt -- always use NAT-T encapsulation even without presence of a NAT device (useful if the OS captures all ESP traffic) •  cisco-udp -- Cisco proprietary UDP encapsulation, commonly over Port 10000
 # @option --script <command>                      command is executed using system() to configure the interface, routing and so on.
-# @option --dh[dh1|dh2|dh5]                       name of the IKE DH Group Default: dh2
-# @option --pfs[nopfs|dh1|dh2|dh5|server]         Diffie-Hellman group to use for PFS Default: server
-# @flag --enable-1des                             enables weak single DES encryption
+# @option --dh[dh1|dh2|dh5|dh14|dh15|dh16|dh17|dh18]  name of the IKE DH Group Default: dh2
+# @option --pfs[nopfs|dh1|dh2|dh5|dh14|dh15|dh16|dh17|dh18|server]  Diffie-Hellman group to use for PFS Default: server
+# @flag --enable-1des                             Deprecated: Please use --enable-weak-encryption instead.
+# @flag --enable-weak-encryption                  enables weak encryption methods (such as DES, 3DES)
 # @flag --enable-no-encryption                    enables using no encryption for data traffic (key exchanged must be encrypted)
+# @flag --enable-weak-authentication              enables weak authentication methods (such as MD5)
 # @option --application-version <ASCII string>    Application Version to report.
 # @option --ifname <ASCII string>                 visible name of the TUN/TAP interface
 # @option --ifmode[tun|tap]                       mode of TUN/TAP interface: •  tun: virtual point to point interface (default) •  tap: virtual ethernet interface Default: tun

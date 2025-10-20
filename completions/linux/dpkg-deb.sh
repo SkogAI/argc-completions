@@ -2,17 +2,19 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @meta inherit-flag-options
-# @flag -v --verbose                       Enable verbose output.
-# @flag -D --debug                         Enable debugging output.
-# @option --showformat <format>            Use alternative format for --show.
-# @option --deb-format <format>            Select archive format.
-# @flag --nocheck                          Suppress control file check (build bad packages).
-# @flag --root-owner-group                 Forces the owner and groups to root.
-# @flag --uniform-compression              Use the compression params on all members.
-# @flag --no-uniform-compression           Use the compression params on all members.
-# @option -z- <v>                          Set the compression level when building.
-# @option -Z-[gzip|xz|zstd|none] <type>    Set the compression type used when building.
-# @option -S- <strategy>                   Set the compression strategy when building.
+# @flag -v --verbose                          Enable verbose output.
+# @flag -D --debug                            Enable debugging output.
+# @option --showformat <format>               Use alternative format for --show.
+# @option --deb-format <format>               Select archive format.
+# @flag --no-check                            Suppress all checks (build bad packages).
+# @flag --nocheck                             Alias for --no-check.
+# @flag --root-owner-group                    Forces the owner and groups to root.
+# @option --threads-max <threads>             Use at most <threads> with compressor.
+# @flag --uniform-compression                 Use the compression params on all members.
+# @flag --no-uniform-compression              Use the compression params on all members.
+# @option -Z --compression[gzip|xz|zstd|none] <compressor>  Set build compression type.
+# @option -z --compression-level <level>      Set build compression level.
+# @option -S --compression-strategy <name>    Set build compression strategy.
 
 # {{ dpkg-deb --build
 # @cmd Build an archive.

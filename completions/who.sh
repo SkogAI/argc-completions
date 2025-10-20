@@ -5,10 +5,9 @@
 # @flag -b --boot        time of last system boot
 # @flag -d --dead        print dead processes
 # @flag -H --heading     print line of column headings
-# @flag --ips            print ips instead of hostnames.
 # @flag -l --login       print system login processes
 # @flag --lookup         attempt to canonicalize hostnames via DNS
-# @flag -m               only hostname and user associated with stdin
+# @flag -m               only hostname and user associated with standard input
 # @flag -p --process     print active processes spawned by init
 # @flag -q --count       all login names and number of users logged on
 # @flag -r --runlevel    print current runlevel

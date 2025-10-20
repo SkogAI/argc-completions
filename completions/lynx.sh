@@ -30,7 +30,7 @@
 # @flag -curses_pads                            uses curses pad feature to support left/right shifting (on)
 # @flag -debug_partial                          incremental display stages with MessageSecs delay (off)
 # @flag -default_colors                         use terminal default foreground/background colors (on)
-# @option -delay <NNN>                          set NNN-second delay at statusline message (0.000)
+# @option -delay[0|000] <NNN>                   set NNN-second delay at statusline message
 # @option -display                              set the display variable for X exec'ed programs
 # @option -display_charset <MIMEname>           charset for the terminal output
 # @flag -dont_wrap_pre                          inhibit wrapping of text in <pre> when -dump'ing and -crawl'ing, mark wrapped lines in interactive session (off)

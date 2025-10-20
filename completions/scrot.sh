@@ -22,6 +22,9 @@
 # @option -q --quality <NUM>           NUM must be within [1, 100].
 # @option -s --select <OPTS>           Interactively select a window or rectangle with the mouse, use the arrow keys to resize.
 # @option -t --thumb[10|25|320x240|500x200|100x0|0x480] <%> <|>  WxH Also generate a thumbnail.
+# @flag -u                             Use the currently focused window.
+# @flag --focused                      Use the currently focused window.
+# @flag --focussed                     Use the currently focused window.
 # @flag -v --version                   Output version information and exit.
 # @option -w --window <WID>            Window identifier to capture.
 # @option -Z --compression <LVL>       Compression level to use, LVL must be within [0, 9].

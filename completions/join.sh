@@ -2,7 +2,7 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @option -a <FILENUM>          also print unpairable lines from file FILENUM, where FILENUM is 1 or 2, corresponding to FILE1 or FILE2
-# @option -e <EMPTY>            replace missing input fields with EMPTY
+# @option -e <STRING>           replace missing (empty) input fields with STRING; I.e., missing fields specified with '-12jo' options
 # @flag -i --ignore-case        ignore differences in case when comparing fields
 # @option -j <FIELD>            equivalent to '-1 FIELD -2 FIELD'
 # @option -o <FORMAT>           obey FORMAT while constructing output line

@@ -19,11 +19,15 @@
 # @option --reuid[`_module_os_uid`] <uid>          Set the real, effective, or both UIDs.
 # @option --securebits*[`_choice_securebit`] <(+|-)securebit>  Set or clear securebits.
 # @option --pdeathsig*[`_choice_signal`] <keep|clear|<signal>>  Keep, clear or set the parent death signal.
+# @option --ptracer[pid|any|none]                  When Yama’s restricted ptrace mode is in effect (that is, when /proc/sys/kernel/yama/ptrace_scope is set to 1), allow being traced via ptrace(2) by the process with the specified PID, or any process, or no process.
 # @option --selinux-label <label>                  Request a particular SELinux transition (using a transition on exec, not dyntrans).
 # @option --apparmor-profile <profile>             Request a particular AppArmor profile (using a transition on exec).
+# @option --landlock-access <access>               Enable landlock restrictions for a specific set of system accesses.
+# @option --landlock-rule <rule>                   Allow one specific access from the categories blocked by --landlock-access.
+# @option --seccomp-filter <file>                  Load raw BPF seccomp filter code from a file.
 # @flag --reset-env                                Clears all the environment variables except TERM; initializes the environment variables HOME, SHELL, USER, LOGNAME according to the user’s passwd entry; sets PATH to /usr/local/bin:/bin:/usr/bin for a regular user and to /usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin for root.
-# @flag -V --version                               Display version information and exit.
 # @flag -h --help                                  Display help text and exit.
+# @flag -V --version                               Display version and exit.
 # @arg program[`_module_os_command`]
 # @arg args~[`_module_os_command_args`]
 
