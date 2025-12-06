@@ -9,10 +9,15 @@
 # @option -T --fstab <path>                        alternative file to /etc/fstab
 # @flag -i --internal-only                         don't call the mount.<type> helpers
 # @flag -l --show-labels                           show also filesystem labels
+# @option --map-groups <<inner>:<outer>:<count>>   add the specified GID map to an ID-mapped mount
+# @option --map-users <<inner>:<outer>:<count>>    add the specified UID map to an ID-mapped mount
+# @option --map-users </proc/<pid>/ns/user>        specify the user namespace for an ID-mapped mount
+# @option -m --mkdir <mode>                        alias to '-o X-mount.mkdir[=<mode>]'
 # @flag -n --no-mtab                               don't write to /etc/mtab
 # @option --options-mode[ignore|append|prepend|replace] <mode>  what to do with options loaded from fstab
 # @option --options-source[fstab|mtab|disable] <source>  mount options source
 # @flag --options-source-force                     force use of options from fstab/mtab
+# @flag --onlyonce                                 check if filesystem is already mounted
 # @option -o --options*,[`_choice_options`] <list>  comma-separated list of mount options
 # @option -O --test-opts <list>                    limit the set of filesystems (use with -a)
 # @flag -r --read-only                             mount the filesystem read-only (same as -o ro)

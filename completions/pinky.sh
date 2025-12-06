@@ -10,6 +10,7 @@
 # @flag -w           omit the user's full name in short format
 # @flag -i           omit the user's full name and remote host in short format
 # @flag -q           omit the user's full name, remote host and idle time in short format
+# @flag --lookup     attempt to canonicalize hostnames via DNS
 # @flag --help       display this help and exit
 # @flag --version    output version information and exit
 # @arg user*[`_module_os_user`]

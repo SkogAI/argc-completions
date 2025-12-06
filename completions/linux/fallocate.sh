@@ -13,7 +13,7 @@
 # @flag -v --verbose           verbose mode
 # @flag -h --help              display this help
 # @flag -V --version           display version
-# @arg num!                    arguments may be followed by the suffixes for
-# @arg gib                     TiB, PiB, EiB, ZiB, and YiB (the "iB" is optional)
+# @arg values                  for <num> may be followed by a suffix: KiB, MiB,
+# @arg gib                     TiB, PiB, EiB, ZiB, or YiB (where the "iB" is optional).
 
 command eval "$(argc --argc-eval "$0" "$@")"

@@ -10,7 +10,7 @@
 # @flag --isolated                    Ignore all configuration files
 
 # {{ ruff check
-# @cmd Run Ruff on the given files or directories (default)
+# @cmd Run Ruff on the given files or directories
 # @flag --fix                                      Apply fixes to resolve lint violations.
 # @flag --unsafe-fixes                             Include fixes that may not retain the original intent of the code.
 # @flag --show-fixes                               Show an enumeration of all fixed lint violations.
@@ -18,13 +18,13 @@
 # @flag -w --watch                                 Run in watch mode by re-running whenever files change
 # @flag --fix-only                                 Apply fixes to resolve lint violations, but don't report on, or exit non-zero for, leftover violations.
 # @flag --ignore-noqa                              Ignore any `# noqa` comments
-# @option --output-format[text|concise|full|json|json-lines|junit|grouped|github|gitlab|pylint|rdjson|azure|sarif] <OUTPUT_FORMAT>  Output serialization format for violations.
+# @option --output-format[concise|full|json|json-lines|junit|grouped|github|gitlab|pylint|rdjson|azure|sarif] <OUTPUT_FORMAT>  Output serialization format for violations.
 # @option -o --output-file <OUTPUT_FILE>           Specify file to write the linter output to (default: stdout) [env: RUFF_OUTPUT_FILE=]
-# @option --target-version[py37|py38|py39|py310|py311|py312|py313] <TARGET_VERSION>  The minimum Python version that should be supported
+# @option --target-version[py37|py38|py39|py310|py311|py312|py313|py314] <TARGET_VERSION>  The minimum Python version that should be supported
 # @flag --preview                                  Enable preview mode; checks will include unstable rules and fixes.
 # @option --extension                              List of mappings from file extension to language (one of `python`, `ipynb`, `pyi`).
 # @flag --statistics                               Show counts for every rule with at least one violation
-# @flag --add-noqa                                 Enable automatic additions of `noqa` directives to failing lines
+# @option --add-noqa <REASON>                      Enable automatic additions of `noqa` directives to failing lines.
 # @flag --show-files                               See the files Ruff will be run against with the current settings
 # @flag --show-settings                            See the settings Ruff will use to lint a given Python file
 # @flag -h --help                                  Print help
@@ -118,12 +118,14 @@ clean() {
 # @flag --check                                Avoid writing any formatted files back; instead, exit with a non-zero status code if any files would have been modified, and zero otherwise
 # @flag --diff                                 Avoid writing any formatted files back; instead, exit with a non-zero status code and the difference between the current file and how the formatted file would look like
 # @option --extension                          List of mappings from file extension to language (one of `python`, `ipynb`, `pyi`).
-# @option --target-version[py37|py38|py39|py310|py311|py312|py313] <TARGET_VERSION>  The minimum Python version that should be supported
+# @option --target-version[py37|py38|py39|py310|py311|py312|py313|py314] <TARGET_VERSION>  The minimum Python version that should be supported
 # @flag --preview                              Enable preview mode; enables unstable formatting.
+# @option --output-format[concise|full|json|json-lines|junit|grouped|github|gitlab|pylint|rdjson|azure|sarif] <OUTPUT_FORMAT>  Output serialization format for violations, when used with `--check`.
 # @flag -h --help                              Print help (see a summary with '-h')
 # @flag -n --no-cache                          Disable cache reads
 # @option --cache-dir <CACHE_DIR>              Path to the cache directory
 # @option --stdin-filename <STDIN_FILENAME>    The name of the file when passing it through stdin
+# @flag --exit-non-zero-on-format              Exit with a non-zero status code if any files were modified via format, even if all files were formatted successfully
 # @flag --respect-gitignore                    Respect file exclusions via `.gitignore` and other standard ignore files.
 # @option --exclude <FILE_PATTERN>             List of paths, used to omit files and/or directories from analysis
 # @flag --force-exclude                        Enforce exclusions, even for paths passed to Ruff directly on the command-line.
@@ -153,6 +155,40 @@ server() {
     :;
 }
 # }} ruff server
+
+# {{ ruff analyze
+# @cmd Run analysis over Python source code
+# @flag -h --help                     Print help
+# @flag -v --verbose                  Enable verbose logging
+# @flag -q --quiet                    Print diagnostics, but nothing else
+# @flag -s --silent                   Disable all logging (but still exit with status code "1" upon detecting diagnostics)
+# @option --config <CONFIG_OPTION>    Either a path to a TOML configuration file (`pyproject.toml` or `ruff.toml`), or a TOML `<KEY> = <VALUE>` pair (such as you might find in a `ruff.toml` configuration file) overriding a specific configuration option.
+# @flag --isolated                    Ignore all configuration files
+analyze() {
+    :;
+}
+
+# {{{ ruff analyze graph
+# @cmd Generate a map of Python file dependencies or dependents
+# @option --direction                 The direction of the import map.
+# @flag --detect-string-imports       Attempt to detect imports from string literals
+# @option --min-dots <MIN_DOTS>       The minimum number of dots in a string import to consider it a valid import
+# @flag --preview                     Enable preview mode.
+# @option --target-version[py37|py38|py39|py310|py311|py312|py313|py314] <TARGET_VERSION>  The minimum Python version that should be supported
+# @option --python                    Path to a virtual environment to use for resolving additional dependencies
+# @flag --type-checking-imports       Include imports that are only used for type checking (i.e., imports within `if TYPE_CHECKING:` blocks).
+# @flag -h --help                     Print help (see a summary with '-h')
+# @flag -v --verbose                  Enable verbose logging
+# @flag -q --quiet                    Print diagnostics, but nothing else
+# @flag -s --silent                   Disable all logging (but still exit with status code "1" upon detecting diagnostics)
+# @option --config <CONFIG_OPTION>    Either a path to a TOML configuration file (`pyproject.toml` or `ruff.toml`), or a TOML `<KEY> = <VALUE>` pair (such as you might find in a `ruff.toml` configuration file) overriding a specific configuration option.
+# @flag --isolated                    Ignore all configuration files
+# @arg files*                         List of files or directories to include [default: .]
+analyze::graph() {
+    :;
+}
+# }}} ruff analyze graph
+# }} ruff analyze
 
 # {{ ruff version
 # @cmd Display Ruff's version

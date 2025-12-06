@@ -7,17 +7,22 @@
 # @option -u --uts <file>                        enter UTS namespace (hostname etc)
 # @option -i --ipc <file>                        enter System V IPC namespace
 # @option -n --net <file>                        enter network namespace
+# @option -N --net-socket <fd>                   enter socket's network namespace (use with --target)
 # @option -p --pid <file>                        enter pid namespace
 # @option -C --cgroup <file>                     enter cgroup namespace
 # @option -U --user <file>                       enter user namespace
+# @flag --user-parent                            enter parent user namespace
 # @option -T --time <file>                       enter time namespace
 # @option -S --setuid[`_module_os_uid`] <uid>    set uid in entered namespace
 # @option -G --setgid[`_module_os_gid`] <gid>    set gid in entered namespace
 # @flag --preserve-credentials                   do not touch uids or gids
+# @flag --keep-caps                              retain capabilities granted in user namespaces
 # @option -r --root <dir>                        set the root directory
 # @option -w --wd <dir>                          set the working directory
+# @option -W --wdns <dir>                        set the working directory in namespace
+# @flag -e --env                                 inherit environment variables from target process
 # @flag -F --no-fork                             do not fork before exec'ing <program>
-# @flag -Z --follow-context                      set SELinux context according to --target PID
+# @flag -c --join-cgroup                         join the cgroup of the target process
 # @flag -h --help                                display this help
 # @flag -V --version                             display version
 # @arg program[`_module_os_command`]

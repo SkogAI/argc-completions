@@ -6,8 +6,8 @@
 # @flag -m --canonicalize-missing     canonicalize by following every symlink in every component of the given name recursively, without requirements on components existence
 # @flag -n --no-newline               do not output the trailing delimiter
 # @flag -q --quiet
-# @flag -s --silent                   suppress most error messages (on by default)
-# @flag -v --verbose                  report error messages
+# @flag -s --silent                   suppress most error messages (on by default if POSIXLY_CORRECT is not set)
+# @flag -v --verbose                  report error messages (on by default if POSIXLY_CORRECT is set)
 # @flag -z --zero                     end each output line with NUL, not newline
 # @flag --help                        display this help and exit
 # @flag --version                     output version information and exit
