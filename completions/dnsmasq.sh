@@ -47,6 +47,7 @@
 # @flag -o --strict-order                          Use nameservers strictly in the order given in /etc/resolv.conf.
 # @option -O --dhcp-option <optspec>               Specify options to be sent to DHCP clients.
 # @option --dhcp-option-force <optspec>            DHCP option sent even if the client does not request it.
+# @option --dhcp-option-pxe <optspec>              DHCP option sent only to PXE clients.
 # @option -p --port <integer>                      Specify port to listen for DNS requests on (defaults to 53).
 # @option -P --edns-packet-max <integer>           Maximum supported UDP packet size for EDNS.0 (defaults to 1232).
 # @flag -q --log-queries                           Log DNS queries.
@@ -162,7 +163,7 @@
 # @option --connmark-allowlist <<connmark>[/<mask>][,<pattern>Set allowed DNS patterns for a connection-track mark. #>
 # @option --synth-domain <<domain>,<range>,[<prefix>]>  Specify a domain and address range for synthesised names
 # @flag --dnssec                                   Activate DNSSEC validation
-# @option --trust-anchor* <<domain>,[<class>],>    Specify trust anchor key digest.
+# @option --trust-anchor* <<domain>,[<class>,]>    Specify trust anchor key digest.
 # @flag --dnssec-debug                             Disable upstream checking for DNSSEC debugging.
 # @flag --dnssec-check-unsigned                    Ensure answers without DNSSEC are in unsigned zones.
 # @flag --dnssec-no-timecheck                      Don't check DNSSEC signature timestamps until first cache-reload
@@ -185,6 +186,8 @@
 # @option --umbrella <optspec>                     Send Cisco Umbrella identifiers including remote IP.
 # @flag --quiet-tftp                               Do not log routine TFTP.
 # @flag --no-round-robin                           Suppress round-robin ordering of DNS records.
+# @flag --no-0x20-encode                           Suppress DNS bit 0x20 encoding.
+# @flag --do-0x20-encode                           Enable DNS bit 0x20 encoding.
 # @flag --no-ident                                 Do not add CHAOS TXT records.
 # @option --cache-rr <RR-type>                     Cache this DNS resource record type.
 # @option --max-tcp-connections <integer>          Maximum number of concurrent tcp connections.

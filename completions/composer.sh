@@ -63,6 +63,8 @@ archive() {
 # @flag --no-dev               Disables auditing of require-dev packages.
 # @option -f --format          Output format.
 # @flag --locked               Audit based on the lock file instead of the installed packages.
+# @option --abandoned          Behavior on abandoned packages.
+# @option --ignore-severity    Ignore advisories of a certain severity level.
 # @flag -h --help              Display help for the given command.
 # @flag -q --quiet             Do not output any message
 # @flag -V --version           Display this application version
@@ -320,6 +322,7 @@ diagnose() {
 # @option --ignore-platform-req        Ignore a specific platform requirement (php & ext- packages).
 # @flag --ignore-platform-reqs         Ignore all platform requirements (php & ext- packages).
 # @flag --strict-psr                   Return a failed status code (1) if PSR-4 or PSR-0 mapping errors are present.
+# @flag --strict-ambiguous             Return a failed status code (2) if the same class is found in multiple files.
 # @flag -h --help                      Display help for the given command.
 # @flag -q --quiet                     Do not output any message
 # @flag -V --version                   Display this application version
@@ -569,6 +572,7 @@ prohibits() {
 # @option --apcu-autoloader-prefix        Use a custom prefix for the APCu autoloader cache.
 # @option --ignore-platform-req           Ignore a specific platform requirement (php & ext- packages).
 # @flag --ignore-platform-reqs            Ignore all platform requirements (php & ext- packages).
+# @option --type                          Filter packages to reinstall by type(s) (multiple values allowed)
 # @flag -h --help                         Display help for the given command.
 # @flag -q --quiet                        Do not output any message
 # @flag -V --version                      Display this application version
@@ -598,8 +602,8 @@ reinstall() {
 # @flag --no-audit                           Skip the audit step after updating the composer.lock file (can also be set via the COMPOSER_NO_AUDIT=1 env var).
 # @option --audit-format                     Audit output format.
 # @flag --update-no-dev                      Run the dependency update with the --no-dev option.
-# @flag -w --update-with-dependencies        Allows inherited dependencies to be updated with explicit dependencies.
-# @flag -W --update-with-all-dependencies    Allows all inherited dependencies to be updated, including those that are root requirements.
+# @flag -w --update-with-dependencies        Allows inherited dependencies to be updated with explicit dependencies (can also be set via the COMPOSER_WITH_DEPENDENCIES=1 env var).
+# @flag -W --update-with-all-dependencies    Allows all inherited dependencies to be updated, including those that are root requirements (can also be set via the COMPOSER_WITH_ALL_DEPENDENCIES=1 env var).
 # @flag --with-all-dependencies              Alias for --update-with-all-dependencies
 # @flag --no-update-with-dependencies        Does not allow inherited dependencies to be updated with explicit dependencies.
 # @flag -m --minimal-changes                 During an update with -w/-W, only perform absolutely necessary changes to transitive dependencies (can also be set via the COMPOSER_MINIMAL_CHANGES=1 env var).
@@ -644,8 +648,8 @@ remove() {
 # @flag --no-audit                           Skip the audit step after updating the composer.lock file (can also be set via the COMPOSER_NO_AUDIT=1 env var).
 # @option --audit-format                     Audit output format.
 # @flag --update-no-dev                      Run the dependency update with the --no-dev option.
-# @flag -w --update-with-dependencies        Allows inherited dependencies to be updated, except those that are root requirements.
-# @flag -W --update-with-all-dependencies    Allows all inherited dependencies to be updated, including those that are root requirements.
+# @flag -w --update-with-dependencies        Allows inherited dependencies to be updated, except those that are root requirements (can also be set via the COMPOSER_WITH_DEPENDENCIES=1 env var).
+# @flag -W --update-with-all-dependencies    Allows all inherited dependencies to be updated, including those that are root requirements (can also be set via the COMPOSER_WITH_ALL_DEPENDENCIES=1 env var).
 # @flag --with-dependencies                  Alias for --update-with-dependencies
 # @flag --with-all-dependencies              Alias for --update-with-all-dependencies
 # @option --ignore-platform-req              Ignore a specific platform requirement (php & ext- packages).
@@ -725,6 +729,38 @@ search() {
     :;
 }
 # }} composer search
+
+# {{ composer self-update
+# @cmd Updates composer.phar to the latest version
+# @alias selfupdate
+# @flag -r --rollback          Revert to an older installation of composer
+# @flag --clean-backups        Delete old backups during an update.
+# @flag --no-progress          Do not output download progress.
+# @flag --update-keys          Prompt user for a key update
+# @flag --stable               Force an update to the stable channel
+# @flag --preview              Force an update to the preview channel
+# @flag --snapshot             Force an update to the snapshot channel
+# @flag --1                    Force an update to the stable channel, but only use 1.x versions
+# @flag --2                    Force an update to the stable channel, but only use 2.x versions
+# @flag --2.2                  Force an update to the stable channel, but only use 2.2.x LTS versions
+# @flag --set-channel-only     Only store the channel as the default one and then exit
+# @flag -h --help              Display help for the given command.
+# @flag -q --quiet             Do not output any message
+# @flag -V --version           Display this application version
+# @flag --ansi                 Force (or disable --no-ansi) ANSI output
+# @flag --no-ansi              Force (or disable --no-ansi) ANSI output
+# @flag -n --no-interaction    Do not ask any interactive question
+# @flag --profile              Display timing and memory usage information
+# @flag --no-plugins           Whether to disable plugins.
+# @flag --no-scripts           Skips the execution of all scripts defined in composer.json file.
+# @option -d --working-dir     If specified, use the given directory as working directory.
+# @flag --no-cache             Prevent use of the cache
+# @flag -v --verbose*          Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+# @arg version                 The version to update to
+self-update() {
+    :;
+}
+# }} composer self-update
 
 # {{ composer show
 # @cmd Shows information about packages
@@ -831,8 +867,8 @@ suggests() {
 # @flag --no-autoloader                   Skips autoloader generation
 # @flag --no-suggest                      DEPRECATED: This flag does not exist anymore.
 # @flag --no-progress                     Do not output download progress.
-# @flag -w --with-dependencies            Update also dependencies of packages in the argument list, except those which are root requirements.
-# @flag -W --with-all-dependencies        Update also dependencies of packages in the argument list, including those which are root requirements.
+# @flag -w --with-dependencies            Update also dependencies of packages in the argument list, except those which are root requirements (can also be set via the COMPOSER_WITH_DEPENDENCIES=1 env var).
+# @flag -W --with-all-dependencies        Update also dependencies of packages in the argument list, including those which are root requirements (can also be set via the COMPOSER_WITH_ALL_DEPENDENCIES=1 env var).
 # @flag -o --optimize-autoloader          Optimize autoloader during autoloader dump.
 # @flag -a --classmap-authoritative       Autoload classes from the classmap only.
 # @flag --apcu-autoloader                 Use APCu to cache found/not-found classes.
@@ -842,8 +878,10 @@ suggests() {
 # @flag --prefer-stable                   Prefer stable versions of dependencies (can also be set via the COMPOSER_PREFER_STABLE=1 env var).
 # @flag --prefer-lowest                   Prefer lowest versions of dependencies (can also be set via the COMPOSER_PREFER_LOWEST=1 env var).
 # @flag -m --minimal-changes              During a partial update with -w/-W, only perform absolutely necessary changes to transitive dependencies (can also be set via the COMPOSER_MINIMAL_CHANGES=1 env var).
+# @flag --patch-only                      Only allow patch version updates for currently installed dependencies.
 # @flag -i --interactive                  Interactive interface with autocompletion to select the packages to update.
 # @flag --root-reqs                       Restricts the update to your first degree dependencies.
+# @option --bump-after-update             Runs bump after performing the update.
 # @flag -h --help                         Display help for the given command.
 # @flag -q --quiet                        Do not output any message
 # @flag -V --version                      Display this application version

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @option --signal*,[`_module_os_signal`] <sig>    signal to send (either number or name)
+# @flag -H --require-handler                       match only if signal handler is present
 # @option -q --queue <value>                       integer value to be sent with the signal
 # @flag -e --echo                                  display what is killed
 # @flag -c --count                                 count of matching processes
@@ -14,6 +14,7 @@
 # @option -O --older <seconds>                     select where older than seconds
 # @option -P --parent*,[`_module_os_pid`] <PPID,>  match only child processes of the given parent
 # @option -s --session*,[`_module_os_sid`] <SID,>  match session IDs
+# @option --signal*,[`_module_os_signal`] <sig>    signal to send (either number or name)
 # @option -t --terminal*,[`_module_os_tty`] <tty,>  match by controlling terminal
 # @option -u --euid*,[`_module_os_user`] <ID,>     match by effective IDs
 # @option -U --uid*,[`_module_os_user`] <ID,>      match by real IDs
@@ -21,8 +22,11 @@
 # @option -F --pidfile <file>                      read PIDs from file
 # @flag -L --logpidfile                            fail if PID file is not locked
 # @option -r --runstates*,[`_choice_runstate`] <state>  match runstates [D,S,Z,...]
+# @flag -A --ignore-ancestors                      exclude our ancestors from results
+# @option --cgroup* <grp,>                         match by cgroup v2 names
 # @option --ns*,[`_module_os_pid`] <PID>           match the processes that belong to the same namespace as <pid>
 # @option --nslist*,[`_choice_nslist`] <ns,>       list which namespaces will be considered for the --ns option.
+# @option --env* <name=val,>                       match on environment variable
 # @flag -h --help                                  display this help and exit
 # @flag -V --version                               output version information and exit
 # @arg pattern[`_module_os_process`]

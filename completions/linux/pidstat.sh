@@ -8,9 +8,10 @@
 # @option -G <process_name>                   Display only processes whose command name includes the string process_name.
 # @flag -H                                    Display timestamp in seconds since the epoch.
 # @flag -h                                    Display all activities horizontally on a single line, with no average statistics at the end of the report.
-# @flag --human                               Print sizes in human readable format (e.g. 1.0k, 1.2M, etc.)  The units displayed with this option supersede any other default units (e.g.  kilobytes, sectors...) associated with the metrics.
+# @flag --human                               Print sizes in human readable format (e.g. 1.0k, 1.2M, etc.)  The units displayed with this option supersede any other default units (e.g.  kibibytes, sectors...) associated with the metrics.
 # @flag -I                                    In an SMP environment, indicate that tasks CPU usage (as displayed by option -u) should be divided by the total number of processors.
 # @flag -l                                    Display the process command name and all its arguments.
+# @option -o <JSON>                           Display the statistics in JSON (JavaScript Object Notation) format.
 # @option -p[`_choice_pid`] <value>           Select tasks (processes) for which statistics are to be reported.
 # @flag -R                                    Report realtime priority and scheduling policy information.
 # @flag -r                                    Report page faults and memory utilization.

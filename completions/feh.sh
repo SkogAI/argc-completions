@@ -22,6 +22,7 @@
 # @option -f --filelist <file>                    This option is similar to the playlists used by music software.
 # @option -e --font <font>                        Set global font.
 # @option -C --fontpath <path>                    Specify path as extra directory in which to search for fonts; can be used multiple times to add multiple paths.
+# @flag --tap-zones                               Enable tap zones for previous/next file in slide show mode
 # @flag --force-aliasing                          Disable anti-aliasing for zooming, background setting etc.
 # @flag -I --fullindex                            Same as index mode, but with additional information below the thumbnails.
 # @flag -F --fullscreen                           Make the window fullscreen.
@@ -59,7 +60,7 @@
 # @option -D --slideshow-delay <float>            For slideshow mode, wait float seconds between automatically changing slides.
 # @option -S --sort[name|none|filename|dirname|mtime|width|height|pixels|size|format] <sort_type>  Sort file list according to image parameters.
 # @option --start-at <filename>                   Start the filelist at filename.
-# @option -T --theme <theme>                      Load options from config file with name theme - see THEMES CONFIG SYNTAX for more info.
+# @option -T --theme <theme>                      Load options from config file with name theme - see “THEMES CONFIG SYNTAX” for more info.
 # @flag -t --thumbnails                           Same as Index mode, but the thumbnails are clickable image launchers.
 # @option -~ --thumb-title <string>               Set title for windows opened from thumbnail mode.
 # @option -^ --title <title>                      Set window title.

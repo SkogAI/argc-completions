@@ -3,14 +3,18 @@
 
 # @option --backup[`_choice_backup`] <CONTROL>    make a backup of each existing destination file
 # @flag -b                                        like --backup but does not accept an argument
+# @flag --debug                                   explain how a file is copied.
+# @flag --exchange                                exchange source and destination
 # @flag -f --force                                do not prompt before overwriting
 # @flag -i --interactive                          prompt before overwrite
 # @flag -n --no-clobber                           do not overwrite an existing file
+# @flag --no-copy                                 do not copy if renaming fails
 # @flag --strip-trailing-slashes                  remove any trailing slashes from each SOURCE argument
 # @option -S --suffix                             override the usual backup suffix
 # @option -t --target-directory <DIRECTORY>       move all SOURCE arguments into DIRECTORY
 # @flag -T --no-target-directory                  treat DEST as a normal file
-# @flag -u --update                               move only when the SOURCE file is newer than the destination file or when the destination file is missing
+# @option --update                                control which existing files are updated; UPDATE={all,none,none-fail,older(default)}
+# @flag -u                                        equivalent to --update[=older].
 # @flag -v --verbose                              explain what is being done
 # @flag -Z --context                              set SELinux security context of destination file to default type
 # @flag --help                                    display this help and exit

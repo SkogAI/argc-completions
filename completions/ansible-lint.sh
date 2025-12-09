@@ -2,7 +2,7 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @flag -h --help                                 show this help message and exit
-# @flag -P --list-profiles                        List all profiles, no formatting options available.
+# @flag -P --list-profiles                        List all profiles.
 # @flag -L --list-rules                           List all the rules.
 # @flag -T --list-tags                            List all the tags and the rules they cover.
 # @option -f --format[brief|full|md|json|codeclimate|quiet|pep8|sarif]  stdout formatting, json being an alias for codeclimate.
@@ -27,7 +27,9 @@
 # @option --exclude <EXCLUDE_PATHS+>              path to directories or files to skip.
 # @option -c --config-file <CONFIG_FILE>          Specify configuration file to use.
 # @option -i --ignore-file <IGNORE_FILE>          Specify ignore file to use.
+# @option --yamllint-file <YAMLLINT_FILE>         Specify yamllint config file to use.
 # @flag --offline                                 Disable installation of requirements.yml and schema refreshing
+# @flag --no-offline                              Disable installation of requirements.yml and schema refreshing
 # @flag --version
 # @arg paths*
 

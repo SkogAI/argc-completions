@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
+# @flag -E --canonicalize             all but the last component must exist (default)
 # @flag -e --canonicalize-existing    all components of the path must exist
 # @flag -m --canonicalize-missing     no path components need exist or be a directory
 # @flag -L --logical                  resolve '..' components before symlinks

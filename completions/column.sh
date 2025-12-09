@@ -4,10 +4,12 @@
 # @flag -t --table                          create a table
 # @option -n --table-name <name>            table name for JSON output
 # @option -O --table-order <columns>        specify order of output columns
+# @option -C --table-column <properties>    define column
 # @option -N --table-columns <names>        comma separated columns names
 # @option -l --table-columns-limit <num>    maximal number of input columns
 # @option -E --table-noextreme <columns>    don't count long text from the columns to column width
 # @flag -d --table-noheadings               don't print header
+# @flag -m --table-maxout                   fill all available space
 # @flag -e --table-header-repeat            repeat header for each page
 # @option -H --table-hide <columns>         don't print the columns
 # @option -R --table-right <columns>        right align text in these columns
@@ -22,6 +24,7 @@
 # @option -o --output-separator <string>    columns separator for table output (default is two spaces)
 # @option -s --separator <string>           possible table delimiters
 # @flag -x --fillrows                       fill rows before columns
+# @option -S --use-spaces <number>          minimal whitespaces between columns (no tabs)
 # @flag -h --help                           display this help
 # @flag -V --version                        display version
 # @arg file*

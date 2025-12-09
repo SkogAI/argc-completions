@@ -4,8 +4,10 @@
 # @flag -h --help                  Shows a short help message.
 # @flag --version                  Shows the ethtool version number.
 # @option --debug <N>              Turns on debugging messages.
+# @flag --disable-netlink          Do not use netlink and fall back to the ioctl interface if possible.
 # @flag --json                     Output results in JavaScript Object Notation (JSON).
 # @flag -I --include-statistics    Include command-related statistics in the output.
+# @option --phy <N>                Target a PHY within the interface.
 # @flag -a --show-pause            Queries the specified Ethernet device for pause parameter information.
 # @flag -A --pause                 Changes the pause parameters of the specified Ethernet device.
 # @flag -c --show-coalesce         Queries the specified network device for coalescing information.
@@ -40,6 +42,8 @@
 # @flag -w --get-dump              Retrieves and prints firmware dump for the specified network device.
 # @flag -W --set-dump              Sets the dump flag for the device.
 # @flag -T --show-time-stamping    Show the device's time stamping capabilities and associated PTP hardware clock.
+# @flag --get-hwtimestamp-cfg      Show the selected time stamping PTP hardware clock configuration.
+# @flag --set-hwtimestamp-cfg      Select the device's time stamping PTP hardware clock.
 # @flag -x                         Retrieves the receive flow hash indirection table and/or RSS hash key.
 # @flag --show-rxfh-indir          Retrieves the receive flow hash indirection table and/or RSS hash key.
 # @flag --show-rxfh                Retrieves the receive flow hash indirection table and/or RSS hash key.
@@ -64,9 +68,21 @@
 # @flag --show-fec                 Queries the specified network device for its support of Forward Error Correction.
 # @flag --set-fec                  Configures Forward Error Correction for the specified network device.
 # @option -Q <|--per-queue>        Applies provided sub command to specific queues.
+# @flag --cable-test               Perform a cable test and report the results.
 # @flag --cable-test-tdr           Perform a cable test and report the raw Time Domain Reflectometer data.
 # @flag --monitor                  Listens to netlink notification and displays them.
 # @flag --show-tunnels             Show tunnel-related device capabilities and state.
+# @flag --show-module              Show the transceiver module's parameters.
+# @flag --set-module               Set the transceiver module's parameters.
+# @flag --get-plca-cfg             Show the current PLCA parameters for the given interface.
+# @flag --set-plca-cfg             Change the PLCA settings for the given interface.
+# @flag --get-plca-status          Show the current PLCA status for the given interface.
+# @flag --show-mm                  Show the MAC Merge layer state.
+# @flag --set-mm                   Set the MAC Merge layer parameters.
+# @flag --show-pse                 Show the current Power Sourcing Equipment (PSE) status for the given interface.
+# @flag --set-pse                  Set Power Sourcing Equipment (PSE) parameters.
+# @flag --flash-module-firmware    Flash the transceiver module's firmware.
+# @flag --show-phys                Show the PHY devices attached to an interface, and the way they link together.
 # @arg ifaces*[`_module_os_network_interface`]
 
 _module_os_network_interface() {

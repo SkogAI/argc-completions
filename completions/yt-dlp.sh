@@ -9,7 +9,6 @@
 # @flag -i --ignore-errors                         Ignore download and postprocessing errors.
 # @flag --no-abort-on-error                        Continue with next video on download errors; e.g. to skip unavailable videos in a playlist (default)
 # @flag --abort-on-error                           Abort downloading of further videos if an error occurs (Alias: --no-ignore-errors)
-# @flag --dump-user-agent                          Display the current user-agent and exit
 # @flag --list-extractors                          List all supported extractors and exit
 # @flag --extractor-descriptions                   Output descriptions of all supported extractors and exit
 # @option --use-extractors <NAMES>                 Extractor names to use separated by commas.
@@ -17,7 +16,9 @@
 # @flag --ignore-config                            Don't load any more configuration files except those given to --config-locations.
 # @flag --no-config-locations                      Do not load any custom configuration files (default).
 # @option --config-locations <PATH>                Location of the main configuration file; either the path to the config or its containing directory ("-" for stdin).
-# @flag --flat-playlist                            Do not extract the videos of a playlist, only list them
+# @option --plugin-dirs <PATH>                     Path to an additional directory to search for plugins.
+# @flag --no-plugin-dirs                           Clear plugin directories to search, including defaults and those provided by previous --plugin-dirs
+# @flag --flat-playlist                            Do not extract a playlist's URL result entries; some entry metadata may be missing and downloading may be bypassed
 # @flag --no-flat-playlist                         Fully extract the videos of a playlist (default)
 # @flag --live-from-start                          Download livestreams from the start.
 # @flag --no-live-from-start                       Download livestreams from the current time (default)
@@ -28,6 +29,7 @@
 # @option --color <[STREAM:]POLICY>                Whether to emit color codes in output, optionally prefixed by the STREAM (stdout or stderr) to apply the setting to.
 # @option --compat-options <OPTS>                  Options that can help keep compatibility with youtube-dl or youtube-dlc configurations by reverting some of the changes made in yt-dlp.
 # @option --alias <ALIASES> <OPTIONS>              Create aliases for an option string.
+# @option -t --preset-alias[mp3|aac|mp4|mkv|sleep] <PRESET>  Applies a predefined set of options.
 # @option --proxy <URL>                            Use the specified HTTP/HTTPS/SOCKS proxy.
 # @option --socket-timeout <SECONDS>               Time to wait before giving up, in seconds
 # @option --source-address <IP>                    Client-side IP address to bind to
@@ -45,7 +47,7 @@
 # @option --datebefore <DATE>                      Download only videos uploaded on or before this date.
 # @option --dateafter <DATE>                       Download only videos uploaded on or after this date.
 # @option --match-filters <FILTER>                 Generic video filter.
-# @flag --no-match-filters                         Do not use any --match-filter (default)
+# @flag --no-match-filters                         Do not use any --match-filters (default)
 # @option --break-match-filters <FILTER>           Same as "--match-filters" but stops the download process when a video is rejected
 # @flag --no-break-match-filters                   Do not use any --break-match-filters (default)
 # @flag --no-playlist                              Download only the video, if the URL refers to a video and a playlist
@@ -54,9 +56,9 @@
 # @option --download-archive <FILE>                Download only videos not listed in the archive file.
 # @flag --no-download-archive                      Do not use archive file (default)
 # @option --max-downloads <NUMBER>                 Abort after downloading NUMBER files
-# @flag --break-on-existing                        Stop the download process when encountering a file that is in the archive
+# @flag --break-on-existing                        Stop the download process when encountering a file that is in the archive supplied with the --download-archive option
 # @flag --no-break-on-existing                     Do not stop the download process when encountering a file that is in the archive (default)
-# @flag --break-per-input                          Alters --max-downloads, --break-on-existing, --break-match-filter, and autonumber to reset per input URL
+# @flag --break-per-input                          Alters --max-downloads, --break-on-existing, --break-match-filters, and autonumber to reset per input URL
 # @flag --no-break-per-input                       --break-on-existing and similar options terminates the entire download queue
 # @option --skip-playlist-after-errors <N>         Number of allowed failures until the rest of the playlist is skipped
 # @option -N --concurrent-fragments <N>            Number of fragments of a dash/hlsnative video that should be downloaded concurrently (default is 1)
@@ -77,7 +79,6 @@
 # @flag --playlist-random                          Download playlist videos in random order
 # @flag --lazy-playlist                            Process entries in the playlist as they are received.
 # @flag --no-lazy-playlist                         Process videos in the playlist only after the entire playlist is parsed (default)
-# @flag --xattr-set-filesize                       Set file xattribute ytdl.filesize with expected file size
 # @flag --hls-use-mpegts                           Use the mpegts container for HLS videos; allowing some players to play the video while downloading, and reducing the chance of file corruption if download is interrupted.
 # @flag --no-hls-use-mpegts                        Do not use the mpegts container for HLS videos.
 # @option --download-sections <REGEX>              Download only chapters that match the regular expression.
@@ -91,7 +92,7 @@
 # @flag --restrict-filenames                       Restrict filenames to only ASCII characters, and avoid "&" and spaces in filenames
 # @flag --no-restrict-filenames                    Allow Unicode characters, "&" and spaces in filenames (default)
 # @flag --windows-filenames                        Force filenames to be Windows-compatible
-# @flag --no-windows-filenames                     Make filenames Windows-compatible only if using Windows (default)
+# @flag --no-windows-filenames                     Sanitize filenames only minimally
 # @option --trim-filenames <LENGTH>                Limit the filename length (excluding extension) to the specified number of characters
 # @flag -w --no-overwrites                         Do not overwrite any files
 # @flag --force-overwrites                         Overwrite all video and metadata files.
@@ -100,8 +101,8 @@
 # @flag --no-continue                              Do not resume partially downloaded fragments.
 # @flag --part                                     Use .part files instead of writing directly into output file (default)
 # @flag --no-part                                  Do not use .part files - write directly into output file
-# @flag --mtime                                    Use the Last-modified header to set the file modification time (default)
-# @flag --no-mtime                                 Do not use the Last-modified header to set the file modification time
+# @flag --mtime                                    Use the Last-modified header to set the file modification time
+# @flag --no-mtime                                 Do not use the Last-modified header to set the file modification time (default)
 # @flag --write-description                        Write video description to a .description file
 # @flag --no-write-description                     Do not write video description (default)
 # @flag --write-info-json                          Write video metadata to a .info.json file (this may contain personal information)
@@ -139,7 +140,7 @@
 # @option -O --print <[WHEN:]TEMPLATE>             Field name or output template to print to screen, optionally prefixed with when to print it, separated by a ":".
 # @option --print-to-file <[WHEN:]TEMPLATE> <FILE>  Append given template to the file.
 # @flag -j --dump-json                             Quiet, but print JSON information for each video.
-# @flag -J --dump-single-json                      Quiet, but print JSON information for each url or infojson passed.
+# @flag -J --dump-single-json                      Quiet, but print JSON information for each URL or infojson passed.
 # @flag --force-write-archive                      Force download archive entries to be written as far as no errors occur, even if -s or another simulation option is used (Alias: --force-download-archive)
 # @flag --newline                                  Output progress bar as new lines
 # @flag --no-progress                              Do not print progress bar
@@ -169,7 +170,7 @@
 # @flag --no-video-multistreams                    Only one video stream is downloaded for each output file (default)
 # @flag --audio-multistreams                       Allow multiple audio streams to be merged into a single file
 # @flag --no-audio-multistreams                    Only one audio stream is downloaded for each output file (default)
-# @flag --prefer-free-formats                      Prefer video formats with free containers over non-free ones of same quality.
+# @flag --prefer-free-formats                      Prefer video formats with free containers over non-free ones of the same quality.
 # @flag --no-prefer-free-formats                   Don't give any special preference to free containers (default)
 # @flag --check-formats                            Make sure formats are selected only from those that are actually downloadable
 # @flag --check-all-formats                        Check all formats for whether they are actually downloadable
@@ -181,8 +182,8 @@
 # @flag --write-auto-subs                          Write automatically generated subtitle file (Alias: --write-automatic-subs)
 # @flag --no-write-auto-subs                       Do not write auto-generated subtitles (default) (Alias: --no-write-automatic-subs)
 # @flag --list-subs                                List available subtitles of each video.
-# @option --sub-format*/[ass|srt|best] <FORMAT>    Subtitle format; accepts formats preference, e.g. "srt" or "ass/srt/best"
-# @option --sub-langs <LANGS>                      Languages of the subtitles to download (can be regex) or "all" separated by commas, e.g. --sub-langs "en.*,ja".
+# @option --sub-format*/[ass|srt|best] <FORMAT>    Subtitle format; accepts formats preference separated by "/", e.g. "srt" or "ass/srt/best"
+# @option --sub-langs <LANGS>                      Languages of the subtitles to download (can be regex) or "all" separated by commas, e.g. --sub-langs "en.*,ja" (where "en.*" is a regex pattern that matches "en" followed by 0 or more of any character).
 # @option -u --username                            Login with this account ID
 # @option -p --password                            Account password.
 # @option -2 --twofactor                           Two-factor authentication code
@@ -219,13 +220,13 @@
 # @flag --no-embed-info-json                       Do not embed the infojson as an attachment to the video file
 # @option --parse-metadata <[WHEN:]FROM:TO>        Parse additional metadata like title/artist from other fields; see "MODIFYING METADATA" for details.
 # @option --replace-in-metadata <[WHEN:]FIELDS> <REGEX> <REPLACE>  Replace text in a metadata field using the given regex.
-# @flag --xattrs                                   Write metadata to the video file's xattrs (using dublin core and xdg standards)
+# @flag --xattrs                                   Write metadata to the video file's xattrs (using Dublin Core and XDG standards)
 # @option --concat-playlist <POLICY>               Concatenate videos in a playlist.
 # @option --fixup[`_choice_fixup`] <POLICY>        Automatically correct known faults of the file.
 # @option --ffmpeg-location <PATH>                 Location of the ffmpeg binary; either the path to the binary or its containing directory
 # @option --exec <[WHEN:]CMD>                      Execute a command, optionally prefixed with when to execute it, separated by a ":".
 # @flag --no-exec                                  Remove any previously defined --exec
-# @option --convert-subs[srt|ass|vtt|lrc] <FORMAT>  Convert the subtitles to another format (Alias: --convert-subtitles)
+# @option --convert-subs[srt|ass|vtt|lrc] <FORMAT>  Convert the subtitles to another format.
 # @option --convert-thumbnails[jpg|png|webp] <FORMAT>  Convert the thumbnails to another format.
 # @flag --split-chapters                           Split video into multiple files based on internal chapters.
 # @flag --no-split-chapters                        Do not split video based on chapters (default)
@@ -233,7 +234,7 @@
 # @flag --no-remove-chapters                       Do not remove any chapters from the file (default)
 # @flag --force-keyframes-at-cuts                  Force keyframes at cuts when downloading/splitting/removing sections.
 # @flag --no-force-keyframes-at-cuts               Do not force keyframes around the chapters when cutting/splitting (default)
-# @option --use-postprocessor <NAME[:ARGS]>        The (case sensitive) name of plugin postprocessors to be enabled, and (optionally) arguments to be passed to it, separated by a colon ":".
+# @option --use-postprocessor <NAME[:ARGS]>        The (case-sensitive) name of plugin postprocessors to be enabled, and (optionally) arguments to be passed to it, separated by a colon ":".
 # @option --sponsorblock-mark <CATS>               SponsorBlock categories to create chapters for, separated by commas.
 # @option --sponsorblock-remove <CATS>             SponsorBlock categories to be removed from the video file, separated by commas.
 # @option --sponsorblock-chapter-title <TEMPLATE>  An output template for the title of the SponsorBlock chapters created by --sponsorblock-mark.
@@ -243,8 +244,13 @@
 # @flag --allow-dynamic-mpd                        Process dynamic DASH manifests (default) (Alias: --no-ignore-dynamic-mpd)
 # @flag --ignore-dynamic-mpd                       Do not process dynamic DASH manifests (Alias: --no-allow-dynamic-mpd)
 # @flag --hls-split-discontinuity                  Split HLS playlists to different formats at discontinuities such as ad breaks
-# @flag --no-hls-split-discontinuity               Do not split HLS playlists to different formats at discontinuities such as ad breaks (default)
+# @flag --no-hls-split-discontinuity               Do not split HLS playlists into different formats at discontinuities such as ad breaks (default)
 # @option --extractor-args <IE_KEY:ARGS>           Pass ARGS arguments to the IE_KEY extractor.
+# @option -t <mp3>                                 -f 'ba[acodec^=mp3]/ba/b' -x --audio-format mp3
+# @option -t <aac>                                 -f 'ba[acodec^=aac]/ba[acodec^=mp4a.40.]/ba/b' -x --audio-format aac
+# @option -t <mp4>                                 --merge-output-format mp4 --remux-video mp4 -S vcodec:h264,lang,quality,res,fps,hdr:12,a codec:aac
+# @option -t <mkv>                                 --merge-output-format mkv --remux-video mkv
+# @option -t <sleep>                               --sleep-subtitles 5 --sleep-requests 0.75 --sleep-interval 10 --max-sleep-interval 20
 # @arg url*
 
 _choice_format() {

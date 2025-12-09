@@ -54,6 +54,7 @@
 # @flag -P --percents                    Show percents, while calculating or verifying message digests.
 # @flag --speed                          Output per-file and total processing speed.
 # @option --max-depth <n>                Descend at most <n> levels of directories.
+# @option --openssl <list>               Specify hash functions to be calculated using OpenSSL.
 # @option -o --output <file>             File to output calculation or checking results.
 # @option -l --log <file>                File to log errors and verbose information.
 # @flag --sfv                            Print message digests, using SFV format (default).

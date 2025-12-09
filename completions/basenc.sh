@@ -3,6 +3,7 @@
 
 # @flag --base64               same as 'base64' program (RFC4648 section 4)
 # @flag --base64url            file- and url-safe base64 (RFC4648 section 5)
+# @flag --base58               visually unambiguous base58 encoding
 # @flag --base32               same as 'base32' program (RFC4648 section 6)
 # @flag --base32hex            extended hex alphabet base32 (RFC4648 section 7)
 # @flag --base16               hex encoding (RFC4648 section 8)

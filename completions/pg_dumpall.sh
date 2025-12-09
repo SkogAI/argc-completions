@@ -22,6 +22,7 @@
 # @flag --disable-triggers                        disable triggers during data-only restore
 # @option --exclude-database <PATTERN>            exclude databases whose name matches PATTERN
 # @option --extra-float-digits <NUM>              override default setting for extra_float_digits
+# @option --filter <FILENAME>                     exclude databases based on expressions in FILENAME
 # @flag --if-exists                               use IF EXISTS when dropping objects
 # @flag --inserts                                 dump data as INSERT commands, rather than COPY
 # @flag --load-via-partition-root                 load partitions via the root table
@@ -37,6 +38,7 @@
 # @flag --no-unlogged-table-data                  do not dump unlogged table data
 # @flag --on-conflict-do-nothing                  add ON CONFLICT DO NOTHING to INSERT commands
 # @flag --quote-all-identifiers                   quote all identifiers, even if not key words
+# @option --restrict-key <RESTRICT_KEY>           use provided string as psql \restrict key
 # @option --rows-per-insert <NROWS>               number of rows per INSERT; implies --inserts
 # @flag --use-set-session-authorization           use SET SESSION AUTHORIZATION commands instead of ALTER OWNER commands to set ownership
 # @option -d --dbname[`_choice_database`] <CONNSTR>  connect using connection string

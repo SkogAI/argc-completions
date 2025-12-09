@@ -15,12 +15,13 @@
 # @flag -i                                  Interrupt output sooner when flow control is on.
 # @flag -l                                  Login mode on (update /var/run/utmp), -ln = off.
 # @option -ls <match>                       or
-# @flag -list                               Do nothing, just list our SockDir [on possible matches].
+# @flag -list                               Do nothing, just list our SocketDir [on possible matches].
 # @flag -L                                  Turn on output logging.
 # @flag -Logfile                            file Set logfile name.
 # @flag -m                                  ignore $STY variable, do create a new screen session.
 # @flag -O                                  Choose optimal output rather than exact vt100 emulation.
 # @option -p <window>                       Preselect the named window if it exists.
+# @flag -P                                  Tell screen to enable authentication.
 # @flag -q                                  Quiet startup.
 # @flag -Q                                  Commands will send the response to the stdout of the querying process.
 # @option -r[`_choice_screen`] <session>    Reattach to a detached screen process.
@@ -30,8 +31,8 @@
 # @option -t <title>                        Set title.
 # @option -T <term>                         Use term as $TERM for windows, rather than "screen".
 # @flag -U                                  Tell screen to use UTF-8 encoding.
-# @flag -v                                  Print "Screen version 4.09.01 (GNU) 20-Aug-23".
-# @option -wipe <match>                     Do nothing, just clean up SockDir [on possible matches].
+# @flag -v                                  Print "Screen version 5.0.1 (build on 2025-05-29 04:05:07) ".
+# @option -wipe <match>                     Do nothing, just clean up SocketDir [on possible matches].
 # @option -x[`_choice_attached_screen`]     Attach to a not detached screen.
 # @flag -X                                  Execute <cmd> as a screen command in the specified session.
 

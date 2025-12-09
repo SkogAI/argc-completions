@@ -9,10 +9,10 @@
 # @option -g <group_name> <device+>    group_name { device [...] | ALL } Display statistics for a group of devices.
 # @flag -H                             This option must be used with option -g and indicates that only global statistics for the group are to be displayed, and not statistics for individual devices in the group.
 # @flag -h                             This option is equivalent to specifying --human --pretty.
-# @flag --human                        Print sizes in human readable format (e.g. 1.0k, 1.2M, etc.)  The units displayed with this option supersede any other default units (e.g.  kilobytes, sectors...) associated with the metrics.
+# @flag --human                        Print sizes in human readable format (e.g. 1.0k, 1.2M, etc.)  The units displayed with this option supersede any other default units (e.g.  kibibytes, sectors...) associated with the metrics.
 # @option -j <selector> <device+>      Display persistent device names.
-# @flag -k                             Display statistics in kilobytes per second.
-# @flag -m                             Display statistics in megabytes per second.
+# @flag -k                             Display statistics in kibibytes per second.
+# @flag -m                             Display statistics in mebibytes per second.
 # @flag -N                             Display the registered device mapper names for any device mapper devices.
 # @option -o <JSON>                    Display the statistics in JSON (JavaScript Object Notation) format.
 # @option -p <device+>                 Display statistics for block devices and all their partitions that are used by the system.

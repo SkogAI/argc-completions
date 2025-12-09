@@ -13,19 +13,20 @@
 
 # {{ vercel deploy
 # @cmd Performs a deployment (default)
-# @flag --archive                       Compress the deployment code into a file before uploading it
-# @option -b --build-env <key=value>    Specify environment variables during build-time (e.g. `-b KEY1=value1 -b KEY2=value2`)
-# @option -e --env <key=value>          Specify environment variables during run-time (e.g. `-e KEY1=value1 -e KEY2=value2`)
+# @option --archive <FORMAT>            Compress the deployment code into an archive before uploading it
+# @option -b --build-env <KEY=VALUE>    Specify environment variables during build-time (e.g. `-b KEY1=value1 -b KEY2=value2`)
+# @option -e --env <KEY=VALUE>          Specify environment variables during run-time (e.g. `-e KEY1=value1 -e KEY2=value2`)
 # @flag -f --force                      Force a new deployment even if nothing has changed
+# @flag --guidance                      Receive command suggestions once deployment is complete
 # @flag -l --logs                       Print the build logs
-# @option -m --meta <key=value>         Specify metadata for the deployment (e.g. `-m KEY1=value1 -m KEY2=value2`)
+# @option -m --meta <KEY=VALUE>         Specify metadata for the deployment (e.g. `-m KEY1=value1 -m KEY2=value2`)
 # @flag --no-wait                       Don't wait for the deployment to finish
 # @flag --prebuilt                      Use in combination with `vc build`.
 # @flag --prod                          Create a production deployment (shorthand for `--target=production`)
 # @flag -p --public                     Deployment is public (`/_src`) is exposed)
-# @flag --regions                       Set default regions to enable the deployment on
+# @option --regions <REGION>            Set default regions to enable the deployment on
 # @flag --skip-domain                   Disable the automatic promotion (aliasing) of the relevant domains to a new production deployment.
-# @flag --target                        Specify the target deployment environment
+# @option --target                      Specify the target deployment environment
 # @flag --with-cache                    Retain build cache when using "--force"
 # @flag -y --yes                        Use default options to skip all prompts
 # @option --cwd <DIR>                   Sets the current working directory for a single run of a command
@@ -43,9 +44,48 @@ deploy() {
 }
 # }} vercel deploy
 
+# {{ vercel build
+# @cmd Build the project locally into './vercel/output'
+# @option --output <DIR>              Directory where built assets will be written to
+# @flag --prod                        Build a production deployment
+# @flag --standalone                  Create a standalone build with all dependencies inlined into function output folders
+# @option --target                    Specify the target environment
+# @flag -y --yes                      Skip the confirmation prompt about pulling environment variables and project settings when not found locally
+# @option --cwd <DIR>                 Sets the current working directory for a single run of a command
+# @flag -d --debug                    Debug mode (default off)
+# @option -Q --global-config <DIR>    Path to the global `.vercel` directory
+# @flag -h --help                     Output usage information
+# @option -A --local-config <FILE>    Path to the local `vercel.json` file
+# @flag --no-color                    No color mode (default off)
+# @flag -S --scope                    Set a custom scope
+# @option -t --token                  Login token
+# @flag -v --version                  Output the version number
+build() {
+    :;
+}
+# }} vercel build
+
+# {{ vercel cache
+# @cmd Manages cache for your current Project
+# @option --cwd <DIR>                 Sets the current working directory for a single run of a command
+# @flag -d --debug                    Debug mode (default off)
+# @option -Q --global-config <DIR>    Path to the global `.vercel` directory
+# @flag -h --help                     Output usage information
+# @option -A --local-config <FILE>    Path to the local `vercel.json` file
+# @flag --no-color                    No color mode (default off)
+# @flag -S --scope                    Set a custom scope
+# @option -t --token                  Login token
+# @flag -v --version                  Output the version number
+# @arg command
+cache() {
+    :;
+}
+# }} vercel cache
+
 # {{ vercel dev
 # @cmd Start a local development server
-# @option -l --listen <uri>           Specify a URI endpoint on which to listen [0.0.0.0:3000]
+# @option -l --listen <URI>           Specify a URI endpoint on which to listen [0.0.0.0:3000]
+# @flag -y --yes                      Accept default value for all prompts
 # @option --cwd <DIR>                 Sets the current working directory for a single run of a command
 # @flag -d --debug                    Debug mode (default off)
 # @option -Q --global-config <DIR>    Path to the global `.vercel` directory
@@ -63,9 +103,6 @@ dev() {
 
 # {{ vercel env
 # @cmd Manages the Environment Variables for your current Project
-# @option --environment[development|preview|production]  Set the Environment when pulling Environment Variables
-# @flag --git-branch                  Specify the Git branch to pull specific Environment Variables for
-# @flag -y --yes                      Skip the confirmation prompt when removing an alias
 # @option --cwd <DIR>                 Sets the current working directory for a single run of a command
 # @flag -d --debug                    Debug mode (default off)
 # @option -Q --global-config <DIR>    Path to the global `.vercel` directory
@@ -131,11 +168,46 @@ init() {
 # @flag -S --scope                    Set a custom scope
 # @option -t --token                  Login token
 # @flag -v --version                  Output the version number
-# @arg url
+# @arg url-deploymentid <url|deploymentId>
 inspect() {
     :;
 }
 # }} vercel inspect
+
+# {{ vercel install
+# @cmd Install an integration from the Marketplace
+# @alias i
+# @option --cwd <DIR>                 Sets the current working directory for a single run of a command
+# @flag -d --debug                    Debug mode (default off)
+# @option -Q --global-config <DIR>    Path to the global `.vercel` directory
+# @flag -h --help                     Output usage information
+# @option -A --local-config <FILE>    Path to the local `vercel.json` file
+# @flag --no-color                    No color mode (default off)
+# @flag -S --scope                    Set a custom scope
+# @option -t --token                  Login token
+# @flag -v --version                  Output the version number
+# @arg integration
+install() {
+    :;
+}
+# }} vercel install
+
+# {{ vercel integration
+# @cmd Manages your Marketplace integrations
+# @option --cwd <DIR>                 Sets the current working directory for a single run of a command
+# @flag -d --debug                    Debug mode (default off)
+# @option -Q --global-config <DIR>    Path to the global `.vercel` directory
+# @flag -h --help                     Output usage information
+# @option -A --local-config <FILE>    Path to the local `vercel.json` file
+# @flag --no-color                    No color mode (default off)
+# @flag -S --scope                    Set a custom scope
+# @option -t --token                  Login token
+# @flag -v --version                  Output the version number
+# @arg command
+integration() {
+    :;
+}
+# }} vercel integration
 
 # {{ vercel link
 # @cmd Link local directory to a Vercel Project
@@ -159,9 +231,12 @@ link() {
 # {{ vercel ls
 # @cmd Lists deployments
 # @alias list
-# @option --environment <production|preview>
-# @option -m --meta <KEY=value>       Filter deployments by metadata (e.g.: `-m KEY=value`).
+# @option --environment <TARGET>
+# @option -m --meta <KEY=VALUE>       Filter deployments by metadata (e.g.: `-m KEY=value`).
 # @option -N --next <MS>              Show next page of results
+# @option -p --policy <KEY=VALUE>     See deployments with provided Deployment Retention policies (e.g.: `-p KEY=value`).
+# @option -s --status                 Filter deployments by their status.
+# @flag -y --yes                      Accept default value for all prompts
 # @option --cwd <DIR>                 Sets the current working directory for a single run of a command
 # @flag -d --debug                    Debug mode (default off)
 # @option -Q --global-config <DIR>    Path to the global `.vercel` directory
@@ -178,8 +253,6 @@ ls() {
 
 # {{ vercel login
 # @cmd Logs into your account or creates a new one
-# @flag --github                      Log in with GitHub
-# @flag --oob                         Log in with "out of band" authentication
 # @option --cwd <DIR>                 Sets the current working directory for a single run of a command
 # @flag -d --debug                    Debug mode (default off)
 # @option -Q --global-config <DIR>    Path to the global `.vercel` directory
@@ -213,7 +286,8 @@ logout() {
 
 # {{ vercel promote
 # @cmd Promote an existing deployment to current
-# @option --timeout <timeout>         Time to wait for promotion completion [3m]
+# @option --timeout <TIME>            Time to wait for promotion completion [3m]
+# @flag -y --yes                      Skip the confirmation prompt when linking a Project
 # @option --cwd <DIR>                 Sets the current working directory for a single run of a command
 # @flag -d --debug                    Debug mode (default off)
 # @option -Q --global-config <DIR>    Path to the global `.vercel` directory
@@ -223,8 +297,7 @@ logout() {
 # @flag -S --scope                    Set a custom scope
 # @option -t --token                  Login token
 # @flag -v --version                  Output the version number
-# @arg deployment
-# @arg id-url <id/url>
+# @arg url-deploymentid <url|deploymentId>
 promote() {
     :;
 }
@@ -232,18 +305,18 @@ promote() {
 
 # {{ vercel pull
 # @cmd Pull your Project Settings from the cloud
-# @option --environment <environment>    Deployment environment [development]
-# @option --git-branch <branch>          Specify the Git branch to pull specific Environment Variables for
-# @flag -y --yes                         Skip questions when setting up new project using default scope and settings
-# @option --cwd <DIR>                    Sets the current working directory for a single run of a command
-# @flag -d --debug                       Debug mode (default off)
-# @option -Q --global-config <DIR>       Path to the global `.vercel` directory
-# @flag -h --help                        Output usage information
-# @option -A --local-config <FILE>       Path to the local `vercel.json` file
-# @flag --no-color                       No color mode (default off)
-# @flag -S --scope                       Set a custom scope
-# @option -t --token                     Login token
-# @flag -v --version                     Output the version number
+# @option --environment <TARGET>      Deployment environment [development]
+# @option --git-branch <NAME>         Specify the Git branch to pull specific Environment Variables for
+# @flag -y --yes                      Skip questions when setting up new project using default scope and settings
+# @option --cwd <DIR>                 Sets the current working directory for a single run of a command
+# @flag -d --debug                    Debug mode (default off)
+# @option -Q --global-config <DIR>    Path to the global `.vercel` directory
+# @flag -h --help                     Output usage information
+# @option -A --local-config <FILE>    Path to the local `vercel.json` file
+# @flag --no-color                    No color mode (default off)
+# @flag -S --scope                    Set a custom scope
+# @option -t --token                  Login token
+# @flag -v --version                  Output the version number
 # @arg project-path
 pull() {
     :;
@@ -253,6 +326,7 @@ pull() {
 # {{ vercel redeploy
 # @cmd Rebuild and deploy a previous deployment.
 # @flag --no-wait                     Don't wait for the redeploy to finish
+# @option --target                    Redeploy to a specific target environment
 # @option --cwd <DIR>                 Sets the current working directory for a single run of a command
 # @flag -d --debug                    Debug mode (default off)
 # @option -Q --global-config <DIR>    Path to the global `.vercel` directory
@@ -262,7 +336,7 @@ pull() {
 # @flag -S --scope                    Set a custom scope
 # @option -t --token                  Login token
 # @flag -v --version                  Output the version number
-# @arg deploymentid-deploymentname <deploymentId|deploymentName>
+# @arg url-deploymentid <url|deploymentId>
 redeploy() {
     :;
 }
@@ -270,7 +344,8 @@ redeploy() {
 
 # {{ vercel rollback
 # @cmd Quickly revert back to a previous deployment
-# @option --timeout <timeout>         Time to wait for rollback completion [3m]
+# @option --timeout <TIME>            Time to wait for rollback completion [3m]
+# @flag -y --yes                      Accept default value for all prompts
 # @option --cwd <DIR>                 Sets the current working directory for a single run of a command
 # @flag -d --debug                    Debug mode (default off)
 # @option -Q --global-config <DIR>    Path to the global `.vercel` directory
@@ -280,8 +355,7 @@ redeploy() {
 # @flag -S --scope                    Set a custom scope
 # @option -t --token                  Login token
 # @flag -v --version                  Output the version number
-# @arg deployment
-# @arg id-url <id/url>
+# @arg url-deploymentid <url|deploymentId>
 rollback() {
     :;
 }
@@ -305,9 +379,6 @@ switch() {
 
 # {{ vercel alias
 # @cmd Manages your domain aliases
-# @option --limit <NUMBER>            Number of results to return per page (default: 20, max: 100)
-# @option -N --next <MS>              Show next page of results
-# @flag -y --yes                      Skip the confirmation prompt when removing an alias
 # @option --cwd <DIR>                 Sets the current working directory for a single run of a command
 # @flag -d --debug                    Debug mode (default off)
 # @option -Q --global-config <DIR>    Path to the global `.vercel` directory
@@ -325,6 +396,20 @@ alias() {
 
 # {{ vercel bisect
 # @cmd Use binary search to find the deployment that introduced a bug
+# @option -b --bad <URL>              Known bad URL
+# @option -g --good <URL>             Known good URL
+# @option -o --open <URL>             Automatically open each URL in the browser
+# @option -p --path                   Subpath of the deployment URL to test
+# @option -r --run <SCRIPT>           Test script to run for each deployment
+# @option --cwd <DIR>                 Sets the current working directory for a single run of a command
+# @flag -d --debug                    Debug mode (default off)
+# @option -Q --global-config <DIR>    Path to the global `.vercel` directory
+# @flag -h --help                     Output usage information
+# @option -A --local-config <FILE>    Path to the local `vercel.json` file
+# @flag --no-color                    No color mode (default off)
+# @flag -S --scope                    Set a custom scope
+# @option -t --token                  Login token
+# @flag -v --version                  Output the version number
 bisect() {
     :;
 }
@@ -332,12 +417,6 @@ bisect() {
 
 # {{ vercel certs
 # @cmd Manages your SSL certificates
-# @option --ca <FILE>                 CA certificate chain file
-# @flag --challenge-only              Only show challenges needed to issue a cert
-# @option --crt <FILE>                Certificate file
-# @option --key <FILE>                Certificate key file
-# @option --limit <VALUE>             Number of results to return per page (default: 20, max: 100)
-# @flag -N --next                     Show next page of results
 # @option --cwd <DIR>                 Sets the current working directory for a single run of a command
 # @flag -d --debug                    Debug mode (default off)
 # @option -Q --global-config <DIR>    Path to the global `.vercel` directory
@@ -355,8 +434,6 @@ certs() {
 
 # {{ vercel dns
 # @cmd Manages your DNS records
-# @option --limit <NUMBER>            Number of results to return per page (default: 20, max: 100)
-# @option -N --next <MS>              Show next page of results
 # @option --cwd <DIR>                 Sets the current working directory for a single run of a command
 # @flag -d --debug                    Debug mode (default off)
 # @option -Q --global-config <DIR>    Path to the global `.vercel` directory
@@ -374,10 +451,6 @@ dns() {
 
 # {{ vercel domains
 # @cmd Manages your domain names
-# @flag --force                       Force a domain on a project and remove it from an existing one
-# @option --limit <NUMBER>            Number of results to return per page (default: 20, max: 100)
-# @flag -N --next                     Show next page of results
-# @flag -y --yes                      Skip the confirmation prompt when removing a domain
 # @option --cwd <DIR>                 Sets the current working directory for a single run of a command
 # @flag -d --debug                    Debug mode (default off)
 # @option -Q --global-config <DIR>    Path to the global `.vercel` directory
@@ -395,7 +468,7 @@ domains() {
 
 # {{ vercel logs
 # @cmd Displays the logs for a deployment
-# @flag -j --json                     print each log line as a JSON object (compatible with JQ)
+# @flag -j --json                     Print each log line as a JSON object (compatible with JQ)
 # @option --cwd <DIR>                 Sets the current working directory for a single run of a command
 # @flag -d --debug                    Debug mode (default off)
 # @option -Q --global-config <DIR>    Path to the global `.vercel` directory
@@ -411,9 +484,25 @@ logs() {
 }
 # }} vercel logs
 
+# {{ vercel microfrontends
+# @cmd Manages your microfrontends
+# @option --cwd <DIR>                 Sets the current working directory for a single run of a command
+# @flag -d --debug                    Debug mode (default off)
+# @option -Q --global-config <DIR>    Path to the global `.vercel` directory
+# @flag -h --help                     Output usage information
+# @option -A --local-config <FILE>    Path to the local `vercel.json` file
+# @flag --no-color                    No color mode (default off)
+# @flag -S --scope                    Set a custom scope
+# @option -t --token                  Login token
+# @flag -v --version                  Output the version number
+# @arg command
+microfrontends() {
+    :;
+}
+# }} vercel microfrontends
+
 # {{ vercel projects
 # @cmd Manages your Projects
-# @option -N --next <MS>              Show next page of results
 # @option --cwd <DIR>                 Sets the current working directory for a single run of a command
 # @flag -d --debug                    Debug mode (default off)
 # @option -Q --global-config <DIR>    Path to the global `.vercel` directory
@@ -458,6 +547,7 @@ rm() {
 # @flag -S --scope                    Set a custom scope
 # @option -t --token                  Login token
 # @flag -v --version                  Output the version number
+# @arg command
 teams() {
     :;
 }
@@ -478,5 +568,23 @@ whoami() {
     :;
 }
 # }} vercel whoami
+
+# {{ vercel blob
+# @cmd Manages your Blob stores and files
+# @option --rw-token <String>         Read_Write_Token for the Blob store
+# @option --cwd <DIR>                 Sets the current working directory for a single run of a command
+# @flag -d --debug                    Debug mode (default off)
+# @option -Q --global-config <DIR>    Path to the global `.vercel` directory
+# @flag -h --help                     Output usage information
+# @option -A --local-config <FILE>    Path to the local `vercel.json` file
+# @flag --no-color                    No color mode (default off)
+# @flag -S --scope                    Set a custom scope
+# @option -t --token                  Login token
+# @flag -v --version                  Output the version number
+# @arg command
+blob() {
+    :;
+}
+# }} vercel blob
 
 command eval "$(argc --argc-eval "$0" "$@")"

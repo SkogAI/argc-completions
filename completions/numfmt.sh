@@ -3,7 +3,7 @@
 
 # @flag --debug                            print warnings about invalid input
 # @option -d --delimiter <X>               use X instead of whitespace for field delimiter
-# @option --field <FIELDS>                 replace the numbers in these input fields (default=1) see FIELDS below
+# @option --field <FIELDS>                 replace the numbers in these input fields (default=1); see FIELDS below
 # @option --format                         use printf style floating-point FORMAT; see FORMAT below for details
 # @option --from[`_choice_unit`] <UNIT>    auto-scale input numbers to UNITs; default is 'none'; see UNIT below
 # @option --from-unit <N>                  specify the input unit size (instead of the default 1)

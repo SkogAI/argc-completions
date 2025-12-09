@@ -103,8 +103,8 @@
 # @flag --no-config                                When set, ripgrep will never read configuration files.
 # @flag --pcre2-version                            When this flag is present, ripgrep will print the version of PCRE2 in use, along with other information, and then exit.
 # @flag --type-list                                Show all supported file types and their corresponding globs.
-# @flag --rga-accurate                             Use more accurate but slower matching by mime type
-# @flag --rga-no-cache                             Disable caching of results
+# @flag --rga-accurate                             Use more accurate but slower matching by mime type.
+# @flag --rga-no-cache                             Disable caching of results.
 # @flag -h --help                                  Prints help information
 # @flag --rga-list-adapters                        List all known adapters
 # @flag --rga-no-prefix-filenames                  Don't prefix lines of files within archive with the path inside the archive.
@@ -112,12 +112,12 @@
 # @flag --rg-help                                  Show help for ripgrep itself
 # @flag --rg-version                               Show version of ripgrep itself
 # @flag -V --version                               Prints version information
-# @option --rga-adapters* <adapters>               Change which adapters to use and in which priority order (descending)
-# @option --rga-cache-compression-level <compression-level>  ZSTD compression level to apply to adapter outputs before storing in cache db
+# @option --rga-adapters* <adapters>               Change which adapters to use and in which priority order (descending).
+# @option --rga-cache-compression-level <compression-level>  ZSTD compression level to apply to adapter outputs before storing in cache DB.
 # @option --rga-config-file <config-file-path>
-# @option --rga-max-archive-recursion <max-archive-recursion>  Maximum nestedness of archives to recurse into
-# @option --rga-cache-max-blob-len <max-blob-len>  Max compressed size to cache
-# @option --rga-cache-path <path>                  Path to store cache db [default: /home/sigo/.cache/ripgrep-all]
+# @option --rga-max-archive-recursion <max-archive-recursion>  Maximum depth of nested archives to recurse into.
+# @option --rga-cache-max-blob-len <max-blob-len>  Max compressed size to cache.
+# @option --rga-cache-path <path>                  Path to store cache DB [default: /home/skogix/.cache/ripgrep-all]
 # @arg pattern![`_choice_pattern`]                 A regular expression used for searching.
 # @arg path+                                       A file or directory to search.
 

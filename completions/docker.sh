@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @option --config <file>          Location of client config files (default "/home/sigo/.docker")
+# @option --config <file>          Location of client config files (default "/home/skogix/.docker")
 # @option -c --context <string>    Name of the context to use to connect to the daemon (overrides DOCKER_HOST env var and default context set with "docker context use")
 # @flag -D --debug                 Enable debug mode
-# @option -H --host <list>         Daemon socket to connect to
+# @option -H --host <string>       Daemon socket to connect to
 # @option -l --log-level[debug|info|warn|error|fatal] <string>  Set the logging level (default "info")
 # @flag --tls                      Use TLS; implied by --tlsverify
-# @option --tlscacert <string>     Trust certs signed only by this CA (default "/home/sigo/.docker/ca.pem")
-# @option --tlscert <file>         Path to TLS certificate file (default "/home/sigo/.docker/cert.pem")
-# @option --tlskey <file>          Path to TLS key file (default "/home/sigo/.docker/key.pem")
+# @option --tlscacert <string>     Trust certs signed only by this CA (default "/home/skogix/.docker/ca.pem")
+# @option --tlscert <file>         Path to TLS certificate file (default "/home/skogix/.docker/cert.pem")
+# @option --tlskey <file>          Path to TLS key file (default "/home/skogix/.docker/key.pem")
 # @flag --tlsverify                Use TLS and verify the remote
 # @flag -v --version               Print version information and quit
 
@@ -107,6 +107,7 @@
 # @option --tmpfs <list>                           Mount a tmpfs directory
 # @flag -t --tty                                   Allocate a pseudo-TTY
 # @option --ulimit <ulimit>                        Ulimit options (default [])
+# @flag --use-api-socket                           Bind mount Docker API socket and required auth
 # @option -u --user <string>                       Username or UID (format: <name|uid>[:<group|gid>])
 # @option --userns <string>                        User namespace to use
 # @option --uts <string>                           UTS namespace to use
@@ -145,7 +146,7 @@ exec() {
 # @cmd List containers
 # @flag -a --all               Show all containers (default shows just running)
 # @option -f --filter[`_choice_container_ls_filter`] <filter>  Filter output based on conditions provided
-# @option --format <string>    Format output using a custom template:
+# @option --format <string>    Format output using a custom
 # @option -n --last <int>      Show n last created containers (includes all states) (default -1)
 # @flag -l --latest            Show the latest created container (includes all states)
 # @flag --no-trunc             Don't truncate output
@@ -159,7 +160,7 @@ ps() {
 # {{ docker build
 # @cmd Build an image from a Dockerfile
 # @option --add-host* <string>           Add a custom host-to-IP mapping (format: "host:ip")
-# @option --allow* <string>              Allow extra privileged entitlement (e.g., "network.host", "security.insecure")
+# @option --allow* <string>              Allow extra privileged entitlement (e.g., "network.host", "security.insecure", "device")
 # @option --annotation* <string>         Add annotation to the image
 # @option --attest* <string>             Attestation parameters (format: "type=sbom,generator=image")
 # @option --build-arg* <string>          Set build-time variables
@@ -169,7 +170,8 @@ ps() {
 # @option --cache-to* <dir>              Cache export destinations (e.g., "user/app:cache", "type=local,dest=path/to/dir")
 # @option --call[check|outline|targets] <string>  Set method for evaluating build (default "build")
 # @option --cgroup-parent <string>       Set the parent cgroup for the "RUN" instructions during build
-# @flag --check                          Shorthand for "--call=check" (default )
+# @flag --check                          Shorthand for "--call=check"
+# @flag -D --debug                       Enable debug logging
 # @option -f --file <file>               Name of the Dockerfile (default: "PATH/Dockerfile")
 # @option --iidfile <file>               Write the image ID to a file
 # @option --label* <string>              Set metadata for an image
@@ -180,7 +182,7 @@ ps() {
 # @option --no-cache-filter* <string>    Do not cache specified stages
 # @option -o --output* <path>            Output destination (format: "type=local,dest=path")
 # @option --platform*[`_module_oci_docker_platform`] <string>  Set target platform for build
-# @option --progress[auto|plain|tty|rawjson] <string>  Set type of progress output.
+# @option --progress[auto|none|plain|quiet|rawjson|tty] <string>  Set type of progress output.
 # @option --provenance <string>          Shorthand for "--attest=type=provenance"
 # @flag --pull                           Always attempt to pull all referenced images
 # @flag --push                           Shorthand for "--output=type=registry"
@@ -197,6 +199,31 @@ build() {
     :;
 }
 # }} docker build
+
+# {{ docker bake
+# @cmd Build from a file
+# @option --allow* <string>         Allow build to access specified resources
+# @option --builder <string>        Override the configured builder instance (default "default")
+# @option --call[check|outline|targets] <string>  Set method for evaluating build (default "build")
+# @flag --check                     Shorthand for "--call=check"
+# @flag -D --debug                  Enable debug logging
+# @option -f --file* <file>         Build definition file
+# @option --list <string>           List targets or variables
+# @flag --load                      Shorthand for "--set=*.output=type=docker".
+# @option --metadata-file <file>    Write build result metadata to a file
+# @flag --no-cache                  Do not use cache when building the image
+# @flag --print                     Print the options without building
+# @option --progress[auto|none|plain|quiet|rawjson|tty] <string>  Set type of progress output.
+# @option --provenance <string>     Shorthand for "--set=*.attest=type=provenance"
+# @flag --pull                      Always attempt to pull all referenced images
+# @flag --push                      Shorthand for "--set=*.output=type=registry".
+# @option --sbom <string>           Shorthand for "--set=*.attest=type=sbom"
+# @option --set* <string>           Override target value (e.g., "targetpattern.key=value")
+# @arg target*
+bake() {
+    :;
+}
+# }} docker bake
 
 # {{ docker pull
 # @cmd Download an image from a registry
@@ -227,9 +254,10 @@ push() {
 # @flag -a --all               Show all images (default hides intermediate images)
 # @flag --digests              Show digests
 # @option -f --filter[`_choice_image_ls_filter`] <filter>  Filter output based on conditions provided
-# @option --format <string>    Format output using a custom template:
+# @option --format <string>    Format output using a custom
 # @flag --no-trunc             Don't truncate output
 # @flag -q --quiet             Only show image IDs
+# @flag --tree                 List multi-platform images as a tree (EXPERIMENTAL)
 # @arg repository-tag[`_module_oci_docker_image`] <REPOSITORY[:TAG]>
 images() {
     :;
@@ -237,9 +265,9 @@ images() {
 # }} docker images
 
 # {{ docker login
-# @cmd Log in to a registry
-# @option -p --password <string>    Password
-# @flag --password-stdin            Take the password from stdin
+# @cmd Authenticate to a registry
+# @option -p --password <string>    Password or Personal Access Token (PAT)
+# @flag --password-stdin            Take the Password or Personal Access Token (PAT) from stdin
 # @option -u --username <string>    Username
 # @arg server
 login() {
@@ -269,7 +297,7 @@ search() {
 
 # {{ docker version
 # @cmd Show the Docker version information
-# @option -f --format <string>    Format output using a custom template:
+# @option -f --format <string>    Format output using a custom
 version() {
     :;
 }
@@ -277,7 +305,7 @@ version() {
 
 # {{ docker info
 # @cmd Display system-wide information
-# @option -f --format <string>    Format output using a custom template:
+# @option -f --format <string>    Format output using a custom
 info() {
     :;
 }
@@ -286,13 +314,127 @@ info() {
 # {{ docker builder
 # @cmd Manage builds
 # @option --builder <string>    Override the configured builder instance (default "default")
+# @flag -D --debug              Enable debug logging
 builder() {
     :;
 }
 
+# {{{ docker builder history
+# @cmd Commands to work on build records
+# @option --builder <string>    Override the configured builder instance (default "default")
+# @flag -D --debug              Enable debug logging
+builder::history() {
+    :;
+}
+
+# {{{{ docker builder history inspect
+# @cmd Inspect a build record
+# @option --builder <string>    Override the configured builder instance (default "default")
+# @flag -D --debug              Enable debug logging
+# @option --format <string>     Format the output (default "pretty")
+builder::history::inspect() {
+    :;
+}
+
+# {{{{{ docker builder history inspect attachment
+# @cmd Inspect a build record attachment
+# @option --builder <string>    Override the configured builder instance (default "default")
+# @flag -D --debug              Enable debug logging
+# @option --platform[`_module_oci_docker_platform`] <string>  Platform of attachment
+# @option --type <string>       Type of attachment
+# @arg ref
+# @arg digest
+builder::history::inspect::attachment() {
+    :;
+}
+# }}}}} docker builder history inspect attachment
+# }}}} docker builder history inspect
+
+# {{{{ docker builder history export
+# @cmd Export build records into Docker Desktop bundle
+# @flag --all                   Export all build records for the builder
+# @option --builder <string>    Override the configured builder instance (default "default")
+# @flag -D --debug              Enable debug logging
+# @flag --finalize              Ensure build records are finalized before exporting
+# @option -o --output <file>    Output file path
+# @arg ref*
+builder::history::export() {
+    :;
+}
+# }}}} docker builder history export
+
+# {{{{ docker builder history import
+# @cmd Import build records into Docker Desktop
+# @option --builder <string>    Override the configured builder instance (default "default")
+# @flag -D --debug              Enable debug logging
+# @option -f --file* <file>     Import from a file path
+builder::history::import() {
+    :;
+}
+# }}}} docker builder history import
+
+# {{{{ docker builder history logs
+# @cmd Print the logs of a build record
+# @option --builder <string>    Override the configured builder instance (default "default")
+# @flag -D --debug              Enable debug logging
+# @option --progress[plain|rawjson|tty] <string>  Set type of progress output (default "plain")
+# @arg ref
+builder::history::logs() {
+    :;
+}
+# }}}} docker builder history logs
+
+# {{{{ docker builder history ls
+# @cmd List build records
+# @option --builder <string>    Override the configured builder instance (default "default")
+# @flag -D --debug              Enable debug logging
+# @option --filter* <string>    Provide filter values (e.g., "status=error")
+# @option --format <string>     Format the output (default "table")
+# @flag --local                 List records for current repository only
+# @flag --no-trunc              Don't truncate output
+builder::history::ls() {
+    :;
+}
+# }}}} docker builder history ls
+
+# {{{{ docker builder history open
+# @cmd Open a build record in Docker Desktop
+# @option --builder <string>    Override the configured builder instance (default "default")
+# @flag -D --debug              Enable debug logging
+# @arg ref
+builder::history::open() {
+    :;
+}
+# }}}} docker builder history open
+
+# {{{{ docker builder history rm
+# @cmd Remove build records
+# @flag --all                   Remove all build records
+# @option --builder <string>    Override the configured builder instance (default "default")
+# @flag -D --debug              Enable debug logging
+# @arg ref*
+builder::history::rm() {
+    :;
+}
+# }}}} docker builder history rm
+
+# {{{{ docker builder history trace
+# @cmd Show the OpenTelemetry trace of a build record
+# @option --addr <string>       Address to bind the UI server (default "127.0.0.1:0")
+# @option --builder <string>    Override the configured builder instance (default "default")
+# @option --compare <string>    Compare with another build record
+# @flag -D --debug              Enable debug logging
+# @arg ref
+builder::history::trace() {
+    :;
+}
+# }}}} docker builder history trace
+# }}} docker builder history
+
 # {{{ docker builder imagetools
 # @cmd Commands to work on images in registry
 # @option --builder <string>    Override the configured builder instance (default "default")
+# @flag -D --debug              Enable debug logging
 builder::imagetools() {
     :;
 }
@@ -302,10 +444,12 @@ builder::imagetools() {
 # @option --annotation* <string>    Add annotation to the image
 # @flag --append                    Append to existing manifest
 # @option --builder <string>        Override the configured builder instance (default "default")
+# @flag -D --debug                  Enable debug logging
 # @flag --dry-run                   Show final image instead of pushing
 # @option -f --file* <file>         Read source descriptor from file
+# @option -p --platform*[`_module_oci_docker_platform`] <string>  Filter specified platforms of target image
 # @flag --prefer-index              When only a single source is specified, prefer outputting an image index or manifest list instead of performing a carbon copy (default true)
-# @option --progress[auto|plain|tty|rawjson] <string>  Set type of progress output.
+# @option --progress[auto|none|plain|rawjson|tty] <string>  Set type of progress output.
 # @option -t --tag* <string>        Set reference for new image
 # @arg source*
 builder::imagetools::create() {
@@ -316,6 +460,7 @@ builder::imagetools::create() {
 # {{{{ docker builder imagetools inspect
 # @cmd Show details of an image in the registry
 # @option --builder <string>    Override the configured builder instance (default "default")
+# @flag -D --debug              Enable debug logging
 # @option --format <string>     Format the output using the given Go template
 # @flag --raw                   Show original, unformatted JSON manifest
 # @arg name[`_choice_builder`]
@@ -327,18 +472,21 @@ builder::imagetools::inspect() {
 
 # {{{ docker builder bake
 # @cmd Build from a file
+# @option --allow* <string>         Allow build to access specified resources
 # @option --builder <string>        Override the configured builder instance (default "default")
 # @option --call[check|outline|targets] <string>  Set method for evaluating build (default "build")
-# @flag --check                     Shorthand for "--call=check" (default )
+# @flag --check                     Shorthand for "--call=check"
+# @flag -D --debug                  Enable debug logging
 # @option -f --file* <file>         Build definition file
-# @flag --load                      Shorthand for "--set=*.output=type=docker"
+# @option --list <string>           List targets or variables
+# @flag --load                      Shorthand for "--set=*.output=type=docker".
 # @option --metadata-file <file>    Write build result metadata to a file
 # @flag --no-cache                  Do not use cache when building the image
 # @flag --print                     Print the options without building
-# @option --progress[auto|plain|tty|rawjson] <string>  Set type of progress output.
+# @option --progress[auto|none|plain|quiet|rawjson|tty] <string>  Set type of progress output.
 # @option --provenance <string>     Shorthand for "--set=*.attest=type=provenance"
 # @flag --pull                      Always attempt to pull all referenced images
-# @flag --push                      Shorthand for "--set=*.output=type=registry"
+# @flag --push                      Shorthand for "--set=*.output=type=registry".
 # @option --sbom <string>           Shorthand for "--set=*.attest=type=sbom"
 # @option --set* <string>           Override target value (e.g., "targetpattern.key=value")
 # @arg target*
@@ -350,7 +498,7 @@ builder::bake() {
 # {{{ docker builder build
 # @cmd Start a build
 # @option --add-host* <string>           Add a custom host-to-IP mapping (format: "host:ip")
-# @option --allow* <string>              Allow extra privileged entitlement (e.g., "network.host", "security.insecure")
+# @option --allow* <string>              Allow extra privileged entitlement (e.g., "network.host", "security.insecure", "device")
 # @option --annotation* <string>         Add annotation to the image
 # @option --attest* <string>             Attestation parameters (format: "type=sbom,generator=image")
 # @option --build-arg* <string>          Set build-time variables
@@ -360,7 +508,8 @@ builder::bake() {
 # @option --cache-to* <dir>              Cache export destinations (e.g., "user/app:cache", "type=local,dest=path/to/dir")
 # @option --call[check|outline|targets] <string>  Set method for evaluating build (default "build")
 # @option --cgroup-parent <string>       Set the parent cgroup for the "RUN" instructions during build
-# @flag --check                          Shorthand for "--call=check" (default )
+# @flag --check                          Shorthand for "--call=check"
+# @flag -D --debug                       Enable debug logging
 # @option -f --file <file>               Name of the Dockerfile (default: "PATH/Dockerfile")
 # @option --iidfile <file>               Write the image ID to a file
 # @option --label* <string>              Set metadata for an image
@@ -371,7 +520,7 @@ builder::bake() {
 # @option --no-cache-filter* <string>    Do not cache specified stages
 # @option -o --output* <path>            Output destination (format: "type=local,dest=path")
 # @option --platform*[`_module_oci_docker_platform`] <string>  Set target platform for build
-# @option --progress[auto|plain|tty|rawjson] <string>  Set type of progress output.
+# @option --progress[auto|none|plain|quiet|rawjson|tty] <string>  Set type of progress output.
 # @option --provenance <string>          Shorthand for "--attest=type=provenance"
 # @flag --pull                           Always attempt to pull all referenced images
 # @flag --push                           Shorthand for "--output=type=registry"
@@ -395,6 +544,7 @@ builder::build() {
 # @flag --bootstrap                     Boot builder after creation
 # @option --buildkitd-config <file>     BuildKit daemon config file
 # @option --buildkitd-flags <string>    BuildKit daemon flags
+# @flag -D --debug                      Enable debug logging
 # @option --driver[docker-container|kubernetes|remote] <string>  Driver to use
 # @option --driver-opt* <string>        Options for the driver
 # @flag --leave                         Remove a node from builder instead of changing it
@@ -411,8 +561,9 @@ builder::create() {
 # {{{ docker builder dial-stdio
 # @cmd Proxy current stdio streams to builder instance
 # @option --builder <string>    Override the configured builder instance (default "default")
+# @flag -D --debug              Enable debug logging
 # @option --platform[`_module_oci_docker_platform`] <string>  Target platform: this is used for node selection
-# @option --progress[auto|plain|tty|rawjson] <string>  Set type of progress output.
+# @option --progress[auto|plain|rawjson|tty] <string>  Set type of progress output.
 builder::dial-stdio() {
     :;
 }
@@ -421,8 +572,10 @@ builder::dial-stdio() {
 # {{{ docker builder du
 # @cmd Disk usage
 # @option --builder <string>    Override the configured builder instance (default "default")
+# @flag -D --debug              Enable debug logging
 # @option --filter <filter>     Provide filter values
-# @flag --verbose               Provide a more verbose output
+# @option --format <string>     Format the output
+# @flag --verbose               Shorthand for "--format=pretty"
 builder::du() {
     :;
 }
@@ -432,6 +585,7 @@ builder::du() {
 # @cmd Inspect current builder instance
 # @flag --bootstrap             Ensure builder has booted before inspecting
 # @option --builder <string>    Override the configured builder instance (default "default")
+# @flag -D --debug              Enable debug logging
 # @arg name[`_choice_builder`]
 builder::inspect() {
     :;
@@ -440,7 +594,9 @@ builder::inspect() {
 
 # {{{ docker builder ls
 # @cmd List builder instances
+# @flag -D --debug             Enable debug logging
 # @option --format <string>    Format the output (default "table")
+# @flag --no-trunc             Don't truncate output
 builder::ls() {
     :;
 }
@@ -448,12 +604,15 @@ builder::ls() {
 
 # {{{ docker builder prune
 # @cmd Remove build cache
-# @flag -a --all                    Include internal/frontend images
-# @option --builder <string>        Override the configured builder instance (default "default")
-# @option --filter <filter>         Provide filter values (e.g., "until=24h")
-# @flag -f --force                  Do not prompt for confirmation
-# @option --keep-storage <bytes>    Amount of disk space to keep for cache
-# @flag --verbose                   Provide a more verbose output
+# @flag -a --all                      Include internal/frontend images
+# @option --builder <string>          Override the configured builder instance (default "default")
+# @flag -D --debug                    Enable debug logging
+# @option --filter <filter>           Provide filter values
+# @flag -f --force                    Do not prompt for confirmation
+# @option --max-used-space <bytes>    Maximum amount of disk space allowed to keep for cache
+# @option --min-free-space <bytes>    Target amount of free disk space after pruning
+# @option --reserved-space <bytes>    Amount of disk space always allowed to keep for cache
+# @flag --verbose                     Provide a more verbose output
 builder::prune() {
     :;
 }
@@ -463,6 +622,7 @@ builder::prune() {
 # @cmd Remove one or more builder instances
 # @flag --all-inactive          Remove all inactive builders
 # @option --builder <string>    Override the configured builder instance (default "default")
+# @flag -D --debug              Enable debug logging
 # @flag -f --force              Do not prompt for confirmation
 # @flag --keep-daemon           Keep the BuildKit daemon running
 # @flag --keep-state            Keep BuildKit state
@@ -475,6 +635,7 @@ builder::rm() {
 # {{{ docker builder stop
 # @cmd Stop builder instance
 # @option --builder <string>    Override the configured builder instance (default "default")
+# @flag -D --debug              Enable debug logging
 # @arg name[`_choice_builder`]
 builder::stop() {
     :;
@@ -484,6 +645,7 @@ builder::stop() {
 # {{{ docker builder use
 # @cmd Set the current builder instance
 # @option --builder <string>    Override the configured builder instance (default "default")
+# @flag -D --debug              Enable debug logging
 # @flag --default               Set builder as default for current context
 # @flag --global                Builder persists context changes
 # @arg name[`_choice_builder`]
@@ -494,6 +656,7 @@ builder::use() {
 
 # {{{ docker builder version
 # @cmd Show buildx version information
+# @flag -D --debug    Enable debug logging
 builder::version() {
     :;
 }
@@ -503,13 +666,127 @@ builder::version() {
 # {{ docker buildx
 # @cmd Docker Buildx
 # @option --builder <string>    Override the configured builder instance
+# @flag -D --debug              Enable debug logging
 buildx() {
     :;
 }
 
+# {{{ docker buildx history
+# @cmd Commands to work on build records
+# @option --builder <string>    Override the configured builder instance
+# @flag -D --debug              Enable debug logging
+buildx::history() {
+    :;
+}
+
+# {{{{ docker buildx history inspect
+# @cmd Inspect a build record
+# @option --builder <string>    Override the configured builder instance
+# @flag -D --debug              Enable debug logging
+# @option --format <string>     Format the output (default "pretty")
+buildx::history::inspect() {
+    :;
+}
+
+# {{{{{ docker buildx history inspect attachment
+# @cmd Inspect a build record attachment
+# @option --builder <string>    Override the configured builder instance
+# @flag -D --debug              Enable debug logging
+# @option --platform[`_module_oci_docker_platform`] <string>  Platform of attachment
+# @option --type <string>       Type of attachment
+# @arg ref
+# @arg digest
+buildx::history::inspect::attachment() {
+    :;
+}
+# }}}}} docker buildx history inspect attachment
+# }}}} docker buildx history inspect
+
+# {{{{ docker buildx history export
+# @cmd Export build records into Docker Desktop bundle
+# @flag --all                   Export all build records for the builder
+# @option --builder <string>    Override the configured builder instance
+# @flag -D --debug              Enable debug logging
+# @flag --finalize              Ensure build records are finalized before exporting
+# @option -o --output <file>    Output file path
+# @arg ref*
+buildx::history::export() {
+    :;
+}
+# }}}} docker buildx history export
+
+# {{{{ docker buildx history import
+# @cmd Import build records into Docker Desktop
+# @option --builder <string>    Override the configured builder instance
+# @flag -D --debug              Enable debug logging
+# @option -f --file* <file>     Import from a file path
+buildx::history::import() {
+    :;
+}
+# }}}} docker buildx history import
+
+# {{{{ docker buildx history logs
+# @cmd Print the logs of a build record
+# @option --builder <string>    Override the configured builder instance
+# @flag -D --debug              Enable debug logging
+# @option --progress[plain|rawjson|tty] <string>  Set type of progress output (default "plain")
+# @arg ref
+buildx::history::logs() {
+    :;
+}
+# }}}} docker buildx history logs
+
+# {{{{ docker buildx history ls
+# @cmd List build records
+# @option --builder <string>    Override the configured builder instance
+# @flag -D --debug              Enable debug logging
+# @option --filter* <string>    Provide filter values (e.g., "status=error")
+# @option --format <string>     Format the output (default "table")
+# @flag --local                 List records for current repository only
+# @flag --no-trunc              Don't truncate output
+buildx::history::ls() {
+    :;
+}
+# }}}} docker buildx history ls
+
+# {{{{ docker buildx history open
+# @cmd Open a build record in Docker Desktop
+# @option --builder <string>    Override the configured builder instance
+# @flag -D --debug              Enable debug logging
+# @arg ref
+buildx::history::open() {
+    :;
+}
+# }}}} docker buildx history open
+
+# {{{{ docker buildx history rm
+# @cmd Remove build records
+# @flag --all                   Remove all build records
+# @option --builder <string>    Override the configured builder instance
+# @flag -D --debug              Enable debug logging
+# @arg ref*
+buildx::history::rm() {
+    :;
+}
+# }}}} docker buildx history rm
+
+# {{{{ docker buildx history trace
+# @cmd Show the OpenTelemetry trace of a build record
+# @option --addr <string>       Address to bind the UI server (default "127.0.0.1:0")
+# @option --builder <string>    Override the configured builder instance
+# @option --compare <string>    Compare with another build record
+# @flag -D --debug              Enable debug logging
+# @arg ref
+buildx::history::trace() {
+    :;
+}
+# }}}} docker buildx history trace
+# }}} docker buildx history
+
 # {{{ docker buildx imagetools
 # @cmd Commands to work on images in registry
 # @option --builder <string>    Override the configured builder instance
+# @flag -D --debug              Enable debug logging
 buildx::imagetools() {
     :;
 }
@@ -519,10 +796,12 @@ buildx::imagetools() {
 # @option --annotation* <string>    Add annotation to the image
 # @flag --append                    Append to existing manifest
 # @option --builder <string>        Override the configured builder instance
+# @flag -D --debug                  Enable debug logging
 # @flag --dry-run                   Show final image instead of pushing
 # @option -f --file* <file>         Read source descriptor from file
+# @option -p --platform*[`_module_oci_docker_platform`] <string>  Filter specified platforms of target image
 # @flag --prefer-index              When only a single source is specified, prefer outputting an image index or manifest list instead of performing a carbon copy (default true)
-# @option --progress[auto|plain|tty|rawjson] <string>  Set type of progress output.
+# @option --progress[auto|none|plain|rawjson|tty] <string>  Set type of progress output.
 # @option -t --tag* <string>        Set reference for new image
 # @arg source*
 buildx::imagetools::create() {
@@ -533,6 +812,7 @@ buildx::imagetools::create() {
 # {{{{ docker buildx imagetools inspect
 # @cmd Show details of an image in the registry
 # @option --builder <string>    Override the configured builder instance
+# @flag -D --debug              Enable debug logging
 # @option --format <string>     Format the output using the given Go template
 # @flag --raw                   Show original, unformatted JSON manifest
 # @arg name[`_choice_builder`]
@@ -544,18 +824,21 @@ buildx::imagetools::inspect() {
 
 # {{{ docker buildx bake
 # @cmd Build from a file
+# @option --allow* <string>         Allow build to access specified resources
 # @option --builder <string>        Override the configured builder instance
 # @option --call[check|outline|targets] <string>  Set method for evaluating build (default "build")
-# @flag --check                     Shorthand for "--call=check" (default )
+# @flag --check                     Shorthand for "--call=check"
+# @flag -D --debug                  Enable debug logging
 # @option -f --file* <file>         Build definition file
-# @flag --load                      Shorthand for "--set=*.output=type=docker"
+# @option --list <string>           List targets or variables
+# @flag --load                      Shorthand for "--set=*.output=type=docker".
 # @option --metadata-file <file>    Write build result metadata to a file
 # @flag --no-cache                  Do not use cache when building the image
 # @flag --print                     Print the options without building
-# @option --progress[auto|plain|tty|rawjson] <string>  Set type of progress output.
+# @option --progress[auto|none|plain|quiet|rawjson|tty] <string>  Set type of progress output.
 # @option --provenance <string>     Shorthand for "--set=*.attest=type=provenance"
 # @flag --pull                      Always attempt to pull all referenced images
-# @flag --push                      Shorthand for "--set=*.output=type=registry"
+# @flag --push                      Shorthand for "--set=*.output=type=registry".
 # @option --sbom <string>           Shorthand for "--set=*.attest=type=sbom"
 # @option --set* <string>           Override target value (e.g., "targetpattern.key=value")
 # @arg target*
@@ -567,7 +850,7 @@ buildx::bake() {
 # {{{ docker buildx build
 # @cmd Start a build
 # @option --add-host* <string>           Add a custom host-to-IP mapping (format: "host:ip")
-# @option --allow* <string>              Allow extra privileged entitlement (e.g., "network.host", "security.insecure")
+# @option --allow* <string>              Allow extra privileged entitlement (e.g., "network.host", "security.insecure", "device")
 # @option --annotation* <string>         Add annotation to the image
 # @option --attest* <string>             Attestation parameters (format: "type=sbom,generator=image")
 # @option --build-arg* <string>          Set build-time variables
@@ -577,7 +860,8 @@ buildx::bake() {
 # @option --cache-to* <dir>              Cache export destinations (e.g., "user/app:cache", "type=local,dest=path/to/dir")
 # @option --call[check|outline|targets] <string>  Set method for evaluating build (default "build")
 # @option --cgroup-parent <string>       Set the parent cgroup for the "RUN" instructions during build
-# @flag --check                          Shorthand for "--call=check" (default )
+# @flag --check                          Shorthand for "--call=check"
+# @flag -D --debug                       Enable debug logging
 # @option -f --file <file>               Name of the Dockerfile (default: "PATH/Dockerfile")
 # @option --iidfile <file>               Write the image ID to a file
 # @option --label* <string>              Set metadata for an image
@@ -588,7 +872,7 @@ buildx::bake() {
 # @option --no-cache-filter* <string>    Do not cache specified stages
 # @option -o --output* <path>            Output destination (format: "type=local,dest=path")
 # @option --platform*[`_module_oci_docker_platform`] <string>  Set target platform for build
-# @option --progress[auto|plain|tty|rawjson] <string>  Set type of progress output.
+# @option --progress[auto|none|plain|quiet|rawjson|tty] <string>  Set type of progress output.
 # @option --provenance <string>          Shorthand for "--attest=type=provenance"
 # @flag --pull                           Always attempt to pull all referenced images
 # @flag --push                           Shorthand for "--output=type=registry"
@@ -612,6 +896,7 @@ buildx::build() {
 # @flag --bootstrap                     Boot builder after creation
 # @option --buildkitd-config <file>     BuildKit daemon config file
 # @option --buildkitd-flags <string>    BuildKit daemon flags
+# @flag -D --debug                      Enable debug logging
 # @option --driver[docker-container|kubernetes|remote] <string>  Driver to use
 # @option --driver-opt* <string>        Options for the driver
 # @flag --leave                         Remove a node from builder instead of changing it
@@ -628,8 +913,9 @@ buildx::create() {
 # {{{ docker buildx dial-stdio
 # @cmd Proxy current stdio streams to builder instance
 # @option --builder <string>    Override the configured builder instance
+# @flag -D --debug              Enable debug logging
 # @option --platform[`_module_oci_docker_platform`] <string>  Target platform: this is used for node selection
-# @option --progress[auto|plain|tty|rawjson] <string>  Set type of progress output.
+# @option --progress[auto|plain|rawjson|tty] <string>  Set type of progress output.
 buildx::dial-stdio() {
     :;
 }
@@ -638,8 +924,10 @@ buildx::dial-stdio() {
 # {{{ docker buildx du
 # @cmd Disk usage
 # @option --builder <string>    Override the configured builder instance
+# @flag -D --debug              Enable debug logging
 # @option --filter <filter>     Provide filter values
-# @flag --verbose               Provide a more verbose output
+# @option --format <string>     Format the output
+# @flag --verbose               Shorthand for "--format=pretty"
 buildx::du() {
     :;
 }
@@ -649,6 +937,7 @@ buildx::du() {
 # @cmd Inspect current builder instance
 # @flag --bootstrap             Ensure builder has booted before inspecting
 # @option --builder <string>    Override the configured builder instance
+# @flag -D --debug              Enable debug logging
 # @arg name[`_choice_builder`]
 buildx::inspect() {
     :;
@@ -657,7 +946,9 @@ buildx::inspect() {
 
 # {{{ docker buildx ls
 # @cmd List builder instances
+# @flag -D --debug             Enable debug logging
 # @option --format <string>    Format the output (default "table")
+# @flag --no-trunc             Don't truncate output
 buildx::ls() {
     :;
 }
@@ -665,12 +956,15 @@ buildx::ls() {
 
 # {{{ docker buildx prune
 # @cmd Remove build cache
-# @flag -a --all                    Include internal/frontend images
-# @option --builder <string>        Override the configured builder instance
-# @option --filter <filter>         Provide filter values (e.g., "until=24h")
-# @flag -f --force                  Do not prompt for confirmation
-# @option --keep-storage <bytes>    Amount of disk space to keep for cache
-# @flag --verbose                   Provide a more verbose output
+# @flag -a --all                      Include internal/frontend images
+# @option --builder <string>          Override the configured builder instance
+# @flag -D --debug                    Enable debug logging
+# @option --filter <filter>           Provide filter values
+# @flag -f --force                    Do not prompt for confirmation
+# @option --max-used-space <bytes>    Maximum amount of disk space allowed to keep for cache
+# @option --min-free-space <bytes>    Target amount of free disk space after pruning
+# @option --reserved-space <bytes>    Amount of disk space always allowed to keep for cache
+# @flag --verbose                     Provide a more verbose output
 buildx::prune() {
     :;
 }
@@ -680,6 +974,7 @@ buildx::prune() {
 # @cmd Remove one or more builder instances
 # @flag --all-inactive          Remove all inactive builders
 # @option --builder <string>    Override the configured builder instance
+# @flag -D --debug              Enable debug logging
 # @flag -f --force              Do not prompt for confirmation
 # @flag --keep-daemon           Keep the BuildKit daemon running
 # @flag --keep-state            Keep BuildKit state
@@ -692,6 +987,7 @@ buildx::rm() {
 # {{{ docker buildx stop
 # @cmd Stop builder instance
 # @option --builder <string>    Override the configured builder instance
+# @flag -D --debug              Enable debug logging
 # @arg name[`_choice_builder`]
 buildx::stop() {
     :;
@@ -701,6 +997,7 @@ buildx::stop() {
 # {{{ docker buildx use
 # @cmd Set the current builder instance
 # @option --builder <string>    Override the configured builder instance
+# @flag -D --debug              Enable debug logging
 # @flag --default               Set builder as default for current context
 # @flag --global                Builder persists context changes
 # @arg name[`_choice_builder`]
@@ -711,6 +1008,7 @@ buildx::use() {
 
 # {{{ docker buildx version
 # @cmd Show buildx version information
+# @flag -D --debug    Enable debug logging
 buildx::version() {
     :;
 }
@@ -727,12 +1025,59 @@ buildx::version() {
 # @option -f --file* <file>                     Compose configuration files
 # @option --parallel <int>                      Control max parallelism, -1 for unlimited (default -1)
 # @option --profile* <file>                     Specify a profile to enable
-# @option --progress[auto|tty|plain|json|quiet] <string>  Set type of progress output (default "auto")
+# @option --progress[auto|tty|plain|json|quiet] <string>  Set type of progress output
 # @option --project-directory <path>            Specify an alternate working directory (default: the path of the, first specified, Compose file)
 # @option -p --project-name <string>            Project name
 compose() {
     :;
 }
+
+# {{{ docker compose bridge
+# @cmd Convert compose files into another model
+# @flag --dry-run    Execute command in dry run mode
+compose::bridge() {
+    :;
+}
+
+# {{{{ docker compose bridge transformations
+# @cmd Manage transformation images
+# @flag --dry-run    Execute command in dry run mode
+compose::bridge::transformations() {
+    :;
+}
+
+# {{{{{ docker compose bridge transformations create
+# @cmd Create a new transformation
+# @flag --dry-run               Execute command in dry run mode
+# @option -f --from <string>    Existing transformation to copy (default: docker/compose-bridge-kubernetes)
+# @arg path
+compose::bridge::transformations::create() {
+    :;
+}
+# }}}}} docker compose bridge transformations create
+
+# {{{{{ docker compose bridge transformations list
+# @cmd List available transformations
+# @flag --dry-run              Execute command in dry run mode
+# @option --format <string>    Format the output.
+# @flag -q --quiet             Only display transformer names
+compose::bridge::transformations::list() {
+    :;
+}
+# }}}}} docker compose bridge transformations list
+# }}}} docker compose bridge transformations
+
+# {{{{ docker compose bridge convert
+# @cmd Convert compose files to Kubernetes manifests, Helm charts, or another model
+# @flag --dry-run                          Execute command in dry run mode
+# @option -o --output <dir>                The output directory for the Kubernetes resources (default "out")
+# @option --templates <dir>                Directory containing transformation templates
+# @option -t --transformation* <string>    Transformation to apply to compose model (default: docker/compose-bridge-kubernetes)
+compose::bridge::convert() {
+    :;
+}
+# }}}} docker compose bridge convert
+# }}} docker compose bridge
 
 # {{{ docker compose attach
 # @cmd Attach local standard input, output, and error streams to a service's running container
@@ -751,12 +1096,16 @@ compose::attach() {
 # @cmd Build or rebuild services
 # @option --build-arg* <string>    Set build-time variables for services
 # @option --builder <string>       Set builder to use
+# @flag --check                    Check build configuration
 # @flag --dry-run                  Execute command in dry run mode
 # @option -m --memory <bytes>      Set memory limit for the build container.
 # @flag --no-cache                 Do not use cache when building the image
+# @flag --print                    Print equivalent bake file
+# @option --provenance <string>    Add a provenance attestation
 # @flag --pull                     Always attempt to pull a newer version of the image
 # @flag --push                     Push service images
-# @flag -q --quiet                 Don't print anything to STDOUT
+# @flag -q --quiet                 Suppress the build output
+# @option --sbom <string>          Add a SBOM attestation
 # @option --ssh <string>           Set SSH authentications used when building service images.
 # @flag --with-dependencies        Also build dependencies (transitively)
 # @arg service*[`_choice_compose_service`]
@@ -765,6 +1114,21 @@ compose::build() {
 }
 # }}} docker compose build
 
+# {{{ docker compose commit
+# @cmd Create a new image from a service container's changes
+# @option -a --author <string>     Author (e.g., "John Hannibal Smith <hannibal@a-team.com>")
+# @option -c --change <list>       Apply Dockerfile instruction to the created image
+# @flag --dry-run                  Execute command in dry run mode
+# @option --index <int>            index of the container if service has multiple replicas.
+# @option -m --message <string>    Commit message
+# @flag -p --pause                 Pause container during commit (default true)
+# @arg service[`_choice_compose_service`]
+# @arg repository-tag[`_module_oci_docker_image`] <REPOSITORY[:TAG]>
+compose::commit() {
+    :;
+}
+# }}} docker compose commit
+
 # {{{ docker compose config
 # @cmd Parse, resolve and render compose file in canonical format
 # @flag --dry-run                  Execute command in dry run mode
@@ -772,7 +1136,11 @@ compose::build() {
 # @option --format <string>        Format the output.
 # @option --hash <string>          Print the service config hash, one per line.
 # @flag --images                   Print the image names, one per line.
+# @flag --lock-image-digests       Produces an override file with image digests
+# @flag --models                   Print the model names, one per line.
+# @flag --networks                 Print the network names, one per line.
 # @flag --no-consistency           Don't check model consistency - warning: may produce invalid Compose output
+# @flag --no-env-resolution        Don't resolve service env files
 # @flag --no-interpolate           Don't interpolate environment variables
 # @flag --no-normalize             Don't normalize compose model
 # @flag --no-path-resolution       Don't resolve file paths
@@ -791,6 +1159,7 @@ compose::config() {
 
 # {{{ docker compose cp
 # @cmd Copy files/folders between a service container and the local filesystem
+# @flag --all               Include containers created by the run command
 # @flag -a --archive        Archive mode (copy all uid/gid information)
 # @flag --dry-run           Execute command in dry run mode
 # @flag -L --follow-link    Always follow symbol link in SRC_PATH
@@ -813,6 +1182,7 @@ compose::cp() {
 # @flag --quiet-pull         Pull without printing progress information
 # @flag --remove-orphans     Remove containers for services not defined in the Compose file
 # @option --scale <scale>    Scale SERVICE to NUM instances.
+# @flag -y --yes             Assume "yes" as answer to all prompts and run non-interactively
 # @arg service*[`_choice_compose_service`]
 compose::create() {
     :;
@@ -834,8 +1204,10 @@ compose::down() {
 
 # {{{ docker compose events
 # @cmd Receive real time events from containers
-# @flag --dry-run    Execute command in dry run mode
-# @flag --json       Output events as a stream of json objects
+# @flag --dry-run             Execute command in dry run mode
+# @flag --json                Output events as a stream of json objects
+# @option --since <string>    Show all events created since timestamp
+# @option --until <string>    Stream events until this timestamp
 # @arg service*[`_choice_compose_service`]
 compose::events() {
     :;
@@ -848,7 +1220,7 @@ compose::events() {
 # @flag --dry-run                                  Execute command in dry run mode
 # @option -e --env* <string>                       Set environment variables
 # @option --index <int>                            Index of the container if service has multiple replicas
-# @option -T --no-TTY <docker> <compose> <exec>    Disable pseudo-TTY allocation.
+# @option -T --no-tty <docker> <compose> <exec>    Disable pseudo-TTY allocation.
 # @flag --privileged                               Give extended privileges to the process
 # @option -u --user <string>                       Run the command as this user
 # @option -w --workdir <dir>                       Path to workdir directory for this command
@@ -859,6 +1231,17 @@ compose::exec() {
     :;
 }
 # }}} docker compose exec
+
+# {{{ docker compose export
+# @cmd Export a service container's filesystem as a tar archive
+# @flag --dry-run               Execute command in dry run mode
+# @option --index <int>         index of the container if service has multiple replicas.
+# @option -o --output <file>    Write to a file, instead of STDOUT
+# @arg service[`_choice_compose_service`]
+compose::export() {
+    :;
+}
+# }}} docker compose export
 
 # {{{ docker compose images
 # @cmd List images used by the created containers
@@ -905,7 +1288,7 @@ compose::logs() {
 # @flag --dry-run              Execute command in dry run mode
 # @option --filter <filter>    Filter output based on conditions provided
 # @option --format <string>    Format the output.
-# @flag -q --quiet             Only display IDs
+# @flag -q --quiet             Only display project names
 compose::ls() {
     :;
 }
@@ -948,6 +1331,20 @@ compose::ps() {
     :;
 }
 # }}} docker compose ps
+
+# {{{ docker compose publish
+# @cmd Publish compose application
+# @flag --app                       Published compose application (includes referenced images)
+# @flag --dry-run                   Execute command in dry run mode
+# @option --oci-version <string>    OCI image/artifact specification version (automatically determined by default)
+# @flag --resolve-image-digests     Pin image tags to digests
+# @flag --with-env                  Include environment variables in the published OCI artifact
+# @flag -y --yes                    Assume "yes" as answer to all prompts
+# @arg repository-tag[`_module_oci_docker_image`] <REPOSITORY[:TAG]>
+compose::publish() {
+    :;
+}
+# }}} docker compose publish
 
 # {{{ docker compose pull
 # @cmd Pull service images
@@ -1000,27 +1397,31 @@ compose::rm() {
 
 # {{{ docker compose run
 # @cmd Run a one-off command on a service
-# @flag --build                     Build image before starting container
-# @option --cap-add <list>          Add Linux capabilities
-# @option --cap-drop <list>         Drop Linux capabilities
-# @flag -d --detach                 Run container in background and print container ID
-# @flag --dry-run                   Execute command in dry run mode
-# @option --entrypoint <string>     Override the entrypoint of the image
-# @option -e --env* <string>        Set environment variables
-# @flag -i --interactive            Keep STDIN open even if not attached (default true)
-# @option -l --label* <string>      Add or override a label
-# @option --name <string>           Assign a name to the container
-# @flag -T --no-TTY                 Disable pseudo-TTY allocation (default: auto-detected) (default true)
-# @flag --no-deps                   Don't start linked services
-# @option -p --publish* <string>    Publish a container's port(s) to the host
-# @flag --quiet-pull                Pull without printing progress information
-# @flag --remove-orphans            Remove containers for services not defined in the Compose file
-# @flag --rm                        Automatically remove the container when it exits
-# @flag -P --service-ports          Run command with all service's ports enabled and mapped to the host
-# @flag --use-aliases               Use the service's network useAliases in the network(s) the container connects to
-# @option -u --user <string>        Run as specified username or uid
-# @option -v --volume* <string>     Bind mount a volume
-# @option -w --workdir <dir>        Working directory inside the container
+# @flag --build                                    Build image before starting container
+# @option --cap-add <list>                         Add Linux capabilities
+# @option --cap-drop <list>                        Drop Linux capabilities
+# @flag -d --detach                                Run container in background and print container ID
+# @flag --dry-run                                  Execute command in dry run mode
+# @option --entrypoint <string>                    Override the entrypoint of the image
+# @option -e --env* <string>                       Set environment variables
+# @option --env-from-file* <file>                  Set environment variables from file
+# @flag -i --interactive                           Keep STDIN open even if not attached (default true)
+# @option -l --label* <string>                     Add or override a label
+# @option --name <string>                          Assign a name to the container
+# @flag -T --no-TTY                                Disable pseudo-TTY allocation (default: auto-detected) (default true)
+# @flag --no-deps                                  Don't start linked services
+# @option -p --publish* <string>                   Publish a container's port(s) to the host
+# @option --pull[always|missing|never] <string>    Pull image before running (default "policy")
+# @flag -q --quiet                                 Don't print anything to STDOUT
+# @flag --quiet-build                              Suppress progress output from the build process
+# @flag --quiet-pull                               Pull without printing progress information
+# @flag --remove-orphans                           Remove containers for services not defined in the Compose file
+# @flag --rm                                       Automatically remove the container when it exits
+# @flag -P --service-ports                         Run command with all service's ports enabled and mapped to the host
+# @flag --use-aliases                              Use the service's network useAliases in the network(s) the container connects to
+# @option -u --user <string>                       Run as specified username or uid
+# @option -v --volume* <string>                    Bind mount a volume
+# @option -w --workdir <dir>                       Working directory inside the container
 # @arg service[`_choice_compose_service`]
 # @arg command[`_module_os_command`]
 # @arg args~[`_choice_args`]
@@ -1052,7 +1453,7 @@ compose::start() {
 # @cmd Display a live stream of container(s) resource usage statistics
 # @flag -a --all               Show all containers (default shows just running)
 # @flag --dry-run              Execute command in dry run mode
-# @option --format <string>    Format output using a custom template:
+# @option --format <string>    Format output using a custom
 # @flag --no-stream            Disable streaming stats and only pull the first result
 # @flag --no-trunc             Do not truncate output
 # @arg service[`_choice_compose_service`]
@@ -1110,6 +1511,7 @@ compose::unpause() {
 # @flag --no-recreate                              If containers already exist, don't recreate them.
 # @flag --no-start                                 Don't start the services after creating them
 # @option --pull[always|missing|never] <string>    Pull image before running (default "policy")
+# @flag --quiet-build                              Suppress the build output
 # @flag --quiet-pull                               Pull without printing progress information
 # @flag --remove-orphans                           Remove containers for services not defined in the Compose file
 # @flag -V --renew-anon-volumes                    Recreate anonymous volumes instead of retrieving data from the previous containers
@@ -1117,8 +1519,9 @@ compose::unpause() {
 # @option -t --timeout <int>                       Use this timeout in seconds for container shutdown when attached or when containers are already running
 # @flag --timestamps                               Show timestamps
 # @flag --wait                                     Wait for services to be running|healthy.
-# @option --wait-timeout <int>                     Maximum duration to wait for the project to be running|healthy
+# @option --wait-timeout <int>                     Maximum duration in seconds to wait for the project to be running|healthy
 # @flag -w --watch                                 Watch source code and rebuild/refresh containers when files are updated.
+# @flag -y --yes                                   Assume "yes" as answer to all prompts and run non-interactively
 # @arg service*[`_choice_compose_service`]
 compose::up() {
     :;
@@ -1135,8 +1538,19 @@ compose::version() {
 }
 # }}} docker compose version
 
+# {{{ docker compose volumes
+# @cmd List volumes
+# @flag --dry-run              Execute command in dry run mode
+# @option --format <string>    Format output using a custom
+# @flag -q --quiet             Only display volume names
+# @arg service*[`_choice_compose_service`]
+compose::volumes() {
+    :;
+}
+# }}} docker compose volumes
+
 # {{{ docker compose wait
-# @cmd Block until the first service container stops
+# @cmd Block until containers of all (or specified) services stop.
 # @flag --down-project    Drops project when the first container stops
 # @flag --dry-run         Execute command in dry run mode
 # @arg service*[`_choice_compose_service`]
@@ -1149,7 +1563,7 @@ compose::wait() {
 # @cmd Watch build context for service and rebuild/refresh containers when files are updated
 # @flag --dry-run    Execute command in dry run mode
 # @flag --no-up      Do not build & start services before watching
-# @flag --prune      Prune dangling images on rebuild
+# @flag --prune      Prune dangling images on rebuild (default true)
 # @flag --quiet      hide build output
 # @arg service*[`_choice_compose_service`]
 compose::watch() {
@@ -1291,6 +1705,7 @@ container::cp() {
 # @option --tmpfs <list>                        Mount a tmpfs directory
 # @flag -t --tty                                Allocate a pseudo-TTY
 # @option --ulimit <ulimit>                     Ulimit options (default [])
+# @flag --use-api-socket                        Bind mount Docker API socket and required auth
 # @option -u --user <string>                    Username or UID (format: <name|uid>[:<group|gid>])
 # @option --userns <string>                     User namespace to use
 # @option --uts <string>                        UTS namespace to use
@@ -1344,7 +1759,7 @@ container::export() {
 
 # {{{ docker container inspect
 # @cmd Display detailed information on one or more containers
-# @option -f --format <string>    Format output using a custom template:
+# @option -f --format <string>    Format output using a custom
 # @flag -s --size                 Display total file sizes
 # @arg container*[`_choice_container_name`]
 container::inspect() {
@@ -1380,7 +1795,7 @@ container::logs() {
 # @alias list,ps
 # @flag -a --all               Show all containers (default shows just running)
 # @option -f --filter[`_choice_container_ls_filter`] <filter>  Filter output based on conditions provided
-# @option --format <string>    Format output using a custom template:
+# @option --format <string>    Format output using a custom
 # @option -n --last <int>      Show n last created containers (includes all states) (default -1)
 # @flag -l --latest            Show the latest created container (includes all states)
 # @flag --no-trunc             Don't truncate output
@@ -1429,7 +1844,7 @@ container::rename() {
 # {{{ docker container restart
 # @cmd Restart one or more containers
 # @option -s --signal <string>    Signal to send to the container
-# @option -t --time <int>         Seconds to wait before killing the container
+# @option -t --timeout <int>      Seconds to wait before killing the container
 # @arg container*[`_choice_container_name`]
 container::restart() {
     :;
@@ -1541,6 +1956,7 @@ container::rm() {
 # @option --tmpfs <list>                           Mount a tmpfs directory
 # @flag -t --tty                                   Allocate a pseudo-TTY
 # @option --ulimit <ulimit>                        Ulimit options (default [])
+# @flag --use-api-socket                           Bind mount Docker API socket and required auth
 # @option -u --user <string>                       Username or UID (format: <name|uid>[:<group|gid>])
 # @option --userns <string>                        User namespace to use
 # @option --uts <string>                           UTS namespace to use
@@ -1570,7 +1986,7 @@ container::start() {
 # {{{ docker container stats
 # @cmd Display a live stream of container(s) resource usage statistics
 # @flag -a --all               Show all containers (default shows just running)
-# @option --format <string>    Format output using a custom template:
+# @option --format <string>    Format output using a custom
 # @flag --no-stream            Disable streaming stats and only pull the first result
 # @flag --no-trunc             Do not truncate output
 # @arg container*[`_choice_container_name`]
@@ -1582,7 +1998,7 @@ container::stats() {
 # {{{ docker container stop
 # @cmd Stop one or more running containers
 # @option -s --signal <string>    Signal to send to the container
-# @option -t --time <int>         Seconds to wait before killing the container
+# @option -t --timeout <int>      Seconds to wait before killing the container
 # @arg container*[`_choice_container_name`]
 container::stop() {
     :;
@@ -1673,7 +2089,7 @@ context::import() {
 
 # {{{ docker context inspect
 # @cmd Display detailed information on one or more contexts
-# @option -f --format <string>    Format output using a custom template:
+# @option -f --format <string>    Format output using a custom
 # @arg context*[`_choice_context`]
 context::inspect() {
     :;
@@ -1682,7 +2098,7 @@ context::inspect() {
 
 # {{{ docker context ls
 # @cmd List contexts
-# @option --format <string>    Format output using a custom template:
+# @option --format <string>    Format output using a custom
 # @flag -q --quiet             Only show context names
 context::ls() {
     :;
@@ -1733,7 +2149,7 @@ image() {
 # {{{ docker image build
 # @cmd Build an image from a Dockerfile
 # @option --add-host* <string>           Add a custom host-to-IP mapping (format: "host:ip")
-# @option --allow* <string>              Allow extra privileged entitlement (e.g., "network.host", "security.insecure")
+# @option --allow* <string>              Allow extra privileged entitlement (e.g., "network.host", "security.insecure", "device")
 # @option --annotation* <string>         Add annotation to the image
 # @option --attest* <string>             Attestation parameters (format: "type=sbom,generator=image")
 # @option --build-arg* <string>          Set build-time variables
@@ -1743,7 +2159,8 @@ image() {
 # @option --cache-to* <dir>              Cache export destinations (e.g., "user/app:cache", "type=local,dest=path/to/dir")
 # @option --call[check|outline|targets] <string>  Set method for evaluating build (default "build")
 # @option --cgroup-parent <string>       Set the parent cgroup for the "RUN" instructions during build
-# @flag --check                          Shorthand for "--call=check" (default )
+# @flag --check                          Shorthand for "--call=check"
+# @flag -D --debug                       Enable debug logging
 # @option -f --file <file>               Name of the Dockerfile (default: "PATH/Dockerfile")
 # @option --iidfile <file>               Write the image ID to a file
 # @option --label* <string>              Set metadata for an image
@@ -1754,7 +2171,7 @@ image() {
 # @option --no-cache-filter* <string>    Do not cache specified stages
 # @option -o --output* <path>            Output destination (format: "type=local,dest=path")
 # @option --platform*[`_module_oci_docker_platform`] <string>  Set target platform for build
-# @option --progress[auto|plain|tty|rawjson] <string>  Set type of progress output.
+# @option --progress[auto|none|plain|quiet|rawjson|tty] <string>  Set type of progress output.
 # @option --provenance <string>          Shorthand for "--attest=type=provenance"
 # @flag --pull                           Always attempt to pull all referenced images
 # @flag --push                           Shorthand for "--output=type=registry"
@@ -1774,9 +2191,10 @@ image::build() {
 
 # {{{ docker image history
 # @cmd Show the history of an image
-# @option --format <string>    Format output using a custom template:
+# @option --format <string>    Format output using a custom
 # @flag -H --human             Print sizes and dates in human readable format (default true)
 # @flag --no-trunc             Don't truncate output
+# @option --platform[`_module_oci_docker_platform`] <string>  Show history for the given platform.
 # @flag -q --quiet             Only show image IDs
 # @arg image[`_module_oci_docker_image`]
 image::history() {
@@ -1798,7 +2216,8 @@ image::import() {
 
 # {{{ docker image inspect
 # @cmd Display detailed information on one or more images
-# @option -f --format <string>    Format output using a custom template:
+# @option -f --format <string>    Format output using a custom
+# @option --platform[`_module_oci_docker_platform`] <string>  Inspect a specific platform of the multi-platform image.
 # @arg image*[`_module_oci_docker_image`]
 image::inspect() {
     :;
@@ -1808,6 +2227,7 @@ image::inspect() {
 # {{{ docker image load
 # @cmd Load an image from a tar archive or STDIN
 # @option -i --input <file>    Read from tar archive file, instead of STDIN
+# @option --platform[`_module_oci_docker_platform`] <string>  Load only the given platform variant.
 # @flag -q --quiet             Suppress the load output
 image::load() {
     :;
@@ -1820,9 +2240,10 @@ image::load() {
 # @flag -a --all               Show all images (default hides intermediate images)
 # @flag --digests              Show digests
 # @option -f --filter[`_choice_image_ls_filter`] <filter>  Filter output based on conditions provided
-# @option --format <string>    Format output using a custom template:
+# @option --format <string>    Format output using a custom
 # @flag --no-trunc             Don't truncate output
 # @flag -q --quiet             Only show image IDs
+# @flag --tree                 List multi-platform images as a tree (EXPERIMENTAL)
 # @arg repository-tag[`_module_oci_docker_image`] <REPOSITORY[:TAG]>
 image::ls() {
     :;
@@ -1867,6 +2288,7 @@ image::push() {
 # @cmd Remove one or more images
 # @flag -f --force    Force removal of the image
 # @flag --no-prune    Do not delete untagged parents
+# @option --platform*[`_module_oci_docker_platform`] <string>  Remove only the given platform variant.
 # @arg image*[`_module_oci_docker_image`]
 image::rm() {
     :;
@@ -1876,6 +2298,7 @@ image::rm() {
 # {{{ docker image save
 # @cmd Save one or more images to a tar archive (streamed to STDOUT by default)
 # @option -o --output <file>    Write to a file, instead of STDOUT
+# @option --platform[`_module_oci_docker_platform`] <path>  Save only the given platform variant.
 # @arg image*[`_module_oci_docker_image`]
 image::save() {
     :;
@@ -1953,6 +2376,414 @@ manifest::rm() {
 # }}} docker manifest rm
 # }} docker manifest
 
+# {{ docker mcp
+# @cmd Docker MCP Plugin
+# @flag -v --version    Print version information and quit
+mcp() {
+    :;
+}
+
+# {{{ docker mcp catalog
+# @cmd Manage MCP server catalogs
+mcp::catalog() {
+    :;
+}
+
+# {{{{ docker mcp catalog add
+# @cmd Add a server to a catalog
+# @flag --force    Overwrite existing server in the catalog
+# @arg catalog!
+# @arg server-name!
+# @arg catalog-file!
+mcp::catalog::add() {
+    :;
+}
+# }}}} docker mcp catalog add
+
+# {{{{ docker mcp catalog bootstrap
+# @cmd Create a starter catalog file with Docker and Docker Hub server entries as examples
+# @arg output-file-path!
+mcp::catalog::bootstrap() {
+    :;
+}
+# }}}} docker mcp catalog bootstrap
+
+# {{{{ docker mcp catalog create
+# @cmd Create a new empty catalog
+# @arg name!
+mcp::catalog::create() {
+    :;
+}
+# }}}} docker mcp catalog create
+
+# {{{{ docker mcp catalog export
+# @cmd Export a configured catalog to a file
+# @arg catalog-name!
+# @arg file-path!
+mcp::catalog::export() {
+    :;
+}
+# }}}} docker mcp catalog export
+
+# {{{{ docker mcp catalog fork
+# @cmd Create a copy of an existing catalog
+# @arg src-catalog!
+# @arg new-name!
+mcp::catalog::fork() {
+    :;
+}
+# }}}} docker mcp catalog fork
+
+# {{{{ docker mcp catalog import
+# @cmd Import a catalog from URL or file
+# @arg enum![alias|url|file]
+mcp::catalog::import() {
+    :;
+}
+# }}}} docker mcp catalog import
+
+# {{{{ docker mcp catalog init
+# @cmd Initialize the catalog system
+mcp::catalog::init() {
+    :;
+}
+# }}}} docker mcp catalog init
+
+# {{{{ docker mcp catalog ls
+# @cmd List all configured catalogs
+# @flag --json    Print as JSON.
+mcp::catalog::ls() {
+    :;
+}
+# }}}} docker mcp catalog ls
+
+# {{{{ docker mcp catalog reset
+# @cmd Reset the catalog system
+mcp::catalog::reset() {
+    :;
+}
+# }}}} docker mcp catalog reset
+
+# {{{{ docker mcp catalog rm
+# @cmd Remove a catalog
+# @arg name!
+mcp::catalog::rm() {
+    :;
+}
+# }}}} docker mcp catalog rm
+
+# {{{{ docker mcp catalog show
+# @cmd Display catalog contents
+# @option --format[json|yaml] <format>    Supported: "json", "yaml".
+# @arg name
+mcp::catalog::show() {
+    :;
+}
+# }}}} docker mcp catalog show
+
+# {{{{ docker mcp catalog update
+# @cmd Update catalog(s) from remote sources
+# @arg name
+mcp::catalog::update() {
+    :;
+}
+# }}}} docker mcp catalog update
+# }}} docker mcp catalog
+
+# {{{ docker mcp client
+# @cmd Manage MCP clients
+# @arg supported-claude-desktop-continue-cursor-gemini-goose-gordon-lmstudio-sema4-vscode <Supported: claude-desktop continue cursor gemini goose gordon lmstudio sema4 vscode>
+mcp::client() {
+    :;
+}
+
+# {{{{ docker mcp client connect
+# @cmd Connect the Docker MCP Toolkit to a client.
+# @flag -g --global    Change the system wide configuration or the clients setup in your current git repo.
+# @flag -q --quiet     Only display errors.
+# @arg mcp-client!
+mcp::client::connect() {
+    :;
+}
+# }}}} docker mcp client connect
+
+# {{{{ docker mcp client disconnect
+# @cmd Disconnect the Docker MCP Toolkit from a client.
+# @flag -g --global    Change the system wide configuration or the clients setup in your current git repo.
+# @flag -q --quiet     Only display errors.
+# @arg mcp-client!
+mcp::client::disconnect() {
+    :;
+}
+# }}}} docker mcp client disconnect
+
+# {{{{ docker mcp client ls
+# @cmd List client configurations
+# @flag -g --global    Change the system wide configuration or the clients setup in your current git repo.
+# @flag --json         Print as JSON.
+mcp::client::ls() {
+    :;
+}
+# }}}} docker mcp client ls
+# }}} docker mcp client
+
+# {{{ docker mcp config
+# @cmd Manage the configuration
+mcp::config() {
+    :;
+}
+
+# {{{{ docker mcp config read
+# @cmd Read the configuration
+mcp::config::read() {
+    :;
+}
+# }}}} docker mcp config read
+
+# {{{{ docker mcp config reset
+# @cmd Reset the configuration
+mcp::config::reset() {
+    :;
+}
+# }}}} docker mcp config reset
+
+# {{{{ docker mcp config write
+# @cmd Write the configuration
+mcp::config::write() {
+    :;
+}
+# }}}} docker mcp config write
+# }}} docker mcp config
+
+# {{{ docker mcp feature
+# @cmd Manage experimental features
+mcp::feature() {
+    :;
+}
+
+# {{{{ docker mcp feature disable
+# @cmd Disable an experimental feature
+# @arg feature-name!
+mcp::feature::disable() {
+    :;
+}
+# }}}} docker mcp feature disable
+
+# {{{{ docker mcp feature enable
+# @cmd Enable an experimental feature
+# @arg feature-name!
+mcp::feature::enable() {
+    :;
+}
+# }}}} docker mcp feature enable
+
+# {{{{ docker mcp feature list
+# @cmd List all available features and their status
+mcp::feature::list() {
+    :;
+}
+# }}}} docker mcp feature list
+# }}} docker mcp feature
+
+# {{{ docker mcp gateway
+# @cmd Manage the MCP Server gateway
+mcp::gateway() {
+    :;
+}
+
+# {{{{ docker mcp gateway run
+# @cmd Run the gateway
+# @option --additional-catalog* <path>         Additional catalog paths to append to the default catalogs
+# @option --additional-config* <path>          Additional config paths to merge with the default config.yaml
+# @option --additional-registry* <path>        Additional registry paths to merge with the default registry.yaml
+# @option --additional-tools-config* <path>    Additional tools paths to merge with the default tools.yaml
+# @flag --block-network                        Block tools from accessing forbidden network resources
+# @flag --block-secrets                        Block secrets from being/received sent to/from tools (default true)
+# @option --catalog* <path>                    Paths to docker catalogs (absolute or relative to ~/.docker/mcp/catalogs/) (default [docker-mcp.yaml])
+# @option --config* <file>                     Paths to the config files (absolute or relative to ~/.docker/mcp/) (default [config.yaml])
+# @option --cpus <int>                         CPUs allocated to each MCP Server (default is 1) (default 1)
+# @flag --debug-dns                            Debug DNS resolution
+# @flag --dry-run                              Start the gateway but do not listen for connections (useful for testing the configuration)
+# @option --interceptor* <path>                List of interceptors to use (format: when:type:path, e.g. 'before:exec:/bin/path')
+# @flag --log-calls                            Log calls to the tools (default true)
+# @flag --long-lived                           Containers are long-lived and will not be removed until the gateway is stopped, useful for stateful servers
+# @option --memory <string>                    Memory allocated to each MCP Server (default is 2Gb) (default "2Gb")
+# @option --port <int>                         TCP port to listen on (default is to listen on stdio)
+# @option --registry* <file>                   Paths to the registry files (absolute or relative to ~/.docker/mcp/) (default [registry.yaml])
+# @option --secrets <docker-desktop>           Colon separated paths to search for secrets.
+# @option --servers* <string>                  Names of the servers to enable (if non empty, ignore --registry flag)
+# @flag --static                               Enable static mode (aka pre-started servers)
+# @option --tools* <string>                    List of tools to enable
+# @option --tools-config* <file>               Paths to the tools files (absolute or relative to ~/.docker/mcp/) (default [tools.yaml])
+# @option --transport <string>                 stdio, sse or streaming (default is stdio) (default "stdio")
+# @flag --use-configured-catalogs              Include user-managed catalogs (requires 'configured-catalogs' feature to be enabled)
+# @flag --verbose                              Verbose output
+# @flag --verify-signatures                    Verify signatures of the server images
+# @flag --watch                                Watch for changes and reconfigure the gateway (default true)
+mcp::gateway::run() {
+    :;
+}
+# }}}} docker mcp gateway run
+# }}} docker mcp gateway
+
+# {{{ docker mcp policy
+# @cmd Manage secret policies
+mcp::policy() {
+    :;
+}
+
+# {{{{ docker mcp policy dump
+# @cmd Dump the policy content
+mcp::policy::dump() {
+    :;
+}
+# }}}} docker mcp policy dump
+
+# {{{{ docker mcp policy set
+# @cmd Set a policy for secret management in Docker Desktop
+# @arg content!
+mcp::policy::set() {
+    :;
+}
+# }}}} docker mcp policy set
+# }}} docker mcp policy
+
+# {{{ docker mcp secret
+# @cmd Manage secrets
+mcp::secret() {
+    :;
+}
+
+# {{{{ docker mcp secret ls
+# @cmd List all secret names in Docker Desktop's secret store
+# @flag --json    Print as JSON.
+mcp::secret::ls() {
+    :;
+}
+# }}}} docker mcp secret ls
+
+# {{{{ docker mcp secret rm
+# @cmd Remove secrets from Docker Desktop's secret store
+# @flag --all    Remove all secrets
+# @arg name1
+# @arg name2*
+mcp::secret::rm() {
+    :;
+}
+# }}}} docker mcp secret rm
+
+# {{{{ docker mcp secret set
+# @cmd Set a secret in Docker Desktop's secret store
+# @option --provider <string>    Supported: credstore, oauth/<provider>
+# @arg key-value <key[=value]>
+mcp::secret::set() {
+    :;
+}
+# }}}} docker mcp secret set
+# }}} docker mcp secret
+
+# {{{ docker mcp server
+# @cmd Manage servers
+mcp::server() {
+    :;
+}
+
+# {{{{ docker mcp server disable
+# @cmd Disable a server or multiple servers
+mcp::server::disable() {
+    :;
+}
+# }}}} docker mcp server disable
+
+# {{{{ docker mcp server enable
+# @cmd Enable a server or multiple servers
+mcp::server::enable() {
+    :;
+}
+# }}}} docker mcp server enable
+
+# {{{{ docker mcp server inspect
+# @cmd Get information about a server
+mcp::server::inspect() {
+    :;
+}
+# }}}} docker mcp server inspect
+
+# {{{{ docker mcp server reset
+# @cmd Disable all the servers
+mcp::server::reset() {
+    :;
+}
+# }}}} docker mcp server reset
+# }}} docker mcp server
+
+# {{{ docker mcp tools
+# @cmd Manage tools
+# @option --format <string>          Output format (json|list) (default "list")
+# @option --gateway-arg* <string>    Additional arguments passed to the gateway
+# @flag --verbose                    Verbose output
+# @option --version <string>         Version of the gateway (default "2")
+mcp::tools() {
+    :;
+}
+
+# {{{{ docker mcp tools call
+# @cmd Call a tool
+mcp::tools::call() {
+    :;
+}
+# }}}} docker mcp tools call
+
+# {{{{ docker mcp tools count
+# @cmd Count tools
+mcp::tools::count() {
+    :;
+}
+# }}}} docker mcp tools count
+
+# {{{{ docker mcp tools disable
+# @cmd disable one or more tools
+# @option --server <string>    Specify which server provides the tools (optional, will auto-discover if not provided)
+# @arg tool1
+# @arg tool2*
+mcp::tools::disable() {
+    :;
+}
+# }}}} docker mcp tools disable
+
+# {{{{ docker mcp tools enable
+# @cmd enable one or more tools
+# @option --server <string>    Specify which server provides the tools (optional, will auto-discover if not provided)
+# @arg tool1
+# @arg tool2*
+mcp::tools::enable() {
+    :;
+}
+# }}}} docker mcp tools enable
+
+# {{{{ docker mcp tools inspect
+# @cmd Inspect a tool
+mcp::tools::inspect() {
+    :;
+}
+# }}}} docker mcp tools inspect
+
+# {{{{ docker mcp tools list
+# @cmd List tools
+mcp::tools::list() {
+    :;
+}
+# }}}} docker mcp tools list
+# }}} docker mcp tools
+
+# {{{ docker mcp version
+# @cmd Show the version information
+mcp::version() {
+    :;
+}
+# }}} docker mcp version
+# }} docker mcp
+
 # {{ docker network
 # @cmd Manage networks
 network() {
@@ -1963,6 +2794,7 @@ network() {
 # @cmd Connect a container to a network
 # @option --alias* <string>            Add network-scoped alias for the container
 # @option --driver-opt* <string>       driver options for the network
+# @option --gw-priority <int>          Highest gw-priority provides the default gateway.
 # @option --ip <string>                IPv4 address (e.g., "172.30.100.104")
 # @option --ip6 <string>               IPv6 address (e.g., "2001:db8::33")
 # @option --link <list>                Add link to another container
@@ -1987,7 +2819,8 @@ network::connect() {
 # @option --ip-range* <string>      Allocate container ip from a sub-range
 # @option --ipam-driver <string>    IP Address Management Driver (default "default")
 # @option --ipam-opt <map>          Set IPAM driver specific options (default map[])
-# @flag --ipv6                      Enable or disable IPv6 networking
+# @flag --ipv4                      Enable or disable IPv4 address assignment (default true)
+# @flag --ipv6                      Enable or disable IPv6 address assignment
 # @option --label <list>            Set metadata on a network
 # @option -o --opt <map>            Set driver specific options (default map[])
 # @option --scope <string>          Control the network's scope
@@ -2010,7 +2843,7 @@ network::disconnect() {
 
 # {{{ docker network inspect
 # @cmd Display detailed information on one or more networks
-# @option -f --format <string>    Format output using a custom template:
+# @option -f --format <string>    Format output using a custom
 # @flag -v --verbose              Verbose output for diagnostics
 # @arg network*[`_choice_network`]
 network::inspect() {
@@ -2021,7 +2854,7 @@ network::inspect() {
 # {{{ docker network ls
 # @cmd List networks
 # @option -f --filter <filter>    Provide filter values (e.g. "driver=bridge")
-# @option --format <string>       Format output using a custom template:
+# @option --format <string>       Format output using a custom
 # @flag --no-trunc                Do not truncate the output
 # @flag -q --quiet                Only display network IDs
 network::ls() {
@@ -2084,7 +2917,7 @@ plugin::enable() {
 
 # {{{ docker plugin inspect
 # @cmd Display detailed information on one or more plugins
-# @option -f --format <string>    Format output using a custom template:
+# @option -f --format <string>    Format output using a custom
 # @arg plugin*[`_choice_plugin`]
 plugin::inspect() {
     :;
@@ -2107,7 +2940,7 @@ plugin::install() {
 # {{{ docker plugin ls
 # @cmd List plugins
 # @option -f --filter <filter>    Provide filter values (e.g. "enabled=true")
-# @option --format <string>       Format output using a custom template:
+# @option --format <string>       Format output using a custom
 # @flag --no-trunc                Don't truncate output
 # @flag -q --quiet                Only display plugin IDs
 plugin::ls() {
@@ -2163,7 +2996,7 @@ system() {
 
 # {{{ docker system df
 # @cmd Show docker disk usage
-# @option --format <string>    Format output using a custom template:
+# @option --format <string>    Format output using a custom
 # @flag -v --verbose           Show detailed information on space usage
 system::df() {
     :;
@@ -2173,7 +3006,7 @@ system::df() {
 # {{{ docker system events
 # @cmd Get real time events from the server
 # @option -f --filter <filter>    Filter output based on conditions provided
-# @option --format <string>       Format output using a custom template:
+# @option --format <string>       Format output using a custom
 # @option --since <string>        Show all events created since timestamp
 # @option --until <string>        Stream events until this timestamp
 system::events() {
@@ -2183,7 +3016,7 @@ system::events() {
 
 # {{{ docker system info
 # @cmd Display system-wide information
-# @option -f --format <string>    Format output using a custom template:
+# @option -f --format <string>    Format output using a custom
 system::info() {
     :;
 }
@@ -2306,7 +3139,7 @@ volume::create() {
 
 # {{{ docker volume inspect
 # @cmd Display detailed information on one or more volumes
-# @option -f --format <string>    Format output using a custom template:
+# @option -f --format <string>    Format output using a custom
 # @arg volume*[`_choice_volume`]
 volume::inspect() {
     :;
@@ -2316,7 +3149,7 @@ volume::inspect() {
 # {{{ docker volume ls
 # @cmd List volumes
 # @option -f --filter <filter>    Provide filter values (e.g. "dangling=true")
-# @option --format <string>       Format output using a custom template:
+# @option --format <string>       Format output using a custom
 # @flag -q --quiet                Only display volume names
 volume::ls() {
     :;
@@ -2512,6 +3345,7 @@ cp() {
 # @option --tmpfs <list>                        Mount a tmpfs directory
 # @flag -t --tty                                Allocate a pseudo-TTY
 # @option --ulimit <ulimit>                     Ulimit options (default [])
+# @flag --use-api-socket                        Bind mount Docker API socket and required auth
 # @option -u --user <string>                    Username or UID (format: <name|uid>[:<group|gid>])
 # @option --userns <string>                     User namespace to use
 # @option --uts <string>                        UTS namespace to use
@@ -2538,7 +3372,7 @@ diff() {
 # {{ docker events
 # @cmd Get real time events from the server
 # @option -f --filter[`_choice_event_filter`] <filter>  Filter output based on conditions provided
-# @option --format <string>    Format output using a custom template:
+# @option --format <string>    Format output using a custom
 # @option --since <string>     Show all events created since timestamp
 # @option --until <string>     Stream events until this timestamp
 events() {
@@ -2557,9 +3391,10 @@ export() {
 
 # {{ docker history
 # @cmd Show the history of an image
-# @option --format <string>    Format output using a custom template:
+# @option --format <string>    Format output using a custom
 # @flag -H --human             Print sizes and dates in human readable format (default true)
 # @flag --no-trunc             Don't truncate output
+# @option --platform[`_module_oci_docker_platform`] <string>  Show history for the given platform.
 # @flag -q --quiet             Only show image IDs
 # @arg image[`_module_oci_docker_image`]
 history() {
@@ -2581,9 +3416,9 @@ import() {
 
 # {{ docker inspect
 # @cmd Return low-level information on Docker objects
-# @option -f --format <string>    Format output using a custom template:
+# @option -f --format <string>    Format output using a custom
 # @flag -s --size                 Display total file sizes if the type is container
-# @option --type <string>         Return JSON for specified type
+# @option --type <string>         Only inspect objects of the given type
 # @arg name-id* <NAME|ID>
 inspect() {
     :;
@@ -2602,6 +3437,7 @@ kill() {
 # {{ docker load
 # @cmd Load an image from a tar archive or STDIN
 # @option -i --input <file>    Read from tar archive file, instead of STDIN
+# @option --platform[`_module_oci_docker_platform`] <string>  Load only the given platform variant.
 # @flag -q --quiet             Suppress the load output
 load() {
     :;
@@ -2651,7 +3487,7 @@ rename() {
 # {{ docker restart
 # @cmd Restart one or more containers
 # @option -s --signal <string>    Signal to send to the container
-# @option -t --time <int>         Seconds to wait before killing the container
+# @option -t --timeout <int>      Seconds to wait before killing the container
 # @arg container*[`_choice_container_name`]
 restart() {
     :;
@@ -2673,6 +3509,7 @@ rm() {
 # @cmd Remove one or more images
 # @flag -f --force    Force removal of the image
 # @flag --no-prune    Do not delete untagged parents
+# @option --platform*[`_module_oci_docker_platform`] <string>  Remove only the given platform variant.
 # @arg image*[`_module_oci_docker_image`]
 rmi() {
     :;
@@ -2682,6 +3519,7 @@ rmi() {
 # {{ docker save
 # @cmd Save one or more images to a tar archive (streamed to STDOUT by default)
 # @option -o --output <file>    Write to a file, instead of STDOUT
+# @option --platform[`_module_oci_docker_platform`] <path>  Save only the given platform variant.
 # @arg image*[`_module_oci_docker_image`]
 save() {
     :;
@@ -2702,7 +3540,7 @@ start() {
 # {{ docker stats
 # @cmd Display a live stream of container(s) resource usage statistics
 # @flag -a --all               Show all containers (default shows just running)
-# @option --format <string>    Format output using a custom template:
+# @option --format <string>    Format output using a custom
 # @flag --no-stream            Disable streaming stats and only pull the first result
 # @flag --no-trunc             Do not truncate output
 # @arg container*[`_choice_container_name`]
@@ -2714,7 +3552,7 @@ stats() {
 # {{ docker stop
 # @cmd Stop one or more running containers
 # @option -s --signal <string>    Signal to send to the container
-# @option -t --time <int>         Seconds to wait before killing the container
+# @option -t --timeout <int>      Seconds to wait before killing the container
 # @arg container*[`_choice_container_name`]
 stop() {
     :;
@@ -2795,7 +3633,7 @@ config::create() {
 
 # {{{ docker config inspect
 # @cmd Display detailed information on one or more configs
-# @option -f --format <string>    Format output using a custom template:
+# @option -f --format <string>    Format output using a custom
 # @flag --pretty                  Print the information in a human friendly format
 # @arg config*[`_choice_config`]
 config::inspect() {
@@ -2806,7 +3644,7 @@ config::inspect() {
 # {{{ docker config ls
 # @cmd List configs
 # @option -f --filter <filter>    Filter output based on conditions provided
-# @option --format <string>       Format output using a custom template:
+# @option --format <string>       Format output using a custom
 # @flag -q --quiet                Only display IDs
 config::ls() {
     :;
@@ -2838,7 +3676,7 @@ node::demote() {
 
 # {{{ docker node inspect
 # @cmd Display detailed information on one or more nodes
-# @option -f --format <string>    Format output using a custom template:
+# @option -f --format <string>    Format output using a custom
 # @flag --pretty                  Print the information in a human friendly format
 # @arg self-node <self|NODE>
 # @arg node*[`_choice_node`]
@@ -2850,7 +3688,7 @@ node::inspect() {
 # {{{ docker node ls
 # @cmd List nodes in the swarm
 # @option -f --filter <filter>    Filter output based on conditions provided
-# @option --format <string>       Format output using a custom template:
+# @option --format <string>       Format output using a custom
 # @flag -q --quiet                Only display IDs
 node::ls() {
     :;
@@ -2920,7 +3758,7 @@ secret::create() {
 
 # {{{ docker secret inspect
 # @cmd Display detailed information on one or more secrets
-# @option -f --format <string>    Format output using a custom template:
+# @option -f --format <string>    Format output using a custom
 # @flag --pretty                  Print the information in a human friendly format
 # @arg secret*[`_choice_secret`]
 secret::inspect() {
@@ -2931,7 +3769,7 @@ secret::inspect() {
 # {{{ docker secret ls
 # @cmd List secrets
 # @option -f --filter <filter>    Filter output based on conditions provided
-# @option --format <string>       Format output using a custom template:
+# @option --format <string>       Format output using a custom
 # @flag -q --quiet                Only display IDs
 secret::ls() {
     :;
@@ -3038,7 +3876,7 @@ service::create() {
 
 # {{{ docker service inspect
 # @cmd Display detailed information on one or more services
-# @option -f --format <string>    Format output using a custom template:
+# @option -f --format <string>    Format output using a custom
 # @flag --pretty                  Print the information in a human friendly format
 # @arg service*[`_choice_service`]
 service::inspect() {
@@ -3066,7 +3904,7 @@ service::logs() {
 # {{{ docker service ls
 # @cmd List services
 # @option -f --filter <filter>    Filter output based on conditions provided
-# @option --format <string>       Format output using a custom template:
+# @option --format <string>       Format output using a custom
 # @flag -q --quiet                Only display IDs
 service::ls() {
     :;
@@ -3245,7 +4083,7 @@ stack::deploy() {
 
 # {{{ docker stack ls
 # @cmd List stacks
-# @option --format <string>    Format output using a custom template:
+# @option --format <string>    Format output using a custom
 stack::ls() {
     :;
 }
@@ -3254,7 +4092,7 @@ stack::ls() {
 # {{{ docker stack ps
 # @cmd List the tasks in the stack
 # @option -f --filter <filter>    Filter output based on conditions provided
-# @option --format <string>       Format output using a custom template:
+# @option --format <string>       Format output using a custom
 # @flag --no-resolve              Do not map IDs to Names
 # @flag --no-trunc                Do not truncate output
 # @flag -q --quiet                Only display task IDs
@@ -3276,7 +4114,7 @@ stack::rm() {
 # {{{ docker stack services
 # @cmd List the services in the stack
 # @option -f --filter <filter>    Filter output based on conditions provided
-# @option --format <string>       Format output using a custom template:
+# @option --format <string>       Format output using a custom
 # @flag -q --quiet                Only display IDs
 # @arg stack[`_choice_stack`]
 stack::services() {

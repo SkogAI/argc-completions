@@ -3,6 +3,7 @@
 
 # @option -A --annotated-source <symspec>       The -A option causes "gprof" to print annotated source code.
 # @flag -b --brief                              If the -b option is given, "gprof" doesn't print the verbose blurbs that try to explain the meaning of all of the fields in the tables.
+# @flag -B                                      The -B option causes "gprof" to print the call graph analysis.
 # @option -C --exec-counts <symspec>            The -C option causes "gprof" to print a tally of functions and the number of times each was called.
 # @flag -i --file-info                          The -i option causes "gprof" to display summary information about the profile data file(s) and then exit.
 # @option -I --directory-path <dirs>            The -I option specifies a list of search directories in which to find source files.
