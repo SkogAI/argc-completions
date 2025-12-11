@@ -103,6 +103,7 @@
 # @option --keepalive-time <seconds>               Interval time for keepalive probes
 # @option --key <key>                              Private key filename
 # @option --key-type[DER|PEM|ENG] <type>           Private key file type (DER/PEM/ENG)
+# @option --knownhosts <file>                      Specify knownhosts path
 # @option --krb[clear|safe|confidential|private] <level>  Enable Kerberos with security <level>
 # @option --libcurl <file>                         Generate libcurl code for this command line
 # @option --limit-rate <speed>                     Limit transfer speed to RATE

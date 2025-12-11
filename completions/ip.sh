@@ -1,40 +1,7 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @flag -V -Version               Print the version of the ip utility and exit.
-# @flag -h                        output statistics with human readable values followed by suffix.
-# @flag -human                    output statistics with human readable values followed by suffix.
-# @flag -human-readable           output statistics with human readable values followed by suffix.
-# @option -b -batch <FILENAME>    Read commands from provided file or standard input and invoke them.
-# @flag -force                    Don't terminate ip on errors in batch mode.
-# @flag -s                        Output more information.
-# @flag -stats                    Output more information.
-# @flag -statistics               Output more information.
-# @flag -d -details               Output more detailed information.
-# @option -l -loops <COUNT>       Specify maximum number of loops the 'ip address flush' logic will attempt before giving up.
-# @option -f -family              Specifies the protocol family to use.
-# @flag -4                        shortcut for -family inet.
-# @flag -6                        shortcut for -family inet6.
-# @flag -B                        shortcut for -family bridge.
-# @flag -M                        shortcut for -family mpls.
-# @flag -0                        shortcut for -family link.
-# @flag -o -oneline               output each record on a single line, replacing line feeds with the '\' character.
-# @flag -r -resolve               use the system's name resolver to print DNS names instead of host addresses.
-# @option -n -netns               switches ip to the specified network namespace NETNS.
-# @flag -N -Numeric               Print the number of protocol, scope, dsfield, etc directly instead of converting it to human readable name.
-# @flag -a -all                   executes specified command over all objects, it depends if command supports this option.
-# @option -c <[color][= # Configure color output. # [always|auto|never]>
-# @flag -t -timestamp             display current time when using monitor option.
-# @flag -ts                       Like -timestamp, but use shorter format.
-# @flag -tshort                   Like -timestamp, but use shorter format.
-# @option -rc <SIZE>              Set the netlink socket receive buffer size, defaults to 1MB.
-# @option -rcvbuf <SIZE>          Set the netlink socket receive buffer size, defaults to 1MB.
-# @flag -iec                      print human readable rates in IEC units (e.g. 1Ki = 1024).
-# @flag -br                       Print only basic information in a tabular format for better readability.
-# @flag -brief                    Print only basic information in a tabular format for better readability.
-# @flag -j -json                  Output results in JavaScript Object Notation (JSON).
-# @flag -p -pretty                The default JSON format is compact and more efficient to parse but hard for most users to read.
-# @flag -echo                     Request the kernel to send the applied configuration back.
+
 
 # {{ ip address
 # @cmd protocol (IP or IPv6) address on a device.

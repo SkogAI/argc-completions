@@ -2,68 +2,18 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @meta inherit-flag-options
-# @flag -J --json                            Use JSON output format.
-# @flag -n --noheadings                      Do not print a header line.
-# @option -o --output*,[`_choice_column`]    Specify which output columns to print.
-# @flag --output-all                         Output all available columns.
-# @flag -r --raw                             Use the raw output format.
-# @flag -h --help                            Display help text and exit.
-# @flag -V --version                         Display version and exit.
-# @arg id-type* <ID|type>
-
-# {{ rfkill event
-# @cmd Listen for rfkill events and display them on stdout.
-event() {
-    :;
-}
-# }} rfkill event
-
-# {{ rfkill list
-# @cmd List the current state of all available devices.
-# @arg identifier*[`_choice_identifier`]
-list() {
-    :;
-}
-# }} rfkill list
-
-# {{ rfkill block
-# @cmd Disable the corresponding device.
-# @arg identifier*[`_choice_identifier`]
-block() {
-    :;
-}
-# }} rfkill block
-
-# {{ rfkill unblock
-# @cmd Enable the corresponding device.
-# @arg identifier*[`_choice_identifier`]
-unblock() {
-    :;
-}
-# }} rfkill unblock
-
-# {{ rfkill toggle
-# @cmd Enable or disable the corresponding device.
-# @arg identifier*[`_choice_identifier`]
-toggle() {
-    :;
-}
-# }} rfkill toggle
-
-_choice_column() {
-    cat <<-'EOF'
-DEVICE	kernel device name
-ID	device identifier value
-TYPE	device type name that can be used as identifier
-TYPE-DESC	device type description
-SOFT	status of software block
-HARD	status of hardware block
-EOF
-}
-
-_choice_identifier() {
-    printf "%s\n" all wifi wlan bluetooth uwb ultrawideband wimax wwan gps fm
-    rfkill list | sed -n 's/^\(\S\+\): \(\S\+\): \(.*\)$/\1\t\3/p'
-}
+# @option --J <--jjssoonn>             Use JSON output format.
+# @option --- <--jjssoonn>             Use JSON output format.
+# @option --n <--nnoohheeaaddiinnggss>  Do not print a header line.
+# @option --- <--nnoohheeaaddiinnggss>  Do not print a header line.
+# @option --o <--oouuttppuutt>       Specify which output columns to print.
+# @option --- <--oouuttppuutt>       Specify which output columns to print.
+# @option --- <--oouuttppuutt--aallll>  Output all available columns.
+# @option --r <--rraaww>                Use the raw output format.
+# @option --- <--rraaww>                Use the raw output format.
+# @option --h <--hheellpp>             Display help text and exit.
+# @option --- <--hheellpp>             Display help text and exit.
+# @option --V <--vveerrssiioonn>    Display version and exit.
+# @option --- <--vveerrssiioonn>    Display version and exit.
 
 command eval "$(argc --argc-eval "$0" "$@")"

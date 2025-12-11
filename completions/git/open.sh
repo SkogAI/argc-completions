@@ -7,33 +7,12 @@ open() {
     :;
 }
 
-# {{{ git open clean
+# {{{ git open repo
 # @cmd
-open::clean() {
+open::repo() {
     :;
 }
-# }}} git open clean
-
-# {{{ git open clone
-# @cmd
-open::clone() {
-    :;
-}
-# }}} git open clone
-
-# {{{ git open notes
-# @cmd
-open::notes() {
-    :;
-}
-# }}} git open notes
-
-# {{{ git open prune
-# @cmd
-open::prune() {
-    :;
-}
-# }}} git open prune
+# }}} git open repo
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"
 

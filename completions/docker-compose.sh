@@ -197,14 +197,14 @@ events() {
 
 # {{ docker-compose exec
 # @cmd Execute a command in a running container
-# @flag -d --detach                                Detached mode: Run command in the background
-# @flag --dry-run                                  Execute command in dry run mode
-# @option -e --env* <string>                       Set environment variables
-# @option --index <int>                            Index of the container if service has multiple replicas
-# @option -T --no-tty <docker> <compose> <exec>    Disable pseudo-TTY allocation.
-# @flag --privileged                               Give extended privileges to the process
-# @option -u --user <string>                       Run the command as this user
-# @option -w --workdir <dir>                       Path to workdir directory for this command
+# @flag -d --detach             Detached mode: Run command in the background
+# @flag --dry-run               Execute command in dry run mode
+# @option -e --env* <string>    Set environment variables
+# @option --index <int>         Index of the container if service has multiple replicas
+# @flag -T --no-tty             Disable pseudo-TTY allocation.
+# @flag --privileged            Give extended privileges to the process
+# @option -u --user <string>    Run the command as this user
+# @option -w --workdir <dir>    Path to workdir directory for this command
 # @arg service[`_choice_service`]
 # @arg command[`_module_os_command`]
 # @arg args~[`_choice_args`]
@@ -434,7 +434,7 @@ start() {
 # @cmd Display a live stream of container(s) resource usage statistics
 # @flag -a --all               Show all containers (default shows just running)
 # @flag --dry-run              Execute command in dry run mode
-# @option --format <string>    Format output using a custom
+# @option --format <string>    Format output using a custom template:
 # @flag --no-stream            Disable streaming stats and only pull the first result
 # @flag --no-trunc             Do not truncate output
 # @arg service[`_choice_service`]
@@ -522,7 +522,7 @@ version() {
 # {{ docker-compose volumes
 # @cmd List volumes
 # @flag --dry-run              Execute command in dry run mode
-# @option --format <string>    Format output using a custom
+# @option --format <string>    Format output using a custom template:
 # @flag -q --quiet             Only display volume names
 # @arg service*[`_choice_service`]
 volumes() {

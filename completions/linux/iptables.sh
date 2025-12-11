@@ -2,26 +2,6 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @meta inherit-flag-options
-# @option -t --table[`_choice_table`] <table>     This option specifies the packet matching table which the command should operate on.
-# @flag -4 --ipv4                                 This option has no effect in iptables and iptables-restore.
-# @flag -6 --ipv6                                 If a rule using the -6 option is inserted with (and only with) iptables-restore, it will be silently ignored.
-# @option -p --protocol[`_choice_protocol`] <protocol>  The protocol of the rule or of the packet to check.
-# @option -s --source <address[/mask][,...]>      Source specification.
-# @option -d --destination <address[/mask][,...]>  Destination specification.
-# @option -m --match <match>                      Specifies a match to use, that is, an extension module that tests for a specific property.
-# @option -j --jump[`_choice_target`] <target>    This specifies the target of the rule; i.e., what to do if the packet matches it.
-# @option -g --goto <chain>                       This specifies that the processing should continue in a user specified chain.
-# @option -i --in-interface <name>                Name of an interface via which a packet was received (only for packets entering the INPUT, FORWARD and PREROUTING chains).
-# @option -o --out-interface <name>               Name of an interface via which a packet is going to be sent (for packets entering the FORWARD, OUTPUT and POSTROUTING chains).
-# @flag -f --fragment                             This means that the rule only refers to second and further IPv4 fragments of fragmented packets.
-# @option -c --set-counters <packets> <bytes>     This enables the administrator to initialize the packet and byte counters of a rule (during INSERT, APPEND, REPLACE operations).
-# @flag -v --verbose                              Verbose output.
-# @flag -V --version                              Show program version and the kernel API used.
-# @option -w --wait <seconds>                     Wait for the xtables lock.
-# @flag -n --numeric                              Numeric output.
-# @flag -x --exact                                Expand numbers.
-# @flag --line-numbers                            When listing rules, add line numbers to the beginning of each rule, corresponding to that rule's position in the chain.
-# @option --modprobe <command>                    When adding or inserting rules into a chain, use command to load any necessary modules (targets, match extensions, etc).
 
 # {{ iptables --append
 # @cmd Append to chain
@@ -148,25 +128,6 @@
 # }} iptables --rename-chain
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"
-
-_choice_table() {
-    cat <<-'EOF'
-filter	This is the default table (if no -t option is passed).
-nat	This  table is consulted when a packet that creates a new connection is encountered.
-mangle	This table is used for specialized packet alteration.
-raw	This table is used mainly for configuring exemptions from connection tracking in combination with the NOTRACK target.
-security	This table is used for Mandatory Access Control (MAC) networking rules, such as those enabled by the SECMARK and CONNSEC‐MARK  targets.
-EOF
-}
-
-_choice_protocol() {
-    printf "%s\n" tcp udp udplite icmp icmpv6 esp ah sctp mh all
-}
-
-_choice_target() {
-    printf "%s\n" ACCEPT DROP RETURN
-    _choice_chain
-}
 
 _choice_chain() {
     prerouting="PREROUTING\tFor packets that are coming in"

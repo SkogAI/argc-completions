@@ -26,6 +26,9 @@
 # @flag -P --prettyPrint                     pretty print, shorthand for '... style = ""'
 # @flag --properties-array-brackets          use [x] in array paths (e.g. for SpringBoot)
 # @option --properties-separator <string>    separator to use between keys and values (default " = ")
+# @flag --security-disable-env-ops           Disable env related operations.
+# @flag --security-disable-file-ops          Disable file related operations (e.g. load)
+# @option --shell-key-separator <string>     separator for shell variable key paths (default "_")
 # @option -s --split-exp <string>            print each result (or doc) into a file named (exp).
 # @option --split-exp-file <file>            Use a file to specify the split-exp expression.
 # @flag --string-interpolation               Toggles strings interpolation of \(exp) (default true)
@@ -79,6 +82,9 @@ completion() {
 # @flag -P --prettyPrint                     pretty print, shorthand for '... style = ""'
 # @flag --properties-array-brackets          use [x] in array paths (e.g. for SpringBoot)
 # @option --properties-separator <string>    separator to use between keys and values (default " = ")
+# @flag --security-disable-env-ops           Disable env related operations.
+# @flag --security-disable-file-ops          Disable file related operations (e.g. load)
+# @option --shell-key-separator <string>     separator for shell variable key paths (default "_")
 # @option -s --split-exp <string>            print each result (or doc) into a file named (exp).
 # @option --split-exp-file <file>            Use a file to specify the split-exp expression.
 # @flag --string-interpolation               Toggles strings interpolation of \(exp) (default true)
@@ -128,6 +134,9 @@ eval_() {
 # @flag -P --prettyPrint                     pretty print, shorthand for '... style = ""'
 # @flag --properties-array-brackets          use [x] in array paths (e.g. for SpringBoot)
 # @option --properties-separator <string>    separator to use between keys and values (default " = ")
+# @flag --security-disable-env-ops           Disable env related operations.
+# @flag --security-disable-file-ops          Disable file related operations (e.g. load)
+# @option --shell-key-separator <string>     separator for shell variable key paths (default "_")
 # @option -s --split-exp <string>            print each result (or doc) into a file named (exp).
 # @option --split-exp-file <file>            Use a file to specify the split-exp expression.
 # @flag --string-interpolation               Toggles strings interpolation of \(exp) (default true)

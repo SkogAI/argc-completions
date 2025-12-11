@@ -19,7 +19,7 @@
 # @flag --ansi                                   Enable processing of ANSI color codes
 # @flag --sync                                   Synchronous search for multi-staged filtering
 # @option --style <PRESET>                       Apply a style preset [default|minimal|full[:BORDER_STYLE]
-# @option --color[dark|light|16|bw] <COLSPEC>    Base scheme (dark|light|16|bw) and/or custom colors
+# @option --color[dark|light|16|bw] <COLSPEC>    Base scheme (dark|light|base16|bw) and/or custom colors
 # @flag --no-color                               Disable colors
 # @flag --no-bold                                Do not use bold text
 # @option --height <[~]HEIGHT[%]>                Display fzf window below the cursor with the given height instead of using fullscreen.
@@ -37,15 +37,20 @@
 # @flag --wrap                                   Enable line wrap
 # @option --wrap-sign <STR>                      Indicator for wrapped lines
 # @flag --no-multi-line                          Disable multi-line display of items when using --read0
+# @flag --raw                                    Enable raw mode (show non-matching items)
 # @flag --track                                  Track the current selection when the result is updated
 # @flag --tac                                    Reverse the order of the input
 # @option --gap <N>                              Render empty lines between each item
 # @option --gap-line <STR>                       Draw horizontal line on each gap using the string (default: '┈' or '-')
+# @option --freeze-left <N>                      Number of fields to freeze on the left
+# @option --freeze-right <N>                     Number of fields to freeze on the right
 # @flag --keep-right                             Keep the right end of the line visible on overflow
 # @option --scroll-off <LINES>                   Number of screen lines to keep above or below when scrolling to the top or to the bottom (default: 0)
 # @flag --no-hscroll                             Disable horizontal scroll
 # @option --hscroll-off <COLS>                   Number of screen columns to keep to the right of the highlighted substring (default: 10)
 # @option --jump-labels <CHARS>                  Label characters for jump mode
+# @option --gutter <CHAR>                        Character used for the gutter column (default: '▌')
+# @option --gutter-raw <CHAR>                    Character used for the gutter column in raw mode (default: '▖')
 # @option --pointer <STR>                        Pointer to the current line (default: '▌' or '>')
 # @option --marker <STR>                         Multi-select marker (default: '┃' or '>')
 # @option --marker-multi-line <STR>              Multi-select marker for multi-line entries; 3 elements for top, middle, and bottom (default: '╻┃╹')
@@ -91,12 +96,13 @@
 # @option --expect <KEYS>                        Comma-separated list of keys to complete fzf
 # @option --bind <BINDINGS>                      Custom key/event bindings
 # @option --with-shell <STR>                     Shell command and flags to start child processes with
-# @option --listen <[ADDR:]PORT>                 Start HTTP server to receive actions (POST /) (To allow remote process execution, use --listen-unsafe)
+# @option --listen <[ADDR:]PORT>                 Start HTTP server to receive actions via TCP (To allow remote process execution, use --listen-unsafe)
+# @option --listen <SOCKET_PATH>                 Start HTTP server to receive actions via Unix domain socket (Path should end with .sock)
 # @option --walker[file|follow|hidden] <OPTS>    [file][,dir][,follow][,hidden]
 # @option --walker-root* <DIR>                   List of directories to walk (default: .)
 # @option --walker-skip <DIRS>                   Comma-separated list of directory names to skip (default: .git,node_modules)
-# @option --history <FILE>                       History file
-# @option --history-size <N>                     Maximum number of history entries (default: 1000)
+# @option --history <FILE>                       File to store fzf search history (*not* shell command history)
+# @option --history-size <N>                     Maximum number of entries to keep in the file (default: 1000)
 # @flag --bash                                   Print script to set up Bash shell integration
 # @flag --zsh                                    Print script to set up Zsh shell integration
 # @flag --fish                                   Print script to set up Fish shell integration

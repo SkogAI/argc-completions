@@ -11,6 +11,9 @@
 # @option --inspect <val>                 Activate Bun's debugger
 # @option --inspect-wait <val>            Activate Bun's debugger, wait for a connection before executing
 # @option --inspect-brk <val>             Activate Bun's debugger, set breakpoint on first line of code and wait
+# @flag --cpu-prof                        Start CPU profiler and write profile to disk on exit
+# @option --cpu-prof-name <val>           Specify the name of the CPU profile file
+# @option --cpu-prof-dir <val>            Specify the directory where the CPU profile will be saved
 # @flag --if-present                      Exit without an error if the entrypoint does not exist
 # @flag --no-install                      Disable auto install in the Bun runtime
 # @option --install <val>                 Configure auto-install behavior.
@@ -47,6 +50,7 @@
 # @option --shell <val>                   Control the shell used for package.json scripts.
 # @flag --workspaces                      Run a script in all workspace packages (from the "workspaces" field in package.json)
 # @option --env-file <file>               Load environment variables from the specified file(s)
+# @flag --no-env-file                     Disable automatic loading of .env files
 # @option --cwd <dir>                     Absolute path to resolve files & entry points from.
 # @option -c --config <file>              Specify path to Bun config file.
 # @flag -h --help                         Display this menu and exit
@@ -70,6 +74,9 @@
 # @option --inspect <val>                 Activate Bun's debugger
 # @option --inspect-wait <val>            Activate Bun's debugger, wait for a connection before executing
 # @option --inspect-brk <val>             Activate Bun's debugger, set breakpoint on first line of code and wait
+# @flag --cpu-prof                        Start CPU profiler and write profile to disk on exit
+# @option --cpu-prof-name <val>           Specify the name of the CPU profile file
+# @option --cpu-prof-dir <val>            Specify the directory where the CPU profile will be saved
 # @flag --if-present                      Exit without an error if the entrypoint does not exist
 # @flag --no-install                      Disable auto install in the Bun runtime
 # @option --install <val>                 Configure auto-install behavior.
@@ -113,6 +120,7 @@
 # @flag --jsx-side-effects                Treat JSX elements as having side effects (disable pure annotations)
 # @flag --ignore-dce-annotations          Ignore tree-shaking annotations such as @__PURE__
 # @option --env-file <file>               Load environment variables from the specified file(s)
+# @flag --no-env-file                     Disable automatic loading of .env files
 # @option --cwd <dir>                     Absolute path to resolve files & entry points from.
 # @option -c --config <file>              Specify path to Bun config file.
 # @flag -h --help                         Display this menu and exit
@@ -129,6 +137,8 @@ run() {
 # @flag -u --update-snapshots             Update snapshot files
 # @option --rerun-each <val>              Re-run each test file <NUMBER> times, helps catch certain bugs
 # @flag --todo                            Include tests that are marked with "test.todo()"
+# @flag --only                            Run only tests that are marked with "test.only()" or "describe.only()"
+# @flag --pass-with-no-tests              Exit with code 0 when no tests are found
 # @flag --concurrent                      Treat all tests as `test.concurrent()` tests
 # @flag --randomize                       Run tests in random order
 # @option --seed <val>                    Set the random seed for test randomization
@@ -139,6 +149,8 @@ run() {
 # @option -t --test-name-pattern <val>    Run only tests with a name that matches the given regex.
 # @option --reporter <val>                Test output reporter format.
 # @option --reporter-outfile <val>        Output file path for the reporter format (required with --reporter).
+# @flag --dots                            Enable dots reporter.
+# @flag --only-failures                   Only display test failures, hiding passing tests.
 # @option --max-concurrency <val>         Maximum number of concurrent tests to execute at once.
 # @arg patterns
 test() {
@@ -182,7 +194,7 @@ exec() {
 # @flag --save                           Save to package.json (true by default)
 # @option --ca <val>                     Provide a Certificate Authority signing certificate
 # @option --cafile <val>                 The same as `--ca`, but is a file path to the certificate
-# @flag --dry-run                        Don't install anything
+# @flag --dry-run                        Perform a dry run without making changes
 # @flag --frozen-lockfile                Disallow changes to lockfile
 # @flag -f --force                       Always request the latest versions from the registry & reinstall all dependencies
 # @option --cache-dir <dir>              Store & load cached data from a specific directory path
@@ -205,6 +217,7 @@ exec() {
 # @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
 # @flag --lockfile-only                  Generate a lockfile without installing dependencies
 # @option --linker <val>                 Linker strategy (one of "isolated" or "hoisted")
+# @option --minimum-release-age <val>    Only install packages published at least N seconds ago (security feature)
 # @option --cpu <val>                    Override CPU architecture for optional dependencies (e.g., x64, arm64, * for all)
 # @option --os <val>                     Override operating system for optional dependencies (e.g., linux, darwin, * for all)
 # @flag -h --help                        Print this help menu
@@ -231,7 +244,7 @@ install() {
 # @flag --save                           Save to package.json (true by default)
 # @option --ca <val>                     Provide a Certificate Authority signing certificate
 # @option --cafile <val>                 The same as `--ca`, but is a file path to the certificate
-# @flag --dry-run                        Don't install anything
+# @flag --dry-run                        Perform a dry run without making changes
 # @flag --frozen-lockfile                Disallow changes to lockfile
 # @flag -f --force                       Always request the latest versions from the registry & reinstall all dependencies
 # @option --cache-dir <dir>              Store & load cached data from a specific directory path
@@ -254,6 +267,7 @@ install() {
 # @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
 # @flag --lockfile-only                  Generate a lockfile without installing dependencies
 # @option --linker <val>                 Linker strategy (one of "isolated" or "hoisted")
+# @option --minimum-release-age <val>    Only install packages published at least N seconds ago (security feature)
 # @option --cpu <val>                    Override CPU architecture for optional dependencies (e.g., x64, arm64, * for all)
 # @option --os <val>                     Override operating system for optional dependencies (e.g., linux, darwin, * for all)
 # @flag -h --help                        Print this help menu
@@ -279,7 +293,7 @@ add() {
 # @flag --save                           Save to package.json (true by default)
 # @option --ca <val>                     Provide a Certificate Authority signing certificate
 # @option --cafile <val>                 The same as `--ca`, but is a file path to the certificate
-# @flag --dry-run                        Don't install anything
+# @flag --dry-run                        Perform a dry run without making changes
 # @flag --frozen-lockfile                Disallow changes to lockfile
 # @flag -f --force                       Always request the latest versions from the registry & reinstall all dependencies
 # @option --cache-dir <dir>              Store & load cached data from a specific directory path
@@ -302,6 +316,7 @@ add() {
 # @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
 # @flag --lockfile-only                  Generate a lockfile without installing dependencies
 # @option --linker <val>                 Linker strategy (one of "isolated" or "hoisted")
+# @option --minimum-release-age <val>    Only install packages published at least N seconds ago (security feature)
 # @option --cpu <val>                    Override CPU architecture for optional dependencies (e.g., x64, arm64, * for all)
 # @option --os <val>                     Override operating system for optional dependencies (e.g., linux, darwin, * for all)
 # @flag -h --help                        Print this help menu
@@ -320,7 +335,7 @@ remove() {
 # @flag --save                           Save to package.json (true by default)
 # @option --ca <val>                     Provide a Certificate Authority signing certificate
 # @option --cafile <val>                 The same as `--ca`, but is a file path to the certificate
-# @flag --dry-run                        Don't install anything
+# @flag --dry-run                        Perform a dry run without making changes
 # @flag --frozen-lockfile                Disallow changes to lockfile
 # @flag -f --force                       Always request the latest versions from the registry & reinstall all dependencies
 # @option --cache-dir <dir>              Store & load cached data from a specific directory path
@@ -343,6 +358,7 @@ remove() {
 # @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
 # @flag --lockfile-only                  Generate a lockfile without installing dependencies
 # @option --linker <val>                 Linker strategy (one of "isolated" or "hoisted")
+# @option --minimum-release-age <val>    Only install packages published at least N seconds ago (security feature)
 # @option --cpu <val>                    Override CPU architecture for optional dependencies (e.g., x64, arm64, * for all)
 # @option --os <val>                     Override operating system for optional dependencies (e.g., linux, darwin, * for all)
 # @flag -h --help                        Print this help menu
@@ -375,7 +391,7 @@ audit() {
 # @flag --save                           Save to package.json (true by default)
 # @option --ca <val>                     Provide a Certificate Authority signing certificate
 # @option --cafile <val>                 The same as `--ca`, but is a file path to the certificate
-# @flag --dry-run                        Don't install anything
+# @flag --dry-run                        Perform a dry run without making changes
 # @flag --frozen-lockfile                Disallow changes to lockfile
 # @flag -f --force                       Always request the latest versions from the registry & reinstall all dependencies
 # @option --cache-dir <dir>              Store & load cached data from a specific directory path
@@ -398,6 +414,7 @@ audit() {
 # @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
 # @flag --lockfile-only                  Generate a lockfile without installing dependencies
 # @option --linker <val>                 Linker strategy (one of "isolated" or "hoisted")
+# @option --minimum-release-age <val>    Only install packages published at least N seconds ago (security feature)
 # @option --cpu <val>                    Override CPU architecture for optional dependencies (e.g., x64, arm64, * for all)
 # @option --os <val>                     Override operating system for optional dependencies (e.g., linux, darwin, * for all)
 # @flag -h --help                        Print this help menu
@@ -418,7 +435,7 @@ outdated() {
 # @flag --save                           Save to package.json (true by default)
 # @option --ca <val>                     Provide a Certificate Authority signing certificate
 # @option --cafile <val>                 The same as `--ca`, but is a file path to the certificate
-# @flag --dry-run                        Don't install anything
+# @flag --dry-run                        Perform a dry run without making changes
 # @flag --frozen-lockfile                Disallow changes to lockfile
 # @flag -f --force                       Always request the latest versions from the registry & reinstall all dependencies
 # @option --cache-dir <dir>              Store & load cached data from a specific directory path
@@ -441,6 +458,7 @@ outdated() {
 # @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
 # @flag --lockfile-only                  Generate a lockfile without installing dependencies
 # @option --linker <val>                 Linker strategy (one of "isolated" or "hoisted")
+# @option --minimum-release-age <val>    Only install packages published at least N seconds ago (security feature)
 # @option --cpu <val>                    Override CPU architecture for optional dependencies (e.g., x64, arm64, * for all)
 # @option --os <val>                     Override operating system for optional dependencies (e.g., linux, darwin, * for all)
 # @flag -h --help                        Print this help menu
@@ -459,7 +477,7 @@ link() {
 # @flag --save                           Save to package.json (true by default)
 # @option --ca <val>                     Provide a Certificate Authority signing certificate
 # @option --cafile <val>                 The same as `--ca`, but is a file path to the certificate
-# @flag --dry-run                        Don't install anything
+# @flag --dry-run                        Perform a dry run without making changes
 # @flag --frozen-lockfile                Disallow changes to lockfile
 # @flag -f --force                       Always request the latest versions from the registry & reinstall all dependencies
 # @option --cache-dir <dir>              Store & load cached data from a specific directory path
@@ -482,6 +500,7 @@ link() {
 # @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
 # @flag --lockfile-only                  Generate a lockfile without installing dependencies
 # @option --linker <val>                 Linker strategy (one of "isolated" or "hoisted")
+# @option --minimum-release-age <val>    Only install packages published at least N seconds ago (security feature)
 # @option --cpu <val>                    Override CPU architecture for optional dependencies (e.g., x64, arm64, * for all)
 # @option --os <val>                     Override operating system for optional dependencies (e.g., linux, darwin, * for all)
 # @flag -h --help                        Print this help menu
@@ -499,7 +518,7 @@ unlink() {
 # @flag --save                           Save to package.json (true by default)
 # @option --ca <val>                     Provide a Certificate Authority signing certificate
 # @option --cafile <val>                 The same as `--ca`, but is a file path to the certificate
-# @flag --dry-run                        Don't install anything
+# @flag --dry-run                        Perform a dry run without making changes
 # @flag --frozen-lockfile                Disallow changes to lockfile
 # @flag -f --force                       Always request the latest versions from the registry & reinstall all dependencies
 # @option --cache-dir <dir>              Store & load cached data from a specific directory path
@@ -522,6 +541,7 @@ unlink() {
 # @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
 # @flag --lockfile-only                  Generate a lockfile without installing dependencies
 # @option --linker <val>                 Linker strategy (one of "isolated" or "hoisted")
+# @option --minimum-release-age <val>    Only install packages published at least N seconds ago (security feature)
 # @option --cpu <val>                    Override CPU architecture for optional dependencies (e.g., x64, arm64, * for all)
 # @option --os <val>                     Override operating system for optional dependencies (e.g., linux, darwin, * for all)
 # @flag -h --help                        Print this help menu
@@ -530,6 +550,7 @@ unlink() {
 # @option --otp <val>                    Provide a one-time password for authentication
 # @option --auth-type <val>              Specify the type of one-time password authentication (default is 'web')
 # @option --gzip-level <val>             Specify a custom compression level for gzip.
+# @flag --tolerate-republish             Don't exit with code 1 when republishing over an existing version number
 # @arg dist
 publish() {
     :;
@@ -545,7 +566,7 @@ publish() {
 # @flag --save                           Save to package.json (true by default)
 # @option --ca <val>                     Provide a Certificate Authority signing certificate
 # @option --cafile <val>                 The same as `--ca`, but is a file path to the certificate
-# @flag --dry-run                        Don't install anything
+# @flag --dry-run                        Perform a dry run without making changes
 # @flag --frozen-lockfile                Disallow changes to lockfile
 # @flag -f --force                       Always request the latest versions from the registry & reinstall all dependencies
 # @option --cache-dir <dir>              Store & load cached data from a specific directory path
@@ -568,6 +589,7 @@ publish() {
 # @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
 # @flag --lockfile-only                  Generate a lockfile without installing dependencies
 # @option --linker <val>                 Linker strategy (one of "isolated" or "hoisted")
+# @option --minimum-release-age <val>    Only install packages published at least N seconds ago (security feature)
 # @option --cpu <val>                    Override CPU architecture for optional dependencies (e.g., x64, arm64, * for all)
 # @option --os <val>                     Override operating system for optional dependencies (e.g., linux, darwin, * for all)
 # @flag -h --help                        Print this help menu
@@ -605,13 +627,6 @@ pm::bin() {
     :;
 }
 # }}} bun pm bin
-
-# {{{ bun pm ls
-# @cmd list the dependency tree according to the current lockfile
-pm::ls() {
-    :;
-}
-# }}} bun pm ls
 
 # {{{ bun pm why
 # @cmd show dependency tree explaining why a package is installed
@@ -721,7 +736,7 @@ pm::default-trusted() {
 # @flag --save                           Save to package.json (true by default)
 # @option --ca <val>                     Provide a Certificate Authority signing certificate
 # @option --cafile <val>                 The same as `--ca`, but is a file path to the certificate
-# @flag --dry-run                        Don't install anything
+# @flag --dry-run                        Perform a dry run without making changes
 # @flag --frozen-lockfile                Disallow changes to lockfile
 # @flag -f --force                       Always request the latest versions from the registry & reinstall all dependencies
 # @option --cache-dir <dir>              Store & load cached data from a specific directory path
@@ -744,6 +759,7 @@ pm::default-trusted() {
 # @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
 # @flag --lockfile-only                  Generate a lockfile without installing dependencies
 # @option --linker <val>                 Linker strategy (one of "isolated" or "hoisted")
+# @option --minimum-release-age <val>    Only install packages published at least N seconds ago (security feature)
 # @option --cpu <val>                    Override CPU architecture for optional dependencies (e.g., x64, arm64, * for all)
 # @option --os <val>                     Override operating system for optional dependencies (e.g., linux, darwin, * for all)
 # @flag -h --help                        Print this help menu
@@ -754,11 +770,29 @@ info() {
 }
 # }} bun info
 
+# {{ bun why
+# @cmd Explain why a package is installed
+# @flag --top              Show only the top dependency tree instead of nested ones
+# @option --depth <NUM>    Maximum depth of the dependency tree to display
+# @arg package!            The package name to explain (supports glob patterns like '@org/*')
+why() {
+    :;
+}
+# }} bun why
+
 # {{ bun build
 # @cmd Bundle TypeScript & JavaScript into a single file
 # @flag --production                          Set NODE_ENV=production and enable minification
 # @flag --compile                             Generate a standalone Bun executable containing your bundled code.
 # @option --compile-exec-argv <val>           Prepend arguments to the standalone executable's execArgv
+# @flag --compile-autoload-dotenv             Enable autoloading of .env files in standalone executable (default: true)
+# @flag --no-compile-autoload-dotenv          Disable autoloading of .env files in standalone executable
+# @flag --compile-autoload-bunfig             Enable autoloading of bunfig.toml in standalone executable (default: true)
+# @flag --no-compile-autoload-bunfig          Disable autoloading of bunfig.toml in standalone executable
+# @flag --compile-autoload-tsconfig           Enable autoloading of tsconfig.json at runtime in standalone executable (default: false)
+# @flag --no-compile-autoload-tsconfig        Disable autoloading of tsconfig.json at runtime in standalone executable
+# @flag --compile-autoload-package-json       Enable autoloading of package.json at runtime in standalone executable (default: false)
+# @flag --no-compile-autoload-package-json    Disable autoloading of package.json at runtime in standalone executable
 # @flag --bytecode                            Use a bytecode cache
 # @flag --watch                               Automatically restart the process on file change
 # @flag --no-clear-screen                     Disable clearing the terminal screen on reload when --watch is enabled

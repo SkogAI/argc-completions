@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @flag --version                       print ninja version ("1.12.1")
+# @flag --version                       print ninja version ("1.13.2")
 # @flag -v --verbose                    show all command lines while building
 # @flag --quiet                         don't show progress status, just command output
 # @option -C <DIR>                      change to DIR before doing anything else

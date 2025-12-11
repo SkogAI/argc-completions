@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @flag -a --all                                   Do not ignore entries starting with
+# @flag -a --all                                   Do not ignore entries starting with .
 # @flag -A --almost-all                            Do not list implied .
 # @option --color[always|auto|never] <MODE>        When to use terminal colours [default: auto]
 # @option --icon[always|auto|never] <MODE>         When to print the icons [default: auto]
