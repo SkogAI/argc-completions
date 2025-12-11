@@ -6,6 +6,8 @@
 # @flag --allow-child-process                      allow use of child process when any permissions are set
 # @option --allow-fs-read <value>                  allow permissions to read the filesystem
 # @option --allow-fs-write <value>                 allow permissions to write in the filesystem
+# @flag --allow-inspector                          allow use of inspector when any permissions are set
+# @flag --allow-net                                allow use of network when any permissions are set
 # @flag --allow-wasi                               allow wasi when any permissions are set
 # @flag --allow-worker                             allow worker threads when any permissions are set
 # @flag --build-snapshot                           Generate a snapshot blob when the process exits.
@@ -41,12 +43,12 @@
 # @option --experimental-loader <value>            use the specified module as a custom loader
 # @flag --experimental-network-inspection          experimental network inspection support
 # @flag --experimental-print-required-tla          Print pending top-level await.
+# @flag --experimental-quic                        experimental QUIC support
 # @option --experimental-sea-config <value>        Generate a blob that can be embedded into the single executable application
 # @flag --experimental-test-coverage               enable code coverage in the test runner
 # @flag --experimental-test-module-mocks           enable module mocking in the test runner
 # @flag --experimental-transform-types             enable transformation of TypeScript-onlysyntax into JavaScript code
 # @flag --experimental-vm-modules                  experimental ES Module support in vm module
-# @flag --experimental-webstorage                  experimental Web Storage API
 # @flag --experimental-worker-inspection           experimental worker inspection support
 # @flag --expose-gc                                expose gc extension
 # @flag --force-context-aware                      disable loading non-context-aware addons
@@ -93,6 +95,8 @@
 # @flag --enable-network-family-autoselection      Disable network address family autodetection algorithm
 # @flag --no-network-family-autoselection          Disable network address family autodetection algorithm
 # @flag --no-warnings                              silence all process warnings
+# @flag --experimental-webstorage                  Web Storage API
+# @flag --no-webstorage                            Web Storage API
 # @flag --node-memory-debug                        Run with extra debug checks for memory leaks in Node.js itself
 # @option --openssl-config <file>                  load OpenSSL configuration from the specified file (overrides OPENSSL_CONF)
 # @flag --openssl-legacy-provider                  enable OpenSSL 3.0 legacy provider
@@ -135,6 +139,7 @@
 # @flag --test-only                                run tests with 'only' option set
 # @option --test-reporter <value>                  report test output using the given reporter
 # @option --test-reporter-destination <value>      report given reporter to the given destination
+# @option --test-rerun-failures <value>            specifies the path to the rerun state file
 # @option --test-shard <value>                     run test at specific shard
 # @option --test-skip-pattern <value>              run tests whose name do not match this regular expression
 # @option --test-timeout <value>                   specify test runner timeout
@@ -177,7 +182,7 @@
 # @option --watch-kill-signal <value>              kill signal to send to the process on watch mode restarts(default: SIGTERM)
 # @option --watch-path <value>                     path to watch
 # @flag --watch-preserve-output                    preserve outputs on watch mode restart
-# @flag --zero-fill-buffers                        automatically zero-fill all newly allocated Buffer and SlowBuffer instances
+# @flag --zero-fill-buffers                        automatically zero-fill all newly allocated Buffer instances
 # @arg file
 # @arg args*
 

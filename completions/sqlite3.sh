@@ -18,6 +18,7 @@
 # @flag -noheader                          turn headers on or off
 # @flag -help                              show this message
 # @flag -html                              set output mode to HTML
+# @flag -ifexists                          only open if database already exists
 # @flag -interactive                       force interactive I/O
 # @flag -json                              set output mode to 'json'
 # @flag -line                              set output mode to 'line'

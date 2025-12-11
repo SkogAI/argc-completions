@@ -486,8 +486,8 @@ search() {
 # @option -Z <FLAG>                              Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                                Print help
 # @option -p --package[`_choice_package`] <SPEC>  Package(s) to publish
-# @flag --workspace                              Publish all packages in the workspace (unstable)
-# @option --exclude <SPEC>                       Don't publish specified packages (unstable)
+# @flag --workspace                              Publish all packages in the workspace
+# @option --exclude <SPEC>                       Don't publish specified packages
 # @option -F --features*,[`_choice_feature`]     Space or comma separated list of features to activate
 # @flag --all-features                           Activate all available features
 # @flag --no-default-features                    Do not activate the `default` feature
@@ -878,8 +878,8 @@ owner() {
 
 # {{ cargo package
 # @cmd Assemble the local package into a distributable tarball
-# @option --index                                Registry index URL to prepare the package for (unstable)
-# @option --registry                             Registry to prepare the package for (unstable)
+# @option --index                                Registry index URL to prepare the package for
+# @option --registry                             Registry to prepare the package for
 # @flag -l --list                                Print files included in a package without making one
 # @flag --no-verify                              Don't verify the contents by building them
 # @flag --no-metadata                            Ignore warnings about a lack of human-usable metadata

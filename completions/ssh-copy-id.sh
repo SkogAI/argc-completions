@@ -1,14 +1,6 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @option -i <identity_file>          Use only the key(s) contained in identity_file (rather than looking for identities via ssh-add(1) or in the default_ID_file).
-# @flag -f                            Forced mode: doesn't check if the keys are present on the remote server.
-# @flag -n                            do a dry-run.
-# @flag -s                            SFTP mode: usually the public keys are installed by executing commands on the remote side.
-# @option -t <target_path>            the path on the target system where the keys should be added (defaults to ".ssh/authorized_keys")
-# @flag -x                            This option is for debugging the ssh-copy-id script itself.
-# @flag -h                            Print Usage summary
-# @flag -?                            Print Usage summary
 # @option -o[`_module_ssh_option`]    Can be used to pass options to ssh in the format used in ssh_config
 # @option -p <port>                   Port to connect to on the remote host.
 # @arg host[`_module_ssh_host`]

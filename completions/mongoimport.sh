@@ -30,7 +30,7 @@
 # @option --file <filename>                        file to import from; if not specified, stdin is used
 # @flag --headerline                               use first line in input source as the field list (CSV and TSV only)
 # @flag --jsonArray                                treat input source as a JSON array
-# @option --parseGrace <grace>                     controls behavior when type coercion fails - one of: autoCast, skipField, skipRow, stop (default: stop)
+# @option --parseGrace <grace>                     controls behavior when type coercion fails -one of: autoCast, skipField, skipRow, stop (default: stop)
 # @option --type <type>                            input format to import: json, csv, or tsv
 # @option --columnsHaveTypes[auto|binary|boolean|date|date_go|date_ms|date_oracle|decimal|double|int32|int64|string]  indicates that the field list (from --fields, --fieldsFile, or --headerline) specifies types; They must be in the form of '<colName>.<type>(<arg>)'.
 # @flag --legacy                                   use the legacy extended JSON format

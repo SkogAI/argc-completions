@@ -2,23 +2,6 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @arg words~[`_module_bridge_corba`]
-lfs() {
-    :;
-}
-
-# {{{ git lfs flow
-# @cmd
-lfs::flow() {
-    :;
-}
-# }}} git lfs flow
-
-# {{{ git lfs refs
-# @cmd
-lfs::refs() {
-    :;
-}
-# }}} git lfs refs
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"
 

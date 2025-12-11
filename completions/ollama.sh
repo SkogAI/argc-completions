@@ -40,6 +40,7 @@ show() {
 
 # {{ ollama run
 # @cmd Run a model
+# @option --dimensions <int>           Truncate output embeddings to specified dimension (embedding models only)
 # @option --format <string>            Response format (e.g. json)
 # @flag -h --help                      help for run
 # @flag --hidethinking                 Hide thinking output (if provided)
@@ -47,6 +48,7 @@ show() {
 # @option --keepalive <string>         Duration to keep a model loaded (e.g. 5m)
 # @flag --nowordwrap                   Don't wrap words to the next line automatically
 # @option --think <string[="true"]>    Enable thinking mode: true/false or high/medium/low for supported models
+# @flag --truncate                     For embedding models: truncate inputs exceeding context length (default: true).
 # @flag --verbose                      Show timings for response
 # @arg model[`_choice_model`]
 # @arg prompt

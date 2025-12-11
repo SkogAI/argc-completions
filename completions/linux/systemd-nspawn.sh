@@ -70,6 +70,7 @@
 # @option --overlay <PATH[:PATH...]:PATH>          Create an overlay mount from the host to the container
 # @option --overlay-ro <PATH[:PATH...]:PATH>       Similar, but creates a read-only overlay mount
 # @option --bind-user <NAME>                       Bind user from host to container
+# @option --bind-user-shell <BOOL|PATH>            Configure the shell to use for --bind-user= users
 # @option --console <MODE>                         Select how stdin/stdout/stderr and /dev/console are set up for the container.
 # @flag -P --pipe                                  Equivalent to --console=pipe
 # @option --background <COLOR>                     Set ANSI color for background

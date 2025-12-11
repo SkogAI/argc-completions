@@ -14,11 +14,13 @@
 # @option --ext[ts|tsx|js|jsx|mts|mjs|cts|cjs] <ext>  Set content type of the supplied file
 # @option -h --help[unstable|full] <CONTEXT>
 # @option --location <HREF>                      Value of globalThis.location used by some web APIs
+# @option --minimum-dependency-age <minimum-dependency-age>  (Unstable) The age in minutes, ISO-8601 duration or RFC3339 absolute timestamp (e.g. '120' for two hours, 'P2D' for two days, '2025-09-16' for cutoff date, '2025-09-16T12:00:00+00:00' for cutoff time, '0' to disable)
 # @flag --no-code-cache                          Disable V8 code cache feature
 # @flag --no-config                              Disable automatic loading of the configuration file
 # @option --preload <FILE>                       A list of files that will be executed before the main module
 # @flag -q --quiet                               Suppress diagnostic output
 # @option --seed <NUMBER>                        Set the random number generator seed
+# @option -t --tunnel[true|false] <tunnel>       Execute tasks with a tunnel to Deno Deploy.
 # @flag --unstable                               The `--unstable` flag has been deprecated.
 # @option --v8-flags* <V8_FLAGS>                 To see a list of all available flags use --v8-flags=--help Flags can also be set via the DENO_V8_FLAGS environment variable.
 # @option --check <CHECK_TYPE>                   Enable type-checking.
@@ -76,6 +78,7 @@ run() {
 # @option -h --help[unstable|full] <CONTEXT>
 # @option --host <host>                          The TCP address to serve on, defaulting to 0.0.0.0 (all interfaces)
 # @option --location <HREF>                      Value of globalThis.location used by some web APIs
+# @option --minimum-dependency-age <minimum-dependency-age>  (Unstable) The age in minutes, ISO-8601 duration or RFC3339 absolute timestamp (e.g. '120' for two hours, 'P2D' for two days, '2025-09-16' for cutoff date, '2025-09-16T12:00:00+00:00' for cutoff time, '0' to disable)
 # @flag --no-code-cache                          Disable V8 code cache feature
 # @flag --no-config                              Disable automatic loading of the configuration file
 # @flag --open                                   Open the browser on the address that the server is running on.
@@ -84,6 +87,7 @@ run() {
 # @option --preload <FILE>                       A list of files that will be executed before the main module
 # @flag -q --quiet                               Suppress diagnostic output
 # @option --seed <NUMBER>                        Set the random number generator seed
+# @option -t --tunnel[true|false] <tunnel>       Execute tasks with a tunnel to Deno Deploy.
 # @flag --unstable                               The `--unstable` flag has been deprecated.
 # @option --v8-flags* <V8_FLAGS>                 To see a list of all available flags use --v8-flags=--help Flags can also be set via the DENO_V8_FLAGS environment variable.
 # @option --check <CHECK_TYPE>                   Enable type-checking.
@@ -132,18 +136,19 @@ serve() {
 
 # {{ deno task
 # @cmd Run a task defined in the configuration file deno task dev
-# @option -c --config <FILE>                Configure different aspects of deno including TypeScript, linting, and code formatting.
-# @option --cwd <DIR>                       Specify the directory to run the task in
-# @flag --eval                              Evaluate the passed value as if it was a task in a configuration file
-# @option -f --filter <filter>              Filter members of the workspace by name, implies --recursive flag
+# @option -c --config <FILE>                  Configure different aspects of deno including TypeScript, linting, and code formatting.
+# @option --cwd <DIR>                         Specify the directory to run the task in
+# @flag --eval                                Evaluate the passed value as if it was a task in a configuration file
+# @option -f --filter <filter>                Filter members of the workspace by name, implies --recursive flag
 # @option -h --help[unstable|full] <CONTEXT>
-# @flag -q --quiet                          Suppress diagnostic output
-# @flag -r --recursive                      Run the task in all projects in the workspace
-# @flag --unstable                          The `--unstable` flag has been deprecated.
-# @option --frozen[true|false] <BOOLEAN>    Error out if lockfile is out of date
-# @option --lock <FILE>                     Check the specified lock file.
-# @flag --no-lock                           Disable auto discovery of the lock file
-# @option --node-modules-dir <MODE>         Sets the node modules management mode for npm packages
+# @flag -q --quiet                            Suppress diagnostic output
+# @flag -r --recursive                        Run the task in all projects in the workspace
+# @option -t --tunnel[true|false] <tunnel>    Execute tasks with a tunnel to Deno Deploy.
+# @flag --unstable                            The `--unstable` flag has been deprecated.
+# @option --frozen[true|false] <BOOLEAN>      Error out if lockfile is out of date
+# @option --lock <FILE>                       Check the specified lock file.
+# @flag --no-lock                             Disable auto discovery of the lock file
+# @option --node-modules-dir <MODE>           Sets the node modules management mode for npm packages
 # @arg task[`_choice_task`]
 task() {
     :;
@@ -160,6 +165,7 @@ task() {
 # @option --eval-file* <eval-file>          Evaluates the provided file(s) as scripts when the REPL starts.
 # @option -h --help[unstable|full] <CONTEXT>
 # @option --location <HREF>                 Value of globalThis.location used by some web APIs
+# @option --minimum-dependency-age <minimum-dependency-age>  (Unstable) The age in minutes, ISO-8601 duration or RFC3339 absolute timestamp (e.g. '120' for two hours, 'P2D' for two days, '2025-09-16' for cutoff date, '2025-09-16T12:00:00+00:00' for cutoff time, '0' to disable)
 # @flag --no-config                         Disable automatic loading of the configuration file
 # @option --preload <FILE>                  A list of files that will be executed before the main module
 # @flag -q --quiet                          Suppress diagnostic output
@@ -195,6 +201,7 @@ repl() {
 # @option --ext[ts|tsx|js|jsx|mts|mjs|cts|cjs] <ext>  Set content type of the supplied file
 # @option -h --help[unstable|full] <CONTEXT>
 # @option --location <HREF>                 Value of globalThis.location used by some web APIs
+# @option --minimum-dependency-age <minimum-dependency-age>  (Unstable) The age in minutes, ISO-8601 duration or RFC3339 absolute timestamp (e.g. '120' for two hours, 'P2D' for two days, '2025-09-16' for cutoff date, '2025-09-16T12:00:00+00:00' for cutoff time, '0' to disable)
 # @flag --no-config                         Disable automatic loading of the configuration file
 # @option --preload <FILE>                  A list of files that will be executed before the main module
 # @flag -p --print                          print result to stdout
@@ -254,6 +261,7 @@ add() {
 # @option -h --help[unstable|full] <CONTEXT>
 # @flag --jsr                                    assume unprefixed package names are jsr packages
 # @option --location <HREF>                      Value of globalThis.location used by some web APIs
+# @option --minimum-dependency-age <minimum-dependency-age>  (Unstable) The age in minutes, ISO-8601 duration or RFC3339 absolute timestamp (e.g. '120' for two hours, 'P2D' for two days, '2025-09-16' for cutoff date, '2025-09-16T12:00:00+00:00' for cutoff time, '0' to disable)
 # @option -n --name <name>                       Executable file name
 # @flag --no-config                              Disable automatic loading of the configuration file
 # @flag --npm                                    assume unprefixed package names are npm packages
@@ -325,6 +333,7 @@ uninstall() {
 # @option -h --help[unstable|full] <CONTEXT>
 # @flag -i --interactive                    Interactively select which dependencies to update
 # @flag --latest                            Consider the latest version, regardless of semver constraints
+# @option --minimum-dependency-age <minimum-dependency-age>  (Unstable) The age in minutes, ISO-8601 duration or RFC3339 absolute timestamp (e.g. '120' for two hours, 'P2D' for two days, '2025-09-16' for cutoff date, '2025-09-16T12:00:00+00:00' for cutoff time, '0' to disable)
 # @flag -q --quiet                          Suppress diagnostic output
 # @flag -r --recursive                      Include all workspace members
 # @flag -u --update                         Update dependency versions
@@ -363,6 +372,7 @@ remove() {
 # @option --ignore* <ignore>                     Ignore files
 # @flag --json                                   UNSTABLE: Output benchmark result in JSON format
 # @option --location <HREF>                      Value of globalThis.location used by some web APIs
+# @option --minimum-dependency-age <minimum-dependency-age>  (Unstable) The age in minutes, ISO-8601 duration or RFC3339 absolute timestamp (e.g. '120' for two hours, 'P2D' for two days, '2025-09-16' for cutoff date, '2025-09-16T12:00:00+00:00' for cutoff time, '0' to disable)
 # @flag --no-config                              Disable automatic loading of the configuration file
 # @flag --no-run                                 Cache bench modules, but don't run benchmarks
 # @flag --permit-no-files                        Don't return an error code if no files were found
@@ -423,6 +433,7 @@ bench() {
 # @flag --doc                                    Type-check code blocks in JSDoc as well as actual code
 # @flag --doc-only                               Type-check code blocks in JSDoc and Markdown only
 # @option -h --help[unstable|full] <CONTEXT>
+# @option --minimum-dependency-age <minimum-dependency-age>  (Unstable) The age in minutes, ISO-8601 duration or RFC3339 absolute timestamp (e.g. '120' for two hours, 'P2D' for two days, '2025-09-16' for cutoff date, '2025-09-16T12:00:00+00:00' for cutoff time, '0' to disable)
 # @flag --no-code-cache                          Disable V8 code cache feature
 # @flag --no-config                              Disable automatic loading of the configuration file
 # @option --preload <FILE>                       A list of files that will be executed before the main module
@@ -468,6 +479,7 @@ clean() {
 # @option --ext[ts|tsx|js|jsx|mts|mjs|cts|cjs] <ext>  Set content type of the supplied file
 # @option -h --help[unstable|full] <CONTEXT>
 # @option --location <HREF>                      Value of globalThis.location used by some web APIs
+# @option --minimum-dependency-age <minimum-dependency-age>  (Unstable) The age in minutes, ISO-8601 duration or RFC3339 absolute timestamp (e.g. '120' for two hours, 'P2D' for two days, '2025-09-16' for cutoff date, '2025-09-16T12:00:00+00:00' for cutoff time, '0' to disable)
 # @flag --no-code-cache                          Disable V8 code cache feature
 # @flag --no-config                              Disable automatic loading of the configuration file
 # @option --preload <FILE>                       A list of files that will be executed before the main module
@@ -537,12 +549,14 @@ coverage() {
 
 # {{ deno deploy
 # @cmd Manage and publish applications with Deno Deploy
-# @flag -h --help    - Show this help.
-# @flag --token      <token>  - Auth token to use
-# @flag --config     <config>  - Path for the config file
-# @flag --org        <name>  - The name of the organization
-# @flag --app        <name>  - The name of the application
-# @flag --prod       - Deploy directly to production
+# @flag -h --help               - Show this help.
+# @flag --token                 <token>  - Auth token to use
+# @flag --config                <config>  - Path for the config file
+# @flag --org                   <name>  - The name of the organization
+# @flag --app                   <name>  - The name of the application
+# @flag --prod                  - Deploy directly to production
+# @flag --allow-node-modules    - Allow node_modules directory to be included when uploading
+# @flag --no-wait               - Skip waiting for the build to complete
 # @arg root-path
 deploy() {
     :;
@@ -550,10 +564,12 @@ deploy() {
 
 # {{{ deno deploy create
 # @cmd [root-path]  - Create a new application
-# @flag -h --help    - Show this help.
-# @flag --token      <token>  - Auth token to use
-# @flag --config     <config>  - Path for the config file
-# @flag --org        <name>  - The name of the organization to create the application for
+# @flag -h --help               - Show this help.
+# @flag --token                 <token>  - Auth token to use
+# @flag --config                <config>  - Path for the config file
+# @flag --allow-node-modules    - Allow node_modules directory to be included when uploading
+# @flag --org                   <name>  - The name of the organization to create the application for
+# @flag --no-wait               - Skip waiting for the build to complete
 # @arg root-path
 deploy::create() {
     :;
@@ -654,6 +670,52 @@ deploy::env::load() {
 # }}}} deno deploy env load
 # }}} deno deploy env
 
+# {{{ deno deploy sandbox
+# @cmd - Interact with sandboxes
+# @flag -h --help    - Show this help.
+# @flag --token      <token>  - Auth token to use
+# @flag --config     <config>  - Path for the config file
+# @flag --org        <name>  - The name of the organization
+deploy::sandbox() {
+    :;
+}
+
+# {{{{ deno deploy sandbox list
+# @cmd - List all sandboxes in an organization
+# @flag --org        <name>  - The name of the organization
+# @flag -h --help    - Show this help.
+# @flag --token      <token>  - Auth token to use
+# @flag --config     <config>  - Path for the config file
+deploy::sandbox::list() {
+    :;
+}
+# }}}} deno deploy sandbox list
+
+# {{{{ deno deploy sandbox kill
+# @cmd <sandbox-id>  - Kill a running sandbox
+# @flag --org        <name>  - The name of the organization
+# @flag -h --help    - Show this help.
+# @flag --token      <token>  - Auth token to use
+# @flag --config     <config>  - Path for the config file
+# @arg sandbox-id!
+deploy::sandbox::kill() {
+    :;
+}
+# }}}} deno deploy sandbox kill
+
+# {{{{ deno deploy sandbox ssh
+# @cmd <sandbox-id>  - SSH into a running sandbox
+# @flag --org        <name>  - The name of the organization
+# @flag -h --help    - Show this help.
+# @flag --token      <token>  - Auth token to use
+# @flag --config     <config>  - Path for the config file
+# @arg sandbox-id!
+deploy::sandbox::ssh() {
+    :;
+}
+# }}}} deno deploy sandbox ssh
+# }}} deno deploy sandbox
+
 # {{{ deno deploy logs
 # @cmd - Stream logs from an application
 # @flag -h --help    - Show this help.
@@ -669,7 +731,7 @@ deploy::logs() {
 # }}} deno deploy logs
 
 # {{{ deno deploy setup-aws
-# @cmd [contexts]  - Setup AWS
+# @cmd [contexts]  - Setup cloud connections for AWS
 # @flag -h --help    - Show this help.
 # @flag --token      <token>  - Auth token to use
 # @flag --config     <config>  - Path for the config file
@@ -683,7 +745,7 @@ deploy::setup-aws() {
 # }}} deno deploy setup-aws
 
 # {{{ deno deploy setup-gcp
-# @cmd [contexts]  - Setup GCP
+# @cmd [contexts]  - Setup cloud connections for GCP
 # @flag -h --help    - Show this help.
 # @flag --token      <token>  - Auth token to use
 # @flag --config     <config>  - Path for the config file
@@ -697,7 +759,7 @@ deploy::setup-gcp() {
 # }}} deno deploy setup-gcp
 
 # {{{ deno deploy logout
-# @cmd - Revoke the Deno Deploy token if one is present.
+# @cmd - Revoke the Deno Deploy token if one is present
 # @flag -h --help    - Show this help.
 # @flag --token      <token>  - Auth token to use
 # @flag --config     <config>  - Path for the config file
@@ -860,6 +922,7 @@ init() {
 # @flag --hide-stacktraces                       Hide stack traces for errors in failure test results.
 # @option --ignore* <ignore>                     Ignore files
 # @option --location <HREF>                      Value of globalThis.location used by some web APIs
+# @option --minimum-dependency-age <minimum-dependency-age>  (Unstable) The age in minutes, ISO-8601 duration or RFC3339 absolute timestamp (e.g. '120' for two hours, 'P2D' for two days, '2025-09-16' for cutoff date, '2025-09-16T12:00:00+00:00' for cutoff time, '0' to disable)
 # @flag --no-config                              Disable automatic loading of the configuration file
 # @flag --parallel                               Run test modules in parallel.
 # @option --preload <FILE>                       A list of files that will be executed before the main module

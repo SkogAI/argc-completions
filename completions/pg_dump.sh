@@ -11,7 +11,7 @@
 # @flag --no-sync                                 do not wait for changes to be written safely to disk
 # @option --sync-method <METHOD>                  set method for syncing files to disk
 # @flag -? --help                                 show this help, then exit
-# @flag -a --data-only                            dump only the data, not the schema
+# @flag -a --data-only                            dump only the data, not the schema or statistics
 # @flag -b --large-objects                        include large objects in dump
 # @flag --blobs                                   (same as --large-objects, deprecated)
 # @flag -B --no-large-objects                     exclude large objects in dump
@@ -23,7 +23,7 @@
 # @option -n --schema <PATTERN>                   dump the specified schema(s) only
 # @option -N --exclude-schema <PATTERN>           do NOT dump the specified schema(s)
 # @flag -O --no-owner                             skip restoration of object ownership in plain-text format
-# @flag -s --schema-only                          dump only the schema, no data
+# @flag -s --schema-only                          dump only the schema, no data or statistics
 # @option -S --superuser <NAME>                   superuser user name to use in plain-text format
 # @option -t --table <PATTERN>                    dump only the specified table(s)
 # @option -T --exclude-table <PATTERN>            do NOT dump the specified table(s)
@@ -43,9 +43,13 @@
 # @option --include-foreign-data <PATTERN>        include data of foreign tables on foreign servers matching PATTERN
 # @flag --inserts                                 dump data as INSERT commands, rather than COPY
 # @flag --load-via-partition-root                 load partitions via the root table
-# @flag --no-comments                             do not dump comments
+# @flag --no-comments                             do not dump comment commands
+# @flag --no-data                                 do not dump data
+# @flag --no-policies                             do not dump row security policies
 # @flag --no-publications                         do not dump publications
+# @flag --no-schema                               do not dump schema
 # @flag --no-security-labels                      do not dump security label assignments
+# @flag --no-statistics                           do not dump statistics
 # @flag --no-subscriptions                        do not dump subscriptions
 # @flag --no-table-access-method                  do not dump table access methods
 # @flag --no-tablespaces                          do not dump tablespace assignments
@@ -56,8 +60,11 @@
 # @option --restrict-key <RESTRICT_KEY>           use provided string as psql \restrict key
 # @option --rows-per-insert <NROWS>               number of rows per INSERT; implies --inserts
 # @option --section[pre-data|data|post-data]      dump named section (pre-data, data, or post-data)
+# @flag --sequence-data                           include sequence data in dump
 # @flag --serializable-deferrable                 wait until the dump can run without anomalies
 # @option --snapshot                              use given snapshot for the dump
+# @flag --statistics                              dump the statistics
+# @flag --statistics-only                         dump only the statistics, not schema or data
 # @flag --strict-names                            require table and/or schema include patterns to match at least one entity each
 # @option --table-and-children <PATTERN>          dump only the specified table(s), including child and partition tables
 # @flag --use-set-session-authorization           use SET SESSION AUTHORIZATION commands instead of ALTER OWNER commands to set ownership

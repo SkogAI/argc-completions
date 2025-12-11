@@ -756,6 +756,7 @@ pr::checkout() {
 # {{{ gh pr checks
 # @cmd Show CI status for a single pull request
 # @flag --fail-fast                                Exit watch mode on first check failure
+# @option -i --interval <int>                      Refresh interval in seconds in watch mode (default 10)
 # @option -q --jq <expression>                     Filter JSON output using a jq expression
 # @option --json*,[`_choice_pr_field`] <fields>    Output JSON with the specified fields
 # @flag --required                                 Only show checks that are required
@@ -892,6 +893,20 @@ pr::reopen() {
     :;
 }
 # }}} gh pr reopen
+
+# {{{ gh pr revert
+# @cmd Revert a pull request
+# @option -b --body <string>       Body for the revert pull request
+# @option -F --body-file <file>    Read body text from file (use "-" to read from standard input)
+# @flag -d --draft                 Mark revert pull request as a draft
+# @option -t --title <string>      Title for the revert pull request
+# @flag --help                     Show help for command
+# @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
+# @arg number-url-branch <<number>|<url>|<branch>>
+pr::revert() {
+    :;
+}
+# }}} gh pr revert
 
 # {{{ gh pr review
 # @cmd Add a review to a pull request
@@ -1951,80 +1966,17 @@ workflow::view() {
 # }}} gh workflow view
 # }} gh workflow
 
-# {{ gh copilot
-# @cmd Extension copilot
-# @flag -h --help                help for copilot
-# @option --hostname <string>    The GitHub host to use for authentication
-# @flag -v --version             version for copilot
-copilot() {
+# {{ gh dash
+# @cmd Extension dash
+# @flag -c --config     Use this configuration file (default lookup:
+# @flag --cpuprofile    Write cpu profile to file
+# @flag --debug         Passing this flag will allow writing debug output to debug.log
+# @flag -h --help       Help for gh-dash
+# @flag -v --version    Version for gh
+dash() {
     :;
 }
-
-# {{{ gh copilot alias
-# @cmd Generate shell-specific aliases for convenience
-# @flag -h --help                help for alias
-# @option --hostname <string>    The GitHub host to use for authentication
-# @arg shell!
-copilot::alias() {
-    :;
-}
-# }}} gh copilot alias
-
-# {{{ gh copilot config
-# @cmd Configure options
-# @flag -h --help                help for config
-# @option --hostname <string>    The GitHub host to use for authentication
-copilot::config() {
-    :;
-}
-# }}} gh copilot config
-
-# {{{ gh copilot explain
-# @cmd Explain a command
-# @flag -h --help                help for explain
-# @option --hostname <string>    The GitHub host to use for authentication
-# @arg command
-copilot::explain() {
-    :;
-}
-# }}} gh copilot explain
-
-# {{{ gh copilot suggest
-# @cmd Suggest a command
-# @flag -h --help                  help for suggest
-# @option -s --shell-out <file>    Path to file for outputting command to execute
-# @option -t --target <target>     Target for suggestion; must be shell, gh, git
-# @option --hostname <string>      The GitHub host to use for authentication
-# @arg prompt
-copilot::suggest() {
-    :;
-}
-# }}} gh copilot suggest
-# }} gh copilot
-
-# {{ gh f
-# @cmd Extension f
-# @option -a <|adds>        add to staging area
-# @option -r <|runs>        show github workflow runs and filter logs
-# @option -g <|greps>       grep in files in revision history
-# @option -p <|prs>         view, diff and checkout open PR
-# @option -b <|branches>    checkout and diff branches
-# @option -d <|diffs>       diff files by extension
-# @option -l <|logs>        select commits and show diff
-# @option -t <|tags>        checkout and diff version tags
-# @option -R <|releases>    show and diff github releases
-# @option -s <|search>      search issues in any repository
-# @option -m <|myissue>     search issues you opened somewhere
-# @option -k <|pick>        cherrypick files from one branch to the other
-# @option -e <|envs>        show git config list
-# @option -h <|help>        show this help message
-# @option -V <|version>     show the current version
-# @arg f
-# @arg adds*
-f() {
-    :;
-}
-# }} gh f
+# }} gh dash
 
 # {{ gh grep
 # @cmd Extension grep
@@ -2050,143 +2002,6 @@ grep() {
 }
 # }} gh grep
 
-# {{ gh s
-# @cmd Extension s
-# @flag -E --empty     allow to pass an empty string as name, that is search github repositories based on topic and language only.
-# @flag -l --lang      search repositories with specific language multiple languages can be specified: -l go -l rust -l lua
-# @flag -d --desc      match repository description
-# @flag -u --user      narrow the search down to a specific user's repositories
-# @flag -t --topic     search for topics in repositories multiple topics can be specified: -t go -t gh-extension
-# @flag -c --colour    change prompt colour
-# @flag -L --limit     limit the number of results (default 20)
-# @option -V --version <print> <current> <version>
-# @flag -h --help      show this help page
-s() {
-    :;
-}
-
-# {{{ gh s arrow
-# @cmd : move up and down the list
-s::arrow() {
-    :;
-}
-# }}} gh s arrow
-
-# {{{ gh s enter
-# @cmd return selected repository to stdout
-s::enter() {
-    :;
-}
-# }}} gh s enter
-# }} gh s
-
-# {{ gh sub-issue
-# @cmd Extension sub-issue
-# @flag -h --help       help for gh-sub-issue
-# @flag -v --version    version for gh-sub-issue
-sub-issue() {
-    :;
-}
-
-# {{{ gh sub-issue add
-# @cmd Add an existing issue as a sub-issue to a parent issue
-# @flag -h --help    help for add
-# @option -R --repo[`_choice_search_repo`] <string>  Repository in OWNER/REPO format
-# @arg parent-issue!
-# @arg sub-issue!
-sub-issue::add() {
-    :;
-}
-# }}} gh sub-issue add
-
-# {{{ gh sub-issue completion
-# @cmd Generate the autocompletion script for the specified shell
-# @flag -h --help    help for completion
-sub-issue::completion() {
-    :;
-}
-
-# {{{{ gh sub-issue completion bash
-# @cmd Generate the autocompletion script for bash
-# @flag -h --help            help for bash
-# @flag --no-descriptions    disable completion descriptions
-sub-issue::completion::bash() {
-    :;
-}
-# }}}} gh sub-issue completion bash
-
-# {{{{ gh sub-issue completion fish
-# @cmd Generate the autocompletion script for fish
-# @flag -h --help            help for fish
-# @flag --no-descriptions    disable completion descriptions
-sub-issue::completion::fish() {
-    :;
-}
-# }}}} gh sub-issue completion fish
-
-# {{{{ gh sub-issue completion powershell
-# @cmd Generate the autocompletion script for powershell
-# @flag -h --help            help for powershell
-# @flag --no-descriptions    disable completion descriptions
-sub-issue::completion::powershell() {
-    :;
-}
-# }}}} gh sub-issue completion powershell
-
-# {{{{ gh sub-issue completion zsh
-# @cmd Generate the autocompletion script for zsh
-# @flag -h --help            help for zsh
-# @flag --no-descriptions    disable completion descriptions
-sub-issue::completion::zsh() {
-    :;
-}
-# }}}} gh sub-issue completion zsh
-# }}} gh sub-issue completion
-
-# {{{ gh sub-issue create
-# @cmd Create a new issue as a sub-issue of a parent issue
-# @option -a --assignee* <string>    Assign users to the issue
-# @option -b --body <string>         Body text for the new sub-issue
-# @flag -h --help                    help for create
-# @option -l --label* <string>       Add labels to the issue
-# @option -m --milestone <string>    Set milestone for the issue
-# @option -p --parent <string>       Parent issue number or URL (required)
-# @option --project* <string>        Add issue to projects (can specify multiple times)
-# @option -R --repo[`_choice_search_repo`] <string>  Repository for the new issue in OWNER/REPO format
-# @option -t --title <string>        Title for the new sub-issue (required)
-sub-issue::create() {
-    :;
-}
-# }}} gh sub-issue create
-
-# {{{ gh sub-issue list
-# @cmd List issues related to the specified issue
-# @flag -h --help                                 help for list
-# @option --json <string>                         Output JSON with the specified fields
-# @option -L --limit <int>                        Maximum number of issues to display (default 30)
-# @option --relation[children|parent|siblings] <string>  Relation type:  (default "children")
-# @option -R --repo[`_choice_search_repo`] <string>  Repository in OWNER/REPO format
-# @option -s --state[open|closed|all] <string>    Filter by state:  (default "open")
-# @flag -w --web                                  Open in web browser
-# @arg issue!
-sub-issue::list() {
-    :;
-}
-# }}} gh sub-issue list
-
-# {{{ gh sub-issue remove
-# @cmd Remove sub-issues from a parent issue
-# @flag -f --force    Skip confirmation prompt
-# @flag -h --help     help for remove
-# @option -R --repo[`_choice_search_repo`] <string>  Repository in OWNER/REPO format
-# @arg parent-issue!
-# @arg sub-issue*
-sub-issue::remove() {
-    :;
-}
-# }}} gh sub-issue remove
-# }} gh sub-issue
-
 # {{ gh co
 # @cmd Alias for "pr checkout"
 co() {
@@ -2203,11 +2018,12 @@ agent-task() {
 
 # {{{ gh agent-task create
 # @cmd Create an agent task (preview)
-# @option -b --base <string>       Base branch for the pull request (use default branch if not provided)
-# @flag --follow                   Follow agent session logs
-# @option -F --from-file <file>    Read task description from file (use "-" to read from standard input)
+# @option -b --base <string>            Base branch for the pull request (use default branch if not provided)
+# @option -a --custom-agent <string>    Use a custom agent for the task.
+# @flag --follow                        Follow agent session logs
+# @option -F --from-file <file>         Read task description from file (use "-" to read from standard input)
 # @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
-# @flag --help                     Show help for command
+# @flag --help                          Show help for command
 # @arg task-description <task description>
 agent-task::create() {
     :;
@@ -2216,7 +2032,7 @@ agent-task::create() {
 
 # {{{ gh agent-task list
 # @cmd List agent tasks (preview)
-# @option -L --limit <int>    Maximum number of agent tasks to fetch (default 30) (default 30)
+# @option -L --limit <int>    Maximum number of agent tasks to fetch (default 30)
 # @flag -w --web              Open agent tasks in the browser
 # @flag --help                Show help for command
 agent-task::list() {
@@ -2290,7 +2106,7 @@ alias::set() {
 # {{ gh api
 # @cmd Make an authenticated GitHub API request
 # @option --cache <duration>            Cache the response, e.g. "3600s", "60m", "1h"
-# @option -F --field <key=value>        Add a typed parameter in key=value format
+# @option -F --field <file>             Add a typed parameter in key=value format (use "@<path>" or "@-" to read value from file or stdin)
 # @option -H --header <key:value>       Add a HTTP request header in key:value format
 # @option --hostname <string>           The GitHub hostname for the request (default "github.com")
 # @flag -i --include                    Include HTTP response status line and headers in the output
