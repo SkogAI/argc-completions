@@ -2,7 +2,7 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -23,7 +23,7 @@
 # {{ uv auth
 # @cmd Manage authentication
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -50,7 +50,7 @@ auth() {
 # @option -t --token                     The token to use for the service
 # @option --keyring-provider[disabled|subprocess] <KEYRING_PROVIDER>  The keyring provider to use for storage of credentials [env: UV_KEYRING_PROVIDER=]
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -77,7 +77,7 @@ auth::login() {
 # @option -u --username                  The username to logout
 # @option --keyring-provider[disabled|subprocess] <KEYRING_PROVIDER>  The keyring provider to use for storage of credentials [env: UV_KEYRING_PROVIDER=]
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -104,7 +104,7 @@ auth::logout() {
 # @option -u --username                  The username to lookup
 # @option --keyring-provider[disabled|subprocess] <KEYRING_PROVIDER>  The keyring provider to use for reading credentials [env: UV_KEYRING_PROVIDER=]
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -129,7 +129,7 @@ auth::token() {
 # {{{ uv auth dir
 # @cmd Show the path to the uv credentials directory
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -212,7 +212,7 @@ auth::dir() {
 # @flag --no-binary                                Don't install pre-built wheels [env: UV_NO_BINARY=]
 # @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: UV_NO_BINARY_PACKAGE=]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --refresh                                  Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>      Refresh cached data for a specific package
 # @option -p --python                              The Python interpreter to use for the run environment.
@@ -259,7 +259,7 @@ run() {
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag -q --quiet*                      Use quiet output
 # @flag -v --verbose*                    Use verbose output
 # @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
@@ -335,7 +335,7 @@ init() {
 # @flag --no-binary                                Don't install pre-built wheels [env: UV_NO_BINARY=]
 # @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: UV_NO_BINARY_PACKAGE=]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --refresh                                  Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>      Refresh cached data for a specific package
 # @option -p --python                              The Python interpreter to use for resolving and syncing.
@@ -400,7 +400,7 @@ add() {
 # @flag --no-binary                                Don't install pre-built wheels [env: UV_NO_BINARY=]
 # @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: UV_NO_BINARY_PACKAGE=]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --refresh                                  Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>      Refresh cached data for a specific package
 # @option -p --python                              The Python interpreter to use for resolving and syncing.
@@ -465,7 +465,7 @@ remove() {
 # @flag --no-binary                                Don't install pre-built wheels [env: UV_NO_BINARY=]
 # @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: UV_NO_BINARY_PACKAGE=]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --refresh                                  Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>      Refresh cached data for a specific package
 # @option -p --python                              The Python interpreter to use for resolving and syncing.
@@ -547,7 +547,7 @@ version() {
 # @flag --no-binary                                Don't install pre-built wheels [env: UV_NO_BINARY=]
 # @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: UV_NO_BINARY_PACKAGE=]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --refresh                                  Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>      Refresh cached data for a specific package
 # @option -p --python                              The Python interpreter to use for the project environment.
@@ -603,7 +603,7 @@ sync() {
 # @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: UV_NO_BINARY_PACKAGE=]
 # @option --link-mode[clone|copy|hardlink|symlink] <LINK_MODE>  The method to use when installing packages from the global cache [env: UV_LINK_MODE=]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --refresh                                  Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>      Refresh cached data for a specific package
 # @option -p --python                              The Python interpreter to use during resolution.
@@ -681,7 +681,7 @@ lock() {
 # @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: UV_NO_BINARY_PACKAGE=]
 # @option --link-mode[clone|copy|hardlink|symlink] <LINK_MODE>  The method to use when installing packages from the global cache [env: UV_LINK_MODE=]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --refresh                                  Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>      Refresh cached data for a specific package
 # @option -p --python                              The Python interpreter to use during resolution.
@@ -757,7 +757,7 @@ export() {
 # @flag --no-managed-python                        Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads                      Disable automatic downloads of Python.
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag -q --quiet*                                Use quiet output
 # @flag -v --verbose*                              Use verbose output
 # @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
@@ -782,7 +782,7 @@ tree() {
 # @option --version                      The version of Ruff to use for formatting
 # @flag --no-project                     Avoid discovering a project or workspace
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -807,7 +807,7 @@ format() {
 # {{ uv tool
 # @cmd Run and install commands provided by Python packages
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -871,7 +871,7 @@ tool() {
 # @flag --no-binary                                Don't install pre-built wheels [env: UV_NO_BINARY=]
 # @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: UV_NO_BINARY_PACKAGE=]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --refresh                                  Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>      Refresh cached data for a specific package
 # @option -p --python                              The Python interpreter to use to build the run environment.
@@ -940,7 +940,7 @@ tool::run() {
 # @flag --no-binary                                Don't install pre-built wheels [env: UV_NO_BINARY=]
 # @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: UV_NO_BINARY_PACKAGE=]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --refresh                                  Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>      Refresh cached data for a specific package
 # @option -p --python                              The Python interpreter to use to build the tool environment.
@@ -1000,7 +1000,7 @@ tool::install() {
 # @flag --no-binary                                Don't install pre-built wheels [env: UV_NO_BINARY=]
 # @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: UV_NO_BINARY_PACKAGE=]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag -q --quiet*                                Use quiet output
 # @flag -v --verbose*                              Use verbose output
 # @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
@@ -1027,7 +1027,7 @@ tool::upgrade() {
 # @flag --show-extras                    Whether to display the extra requirements installed with each tool
 # @flag --show-python                    Whether to display the Python version associated with each tool
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag -q --quiet*                      Use quiet output
@@ -1051,7 +1051,7 @@ tool::list() {
 # @cmd Uninstall a tool
 # @flag --all                            Uninstall all tools
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -1076,7 +1076,7 @@ tool::uninstall() {
 # {{{ uv tool update-shell
 # @cmd Ensure that the tool executable directory is on the `PATH`
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -1101,7 +1101,7 @@ tool::update-shell() {
 # @cmd Show the path to the uv tools directory
 # @flag --bin                            Show the directory into which `uv tool` will install executables.
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -1126,7 +1126,7 @@ tool::dir() {
 # {{ uv python
 # @cmd Manage Python versions and installations
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -1157,7 +1157,7 @@ python() {
 # @option --output-format[text|json] <OUTPUT_FORMAT>  Select the output format [default: text]
 # @option --python-downloads-json-url <PYTHON_DOWNLOADS_JSON_URL>  URL pointing to JSON of custom Python installations
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -1192,7 +1192,7 @@ python::list() {
 # @flag -U --upgrade                        Upgrade existing Python installations to the latest patch version
 # @flag --default                           Use as the default Python version
 # @flag -n --no-cache                       Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>           Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>           Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                    Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python                 Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads               Disable automatic downloads of Python.
@@ -1222,7 +1222,7 @@ python::install() {
 # @flag -r --reinstall                      Reinstall the latest Python patch, if it's already installed
 # @option --python-downloads-json-url <PYTHON_DOWNLOADS_JSON_URL>  URL pointing to JSON of custom Python installations
 # @flag -n --no-cache                       Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>           Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>           Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                    Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python                 Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads               Disable automatic downloads of Python.
@@ -1252,7 +1252,7 @@ python::upgrade() {
 # @flag --show-version                   Show the Python version that would be used instead of the path to the interpreter
 # @option --python-downloads-json-url <PYTHON_DOWNLOADS_JSON_URL>  URL pointing to JSON of custom Python installations
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -1281,7 +1281,7 @@ python::find() {
 # @flag --global                         Update the global Python version pin
 # @flag --rm                             Remove the Python version pin
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -1307,7 +1307,7 @@ python::pin() {
 # @cmd Show the uv Python installation directory
 # @flag --bin                            Show the directory into which `uv python` will install Python executables.
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -1333,7 +1333,7 @@ python::dir() {
 # @option -i --install-dir <INSTALL_DIR>    The directory where the Python was installed [env: UV_PYTHON_INSTALL_DIR=]
 # @flag --all                               Uninstall all managed Python versions
 # @flag -n --no-cache                       Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>           Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>           Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                    Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python                 Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads               Disable automatic downloads of Python.
@@ -1358,7 +1358,7 @@ python::uninstall() {
 # {{{ uv python update-shell
 # @cmd Ensure that the Python executable directory is on the `PATH`
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -1383,7 +1383,7 @@ python::update-shell() {
 # {{ uv pip
 # @cmd Manage Python packages with a pip-compatible interface
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -1456,7 +1456,7 @@ pip() {
 # @option --no-build-isolation-package <NO_BUILD_ISOLATION_PACKAGE>  Disable isolation when building source distributions for a specific package
 # @option --link-mode[clone|copy|hardlink|symlink] <LINK_MODE>  The method to use when installing packages from the global cache [env: UV_LINK_MODE=]
 # @flag -n --no-cache                             Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                 Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>                 Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --refresh                                 Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>     Refresh cached data for a specific package
 # @option -p --python                             The Python interpreter to use during resolution.
@@ -1524,7 +1524,7 @@ pip::compile() {
 # @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for specific packages to those that were uploaded prior to the given date
 # @flag --no-sources                              Ignore the `tool.uv.sources` table when resolving dependencies.
 # @flag -n --no-cache                             Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                 Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>                 Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --refresh                                 Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>     Refresh cached data for a specific package
 # @option -p --python                             The Python interpreter into which packages should be installed.
@@ -1602,7 +1602,7 @@ pip::sync() {
 # @flag --no-build-isolation                      Disable isolation when building source distributions [env: UV_NO_BUILD_ISOLATION=]
 # @option --no-build-isolation-package <NO_BUILD_ISOLATION_PACKAGE>  Disable isolation when building source distributions for a specific package
 # @flag -n --no-cache                             Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                 Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>                 Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --refresh                                 Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>     Refresh cached data for a specific package
 # @option -p --python                             The Python interpreter into which packages should be installed.
@@ -1642,7 +1642,7 @@ pip::install() {
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag -q --quiet*                      Use quiet output
 # @flag -v --verbose*                    Use verbose output
 # @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
@@ -1674,7 +1674,7 @@ pip::uninstall() {
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag -q --quiet*                      Use quiet output
 # @flag -v --verbose*                    Use verbose output
 # @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
@@ -1717,7 +1717,7 @@ pip::freeze() {
 # @flag --no-managed-python                      Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads                    Disable automatic downloads of Python.
 # @flag -n --no-cache                            Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>                Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag -q --quiet*                              Use quiet output
 # @flag -v --verbose*                            Use verbose output
 # @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
@@ -1747,7 +1747,7 @@ pip::list() {
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag -q --quiet*                      Use quiet output
 # @flag -v --verbose*                    Use verbose output
 # @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
@@ -1792,7 +1792,7 @@ pip::show() {
 # @flag --no-managed-python                      Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads                    Disable automatic downloads of Python.
 # @flag -n --no-cache                            Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>                Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag -q --quiet*                              Use quiet output
 # @flag -v --verbose*                            Use verbose output
 # @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
@@ -1820,7 +1820,7 @@ pip::tree() {
 # @flag --no-managed-python                    Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads                  Disable automatic downloads of Python.
 # @flag -n --no-cache                          Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>              Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>              Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag -q --quiet*                            Use quiet output
 # @flag -v --verbose*                          Use verbose output
 # @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
@@ -1929,7 +1929,7 @@ venv() {
 # @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: UV_NO_BINARY_PACKAGE=]
 # @option --link-mode[clone|copy|hardlink|symlink] <LINK_MODE>  The method to use when installing packages from the global cache [env: UV_LINK_MODE=]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --refresh                                  Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>      Refresh cached data for a specific package
 # @flag -q --quiet*                                Use quiet output
@@ -1963,7 +1963,7 @@ build() {
 # @flag --dry-run                        Perform a dry run without uploading files
 # @flag --no-attestations                Do not upload attestations for the published files [env: UV_PUBLISH_NO_ATTESTATIONS=]
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -1988,7 +1988,7 @@ publish() {
 # {{ uv cache
 # @cmd Manage uv's cache
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -2012,7 +2012,7 @@ cache() {
 # @cmd Clear the cache, removing all entries or those linked to specific packages
 # @flag --force                          Force removal of the cache, ignoring in-use checks
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -2039,7 +2039,7 @@ cache::clean() {
 # @flag --ci                             Optimize the cache for persistence in a continuous integration environment, like GitHub Actions
 # @flag --force                          Force removal of the cache, ignoring in-use checks
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -2063,7 +2063,7 @@ cache::prune() {
 # {{{ uv cache dir
 # @cmd Show the cache directory
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -2110,10 +2110,11 @@ cache::size() {
 # }}} uv cache size
 # }} uv cache
 
-# {{ uv self
-# @cmd Manage the uv executable
+# {{{ uv cache size
+# @cmd Show the cache size
+# @flag -H --human                       Display the cache size in human-readable format (e.g., `1.2 GiB` instead of raw bytes)
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -2138,7 +2139,7 @@ self() {
 # @option --token                        A GitHub token for authentication.
 # @flag --dry-run                        Run without performing the update
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -2165,7 +2166,7 @@ self::update() {
 # @flag --short                          Only print the version
 # @option --output-format[text|json] <OUTPUT_FORMAT>  [default: text]
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/extra/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/home/skogix/.uv]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
