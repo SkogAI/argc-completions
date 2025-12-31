@@ -9,6 +9,7 @@
 # @flag -f --only-folders                   Only show folders
 # @flag -F --no-only-folders                Show folders and files alike
 # @flag --show-root-fs                      Show filesystem info on top
+# @option --max-depth <MAX_DEPTH>           Only show trees up to a certain depth
 # @flag -g --show-git-info                  Show git statuses on files and stats on repo
 # @flag -G --no-show-git-info               Don't show git statuses on files and stats on repo
 # @flag --git-status                        Only show files having an interesting git status, including hidden ones
@@ -42,6 +43,7 @@
 # @option --set-install-state[undefined|refused|installed] <state>  Manually set installation state
 # @option --print-shell-function <shell>    Print to stdout the br function for a given shell
 # @option --listen <socket>                 A socket to listen to for commands
+# @flag --listen-auto                       create a random socket to listen to for commands
 # @flag --get-root                          Ask for the current root of the remote broot
 # @option --write-default-conf <path>       Write default conf files in given directory
 # @option --send <socket>                   A socket to send commands to

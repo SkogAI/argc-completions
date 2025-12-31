@@ -21,7 +21,7 @@
 # @option --mcp-config* <configs>               Load MCP servers from JSON files or strings (space-separated)
 # @option --system-prompt <prompt>              System prompt to use for the session
 # @option --append-system-prompt <prompt>       Append a system prompt to the default system prompt
-# @option --permission-mode[acceptEdits|bypassPermissions|default|dontAsk|plan] <mode>  Permission mode to use for the session
+# @option --permission-mode[acceptEdits|bypassPermissions|default|delegate|dontAsk|plan] <mode>  Permission mode to use for the session
 # @flag -c --continue                           Continue the most recent conversation
 # @option -r --resume <value>                   Resume a conversation by session ID, or open interactive picker with optional search term
 # @flag --fork-session                          When resuming, create a new session ID instead of reusing the original (use with --resume or --continue)
@@ -39,6 +39,8 @@
 # @option --setting-sources[user|project|local] <sources>  Comma-separated list of setting sources to load.
 # @option --plugin-dir* <paths>                 Load plugins from directories for this session only (repeatable)
 # @flag --disable-slash-commands                Disable all slash commands
+# @flag --chrome                                Enable Claude in Chrome integration
+# @flag --no-chrome                             Disable Claude in Chrome integration
 # @flag -v --version                            Output the version number
 # @flag -h --help                               Display help for command
 # @arg prompt                                   Your prompt

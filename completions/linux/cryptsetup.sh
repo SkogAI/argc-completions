@@ -122,7 +122,7 @@
 # @flag --use-fsync                            Use fsync after each block
 # @flag --write-log                            Update log file after every block
 # @flag --dump-master-key                      Alias for --dump-volume-key
-# @option --master-key-file <STRING>           Alias for --dump-volume-key-file
+# @option --master-key-file <STRING>           Alias for --volume-key-file
 
 # {{ cryptsetup open
 # @cmd open device as <name>

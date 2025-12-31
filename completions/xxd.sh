@@ -19,7 +19,7 @@
 # @option -s <[+][-]seek>    start at <seek> bytes abs.
 # @flag -u                   use upper case hex letters.
 # @option -R <when>          colorize the output; <when> can be 'always', 'auto' or 'never'.
-# @flag -v                   show version: "xxd 2025-08-24 by Juergen Weigert et al.".
+# @flag -v                   show version: "xxd 2025-11-26 by Juergen Weigert et al.".
 # @arg intpufile
 # @arg outputfile
 

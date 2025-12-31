@@ -6,26 +6,28 @@
 # {{ pacman --database
 # @cmd Operate on the package database.
 # @alias -D
-# @option -b --dbpath <path>          set an alternate database location
-# @flag -k --check                    test local database for validity (-kk for sync databases)
-# @flag -q --quiet                    suppress output of success messages
-# @option -r --root <path>            set an alternate installation root
-# @flag -v --verbose                  be verbose
-# @option --arch <arch>               set an alternate architecture
-# @flag --asdeps                      mark packages as non-explicitly installed
-# @flag --asexplicit                  mark packages as explicitly installed
-# @option --cachedir <dir>            set an alternate package cache location
-# @option --color <when>              colorize the output
-# @option --config <path>             set an alternate configuration file
-# @flag --confirm                     always ask for confirmation
-# @flag --debug                       display debug messages
-# @flag --disable-download-timeout    use relaxed timeouts for download
-# @flag --disable-sandbox             disable the sandbox used for the downloader process
-# @option --gpgdir <path>             set an alternate home directory for GnuPG
-# @option --hookdir <dir>             set an alternate hook location
-# @option --logfile <path>            set an alternate log file
-# @flag --noconfirm                   do not ask for any confirmation
-# @option --sysroot <dir>             operate on a mounted guest system (root-only)
+# @option -b --dbpath <path>            set an alternate database location
+# @flag -k --check                      test local database for validity (-kk for sync databases)
+# @flag -q --quiet                      suppress output of success messages
+# @option -r --root <path>              set an alternate installation root
+# @flag -v --verbose                    be verbose
+# @option --arch <arch>                 set an alternate architecture
+# @flag --asdeps                        mark packages as non-explicitly installed
+# @flag --asexplicit                    mark packages as explicitly installed
+# @option --cachedir <dir>              set an alternate package cache location
+# @option --color <when>                colorize the output
+# @option --config <path>               set an alternate configuration file
+# @flag --confirm                       always ask for confirmation
+# @flag --debug                         display debug messages
+# @flag --disable-download-timeout      use relaxed timeouts for download
+# @flag --disable-sandbox               disables all sandbox features used for the downloader process
+# @flag --disable-sandbox-filesystem    disables the filesystem part of the downloader process sandbox
+# @flag --disable-sandbox-syscalls      disables the syscalls part of the downloader process sandbox
+# @option --gpgdir <path>               set an alternate home directory for GnuPG
+# @option --hookdir <dir>               set an alternate hook location
+# @option --logfile <path>              set an alternate log file
+# @flag --noconfirm                     do not ask for any confirmation
+# @option --sysroot <dir>               operate on a mounted guest system (root-only)
 # @arg package+[`_choice_database`]
 --database() {
     :;
@@ -35,27 +37,29 @@
 # {{ pacman --files
 # @cmd Query the files database.
 # @alias -F
-# @option -b --dbpath <path>          set an alternate database location
-# @flag -l --list                     list the files owned by the queried package
-# @flag -q --quiet                    show less information for query and search
-# @option -r --root <path>            set an alternate installation root
-# @flag -v --verbose                  be verbose
-# @flag -x --regex                    enable searching using regular expressions
-# @flag -y --refresh                  download fresh package databases from the server (-yy to force a refresh even if up to date)
-# @option --arch <arch>               set an alternate architecture
-# @option --cachedir <dir>            set an alternate package cache location
-# @option --color <when>              colorize the output
-# @option --config <path>             set an alternate configuration file
-# @flag --confirm                     always ask for confirmation
-# @flag --debug                       display debug messages
-# @flag --disable-download-timeout    use relaxed timeouts for download
-# @flag --disable-sandbox             disable the sandbox used for the downloader process
-# @option --gpgdir <path>             set an alternate home directory for GnuPG
-# @option --hookdir <dir>             set an alternate hook location
-# @option --logfile <path>            set an alternate log file
-# @flag --machinereadable             produce machine-readable output
-# @flag --noconfirm                   do not ask for any confirmation
-# @option --sysroot <dir>             operate on a mounted guest system (root-only)
+# @option -b --dbpath <path>            set an alternate database location
+# @flag -l --list                       list the files owned by the queried package
+# @flag -q --quiet                      show less information for query and search
+# @option -r --root <path>              set an alternate installation root
+# @flag -v --verbose                    be verbose
+# @flag -x --regex                      enable searching using regular expressions
+# @flag -y --refresh                    download fresh package databases from the server (-yy to force a refresh even if up to date)
+# @option --arch <arch>                 set an alternate architecture
+# @option --cachedir <dir>              set an alternate package cache location
+# @option --color <when>                colorize the output
+# @option --config <path>               set an alternate configuration file
+# @flag --confirm                       always ask for confirmation
+# @flag --debug                         display debug messages
+# @flag --disable-download-timeout      use relaxed timeouts for download
+# @flag --disable-sandbox               disables all sandbox features used for the downloader process
+# @flag --disable-sandbox-filesystem    disables the filesystem part of the downloader process sandbox
+# @flag --disable-sandbox-syscalls      disables the syscalls part of the downloader process sandbox
+# @option --gpgdir <path>               set an alternate home directory for GnuPG
+# @option --hookdir <dir>               set an alternate hook location
+# @option --logfile <path>              set an alternate log file
+# @flag --machinereadable               produce machine-readable output
+# @flag --noconfirm                     do not ask for any confirmation
+# @option --sysroot <dir>               operate on a mounted guest system (root-only)
 # @arg file*[`_choice_file_database`]
 --files() {
     :;
@@ -90,7 +94,9 @@
 # @flag --confirm                                 always ask for confirmation
 # @flag --debug                                   display debug messages
 # @flag --disable-download-timeout                use relaxed timeouts for download
-# @flag --disable-sandbox                         disable the sandbox used for the downloader process
+# @flag --disable-sandbox                         disables all sandbox features used for the downloader process
+# @flag --disable-sandbox-filesystem              disables the filesystem part of the downloader process sandbox
+# @flag --disable-sandbox-syscalls                disables the syscalls part of the downloader process sandbox
 # @option --gpgdir <path>                         set an alternate home directory for GnuPG
 # @option --hookdir <dir>                         set an alternate hook location
 # @option --logfile <path>                        set an alternate log file
@@ -123,7 +129,9 @@
 # @flag --dbonly                                  only modify database entries, not package files
 # @flag --debug                                   display debug messages
 # @flag --disable-download-timeout                use relaxed timeouts for download
-# @flag --disable-sandbox                         disable the sandbox used for the downloader process
+# @flag --disable-sandbox                         disables all sandbox features used for the downloader process
+# @flag --disable-sandbox-filesystem              disables the filesystem part of the downloader process sandbox
+# @flag --disable-sandbox-syscalls                disables the syscalls part of the downloader process sandbox
 # @option --gpgdir <path>                         set an alternate home directory for GnuPG
 # @option --hookdir <dir>                         set an alternate hook location
 # @option --logfile <path>                        set an alternate log file
@@ -166,7 +174,9 @@
 # @flag --dbonly                                  only modify database entries, not package files
 # @flag --debug                                   display debug messages
 # @flag --disable-download-timeout                use relaxed timeouts for download
-# @flag --disable-sandbox                         disable the sandbox used for the downloader process
+# @flag --disable-sandbox                         disables all sandbox features used for the downloader process
+# @flag --disable-sandbox-filesystem              disables the filesystem part of the downloader process sandbox
+# @flag --disable-sandbox-syscalls                disables the syscalls part of the downloader process sandbox
 # @option --gpgdir <path>                         set an alternate home directory for GnuPG
 # @option --hookdir <dir>                         set an alternate hook location
 # @option --ignore[`_choice_package`] <pkg>       ignore a package upgrade (can be used more than once)
@@ -188,22 +198,24 @@
 # {{ pacman --deptest
 # @cmd Check dependencies
 # @alias -T
-# @option -b --dbpath <path>          set an alternate database location
-# @option -r --root <path>            set an alternate installation root
-# @flag -v --verbose                  be verbose
-# @option --arch <arch>               set an alternate architecture
-# @option --cachedir <dir>            set an alternate package cache location
-# @option --color <when>              colorize the output
-# @option --config <path>             set an alternate configuration file
-# @flag --confirm                     always ask for confirmation
-# @flag --debug                       display debug messages
-# @flag --disable-download-timeout    use relaxed timeouts for download
-# @flag --disable-sandbox             disable the sandbox used for the downloader process
-# @option --gpgdir <path>             set an alternate home directory for GnuPG
-# @option --hookdir <dir>             set an alternate hook location
-# @option --logfile <path>            set an alternate log file
-# @flag --noconfirm                   do not ask for any confirmation
-# @option --sysroot <dir>             operate on a mounted guest system (root-only)
+# @option -b --dbpath <path>            set an alternate database location
+# @option -r --root <path>              set an alternate installation root
+# @flag -v --verbose                    be verbose
+# @option --arch <arch>                 set an alternate architecture
+# @option --cachedir <dir>              set an alternate package cache location
+# @option --color <when>                colorize the output
+# @option --config <path>               set an alternate configuration file
+# @flag --confirm                       always ask for confirmation
+# @flag --debug                         display debug messages
+# @flag --disable-download-timeout      use relaxed timeouts for download
+# @flag --disable-sandbox               disables all sandbox features used for the downloader process
+# @flag --disable-sandbox-filesystem    disables the filesystem part of the downloader process sandbox
+# @flag --disable-sandbox-syscalls      disables the syscalls part of the downloader process sandbox
+# @option --gpgdir <path>               set an alternate home directory for GnuPG
+# @option --hookdir <dir>               set an alternate hook location
+# @option --logfile <path>              set an alternate log file
+# @flag --noconfirm                     do not ask for any confirmation
+# @option --sysroot <dir>               operate on a mounted guest system (root-only)
 # @arg package*[`_choice_package`]
 --deptest() {
     :;
@@ -230,7 +242,9 @@
 # @flag --dbonly                                  only modify database entries, not package files
 # @flag --debug                                   display debug messages
 # @flag --disable-download-timeout                use relaxed timeouts for download
-# @flag --disable-sandbox                         disable the sandbox used for the downloader process
+# @flag --disable-sandbox                         disables all sandbox features used for the downloader process
+# @flag --disable-sandbox-filesystem              disables the filesystem part of the downloader process sandbox
+# @flag --disable-sandbox-syscalls                disables the syscalls part of the downloader process sandbox
 # @option --gpgdir <path>                         set an alternate home directory for GnuPG
 # @option --hookdir <dir>                         set an alternate hook location
 # @option --ignore[`_choice_package`] <pkg>       ignore a package upgrade (can be used more than once)

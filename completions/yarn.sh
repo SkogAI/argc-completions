@@ -838,6 +838,59 @@ info() {
 
 # {{ yarn init
 # @cmd Interactively creates or updates a package.json file.
+# @flag -v --version                            output the version number
+# @flag --no-default-rc                         prevent Yarn from automatically detecting yarnrc and npmrc files
+# @option --use-yarnrc <path>                   specifies a yarnrc file that Yarn should use (.yarnrc only, not .npmrc) (default: )
+# @flag --verbose                               output verbose messages on internal operations
+# @flag --offline                               trigger an error if any required dependencies are not available in local cache
+# @flag --prefer-offline                        use network only if dependencies are not available in local cache
+# @flag --enable-pnp                            enable the Plug'n'Play installation
+# @flag --pnp                                   enable the Plug'n'Play installation
+# @flag --disable-pnp                           disable the Plug'n'Play installation
+# @flag --strict-semver
+# @flag --json                                  format Yarn log messages as lines of JSON (see jsonlines.org)
+# @flag --ignore-scripts                        don't run lifecycle scripts
+# @flag --har                                   save HAR output of network traffic
+# @flag --ignore-platform                       ignore platform checks
+# @flag --ignore-engines                        ignore engines check
+# @flag --ignore-optional                       ignore optional dependencies
+# @flag --force                                 install and build packages even if they were built before, overwrite lockfile
+# @flag --skip-integrity-check                  run install without checking if node_modules is installed
+# @flag --check-files                           install will verify file tree of packages for consistency
+# @flag --no-bin-links                          don't generate bin links when setting up packages
+# @flag --flat                                  only allow one version of a package
+# @option --prod <prod>
+# @option --production <prod>
+# @flag --no-lockfile                           don't read or generate a lockfile
+# @flag --pure-lockfile                         don't generate a lockfile
+# @flag --frozen-lockfile                       don't generate a lockfile and fail if an update is needed
+# @flag --update-checksums                      update package checksums from current repository
+# @flag --link-duplicates                       create hardlinks to the repeated modules in node_modules
+# @option --link-folder <path>                  specify a custom folder to store global links
+# @option --global-folder <path>                specify a custom folder to store global packages
+# @option --modules-folder <path>               rather than installing modules into the node_modules folder relative to the cwd, output them here
+# @option --preferred-cache-folder <path>       specify a custom folder to store the yarn cache if possible
+# @option --cache-folder <path>                 specify a custom folder that must be used to store the yarn cache
+# @option --mutex <<type>[:specifier]>          use a mutex to ensure only one yarn instance is executing
+# @option --emoji <bool>                        enable emoji in output (default: false)
+# @flag -s --silent                             skip Yarn console logs, other types of logs (script output) will be printed
+# @option --cwd <cwd>                           working directory to use (default: /home/skogix/.local/src/argc-completions)
+# @option --proxy <host>
+# @option --https-proxy <host>
+# @option --registry <url>                      override configuration registry
+# @flag --no-progress                           disable progress bar
+# @option --network-concurrency <number>        maximum number of concurrent network requests
+# @option --network-timeout <milliseconds>      TCP timeout for network requests
+# @flag --non-interactive                       do not show interactive prompts
+# @option --scripts-prepend-node-path <bool>    prepend the node executable dir to the PATH in scripts
+# @flag --no-node-version-check                 do not warn when using a potentially unsupported Node version
+# @flag --focus                                 Focus on a single workspace by installing remote copies of its sibling workspaces.
+# @option --otp <otpcode>                       one-time password for two factor authentication
+# @flag -y --yes                                use default options
+# @flag -p --private                            use default options and private true
+# @option -i --install <value>                  install a specific Yarn release
+# @flag -2                                      generates the project using Yarn 2
+# @flag -h --help                               output usage information
 init() {
     :;
 }

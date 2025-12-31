@@ -24,6 +24,7 @@
 # @option --warn <TEXT>                           Warn before running a destructive query.
 # @option --ssh-tunnel <TEXT>                     Open an SSH tunnel to the given address and connect to the database from it.
 # @option --log-file <TEXT>                       Write all queries & output into a file, in addition to the normal output destination.
+# @option --init-command <TEXT>                   SQL statement to execute after connecting.
 # @flag --help                                    Show this message and exit.
 # @arg dbname[`_choice_database`]
 # @arg username[`_choice_user`]

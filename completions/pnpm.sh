@@ -253,6 +253,7 @@ config::set() {
 
 # {{ pnpm init
 # @cmd Create a package.json file
+# @flag --bare                             Create a package.json file with the bare minimum of required fields
 # @flag --init-package-manager             Pin the project to the current pnpm version by adding a "packageManager" field to package.json
 # @option --init-type <commonjs|module>    Set the module system for the package.
 init() {

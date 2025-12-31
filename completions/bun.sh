@@ -111,6 +111,7 @@
 # @option --tsconfig-override <file>      Specify custom tsconfig.json.
 # @option -d --define* <k:v>              Substitute K:V while parsing, e.g. --define process.env.NODE_ENV:"development".
 # @option --drop <val>                    Remove function calls, e.g. --drop=console removes all console.* calls.
+# @option --feature <val>                 Enable a feature flag for dead-code elimination, e.g. --feature=SUPER_SECRET
 # @option -l --loader*[js|jsx|ts|tsx|json|toml|text|file|wasm|napi] <.ext:loader>  Parse files with .ext:loader, e.g. --loader .js:jsx.
 # @flag --no-macros                       Disable macros from being executed in the bundler, transpiler and runtime
 # @option --jsx-factory <val>             Changes the function called when compiling JSX elements using the classic JSX runtime

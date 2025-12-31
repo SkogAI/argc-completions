@@ -1438,7 +1438,9 @@ compose::scale() {
 
 # {{{ docker compose start
 # @cmd Start services
-# @flag --dry-run    Execute command in dry run mode
+# @flag --dry-run                 Execute command in dry run mode
+# @flag --wait                    Wait for services to be running|healthy.
+# @option --wait-timeout <int>    Maximum duration in seconds to wait for the project to be running|healthy
 # @arg service*[`_choice_compose_service`]
 compose::start() {
     :;
@@ -2163,7 +2165,7 @@ image() {
 # @option --no-cache-filter* <string>    Do not cache specified stages
 # @option -o --output* <path>            Output destination (format: "type=local,dest=path")
 # @option --platform*[`_module_oci_docker_platform`] <string>  Set target platform for build
-# @option --progress[auto|none|plain|quiet|rawjson|tty] <string>  Set type of progress output.
+# @option --progress <string>            Set type of progress output ("auto", "none",  "plain", "quiet", "rawjson", "tty").
 # @option --provenance <string>          Shorthand for "--attest=type=provenance"
 # @flag --pull                           Always attempt to pull all referenced images
 # @flag --push                           Shorthand for "--output=type=registry"

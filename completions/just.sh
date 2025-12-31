@@ -18,7 +18,7 @@
 # @flag --highlight                              Highlight echoed recipe lines in bold [env: JUST_HIGHLIGHT=]
 # @option -f --justfile                          Use <JUSTFILE> as justfile [env: JUST_JUSTFILE=]
 # @option --list-heading <TEXT>                  Print <TEXT> before list [env: JUST_LIST_HEADING=] [default: "Available recipes:\n"]
-# @option --list-prefix <TEXT>                   Print <TEXT> before each list item [env: JUST_LIST_PREFIX=] [default: "  "]
+# @option --list-prefix <TEXT>                   Print <TEXT> before each list item [env: JUST_LIST_PREFIX=] [default: " "]
 # @flag --list-submodules                        List recipes in submodules [env: JUST_LIST_SUBMODULES=]
 # @flag --no-aliases                             Don't show aliases in list [env: JUST_NO_ALIASES=]
 # @flag --no-deps                                Don't run recipe dependencies [env: JUST_NO_DEPS=]

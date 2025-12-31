@@ -35,7 +35,7 @@
 # @flag --show-cursor                         Print the cursor after all the entries
 # @flag --utc                                 Express time in Coordinated Universal Time (UTC)
 # @flag -x --catalog                          Add message explanations where available
-# @flag --no-hostname                         Suppress output of hostname field
+# @flag -W --no-hostname                      Suppress output of hostname field
 # @flag --no-full                             Ellipsize fields
 # @flag -a --all                              Show all fields, including long and unprintable
 # @flag -f --follow                           Follow the journal

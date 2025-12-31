@@ -423,7 +423,9 @@ scale() {
 
 # {{ docker-compose start
 # @cmd Start services
-# @flag --dry-run    Execute command in dry run mode
+# @flag --dry-run                 Execute command in dry run mode
+# @flag --wait                    Wait for services to be running|healthy.
+# @option --wait-timeout <int>    Maximum duration in seconds to wait for the project to be running|healthy
 # @arg service*[`_choice_service`]
 start() {
     :;

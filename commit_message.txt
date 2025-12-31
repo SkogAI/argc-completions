@@ -1,3 +1,0 @@
-Add execution permissions to completion scripts
-
-Squashing commits from master to merge into develop with added execution permissions

@@ -1,56 +1,58 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @option --cache-dir <dir>                    Directory to store cache (default: $XDG_CACHE_HOME/gptscript) ($GPTSCRIPT_CACHE_DIR)
-# @option --chat-state <string>                The chat state to continue, or null to start a new chat and return the state ($GPTSCRIPT_CHAT_STATE)
-# @option -C --chdir <dir>                     Change current working directory ($GPTSCRIPT_CHDIR)
-# @flag --color                                Use color in output (default true) ($GPTSCRIPT_COLOR)
-# @option --config <file>                      Path to GPTScript config file ($GPTSCRIPT_CONFIG)
-# @flag --confirm                              Prompt before running potentially dangerous commands ($GPTSCRIPT_CONFIRM)
-# @option --credential-context <string>        Context name in which to store credentials ($GPTSCRIPT_CREDENTIAL_CONTEXT) (default "default")
-# @option --credential-override* <string>      Credentials to override (ex: --credential-override github.com/example/cred-tool:API_TOKEN=1234) ($GPTSCRIPT_CREDENTIAL_OVERRIDE)
-# @flag --debug                                Enable debug logging ($GPTSCRIPT_DEBUG)
-# @flag --debug-messages                       Enable logging of chat completion calls ($GPTSCRIPT_DEBUG_MESSAGES)
-# @option --default-model <string>             Default LLM model to use ($GPTSCRIPT_DEFAULT_MODEL) (default "gpt-4o")
-# @option --default-model-provider <string>    Default LLM model provider to use, this will override OpenAI settings ($GPTSCRIPT_DEFAULT_MODEL_PROVIDER)
-# @flag --disable-cache                        Disable caching of LLM API responses ($GPTSCRIPT_DISABLE_CACHE)
-# @flag --disable-tui                          Don't use chat TUI but instead verbose output ($GPTSCRIPT_DISABLE_TUI)
-# @option --dump-state <file>                  Dump the internal execution state to a file ($GPTSCRIPT_DUMP_STATE)
-# @option --events-stream-to <file>            Stream events to this location, could be a file descriptor/handle (e.g. fd://2), filename, or named pipe (e.g. \\.\pipe\my-pipe) ($GPTSCRIPT_EVENTS_STREAM_TO)
-# @flag --force-chat                           Force an interactive chat session if even the top level tool is not a chat tool ($GPTSCRIPT_FORCE_CHAT)
-# @flag --force-sequential                     Force parallel calls to run sequentially ($GPTSCRIPT_FORCE_SEQUENTIAL)
-# @flag -h --help                              help for gptscript
-# @option -f --input <file>                    Read input from a file ("-" for stdin) ($GPTSCRIPT_INPUT_FILE)
-# @flag --list-models                          List the models available and exit ($GPTSCRIPT_LIST_MODELS)
-# @flag --list-tools                           List built-in tools and exit ($GPTSCRIPT_LIST_TOOLS)
-# @flag --no-trunc                             Do not truncate long log messages ($GPTSCRIPT_NO_TRUNC)
-# @option --openai-api-key <string>            OpenAI API KEY ($OPENAI_API_KEY)
-# @option --openai-base-url <string>           OpenAI base URL ($OPENAI_BASE_URL)
-# @option --openai-org-id <string>             OpenAI organization ID ($OPENAI_ORG_ID)
-# @option -o --output <file>                   Save output to a file, or - for stdout ($GPTSCRIPT_OUTPUT)
-# @flag -q --quiet                             No output logging (set --quiet=false to force on even when there is no TTY) ($GPTSCRIPT_QUIET)
-# @option --save-chat-state-file <file>        A file to save the chat state to so that a conversation can be resumed with --chat-state ($GPTSCRIPT_SAVE_CHAT_STATE_FILE)
-# @option --sub-tool <file>                    Use tool of this name, not the first tool in file ($GPTSCRIPT_SUB_TOOL)
-# @flag --ui                                   Launch the UI ($GPTSCRIPT_UI)
-# @flag -v --version                           version for gptscript
-# @option --workspace <dir>                    Directory to use for the workspace, if specified it will not be deleted on exit ($GPTSCRIPT_WORKSPACE)
+# @option --cache-dir <dir>                        Directory to store cache (default: $XDG_CACHE_HOME/gptscript) ($GPTSCRIPT_CACHE_DIR)
+# @option --chat-state <string>                    The chat state to continue, or null to start a new chat and return the state ($GPTSCRIPT_CHAT_STATE)
+# @option -C --chdir <dir>                         Change current working directory ($GPTSCRIPT_CHDIR)
+# @flag --color                                    Use color in output (default true) ($GPTSCRIPT_COLOR)
+# @option --config <file>                          Path to GPTScript config file ($GPTSCRIPT_CONFIG)
+# @flag --confirm                                  Prompt before running potentially dangerous commands ($GPTSCRIPT_CONFIRM)
+# @option --credential-context* <string>           Context name(s) in which to store credentials ($GPTSCRIPT_CREDENTIAL_CONTEXT)
+# @option --credential-override* <string>          Credentials to override (ex: --credential-override github.com/example/cred-tool:API_TOKEN=1234) ($GPTSCRIPT_CREDENTIAL_OVERRIDE)
+# @flag --debug                                    Enable debug logging ($GPTSCRIPT_DEBUG)
+# @flag --debug-messages                           Enable logging of chat completion calls ($GPTSCRIPT_DEBUG_MESSAGES)
+# @option --default-model <string>                 Default LLM model to use ($GPTSCRIPT_DEFAULT_MODEL) (default "gpt-4o")
+# @option --default-model-provider <string>        Default LLM model provider to use, this will override OpenAI settings ($GPTSCRIPT_DEFAULT_MODEL_PROVIDER)
+# @flag --disable-cache                            Disable caching of LLM API responses ($GPTSCRIPT_DISABLE_CACHE)
+# @flag --disable-tui                              Don't use chat TUI but instead verbose output ($GPTSCRIPT_DISABLE_TUI)
+# @option --dump-state <file>                      Dump the internal execution state to a file ($GPTSCRIPT_DUMP_STATE)
+# @option --events-stream-to <file>                Stream events to this location, could be a file descriptor/handle (e.g. fd://2), filename, or named pipe (e.g. \\.\pipe\my-pipe) ($GPTSCRIPT_EVENTS_STREAM_TO)
+# @flag --force-chat                               Force an interactive chat session if even the top level tool is not a chat tool ($GPTSCRIPT_FORCE_CHAT)
+# @flag --force-sequential                         Force parallel calls to run sequentially ($GPTSCRIPT_FORCE_SEQUENTIAL)
+# @option --github-enterprise-hostname <string>    The host name for a Github Enterprise instance to enable for remote loading ($GPTSCRIPT_GITHUB_ENTERPRISE_HOSTNAME)
+# @flag -h --help                                  help for gptscript
+# @option -f --input <file>                        Read input from a file ("-" for stdin) ($GPTSCRIPT_INPUT_FILE)
+# @flag --list-models                              List the models available and exit ($GPTSCRIPT_LIST_MODELS)
+# @flag --list-tools                               List built-in tools and exit ($GPTSCRIPT_LIST_TOOLS)
+# @flag --no-trunc                                 Do not truncate long log messages ($GPTSCRIPT_NO_TRUNC)
+# @option --openai-api-key <string>                OpenAI API KEY ($OPENAI_API_KEY)
+# @option --openai-base-url <string>               OpenAI base URL ($OPENAI_BASE_URL)
+# @option --openai-org-id <string>                 OpenAI organization ID ($OPENAI_ORG_ID)
+# @option -o --output <file>                       Save output to a file, or - for stdout ($GPTSCRIPT_OUTPUT)
+# @flag -q --quiet                                 No output logging (set --quiet=false to force on even when there is no TTY) ($GPTSCRIPT_QUIET)
+# @option --save-chat-state-file <file>            A file to save the chat state to so that a conversation can be resumed with --chat-state ($GPTSCRIPT_SAVE_CHAT_STATE_FILE)
+# @option --sub-tool <file>                        Use tool of this name, not the first tool in file ($GPTSCRIPT_SUB_TOOL)
+# @option --system-tools-dir <dir>                 Directory that contains system managed tool for which GPTScript will not manage the runtime ($GPTSCRIPT_SYSTEM_TOOLS_DIR)
+# @flag --ui                                       Launch the UI ($GPTSCRIPT_UI)
+# @flag -v --version                               version for gptscript
+# @option --workspace <dir>                        Directory to use for the workspace, if specified it will not be deleted on exit ($GPTSCRIPT_WORKSPACE)
 # @arg program_file
 # @arg input*
 
 # {{ gptscript credential
 # @cmd List stored credentials
-# @flag --all-contexts                     List credentials for all contexts ($GPTSCRIPT_CREDENTIAL_ALL_CONTEXTS)
-# @flag -h --help                          help for credential
-# @flag --show-env-vars                    Show names of environment variables in each credential ($GPTSCRIPT_CREDENTIAL_SHOW_ENV_VARS)
-# @option --credential-context <string>    Context name in which to store credentials ($GPTSCRIPT_CREDENTIAL_CONTEXT) (default "default")
+# @flag --all-contexts                      List credentials for all contexts ($GPTSCRIPT_CREDENTIAL_ALL_CONTEXTS)
+# @flag -h --help                           help for credential
+# @flag --show-env-vars                     Show names of environment variables in each credential ($GPTSCRIPT_CREDENTIAL_SHOW_ENV_VARS)
+# @option --credential-context* <string>    Context name(s) in which to store credentials ($GPTSCRIPT_CREDENTIAL_CONTEXT)
 credential() {
     :;
 }
 
 # {{{ gptscript credential delete
 # @cmd Delete a stored credential
-# @flag -h --help                          help for delete
-# @option --credential-context <string>    Context name in which to store credentials ($GPTSCRIPT_CREDENTIAL_CONTEXT) (default "default")
+# @flag -h --help                           help for delete
+# @option --credential-context* <string>    Context name(s) in which to store credentials ($GPTSCRIPT_CREDENTIAL_CONTEXT)
 # @arg credential-name! <credential name>
 credential::delete() {
     :;
@@ -59,8 +61,8 @@ credential::delete() {
 
 # {{{ gptscript credential show
 # @cmd Show the secret value of a stored credential
-# @flag -h --help                          help for show
-# @option --credential-context <string>    Context name in which to store credentials ($GPTSCRIPT_CREDENTIAL_CONTEXT) (default "default")
+# @flag -h --help                           help for show
+# @option --credential-context* <string>    Context name(s) in which to store credentials ($GPTSCRIPT_CREDENTIAL_CONTEXT)
 # @arg credential-name! <credential name>
 credential::show() {
     :;
@@ -83,7 +85,7 @@ credential::show() {
 # @flag --color                                Use color in output (default true) ($GPTSCRIPT_COLOR)
 # @option --config <file>                      Path to GPTScript config file ($GPTSCRIPT_CONFIG)
 # @flag --confirm                              Prompt before running potentially dangerous commands ($GPTSCRIPT_CONFIRM)
-# @option --credential-context <string>        Context name in which to store credentials ($GPTSCRIPT_CREDENTIAL_CONTEXT) (default "default")
+# @option --credential-context* <string>       Context name(s) in which to store credentials ($GPTSCRIPT_CREDENTIAL_CONTEXT)
 # @option --credential-override* <string>      Credentials to override (ex: --credential-override github.com/example/cred-tool:API_TOKEN=1234) ($GPTSCRIPT_CREDENTIAL_OVERRIDE)
 # @flag --debug                                Enable debug logging ($GPTSCRIPT_DEBUG)
 # @flag --debug-messages                       Enable logging of chat completion calls ($GPTSCRIPT_DEBUG_MESSAGES)
@@ -99,6 +101,7 @@ credential::show() {
 # @option --openai-org-id <string>             OpenAI organization ID ($OPENAI_ORG_ID)
 # @option -o --output <file>                   Save output to a file, or - for stdout ($GPTSCRIPT_OUTPUT)
 # @flag -q --quiet                             No output logging (set --quiet=false to force on even when there is no TTY) ($GPTSCRIPT_QUIET)
+# @option --system-tools-dir <dir>             Directory that contains system managed tool for which GPTScript will not manage the runtime ($GPTSCRIPT_SYSTEM_TOOLS_DIR)
 # @option --workspace <dir>                    Directory to use for the workspace, if specified it will not be deleted on exit ($GPTSCRIPT_WORKSPACE)
 eval_() {
     :;
@@ -114,7 +117,7 @@ eval_() {
 # @flag --color                                Use color in output (default true) ($GPTSCRIPT_COLOR)
 # @option --config <file>                      Path to GPTScript config file ($GPTSCRIPT_CONFIG)
 # @flag --confirm                              Prompt before running potentially dangerous commands ($GPTSCRIPT_CONFIRM)
-# @option --credential-context <string>        Context name in which to store credentials ($GPTSCRIPT_CREDENTIAL_CONTEXT) (default "default")
+# @option --credential-context* <string>       Context name(s) in which to store credentials ($GPTSCRIPT_CREDENTIAL_CONTEXT)
 # @option --credential-override* <string>      Credentials to override (ex: --credential-override github.com/example/cred-tool:API_TOKEN=1234) ($GPTSCRIPT_CREDENTIAL_OVERRIDE)
 # @flag --debug                                Enable debug logging ($GPTSCRIPT_DEBUG)
 # @flag --debug-messages                       Enable logging of chat completion calls ($GPTSCRIPT_DEBUG_MESSAGES)
@@ -130,6 +133,7 @@ eval_() {
 # @option --openai-org-id <string>             OpenAI organization ID ($OPENAI_ORG_ID)
 # @option -o --output <file>                   Save output to a file, or - for stdout ($GPTSCRIPT_OUTPUT)
 # @flag -q --quiet                             No output logging (set --quiet=false to force on even when there is no TTY) ($GPTSCRIPT_QUIET)
+# @option --system-tools-dir <dir>             Directory that contains system managed tool for which GPTScript will not manage the runtime ($GPTSCRIPT_SYSTEM_TOOLS_DIR)
 # @option --workspace <dir>                    Directory to use for the workspace, if specified it will not be deleted on exit ($GPTSCRIPT_WORKSPACE)
 fmt() {
     :;
@@ -144,7 +148,7 @@ fmt() {
 # @flag --color                                Use color in output (default true) ($GPTSCRIPT_COLOR)
 # @option --config <file>                      Path to GPTScript config file ($GPTSCRIPT_CONFIG)
 # @flag --confirm                              Prompt before running potentially dangerous commands ($GPTSCRIPT_CONFIRM)
-# @option --credential-context <string>        Context name in which to store credentials ($GPTSCRIPT_CREDENTIAL_CONTEXT) (default "default")
+# @option --credential-context* <string>       Context name(s) in which to store credentials ($GPTSCRIPT_CREDENTIAL_CONTEXT)
 # @option --credential-override* <string>      Credentials to override (ex: --credential-override github.com/example/cred-tool:API_TOKEN=1234) ($GPTSCRIPT_CREDENTIAL_OVERRIDE)
 # @flag --debug                                Enable debug logging ($GPTSCRIPT_DEBUG)
 # @flag --debug-messages                       Enable logging of chat completion calls ($GPTSCRIPT_DEBUG_MESSAGES)
@@ -160,6 +164,7 @@ fmt() {
 # @option --openai-org-id <string>             OpenAI organization ID ($OPENAI_ORG_ID)
 # @option -o --output <file>                   Save output to a file, or - for stdout ($GPTSCRIPT_OUTPUT)
 # @flag -q --quiet                             No output logging (set --quiet=false to force on even when there is no TTY) ($GPTSCRIPT_QUIET)
+# @option --system-tools-dir <dir>             Directory that contains system managed tool for which GPTScript will not manage the runtime ($GPTSCRIPT_SYSTEM_TOOLS_DIR)
 # @option --workspace <dir>                    Directory to use for the workspace, if specified it will not be deleted on exit ($GPTSCRIPT_WORKSPACE)
 # @arg key
 # @arg default
@@ -177,7 +182,7 @@ getenv() {
 # @flag --color                                Use color in output (default true) ($GPTSCRIPT_COLOR)
 # @option --config <file>                      Path to GPTScript config file ($GPTSCRIPT_CONFIG)
 # @flag --confirm                              Prompt before running potentially dangerous commands ($GPTSCRIPT_CONFIRM)
-# @option --credential-context <string>        Context name in which to store credentials ($GPTSCRIPT_CREDENTIAL_CONTEXT) (default "default")
+# @option --credential-context* <string>       Context name(s) in which to store credentials ($GPTSCRIPT_CREDENTIAL_CONTEXT)
 # @option --credential-override* <string>      Credentials to override (ex: --credential-override github.com/example/cred-tool:API_TOKEN=1234) ($GPTSCRIPT_CREDENTIAL_OVERRIDE)
 # @flag --debug                                Enable debug logging ($GPTSCRIPT_DEBUG)
 # @flag --debug-messages                       Enable logging of chat completion calls ($GPTSCRIPT_DEBUG_MESSAGES)
@@ -193,6 +198,7 @@ getenv() {
 # @option --openai-org-id <string>             OpenAI organization ID ($OPENAI_ORG_ID)
 # @option -o --output <file>                   Save output to a file, or - for stdout ($GPTSCRIPT_OUTPUT)
 # @flag -q --quiet                             No output logging (set --quiet=false to force on even when there is no TTY) ($GPTSCRIPT_QUIET)
+# @option --system-tools-dir <dir>             Directory that contains system managed tool for which GPTScript will not manage the runtime ($GPTSCRIPT_SYSTEM_TOOLS_DIR)
 # @option --workspace <dir>                    Directory to use for the workspace, if specified it will not be deleted on exit ($GPTSCRIPT_WORKSPACE)
 parse() {
     :;

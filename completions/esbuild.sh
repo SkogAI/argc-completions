@@ -70,7 +70,7 @@
 # @option --tree-shaking[false|true] <string>      Force tree shaking on or off
 # @option --tsconfig <file>                        Use this tsconfig.json file instead of other ones
 # @option --tsconfig-raw <file>                    Override all tsconfig.json files with this string
-# @flag --version                                  Print the current version (0.27.1) and exit
+# @flag --version                                  Print the current version (0.27.2) and exit
 # @option --watch-delay <string>                   Wait before watch mode rebuilds (in milliseconds)
 # @arg paths*
 

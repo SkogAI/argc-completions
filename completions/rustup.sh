@@ -5,6 +5,7 @@
 # @flag -q --quiet      Disable progress output, set log level to 'WARN' if 'RUSTUP_LOG' is unset
 # @flag -h --help       Print help
 # @flag -V --version    Print version
+# @option --book <`> <to>
 
 # {{ rustup toolchain
 # @cmd Install, uninstall, or list toolchains
@@ -378,10 +379,11 @@ set::auto-install() {
 
 # {{ rustup completions
 # @cmd Generate tab-completion scripts for your shell
-# @flag -h --help               Print help
+# @flag -h --help                               Print help
+# @option --prefix <)/etc/bash_completion.d>    $ rustup completions bash > $(brew
 # @option --prefix <)/etc/bash_completion.d/rustup.bash-completion>
 # @arg shell![bash|elvish|fish|powershell|zsh]
-# @arg command[rustup|cargo]    [default: rustup]
+# @arg command[rustup|cargo]                    [default: rustup]
 completions() {
     :;
 }

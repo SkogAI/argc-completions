@@ -9,6 +9,8 @@
 # @flag --no-ask-password              Do not ask for system passwords
 # @option -H --host <[USER@]HOST>      Operate on remote host
 # @option -M --machine <CONTAINER>     Operate on local container
+# @flag --system                       Connect to system machine manager
+# @flag --user                         Connect to user machine manager
 # @option -p --property <NAME>         Show only properties by this name
 # @flag --value                        When showing properties, only print the value
 # @option -P <NAME>                    Equivalent to --value --property=NAME

@@ -79,6 +79,14 @@ pcrs() {
 }
 # }} systemd-analyze pcrs
 
+# {{ systemd-analyze nvpcrs
+# @cmd Show additional TPM2 PCRs stored in NV indexes
+# @arg nvpcr*
+nvpcrs() {
+    :;
+}
+# }} systemd-analyze nvpcrs
+
 # {{ systemd-analyze srk
 # @cmd Write TPM2 SRK (to FILE)
 # @arg file <>FILE>
