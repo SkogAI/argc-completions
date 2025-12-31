@@ -2009,7 +2009,7 @@ admin::cleanup() {
 # @flag --json                         Output JSON format
 # @option --limit <int>                Limit number of candidates (0 = no limit)
 # @option --older-than <int>           Prune tombstones older than N days (0=all, default: 30) (default -1)
-# @flag --prune                        Prune mode: remove expired tombstones from issues.jsonl (by age)
+# @flag --prune-mode                   Prune mode: remove expired tombstones from issues.jsonl (by age)
 # @flag --purge-tombstones             Purge mode: remove tombstones with no open deps (by dependency analysis)
 # @flag --stats                        Show compaction statistics
 # @option --summary <string>           Path to summary file (use '-' for stdin)
