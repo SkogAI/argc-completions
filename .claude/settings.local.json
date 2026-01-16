@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./Argcfile.sh:*)",
+      "Bash(./Argcfile.sh generate:*)",
+      "Bash(argc print:*)"
+    ]
+  }
+}

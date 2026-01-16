@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag -h --help                      help for bd
@@ -23,7 +23,7 @@
 # @flag --dry-run                      Preview changes without applying them
 # @flag -h --help                      help for rename-prefix
 # @flag --repair                       Repair database with multiple prefixes by consolidating them
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -49,7 +49,7 @@ rename-prefix() {
 # @flag -h --help                      help for repair
 # @flag --json                         Output results as JSON
 # @option --path <string>              Path to repository with .beads directory (default ".")
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
@@ -67,6 +67,32 @@ repair() {
 }
 # }} bd repair
 
+# {{ bd resolve-conflicts
+# @cmd Resolve git merge conflicts in JSONL files
+# @flag --dry-run                      Show what would be resolved without making changes
+# @flag -h --help                      help for resolve-conflicts
+# @flag --json                         Output results as JSON
+# @option --mode <string>              Resolution mode: mechanical, interactive (default "mechanical")
+# @option --path <string>              Path to repository with .beads directory (default ".")
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
+# @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
+# @option --db <string>                Database path (default: auto-discover .beads/*.db)
+# @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
+# @flag --no-auto-flush                Disable automatic JSONL sync after CRUD operations
+# @flag --no-auto-import               Disable automatic JSONL import when newer than DB
+# @flag --no-daemon                    Force direct storage mode, bypass daemon if running
+# @flag --no-db                        Use no-db mode: load from JSONL, no SQLite
+# @flag --profile                      Generate CPU profile for performance analysis
+# @flag -q --quiet                     Suppress non-essential output (errors only)
+# @flag --readonly                     Read-only mode: block write operations (for worker sandboxes)
+# @flag --sandbox                      Sandbox mode: disables daemon and auto-sync
+# @flag -v --verbose                   Enable verbose/debug output
+# @arg file
+resolve-conflicts() {
+    :;
+}
+# }} bd resolve-conflicts
+
 # {{ bd activity
 # @cmd Show real-time molecule state feed
 # @flag -f --follow                    Stream events in real-time
@@ -77,7 +103,7 @@ repair() {
 # @option --since <string>             Show events since duration (e.g., 5m, 1h, 30s)
 # @flag --town                         Aggregated feed from all rigs (uses routes.jsonl)
 # @option --type[create|update|delete|comment] <string>  Filter by event type
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -126,7 +152,7 @@ activity() {
 # @option -t --type[bug|feature|task|epic|chore|merge-request|molecule|gate] <string>  Filter by type
 # @option --updated-after <string>     Filter issues updated after date (YYYY-MM-DD or RFC3339)
 # @option --updated-before <string>    Filter issues updated before date (YYYY-MM-DD or RFC3339)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -145,13 +171,38 @@ count() {
 }
 # }} bd count
 
+# {{ bd lint
+# @cmd Check issues for missing template sections
+# @flag -h --help                      help for lint
+# @option -s --status <string>         Filter by status (default: open, use 'all' for all)
+# @option -t --type[bug|task|feature|epic] <string>  Filter by issue type
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
+# @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
+# @option --db <string>                Database path (default: auto-discover .beads/*.db)
+# @flag --json                         Output in JSON format
+# @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
+# @flag --no-auto-flush                Disable automatic JSONL sync after CRUD operations
+# @flag --no-auto-import               Disable automatic JSONL import when newer than DB
+# @flag --no-daemon                    Force direct storage mode, bypass daemon if running
+# @flag --no-db                        Use no-db mode: load from JSONL, no SQLite
+# @flag --profile                      Generate CPU profile for performance analysis
+# @flag -q --quiet                     Suppress non-essential output (errors only)
+# @flag --readonly                     Read-only mode: block write operations (for worker sandboxes)
+# @flag --sandbox                      Sandbox mode: disables daemon and auto-sync
+# @flag -v --verbose                   Enable verbose/debug output
+# @arg issue-id*
+lint() {
+    :;
+}
+# }} bd lint
+
 # {{ bd stale
 # @cmd Show stale issues (not updated recently)
 # @option -d --days <int>              Issues not updated in this many days (default 30)
 # @flag -h --help                      help for stale
 # @option -n --limit <int>             Maximum issues to show (default 50)
 # @option -s --status <string>         Filter by status (open|in_progress|blocked|deferred)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -176,7 +227,7 @@ stale() {
 # @flag --assigned                     Show issues assigned to current user
 # @flag -h --help                      help for status
 # @flag --no-activity                  Skip git activity tracking (faster)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -197,8 +248,9 @@ status() {
 
 # {{ bd dep
 # @cmd Manage dependencies
+# @option -b --blocks <string>         Issue ID that this issue blocks (shorthand for: bd dep add <blocked> <blocker>)
 # @flag -h --help                      help for dep
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -212,15 +264,18 @@ status() {
 # @flag --readonly                     Read-only mode: block write operations (for worker sandboxes)
 # @flag --sandbox                      Sandbox mode: disables daemon and auto-sync
 # @flag -v --verbose                   Enable verbose/debug output
+# @arg issue-id
 dep() {
     :;
 }
 
 # {{{ bd dep add
 # @cmd Add a dependency
+# @option --blocked-by <string>        Issue ID that blocks the first issue (alternative to positional arg)
+# @option --depends-on <string>        Issue ID that the first issue depends on (alias for --blocked-by)
 # @flag -h --help                      help for add
 # @option -t --type <string>           Dependency type (blocks|tracks|related|parent-child|discovered-from|until|caused-by|validates|relates-to|supersedes) (default "blocks")
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -244,7 +299,7 @@ dep::add() {
 # {{{ bd dep cycles
 # @cmd Detect dependency cycles
 # @flag -h --help                      help for cycles
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -268,7 +323,7 @@ dep::cycles() {
 # @option --direction <string>         Direction: 'down' (dependencies), 'up' (dependents) (default "down")
 # @flag -h --help                      help for list
 # @option -t --type <string>           Filter by dependency type (e.g., tracks, blocks, parent-child)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -291,7 +346,7 @@ dep::list() {
 # {{{ bd dep relate
 # @cmd Create a bidirectional relates_to link between issues
 # @flag -h --help                      help for relate
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -315,7 +370,7 @@ dep::relate() {
 # {{{ bd dep remove
 # @cmd Remove a dependency
 # @flag -h --help                      help for remove
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -346,7 +401,7 @@ dep::remove() {
 # @flag --show-all-paths               Show all paths to nodes (no deduplication for diamond dependencies)
 # @option --status[open|in_progress|blocked|deferred|closed] <string>  Filter to only show issues with this status
 # @option -t --type <string>           Filter to only show dependencies of this type (e.g., tracks, blocks, parent-child)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -369,7 +424,7 @@ dep::tree() {
 # {{{ bd dep unrelate
 # @cmd Remove a relates_to link between issues
 # @flag -h --help                      help for unrelate
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -395,7 +450,7 @@ dep::unrelate() {
 # @cmd Mark an issue as a duplicate of another
 # @flag -h --help                      help for duplicate
 # @option --of <string>                Canonical issue ID (required)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -421,7 +476,7 @@ duplicate() {
 # @flag --auto-merge                   Automatically merge all duplicates
 # @flag --dry-run                      Show what would be merged without making changes
 # @flag -h --help                      help for duplicates
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -443,7 +498,7 @@ duplicates() {
 # {{ bd epic
 # @cmd Epic management commands
 # @flag -h --help                      help for epic
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -465,7 +520,7 @@ epic() {
 # @cmd Close epics where all children are complete
 # @flag --dry-run                      Preview what would be closed without making changes
 # @flag -h --help                      help for close-eligible
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -488,7 +543,7 @@ epic::close-eligible() {
 # @cmd Show epic completion status
 # @flag --eligible-only                Show only epics eligible for closure
 # @flag -h --help                      help for status
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -510,8 +565,11 @@ epic::status() {
 
 # {{ bd graph
 # @cmd Display issue dependency graph
+# @flag --all                          Show graph for all open issues
+# @flag --box                          ASCII boxes showing layers (default) (default true)
+# @flag --compact                      Tree format, one line per issue, more scannable
 # @flag -h --help                      help for graph
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -525,7 +583,7 @@ epic::status() {
 # @flag --readonly                     Read-only mode: block write operations (for worker sandboxes)
 # @flag --sandbox                      Sandbox mode: disables daemon and auto-sync
 # @flag -v --verbose                   Enable verbose/debug output
-# @arg issue-id!
+# @arg issue-id
 graph() {
     :;
 }
@@ -535,7 +593,7 @@ graph() {
 # @cmd Mark an issue as superseded by a newer one
 # @flag -h --help                      help for supersede
 # @option --with <string>              Replacement issue ID (required)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -559,7 +617,7 @@ supersede() {
 # {{ bd swarm
 # @cmd Swarm management for structured epics
 # @flag -h --help                      help for swarm
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -582,7 +640,7 @@ swarm() {
 # @option --coordinator <string>       Coordinator address (e.g., gastown/witness)
 # @flag --force                        Create new swarm even if one already exists
 # @flag -h --help                      help for create
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -605,7 +663,7 @@ swarm::create() {
 # {{{ bd swarm list
 # @cmd List all swarm molecules
 # @flag -h --help                      help for list
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -627,7 +685,7 @@ swarm::list() {
 # {{{ bd swarm status
 # @cmd Show current swarm status
 # @flag -h --help                      help for status
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -651,7 +709,7 @@ swarm::status() {
 # @cmd Validate epic structure for swarming
 # @flag -h --help                      help for validate
 # @flag --verbose                      Include detailed issue graph in output
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -677,7 +735,7 @@ swarm::validate() {
 # @flag --auto-pull                    Automatically pull from remote (default: true when sync.branch configured)
 # @flag --auto-push                    Automatically push commits
 # @flag --foreground                   Run in foreground (don't daemonize)
-# @flag --health                       Check daemon health and metrics
+# @flag --health                       Check daemon health (deprecated: use 'bd daemon status --all')
 # @flag -h --help                      help for daemon
 # @option --interval <duration>        Sync check interval (default 5s)
 # @flag --json                         Output JSON format
@@ -686,11 +744,11 @@ swarm::validate() {
 # @flag --log-json                     Output logs in JSON format (structured logging)
 # @option --log-level[debug|info|warn|error] <string>  Log level (default "info")
 # @flag --metrics                      Show detailed daemon metrics
-# @flag --start                        Start the daemon
-# @flag --status                       Show daemon status
-# @flag --stop                         Stop running daemon
-# @flag --stop-all                     Stop all running bd daemons
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @flag --start                        Start the daemon (deprecated: use 'bd daemon start')
+# @flag --status                       Show daemon status (deprecated: use 'bd daemon status')
+# @flag --stop                         Stop running daemon (deprecated: use 'bd daemon stop')
+# @flag --stop-all                     Stop all running bd daemons (deprecated: use 'bd daemon killall')
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
@@ -711,7 +769,7 @@ daemon() {
 # @cmd Check health of all bd daemons
 # @flag -h --help                      help for health
 # @option --search <strings>           Directories to search for daemons (default: home, /tmp, cwd)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -735,7 +793,7 @@ daemon::health() {
 # @flag --force                        Use SIGKILL immediately if graceful shutdown fails
 # @flag -h --help                      help for killall
 # @option --search <strings>           Directories to search for daemons (default: home, /tmp, cwd)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -759,7 +817,7 @@ daemon::killall() {
 # @flag -h --help                      help for list
 # @flag --no-cleanup                   Skip auto-cleanup of stale sockets
 # @option --search <strings>           Directories to search for daemons (default: home, /tmp, cwd)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -783,7 +841,7 @@ daemon::list() {
 # @flag -f --follow                    Follow log output (like tail -f)
 # @flag -h --help                      help for logs
 # @option -n --lines <int>             Number of lines to show from end of log (default 50)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -807,7 +865,7 @@ daemon::logs() {
 # @cmd Restart a specific bd daemon
 # @flag -h --help                      help for restart
 # @option --search <strings>           Directories to search for daemons (default: home, /tmp, cwd)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -827,10 +885,65 @@ daemon::restart() {
 }
 # }}} bd daemon restart
 
+# {{{ bd daemon start
+# @cmd Start the background daemon
+# @flag --auto-commit                  Automatically commit changes
+# @flag --auto-pull                    Automatically pull from remote
+# @flag --auto-push                    Automatically push commits
+# @flag --foreground                   Run in foreground (don't daemonize)
+# @flag -h --help                      help for start
+# @option --interval <duration>        Sync check interval (default 5s)
+# @flag --local                        Run in local-only mode (no git required, no sync)
+# @option --log <string>               Log file path (default: .beads/daemon.log)
+# @flag --log-json                     Output logs in JSON format
+# @option --log-level[debug|info|warn|error] <string>  Log level (default "info")
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
+# @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
+# @option --db <string>                Database path (default: auto-discover .beads/*.db)
+# @flag --json                         Output in JSON format
+# @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
+# @flag --no-auto-flush                Disable automatic JSONL sync after CRUD operations
+# @flag --no-auto-import               Disable automatic JSONL import when newer than DB
+# @flag --no-daemon                    Force direct storage mode, bypass daemon if running
+# @flag --no-db                        Use no-db mode: load from JSONL, no SQLite
+# @flag --profile                      Generate CPU profile for performance analysis
+# @flag -q --quiet                     Suppress non-essential output (errors only)
+# @flag --readonly                     Read-only mode: block write operations (for worker sandboxes)
+# @flag --sandbox                      Sandbox mode: disables daemon and auto-sync
+# @flag -v --verbose                   Enable verbose/debug output
+daemon::start() {
+    :;
+}
+# }}} bd daemon start
+
+# {{{ bd daemon status
+# @cmd Show daemon status
+# @flag --all                          Show status of all daemons
+# @flag -h --help                      help for status
+# @option --search <strings>           Directories to search for daemons (with --all)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
+# @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
+# @option --db <string>                Database path (default: auto-discover .beads/*.db)
+# @flag --json                         Output in JSON format
+# @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
+# @flag --no-auto-flush                Disable automatic JSONL sync after CRUD operations
+# @flag --no-auto-import               Disable automatic JSONL import when newer than DB
+# @flag --no-daemon                    Force direct storage mode, bypass daemon if running
+# @flag --no-db                        Use no-db mode: load from JSONL, no SQLite
+# @flag --profile                      Generate CPU profile for performance analysis
+# @flag -q --quiet                     Suppress non-essential output (errors only)
+# @flag --readonly                     Read-only mode: block write operations (for worker sandboxes)
+# @flag --sandbox                      Sandbox mode: disables daemon and auto-sync
+# @flag -v --verbose                   Enable verbose/debug output
+daemon::status() {
+    :;
+}
+# }}} bd daemon status
+
 # {{{ bd daemon stop
 # @cmd Stop a specific bd daemon
 # @flag -h --help                      help for stop
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -867,10 +980,10 @@ daemon::stop() {
 # @option --priority-max <string>      Filter by maximum priority (inclusive, 0-4 or P0-P4)
 # @option --priority-min <string>      Filter by minimum priority (inclusive, 0-4 or P0-P4)
 # @option -s --status <string>         Filter by status
-# @option -t --type[bug|feature|task|epic|chore|merge-request|molecule|gate] <string>  Filter by type
+# @option -t --type[bug|feature|task|epic|chore|merge-request|molecule|gate] <string>  Filter by type.
 # @option --updated-after <string>     Filter issues updated after date (YYYY-MM-DD or RFC3339)
 # @option --updated-before <string>    Filter issues updated before date (YYYY-MM-DD or RFC3339)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
@@ -917,7 +1030,7 @@ export::obsidian() {
 # @flag --rename-on-import                 Rename imported issues to match database prefix (updates all references)
 # @flag -s --skip-existing                 Skip existing issues instead of updating them
 # @flag --strict                           Fail on dependency errors instead of treating them as warnings
-# @option --actor <string>                 Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>                 Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                      Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                    Database path (default: auto-discover .beads/*.db)
 # @option --lock-timeout <duration>        SQLite busy timeout (0 = fail immediately if locked) (default 30s)
@@ -939,7 +1052,7 @@ import() {
 # @cmd Git merge driver for beads JSONL files
 # @flag --debug                        Enable debug output to stderr
 # @flag -h --help                      help for merge
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -966,7 +1079,7 @@ merge() {
 # @cmd Restore full history of a compacted issue from git
 # @flag -h --help                      help for restore
 # @flag --json                         Output restore results in JSON format
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
@@ -1003,7 +1116,7 @@ restore() {
 # @flag --rename-on-import             Rename imported issues to match database prefix (updates all references)
 # @flag --squash                       Accumulate changes in JSONL without committing (run 'bd sync' later to commit all)
 # @flag --status                       Show diff between sync branch and main branch
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
@@ -1024,7 +1137,7 @@ sync() {
 # {{ bd config
 # @cmd Manage configuration settings
 # @flag -h --help                      help for config
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1045,7 +1158,7 @@ config() {
 # {{{ bd config get
 # @cmd Get a configuration value
 # @flag -h --help                      help for get
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1068,7 +1181,7 @@ config::get() {
 # {{{ bd config list
 # @cmd List all configuration
 # @flag -h --help                      help for list
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1090,7 +1203,7 @@ config::list() {
 # {{{ bd config set
 # @cmd Set a configuration value
 # @flag -h --help                      help for set
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1114,7 +1227,7 @@ config::set() {
 # {{{ bd config unset
 # @cmd Delete a configuration value
 # @flag -h --help                      help for unset
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1138,7 +1251,7 @@ config::unset() {
 # {{ bd hooks
 # @cmd Manage git hooks for bd auto-sync
 # @flag -h --help                      help for hooks
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1162,7 +1275,7 @@ hooks() {
 # @flag --force                        Overwrite existing hooks without backup
 # @flag -h --help                      help for install
 # @flag --shared                       Install hooks to .beads-hooks/ (versioned) instead of .git/hooks/
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1184,7 +1297,7 @@ hooks::install() {
 # {{{ bd hooks list
 # @cmd List installed git hooks status
 # @flag -h --help                      help for list
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1206,7 +1319,7 @@ hooks::list() {
 # {{{ bd hooks run
 # @cmd Execute a git hook (called by thin shims)
 # @flag -h --help                      help for run
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1230,7 +1343,7 @@ hooks::run() {
 # {{{ bd hooks uninstall
 # @cmd Uninstall bd git hooks
 # @flag -h --help                      help for uninstall
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1253,7 +1366,7 @@ hooks::uninstall() {
 # {{ bd human
 # @cmd Show essential commands for human users
 # @flag -h --help                      help for human
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1279,7 +1392,7 @@ human() {
 # @flag --schema                       Include schema information in output
 # @flag --thanks                       Show thank you page for contributors
 # @flag --whats-new                    Show agent-relevant changes from recent versions
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
@@ -1311,7 +1424,7 @@ info() {
 # @flag --skip-merge-driver            Skip git merge driver setup
 # @flag --stealth                      Enable stealth mode: global gitattributes and gitignore, no local repo tracking
 # @flag --team                         Run team workflow setup wizard
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1340,7 +1453,7 @@ init() {
 # {{ bd onboard
 # @cmd Display minimal snippet for AGENTS.md
 # @flag -h --help                      help for onboard
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1361,11 +1474,12 @@ onboard() {
 
 # {{ bd prime
 # @cmd Output AI-optimized workflow context
+# @flag --export                       Output default content (ignores PRIME.md override)
 # @flag --full                         Force full CLI output (ignore MCP detection)
 # @flag -h --help                      help for prime
 # @flag --mcp                          Force MCP mode (minimal output)
 # @flag --stealth                      Stealth mode (no git operations, flush only)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1387,7 +1501,7 @@ prime() {
 # {{ bd quickstart
 # @cmd Quick start guide for bd
 # @flag -h --help                      help for quickstart
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1408,8 +1522,16 @@ quickstart() {
 
 # {{ bd setup
 # @cmd Setup integration with AI editors
+# @option --add <string>               Add a custom recipe with given name
+# @flag --check                        Check if integration is installed
 # @flag -h --help                      help for setup
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @flag --list                         List all available recipes
+# @option -o --output <string>         Write template to custom path
+# @flag --print                        Print the template to stdout
+# @flag --project                      Install for this project only (claude/gemini)
+# @flag --remove                       Remove the integration
+# @flag --stealth                      Use stealth mode (claude/gemini)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1423,113 +1545,16 @@ quickstart() {
 # @flag --readonly                     Read-only mode: block write operations (for worker sandboxes)
 # @flag --sandbox                      Sandbox mode: disables daemon and auto-sync
 # @flag -v --verbose                   Enable verbose/debug output
+# @arg recipe
 setup() {
     :;
 }
-
-# {{{ bd setup aider
-# @cmd Setup Aider integration
-# @flag --check                        Check if Aider integration is installed
-# @flag -h --help                      help for aider
-# @flag --remove                       Remove bd config from Aider
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
-# @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
-# @option --db <string>                Database path (default: auto-discover .beads/*.db)
-# @flag --json                         Output in JSON format
-# @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
-# @flag --no-auto-flush                Disable automatic JSONL sync after CRUD operations
-# @flag --no-auto-import               Disable automatic JSONL import when newer than DB
-# @flag --no-daemon                    Force direct storage mode, bypass daemon if running
-# @flag --no-db                        Use no-db mode: load from JSONL, no SQLite
-# @flag --profile                      Generate CPU profile for performance analysis
-# @flag -q --quiet                     Suppress non-essential output (errors only)
-# @flag --readonly                     Read-only mode: block write operations (for worker sandboxes)
-# @flag --sandbox                      Sandbox mode: disables daemon and auto-sync
-# @flag -v --verbose                   Enable verbose/debug output
-setup::aider() {
-    :;
-}
-# }}} bd setup aider
-
-# {{{ bd setup claude
-# @cmd Setup Claude Code integration
-# @flag --check                        Check if Claude integration is installed
-# @flag -h --help                      help for claude
-# @flag --project                      Install for this project only (not globally)
-# @flag --remove                       Remove bd hooks from Claude settings
-# @flag --stealth                      Use 'bd prime --stealth' (flush only, no git operations)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
-# @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
-# @option --db <string>                Database path (default: auto-discover .beads/*.db)
-# @flag --json                         Output in JSON format
-# @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
-# @flag --no-auto-flush                Disable automatic JSONL sync after CRUD operations
-# @flag --no-auto-import               Disable automatic JSONL import when newer than DB
-# @flag --no-daemon                    Force direct storage mode, bypass daemon if running
-# @flag --no-db                        Use no-db mode: load from JSONL, no SQLite
-# @flag --profile                      Generate CPU profile for performance analysis
-# @flag -q --quiet                     Suppress non-essential output (errors only)
-# @flag --readonly                     Read-only mode: block write operations (for worker sandboxes)
-# @flag --sandbox                      Sandbox mode: disables daemon and auto-sync
-# @flag -v --verbose                   Enable verbose/debug output
-setup::claude() {
-    :;
-}
-# }}} bd setup claude
-
-# {{{ bd setup cursor
-# @cmd Setup Cursor IDE integration
-# @flag --check                        Check if Cursor integration is installed
-# @flag -h --help                      help for cursor
-# @flag --remove                       Remove bd rules from Cursor
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
-# @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
-# @option --db <string>                Database path (default: auto-discover .beads/*.db)
-# @flag --json                         Output in JSON format
-# @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
-# @flag --no-auto-flush                Disable automatic JSONL sync after CRUD operations
-# @flag --no-auto-import               Disable automatic JSONL import when newer than DB
-# @flag --no-daemon                    Force direct storage mode, bypass daemon if running
-# @flag --no-db                        Use no-db mode: load from JSONL, no SQLite
-# @flag --profile                      Generate CPU profile for performance analysis
-# @flag -q --quiet                     Suppress non-essential output (errors only)
-# @flag --readonly                     Read-only mode: block write operations (for worker sandboxes)
-# @flag --sandbox                      Sandbox mode: disables daemon and auto-sync
-# @flag -v --verbose                   Enable verbose/debug output
-setup::cursor() {
-    :;
-}
-# }}} bd setup cursor
-
-# {{{ bd setup factory
-# @cmd Setup Factory.ai (Droid) integration
-# @flag --check                        Check if Factory.ai integration is installed
-# @flag -h --help                      help for factory
-# @flag --remove                       Remove bd section from AGENTS.md
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
-# @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
-# @option --db <string>                Database path (default: auto-discover .beads/*.db)
-# @flag --json                         Output in JSON format
-# @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
-# @flag --no-auto-flush                Disable automatic JSONL sync after CRUD operations
-# @flag --no-auto-import               Disable automatic JSONL import when newer than DB
-# @flag --no-daemon                    Force direct storage mode, bypass daemon if running
-# @flag --no-db                        Use no-db mode: load from JSONL, no SQLite
-# @flag --profile                      Generate CPU profile for performance analysis
-# @flag -q --quiet                     Suppress non-essential output (errors only)
-# @flag --readonly                     Read-only mode: block write operations (for worker sandboxes)
-# @flag --sandbox                      Sandbox mode: disables daemon and auto-sync
-# @flag -v --verbose                   Enable verbose/debug output
-setup::factory() {
-    :;
-}
-# }}} bd setup factory
 # }} bd setup
 
 # {{ bd where
 # @cmd Show active beads location
 # @flag -h --help                      help for where
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1565,7 +1590,7 @@ where() {
 # @option --source <string>            Choose source of truth for recovery: auto (detect), jsonl (prefer JSONL), db (prefer database) (default "auto")
 # @flag -v --verbose                   Show detailed output during fixes (e.g., list each removed dependency)
 # @flag -y --yes                       Skip confirmation prompt (for non-interactive use)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1593,7 +1618,7 @@ doctor() {
 # @flag --json                         Output migration statistics in JSON format
 # @flag --update-repo-id               Update repository ID (use after changing git remote)
 # @flag --yes                          Auto-confirm cleanup prompts
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
@@ -1614,7 +1639,7 @@ migrate() {
 # @cmd Migrate sequential IDs to hash-based IDs (legacy)
 # @flag --dry-run                      Show what would be done without making changes
 # @flag -h --help                      help for hash-ids
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1649,7 +1674,7 @@ migrate::hash-ids() {
 # @option --type <string>              Filter by issue type (bug/feature/task/epic/chore)
 # @flag --within-from-only             Only include dependencies from source repo (default true)
 # @flag --yes                          Skip confirmation prompt
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1673,7 +1698,7 @@ migrate::issues() {
 # @flag --dry-run                      Preview migration without making changes
 # @flag --force                        Force migration even if already configured
 # @flag -h --help                      help for sync
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1699,7 +1724,7 @@ migrate::sync() {
 # @flag -h --help                      help for tombstones
 # @flag --json                         Output in JSON format
 # @flag --verbose                      Show detailed progress
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
@@ -1723,7 +1748,7 @@ migrate::tombstones() {
 # @flag --fix                          Auto-fix issues where possible (not yet implemented)
 # @flag -h --help                      help for preflight
 # @flag --json                         Output results as JSON
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
@@ -1744,7 +1769,7 @@ preflight() {
 # {{ bd upgrade
 # @cmd Check and manage bd version upgrades
 # @flag -h --help                      help for upgrade
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1765,7 +1790,7 @@ upgrade() {
 # {{{ bd upgrade ack
 # @cmd Acknowledge the current bd version
 # @flag -h --help                      help for ack
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1787,7 +1812,7 @@ upgrade::ack() {
 # {{{ bd upgrade review
 # @cmd Review changes since last bd version
 # @flag -h --help                      help for review
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1809,7 +1834,7 @@ upgrade::review() {
 # {{{ bd upgrade status
 # @cmd Check if bd version has changed
 # @flag -h --help                      help for status
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1832,7 +1857,7 @@ upgrade::status() {
 # {{ bd worktree
 # @cmd Manage git worktrees for parallel development
 # @flag -h --help                      help for worktree
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1854,7 +1879,7 @@ worktree() {
 # @cmd Create a worktree with beads redirect
 # @option --branch <string>            Branch name for the worktree (default: same as name)
 # @flag -h --help                      help for create
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1877,7 +1902,7 @@ worktree::create() {
 # {{{ bd worktree info
 # @cmd Show worktree info for current directory
 # @flag -h --help                      help for info
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1899,7 +1924,7 @@ worktree::info() {
 # {{{ bd worktree list
 # @cmd List all git worktrees
 # @flag -h --help                      help for list
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1922,7 +1947,7 @@ worktree::list() {
 # @cmd Remove a worktree with safety checks
 # @flag --force                        Skip safety checks
 # @flag -h --help                      help for remove
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1946,7 +1971,7 @@ worktree::remove() {
 # {{ bd admin
 # @cmd Administrative commands for database maintenance
 # @flag -h --help                      help for admin
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1973,7 +1998,7 @@ admin() {
 # @flag --hard                         Bypass tombstone TTL safety; use --older-than days as cutoff
 # @flag -h --help                      help for cleanup
 # @option --older-than <int>           Only delete issues closed more than N days ago (0 = all closed issues)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -1994,8 +2019,6 @@ admin::cleanup() {
 
 # {{{ bd admin compact
 # @cmd Compact old closed issues to save space
-# @flag --prune:                       Remove tombstones by AGE (default 30 days).
-# @flag --purge-tombstones:            Remove tombstones by DEPENDENCY ANALYSIS.
 # @option --actor <string>             Actor name for audit trail (default "agent")
 # @flag --all                          Process all candidates
 # @flag --analyze                      Analyze mode: export candidates for agent review
@@ -2009,7 +2032,7 @@ admin::cleanup() {
 # @flag --json                         Output JSON format
 # @option --limit <int>                Limit number of candidates (0 = no limit)
 # @option --older-than <int>           Prune tombstones older than N days (0=all, default: 30) (default -1)
-# @flag --prune-mode                   Prune mode: remove expired tombstones from issues.jsonl (by age)
+# @flag --prune                        Prune mode: remove expired tombstones from issues.jsonl (by age)
 # @flag --purge-tombstones             Purge mode: remove tombstones with no open deps (by dependency analysis)
 # @flag --stats                        Show compaction statistics
 # @option --summary <string>           Path to summary file (use '-' for stdin)
@@ -2036,7 +2059,7 @@ admin::compact() {
 # @cmd Remove all beads data and configuration
 # @flag --force                        Actually perform the reset (required)
 # @flag -h --help                      help for reset
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2059,7 +2082,7 @@ admin::reset() {
 # {{ bd jira
 # @cmd Jira integration commands
 # @flag -h --help                      help for jira
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2080,7 +2103,7 @@ jira() {
 # {{{ bd jira status
 # @cmd Show Jira sync status
 # @flag -h --help                      help for status
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2101,10 +2124,6 @@ jira::status() {
 
 # {{{ bd jira sync
 # @cmd Synchronize issues with Jira
-# @flag --pull                         Import issues from Jira into beads
-# @flag --push                         Export issues from beads to Jira
-# @flag --prefer-local                 Always prefer local beads version
-# @flag --prefer-jira                  Always prefer Jira version
 # @flag --create-only                  Only create new issues, don't update existing
 # @flag --dry-run                      Preview sync without making changes
 # @flag -h --help                      help for sync
@@ -2114,7 +2133,7 @@ jira::status() {
 # @flag --push                         Push issues to Jira
 # @option --state <string>             Issue state to sync: open, closed, all (default "all")
 # @flag --update-refs                  Update external_ref after creating Jira issues (default true)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2137,7 +2156,7 @@ jira::sync() {
 # {{ bd linear
 # @cmd Linear integration commands
 # @flag -h --help                      help for linear
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2158,7 +2177,7 @@ linear() {
 # {{{ bd linear status
 # @cmd Show Linear sync status
 # @flag -h --help                      help for status
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2179,10 +2198,6 @@ linear::status() {
 
 # {{{ bd linear sync
 # @cmd Synchronize issues with Linear
-# @flag --pull                         Import issues from Linear into beads
-# @flag --push                         Export issues from beads to Linear
-# @flag --prefer-local                 Always prefer local beads version
-# @flag --prefer-linear                Always prefer Linear version
 # @flag --create-only                  Only create new issues, don't update existing
 # @flag --dry-run                      Preview sync without making changes
 # @flag -h --help                      help for sync
@@ -2192,7 +2207,7 @@ linear::status() {
 # @flag --push                         Push issues to Linear
 # @option --state <string>             Issue state to sync: open, closed, all (default "all")
 # @flag --update-refs                  Update external_ref after creating Linear issues (default true)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2214,7 +2229,7 @@ linear::sync() {
 # {{{ bd linear teams
 # @cmd List available Linear teams
 # @flag -h --help                      help for teams
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2237,7 +2252,7 @@ linear::teams() {
 # {{ bd repo
 # @cmd Manage multiple repository configuration
 # @flag -h --help                      help for repo
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2259,7 +2274,7 @@ repo() {
 # @cmd Add an additional repository to sync
 # @flag -h --help                      help for add
 # @flag --json                         Output JSON
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
@@ -2282,7 +2297,7 @@ repo::add() {
 # @cmd List all configured repositories
 # @flag -h --help                      help for list
 # @flag --json                         Output JSON
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
@@ -2304,7 +2319,7 @@ repo::list() {
 # @cmd Remove a repository from sync configuration
 # @flag -h --help                      help for remove
 # @flag --json                         Output JSON
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
@@ -2327,7 +2342,7 @@ repo::remove() {
 # @cmd Manually trigger multi-repo sync
 # @flag -h --help                      help for sync
 # @flag --json                         Output JSON
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
@@ -2349,7 +2364,7 @@ repo::sync() {
 # {{ bd agent
 # @cmd Manage agent bead state
 # @flag -h --help                      help for agent
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2427,7 +2442,7 @@ agent::dead() {
 # @cmd Backfill role_type/rig labels on existing agent beads
 # @flag --dry-run                      Preview changes without applying them
 # @flag -h --help                      help for backfill-labels
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2449,7 +2464,7 @@ agent::backfill-labels() {
 # {{{ bd agent heartbeat
 # @cmd Update agent last_activity timestamp
 # @flag -h --help                      help for heartbeat
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2472,7 +2487,7 @@ agent::heartbeat() {
 # {{{ bd agent show
 # @cmd Show agent bead details
 # @flag -h --help                      help for show
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2495,7 +2510,7 @@ agent::show() {
 # {{{ bd agent state
 # @cmd Set agent state
 # @flag -h --help                      help for state
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2520,7 +2535,7 @@ agent::state() {
 # {{ bd audit
 # @cmd Record and label agent interactions (append-only JSONL)
 # @flag -h --help                      help for audit
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2543,7 +2558,7 @@ audit() {
 # @flag -h --help                      help for label
 # @option --label <string>             Label value (e.g. "good" or "bad")
 # @option --reason <string>            Reason for label
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2575,7 +2590,7 @@ audit::label() {
 # @option --response <string>          Response text (llm_call)
 # @flag --stdin                        Read a JSON object from stdin (must match audit.Entry schema)
 # @option --tool-name <string>         Tool name (tool_call)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2599,7 +2614,7 @@ audit::record() {
 # @cmd Show blocked issues
 # @flag -h --help                      help for blocked
 # @option --parent <string>            Filter to descendants of this bead/epic
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2621,7 +2636,7 @@ blocked() {
 # {{ bd completion
 # @cmd Generate the autocompletion script for the specified shell
 # @flag -h --help                      help for completion
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2643,7 +2658,7 @@ completion() {
 # @cmd Generate the autocompletion script for bash
 # @flag -h --help                      help for bash
 # @flag --no-descriptions              disable completion descriptions
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2666,7 +2681,7 @@ completion::bash() {
 # @cmd Generate the autocompletion script for fish
 # @flag -h --help                      help for fish
 # @flag --no-descriptions              disable completion descriptions
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2689,7 +2704,7 @@ completion::fish() {
 # @cmd Generate the autocompletion script for powershell
 # @flag -h --help                      help for powershell
 # @flag --no-descriptions              disable completion descriptions
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2712,7 +2727,7 @@ completion::powershell() {
 # @cmd Generate the autocompletion script for zsh
 # @flag -h --help                      help for zsh
 # @flag --no-descriptions              disable completion descriptions
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2742,7 +2757,7 @@ completion::zsh() {
 # @option --prefix <string>            Prefix to prepend to proto ID (e.g., 'gt-' creates 'gt-mol-feature')
 # @option --search-path <strings>      Additional paths to search for formula inheritance
 # @option --var <stringArray>          Variable substitution (key=value), enables runtime mode
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2765,7 +2780,8 @@ cook() {
 # {{ bd defer
 # @cmd Defer one or more issues for later
 # @flag -h --help                      help for defer
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --until <string>             Defer until specific time (e.g., +1h, tomorrow, next monday)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2788,7 +2804,7 @@ defer() {
 # {{ bd formula
 # @cmd Manage workflow formulas
 # @flag -h --help                      help for formula
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2810,7 +2826,7 @@ formula() {
 # @cmd List available formulas from all search paths
 # @flag -h --help                      help for list
 # @option --type[workflow|expansion|aspect] <string>  Filter by type
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2832,7 +2848,7 @@ formula::list() {
 # {{{ bd formula show
 # @cmd Show formula details, steps, and composition rules
 # @flag -h --help                      help for show
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2858,7 +2874,7 @@ formula::show() {
 # @flag --delete                       Delete JSON file after conversion
 # @flag -h --help                      help for convert
 # @flag --stdout                       Print TOML to stdout instead of file
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -2879,199 +2895,10 @@ formula::convert() {
 # }}} bd formula convert
 # }} bd formula
 
-# {{ bd gate
-# @cmd Gate commands (async coordination)
-# @flag -h --help                      help for gate
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
-# @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
-# @option --db <string>                Database path (default: auto-discover .beads/*.db)
-# @flag --json                         Output in JSON format
-# @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
-# @flag --no-auto-flush                Disable automatic JSONL sync after CRUD operations
-# @flag --no-auto-import               Disable automatic JSONL import when newer than DB
-# @flag --no-daemon                    Force direct storage mode, bypass daemon if running
-# @flag --no-db                        Use no-db mode: load from JSONL, no SQLite
-# @flag --profile                      Generate CPU profile for performance analysis
-# @flag -q --quiet                     Suppress non-essential output (errors only)
-# @flag --readonly                     Read-only mode: block write operations (for worker sandboxes)
-# @flag --sandbox                      Sandbox mode: disables daemon and auto-sync
-# @flag -v --verbose                   Enable verbose/debug output
-gate() {
-    :;
-}
-
-# {{{ bd gate create
-# @cmd Create a new gate
-# @option --await <string>             Await spec: gh:run:<id>, gh:pr:<id>, timer:<duration>, human:<prompt>, mail:<pattern> (required)
-# @flag -h --help                      help for create
-# @flag --json                         Output JSON format
-# @option --notify <strings>           Mail addresses to notify when gate clears (repeatable)
-# @option --timeout <string>           Timeout duration (e.g., 30m, 1h)
-# @option --title <string>             Custom title for the gate
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
-# @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
-# @option --db <string>                Database path (default: auto-discover .beads/*.db)
-# @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
-# @flag --no-auto-flush                Disable automatic JSONL sync after CRUD operations
-# @flag --no-auto-import               Disable automatic JSONL import when newer than DB
-# @flag --no-daemon                    Force direct storage mode, bypass daemon if running
-# @flag --no-db                        Use no-db mode: load from JSONL, no SQLite
-# @flag --profile                      Generate CPU profile for performance analysis
-# @flag -q --quiet                     Suppress non-essential output (errors only)
-# @flag --readonly                     Read-only mode: block write operations (for worker sandboxes)
-# @flag --sandbox                      Sandbox mode: disables daemon and auto-sync
-# @flag -v --verbose                   Enable verbose/debug output
-gate::create() {
-    :;
-}
-# }}} bd gate create
-
-# {{{ bd gate show
-# @cmd Show gate details
-# @flag -h --help                      help for show
-# @flag --json                         Output JSON format
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
-# @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
-# @option --db <string>                Database path (default: auto-discover .beads/*.db)
-# @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
-# @flag --no-auto-flush                Disable automatic JSONL sync after CRUD operations
-# @flag --no-auto-import               Disable automatic JSONL import when newer than DB
-# @flag --no-daemon                    Force direct storage mode, bypass daemon if running
-# @flag --no-db                        Use no-db mode: load from JSONL, no SQLite
-# @flag --profile                      Generate CPU profile for performance analysis
-# @flag -q --quiet                     Suppress non-essential output (errors only)
-# @flag --readonly                     Read-only mode: block write operations (for worker sandboxes)
-# @flag --sandbox                      Sandbox mode: disables daemon and auto-sync
-# @flag -v --verbose                   Enable verbose/debug output
-# @arg gate-id!
-gate::show() {
-    :;
-}
-# }}} bd gate show
-
-# {{{ bd gate list
-# @cmd List open gates
-# @flag --all                          Show all gates including closed
-# @flag -h --help                      help for list
-# @flag --json                         Output JSON format
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
-# @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
-# @option --db <string>                Database path (default: auto-discover .beads/*.db)
-# @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
-# @flag --no-auto-flush                Disable automatic JSONL sync after CRUD operations
-# @flag --no-auto-import               Disable automatic JSONL import when newer than DB
-# @flag --no-daemon                    Force direct storage mode, bypass daemon if running
-# @flag --no-db                        Use no-db mode: load from JSONL, no SQLite
-# @flag --profile                      Generate CPU profile for performance analysis
-# @flag -q --quiet                     Suppress non-essential output (errors only)
-# @flag --readonly                     Read-only mode: block write operations (for worker sandboxes)
-# @flag --sandbox                      Sandbox mode: disables daemon and auto-sync
-# @flag -v --verbose                   Enable verbose/debug output
-gate::list() {
-    :;
-}
-# }}} bd gate list
-
-# {{{ bd gate close
-# @cmd Close a gate
-# @flag -h --help                      help for close
-# @flag --json                         Output JSON format
-# @option -r --reason <string>         Reason for closing
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
-# @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
-# @option --db <string>                Database path (default: auto-discover .beads/*.db)
-# @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
-# @flag --no-auto-flush                Disable automatic JSONL sync after CRUD operations
-# @flag --no-auto-import               Disable automatic JSONL import when newer than DB
-# @flag --no-daemon                    Force direct storage mode, bypass daemon if running
-# @flag --no-db                        Use no-db mode: load from JSONL, no SQLite
-# @flag --profile                      Generate CPU profile for performance analysis
-# @flag -q --quiet                     Suppress non-essential output (errors only)
-# @flag --readonly                     Read-only mode: block write operations (for worker sandboxes)
-# @flag --sandbox                      Sandbox mode: disables daemon and auto-sync
-# @flag -v --verbose                   Enable verbose/debug output
-# @arg gate-id!
-gate::close() {
-    :;
-}
-# }}} bd gate close
-
-# {{{ bd gate wait
-# @cmd Add a waiter to an existing gate
-# @flag -h --help                      help for wait
-# @flag --json                         Output JSON format
-# @option --notify[repeatable|required] <strings>  Mail addresses to add as waiters
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
-# @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
-# @option --db <string>                Database path (default: auto-discover .beads/*.db)
-# @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
-# @flag --no-auto-flush                Disable automatic JSONL sync after CRUD operations
-# @flag --no-auto-import               Disable automatic JSONL import when newer than DB
-# @flag --no-daemon                    Force direct storage mode, bypass daemon if running
-# @flag --no-db                        Use no-db mode: load from JSONL, no SQLite
-# @flag --profile                      Generate CPU profile for performance analysis
-# @flag -q --quiet                     Suppress non-essential output (errors only)
-# @flag --readonly                     Read-only mode: block write operations (for worker sandboxes)
-# @flag --sandbox                      Sandbox mode: disables daemon and auto-sync
-# @flag -v --verbose                   Enable verbose/debug output
-# @arg gate-id!
-gate::wait() {
-    :;
-}
-# }}} bd gate wait
-
-# {{{ bd gate approve
-# @cmd Approve a human gate
-# @option --comment <string>           Optional approval comment
-# @flag -h --help                      help for approve
-# @flag --json                         Output JSON format
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
-# @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
-# @option --db <string>                Database path (default: auto-discover .beads/*.db)
-# @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
-# @flag --no-auto-flush                Disable automatic JSONL sync after CRUD operations
-# @flag --no-auto-import               Disable automatic JSONL import when newer than DB
-# @flag --no-daemon                    Force direct storage mode, bypass daemon if running
-# @flag --no-db                        Use no-db mode: load from JSONL, no SQLite
-# @flag --profile                      Generate CPU profile for performance analysis
-# @flag -q --quiet                     Suppress non-essential output (errors only)
-# @flag --readonly                     Read-only mode: block write operations (for worker sandboxes)
-# @flag --sandbox                      Sandbox mode: disables daemon and auto-sync
-# @flag -v --verbose                   Enable verbose/debug output
-# @arg gate-id!
-gate::approve() {
-    :;
-}
-# }}} bd gate approve
-
-# {{{ bd gate eval
-# @cmd Evaluate pending gates and close elapsed ones
-# @flag --dry-run                      Show what would be closed without actually closing
-# @flag -h --help                      help for eval
-# @flag --json                         Output JSON format
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
-# @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
-# @option --db <string>                Database path (default: auto-discover .beads/*.db)
-# @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
-# @flag --no-auto-flush                Disable automatic JSONL sync after CRUD operations
-# @flag --no-auto-import               Disable automatic JSONL import when newer than DB
-# @flag --no-daemon                    Force direct storage mode, bypass daemon if running
-# @flag --no-db                        Use no-db mode: load from JSONL, no SQLite
-# @flag --profile                      Generate CPU profile for performance analysis
-# @flag -q --quiet                     Suppress non-essential output (errors only)
-# @flag --readonly                     Read-only mode: block write operations (for worker sandboxes)
-# @flag --sandbox                      Sandbox mode: disables daemon and auto-sync
-# @flag -v --verbose                   Enable verbose/debug output
-gate::eval_() {
-    :;
-}
-# }}} bd gate eval
-# }} bd gate
-
 # {{ bd mail
 # @cmd Delegate to mail provider (e.g., gt mail)
 # @flag -h --help                      help for mail
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -3095,7 +2922,7 @@ mail() {
 # {{ bd mol
 # @cmd Molecule commands (work templates)
 # @flag -h --help                      help for mol
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -3117,7 +2944,7 @@ mol() {
 # @cmd Show proto/molecule structure and variables
 # @flag -h --help                      help for show
 # @flag -p --parallel                  Show parallel step analysis
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -3145,7 +2972,7 @@ mol::show() {
 # @flag --dry-run                      Preview what would be created
 # @flag -h --help                      help for pour
 # @option --var <stringArray>          Variable substitution (key=value)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -3170,7 +2997,7 @@ mol::pour() {
 # @flag --dry-run                      Preview what would be created
 # @flag -h --help                      help for wisp
 # @option --var <stringArray>          Variable substitution (key=value)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -3193,7 +3020,7 @@ mol::wisp() {
 # @cmd List all wisps in current context
 # @flag --all                          Include closed wisps
 # @flag -h --help                      help for list
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -3218,7 +3045,7 @@ mol::wisp::list() {
 # @flag --all                          Also clean closed wisps older than threshold
 # @flag --dry-run                      Preview what would be cleaned
 # @flag -h --help                      help for gc
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -3242,7 +3069,7 @@ mol::wisp::gc() {
 # @flag --dry-run                      Preview what would be created
 # @flag -h --help                      help for create
 # @option --var <stringArray>          Variable substitution (key=value)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -3265,8 +3092,6 @@ mol::wisp::create() {
 
 # {{{ bd mol bond
 # @cmd Polymorphic combine: proto+proto, proto+mol, mol+mol
-# @flag --pour                         Force spawn as liquid (persistent, Ephemeral=false)
-# @flag --ephemeral                    Force spawn as vapor (ephemeral, Ephemeral=true, excluded from JSONL export)
 # @option --as <string>                Custom title for compound proto (proto+proto only)
 # @flag --dry-run                      Preview what would be created
 # @flag --ephemeral                    Force spawn as vapor (ephemeral, Ephemeral=true)
@@ -3275,7 +3100,7 @@ mol::wisp::create() {
 # @option --ref <string>               Custom child reference with {{var}} substitution (e.g., arm-{{polecat_name}})
 # @option --type <string>              Bond type: sequential, parallel, or conditional (default "sequential")
 # @option --var <stringArray>          Variable substitution for spawned protos (key=value)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -3302,7 +3127,7 @@ mol::bond() {
 # @flag -h --help                      help for squash
 # @flag --keep-children                Don't delete ephemeral children after squash
 # @option --summary <string>           Agent-provided summary (bypasses auto-generation)
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -3327,7 +3152,7 @@ mol::squash() {
 # @flag --dry-run                      Preview what would be deleted
 # @flag --force                        Skip confirmation prompt
 # @flag -h --help                      help for burn
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -3341,7 +3166,7 @@ mol::squash() {
 # @flag --readonly                     Read-only mode: block write operations (for worker sandboxes)
 # @flag --sandbox                      Sandbox mode: disables daemon and auto-sync
 # @flag -v --verbose                   Enable verbose/debug output
-# @arg molecule-id!
+# @arg molecule-id*
 mol::burn() {
     :;
 }
@@ -3355,7 +3180,7 @@ mol::burn() {
 # @flag -h --help                        help for distill
 # @option --output <string>              Output directory for formula file
 # @option --var <stringArray>            Replace value with {{variable}} placeholder (variable=value)
-# @option --actor <string>               Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>               Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                    Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                  Database path (default: auto-discover .beads/*.db)
 # @flag --json                           Output in JSON format
@@ -3382,7 +3207,7 @@ mol::distill() {
 # @flag -h --help                      help for current
 # @option --limit <int>                Maximum number of steps to display (0 = auto, use 'all' threshold)
 # @option --range <string>             Display specific step range (e.g., '1-50', '100-150')
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -3405,7 +3230,7 @@ mol::current() {
 # {{{ bd mol progress
 # @cmd Show molecule progress summary
 # @flag -h --help                      help for progress
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -3425,6 +3250,28 @@ mol::progress() {
 }
 # }}} bd mol progress
 
+# {{{ bd mol ready
+# @cmd Find molecules ready for gate-resume dispatch
+# @flag -h --help                      help for ready
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
+# @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
+# @option --db <string>                Database path (default: auto-discover .beads/*.db)
+# @flag --json                         Output in JSON format
+# @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
+# @flag --no-auto-flush                Disable automatic JSONL sync after CRUD operations
+# @flag --no-auto-import               Disable automatic JSONL import when newer than DB
+# @flag --no-daemon                    Force direct storage mode, bypass daemon if running
+# @flag --no-db                        Use no-db mode: load from JSONL, no SQLite
+# @flag --profile                      Generate CPU profile for performance analysis
+# @flag -q --quiet                     Suppress non-essential output (errors only)
+# @flag --readonly                     Read-only mode: block write operations (for worker sandboxes)
+# @flag --sandbox                      Sandbox mode: disables daemon and auto-sync
+# @flag -v --verbose                   Enable verbose/debug output
+mol::ready() {
+    :;
+}
+# }}} bd mol ready
+
 # {{{ bd mol stale
 # @cmd Detect complete-but-unclosed molecules
 # @flag --all                          Include molecules with 0 children
@@ -3432,7 +3279,7 @@ mol::progress() {
 # @flag -h --help                      help for stale
 # @flag --json                         Output in JSON format
 # @flag --unassigned                   Only show unassigned molecules
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @option --lock-timeout <duration>    SQLite busy timeout (0 = fail immediately if locked) (default 30s)
@@ -3456,7 +3303,7 @@ mol::stale() {
 # @flag --details                      Show full commit information
 # @flag -f --fix                       Close orphaned issues with confirmation
 # @flag -h --help                      help for orphans
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -3478,18 +3325,21 @@ orphans() {
 # {{ bd ready
 # @cmd Show ready work (no blockers, open or in_progress)
 # @option -a --assignee <string>       Filter by assignee
+# @flag --gated                        Find molecules ready for gate-resume dispatch
 # @flag -h --help                      help for ready
+# @flag --include-deferred             Include issues with future defer_until timestamps
 # @option -l --label <strings>         Filter by labels (AND: must have ALL).
 # @option --label-any <strings>        Filter by labels (OR: must have AT LEAST ONE).
 # @option -n --limit <int>             Maximum issues to show (default 10)
 # @option --mol <string>               Filter to steps within a specific molecule
 # @option --mol-type <string>          Filter by molecule type: swarm, patrol, or work
 # @option --parent <string>            Filter to descendants of this bead/epic
+# @flag --pretty                       Display issues in a tree format with status/priority symbols
 # @option -p --priority <int>          Filter by priority
 # @option -s --sort <string>           Sort policy: hybrid (default), priority, oldest (default "hybrid")
-# @option -t --type[task|bug|feature|epic|merge-request] <string>  Filter by issue type
+# @option -t --type[task|bug|feature|epic|merge-request] <string>  Filter by issue type.
 # @flag -u --unassigned                Show only unassigned issues
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -3513,7 +3363,7 @@ ready() {
 # @flag --dry-run                      Preview without making changes
 # @flag --force                        Ship even if issue is not closed
 # @flag -h --help                      help for ship
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -3536,7 +3386,7 @@ ship() {
 # {{ bd slot
 # @cmd Manage agent bead slots
 # @flag -h --help                      help for slot
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -3571,7 +3421,7 @@ slot::role() {
 # {{{ bd slot clear
 # @cmd Clear a slot on an agent bead
 # @flag -h --help                      help for clear
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -3595,7 +3445,7 @@ slot::clear() {
 # {{{ bd slot set
 # @cmd Set a slot on an agent bead
 # @flag -h --help                      help for set
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -3620,7 +3470,7 @@ slot::set() {
 # {{{ bd slot show
 # @cmd Show all slots on an agent bead
 # @flag -h --help                      help for show
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -3644,7 +3494,7 @@ slot::show() {
 # {{ bd undefer
 # @cmd Undefer one or more issues (restore to open)
 # @flag -h --help                      help for undefer
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
@@ -3668,7 +3518,7 @@ undefer() {
 # @cmd Print version information
 # @flag --daemon                       Check daemon version and compatibility
 # @flag -h --help                      help for version
-# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR or $USER)
+# @option --actor <string>             Actor name for audit trail (default: $BD_ACTOR, git user.name, $USER)
 # @flag --allow-stale                  Allow operations on potentially stale data (skip staleness check)
 # @option --db <string>                Database path (default: auto-discover .beads/*.db)
 # @flag --json                         Output in JSON format
