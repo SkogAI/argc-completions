@@ -2,7 +2,7 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @flag -a --all                   show system files and directories (TUI-mode only)
-# @option --config <string>        config file (default )
+# @option --config <string>        config file (default /home/skogix/.config/glow/glow.yml)
 # @flag -h --help                  help for glow
 # @flag -l --line-numbers          show line numbers (TUI-mode only)
 # @flag -p --pager                 display with pager

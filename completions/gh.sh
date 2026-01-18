@@ -106,6 +106,7 @@ auth::token() {
 
 # {{ gh browse
 # @cmd Open repositories, issues, pull requests, and more in the browser
+# @flag -a --actions                       Open repository actions
 # @option -b --branch[`_choice_branch`] <string>  Select another branch by passing in the branch name
 # @option -c --commit <string[="last"]>    Select another commit by passing in the commit SHA, default is the last commit
 # @flag -n --no-browser                    Print destination URL instead of opening the browser
@@ -1965,6 +1966,57 @@ workflow::view() {
 }
 # }}} gh workflow view
 # }} gh workflow
+
+# {{ gh copilot
+# @cmd Extension copilot
+# @flag -h --help                help for copilot
+# @option --hostname <string>    The GitHub host to use for authentication
+# @flag -v --version             version for copilot
+copilot() {
+    :;
+}
+
+# {{{ gh copilot alias
+# @cmd Generate shell-specific aliases for convenience
+# @flag -h --help                help for alias
+# @option --hostname <string>    The GitHub host to use for authentication
+# @arg shell!
+copilot::alias() {
+    :;
+}
+# }}} gh copilot alias
+
+# {{{ gh copilot config
+# @cmd Configure options
+# @flag -h --help                help for config
+# @option --hostname <string>    The GitHub host to use for authentication
+copilot::config() {
+    :;
+}
+# }}} gh copilot config
+
+# {{{ gh copilot explain
+# @cmd Explain a command
+# @flag -h --help                help for explain
+# @option --hostname <string>    The GitHub host to use for authentication
+# @arg command
+copilot::explain() {
+    :;
+}
+# }}} gh copilot explain
+
+# {{{ gh copilot suggest
+# @cmd Suggest a command
+# @flag -h --help                  help for suggest
+# @option -s --shell-out <file>    Path to file for outputting command to execute
+# @option -t --target <target>     Target for suggestion; must be shell, gh, git
+# @option --hostname <string>      The GitHub host to use for authentication
+# @arg prompt
+copilot::suggest() {
+    :;
+}
+# }}} gh copilot suggest
+# }} gh copilot
 
 # {{ gh dash
 # @cmd Extension dash

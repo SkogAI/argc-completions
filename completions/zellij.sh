@@ -6,8 +6,9 @@
 # @flag -d --debug                     Specify emitting additional debug information
 # @option --data-dir <DATA_DIR>        Change where zellij looks for plugins
 # @flag -h --help                      Print help information
-# @option -l --layout                  Name of a predefined layout inside the layout directory or the path to a layout file
+# @option -l --layout                  Name of a predefined layout inside the layout directory or the path to a layout file if inside a session (or using the --session flag) will be added to the session as a new tab or tabs, otherwise will start a new session
 # @option --max-panes <MAX_PANES>      Maximum panes on screen, caution: opening more panes will close old ones
+# @option -n --new-session-with-layout <NEW_SESSION_WITH_LAYOUT>  Name of a predefined layout inside the layout directory or the path to a layout file Will always start a new session, even if inside an existing session
 # @option -s --session                 Specify name of a new session
 # @flag -V --version                   Print version information
 
@@ -17,6 +18,21 @@
 action() {
     :;
 }
+
+# {{{ zellij action change-floating-pane-coordinates
+# @cmd
+# @flag -h --help                   Print help information
+# @option --height                  The height if the pane is floating as a bare integer (eg.
+# @option -p --pane-id <PANE_ID>    The pane_id of the floating pane, eg.
+# @option --pinned                  Whether to pin a floating pane so that it is always on top
+# @option --width                   The width if the pane is floating as a bare integer (eg.
+# @option -x --x                    The x coordinates if the pane is floating as a bare integer (eg.
+# @option -y --y                    The y coordinates if the pane is floating as a bare integer (eg.
+# @arg pane_id!
+action::change-floating-pane-coordinates() {
+    :;
+}
+# }}} zellij action change-floating-pane-coordinates
 
 # {{{ zellij action clear
 # @cmd Clear all buffers for a focused pane
@@ -69,6 +85,7 @@ action::dump-screen() {
 # @option --height                               The height if the pane is floating as a bare integer (eg.
 # @flag -i --in-place                            Open the new pane in place of the current pane, temporarily suspending it
 # @option -l --line-number <LINE_NUMBER>         Open the file in the specified line number
+# @option --pinned                               Whether to pin a floating pane so that it is always on top
 # @option --width                                The width if the pane is floating as a bare integer (eg.
 # @option -x --x                                 The x coordinates if the pane is floating as a bare integer (eg.
 # @option -y --y                                 The y coordinates if the pane is floating as a bare integer (eg.
@@ -244,8 +261,10 @@ action::move-tab() {
 # @flag -i --in-place           Open the new pane in place of the current pane, temporarily suspending it
 # @option -n --name             Name of the new pane
 # @option -p --plugin
+# @option --pinned              Whether to pin a floating pane so that it is always on top
 # @flag -s --start-suspended    Start the command suspended, only running it after the you first press ENTER
 # @flag --skip-plugin-cache
+# @flag --stacked
 # @option --width               The width if the pane is floating as a bare integer (eg.
 # @option -x --x                The x coordinates if the pane is floating as a bare integer (eg.
 # @option -y --y                The y coordinates if the pane is floating as a bare integer (eg.
@@ -395,6 +414,15 @@ action::scroll-up() {
 }
 # }}} zellij action scroll-up
 
+# {{{ zellij action stack-panes
+# @cmd Stack pane ids Ids are a space separated list of pane ids.
+# @flag -h --help    Print help information
+# @arg pane_ids+
+action::stack-panes() {
+    :;
+}
+# }}} zellij action stack-panes
+
 # {{{ zellij action start-or-reload-plugin
 # @cmd
 # @option -c --configuration
@@ -454,6 +482,14 @@ action::toggle-pane-frames() {
 }
 # }}} zellij action toggle-pane-frames
 
+# {{{ zellij action toggle-pane-pinned
+# @cmd
+# @flag -h --help    Print help information
+action::toggle-pane-pinned() {
+    :;
+}
+# }}} zellij action toggle-pane-pinned
+
 # {{{ zellij action undo-rename-pane
 # @cmd Remove a previously set pane name
 # @flag -h --help    Print help information
@@ -503,6 +539,7 @@ attach() {
 
 # {{{ zellij attach options
 # @cmd Change the behaviour of zellij
+# @option --advanced-mouse-actions[true|false] <ADVANCED_MOUSE_ACTIONS>  Whether to enable mouse hover effects and pane grouping functionality default is true
 # @option --attach-to-session[true|false] <ATTACH_TO_SESSION>  Whether to attach to a session specified in "session-name" if it exists
 # @option --auto-layout[true|false] <AUTO_LAYOUT>  Whether to lay out panes in a predefined set of layouts whenever possible
 # @option --copy-clipboard[system|primary] <COPY_CLIPBOARD>  OSC52 destination clipboard
@@ -521,6 +558,7 @@ attach() {
 # @flag --no-pane-frames                           Disable display of pane frames
 # @option --on-force-close <ON_FORCE_CLOSE>        Set behaviour on force close (quit or detach)
 # @option --pane-frames[true|false] <PANE_FRAMES>  Set display of the pane frames (true or false)
+# @option --post-command-discovery-hook <POST_COMMAND_DISCOVERY_HOOK>  A command to run after the discovery of running commands when serializing, for the purpose of manipulating the command (eg.
 # @option --scroll-buffer-size <SCROLL_BUFFER_SIZE>
 # @option --scrollback-editor <SCROLLBACK_EDITOR>  Explicit full path to open the scrollback editor (default is $EDITOR or $VISUAL)
 # @option --scrollback-lines-to-serialize <SCROLLBACK_LINES_TO_SERIALIZE>  Scrollback lines to serialize along with the pane viewport when serializing sessions, 0 defaults to the scrollback size.
@@ -528,10 +566,21 @@ attach() {
 # @option --serialize-pane-viewport[true|false] <SERIALIZE_PANE_VIEWPORT>  Whether pane viewports are serialized along with the session, default is false
 # @option --session-name <SESSION_NAME>            The name of the session to create when starting Zellij
 # @option --session-serialization[true|false] <SESSION_SERIALIZATION>  Whether sessions should be serialized to the HD so that they can be later resurrected, default is true
+# @option --show-release-notes[true|false] <SHOW_RELEASE_NOTES>  Whether to show release notes on first run of a new version default is true
+# @option --show-startup-tips[true|false] <SHOW_STARTUP_TIPS>  Whether to show startup tips when starting a new session default is true
 # @option --simplified-ui[true|false] <SIMPLIFIED_UI>  Allow plugins to use a more simplified layout that is compatible with more fonts (true or false)
+# @option --stacked-resize[true|false] <STACKED_RESIZE>  Whether to stack panes when resizing beyond a certain size default is true
 # @option --styled-underlines[true|false] <STYLED_UNDERLINES>  Whether to use ANSI styled underlines
+# @option --support-kitty-keyboard-protocol[true|false] <SUPPORT_KITTY_KEYBOARD_PROTOCOL>  Whether to enable support for the Kitty keyboard protocol (must also be supported by the host terminal), defaults to true if the terminal supports it
 # @option --theme                                  Set the default theme
 # @option --theme-dir <THEME_DIR>                  Set the theme_dir, defaults to subdirectory of config dir
+# @option --web-server[true|false] <WEB_SERVER>    Whether to make sure a local web server is running when a new Zellij session starts.
+# @option --web-sharing[on|off|disabled] <WEB_SHARING>  Whether to allow new sessions to be shared through a local web server, assuming one is running (see the `web_server` option for more details).
+# @arg web_server_ip!
+# @arg web_server_port!
+# @arg web_server_cert!
+# @arg web_server_key!
+# @arg enforce_https_for_localhost!
 attach::options() {
     :;
 }
@@ -594,6 +643,7 @@ delete-session() {
 # @option --height                          The height if the pane is floating as a bare integer (eg.
 # @flag -i --in-place                       Open the new pane in place of the current pane, temporarily suspending it
 # @option -l --line-number <LINE_NUMBER>    Open the file in the specified line number
+# @option --pinned                          Whether to pin a floating pane so that it is always on top
 # @option --width                           The width if the pane is floating as a bare integer (eg.
 # @option -x --x                            The x coordinates if the pane is floating as a bare integer (eg.
 # @option -y --y                            The y coordinates if the pane is floating as a bare integer (eg.
@@ -642,6 +692,7 @@ list-sessions() {
 
 # {{ zellij options
 # @cmd Change the behaviour of zellij
+# @option --advanced-mouse-actions[true|false] <ADVANCED_MOUSE_ACTIONS>  Whether to enable mouse hover effects and pane grouping functionality default is true
 # @option --attach-to-session[true|false] <ATTACH_TO_SESSION>  Whether to attach to a session specified in "session-name" if it exists
 # @option --auto-layout[true|false] <AUTO_LAYOUT>  Whether to lay out panes in a predefined set of layouts whenever possible
 # @option --copy-clipboard[system|primary] <COPY_CLIPBOARD>  OSC52 destination clipboard
@@ -660,6 +711,7 @@ list-sessions() {
 # @flag --no-pane-frames                           Disable display of pane frames
 # @option --on-force-close <ON_FORCE_CLOSE>        Set behaviour on force close (quit or detach)
 # @option --pane-frames[true|false] <PANE_FRAMES>  Set display of the pane frames (true or false)
+# @option --post-command-discovery-hook <POST_COMMAND_DISCOVERY_HOOK>  A command to run after the discovery of running commands when serializing, for the purpose of manipulating the command (eg.
 # @option --scroll-buffer-size <SCROLL_BUFFER_SIZE>
 # @option --scrollback-editor <SCROLLBACK_EDITOR>  Explicit full path to open the scrollback editor (default is $EDITOR or $VISUAL)
 # @option --scrollback-lines-to-serialize <SCROLLBACK_LINES_TO_SERIALIZE>  Scrollback lines to serialize along with the pane viewport when serializing sessions, 0 defaults to the scrollback size.
@@ -667,10 +719,21 @@ list-sessions() {
 # @option --serialize-pane-viewport[true|false] <SERIALIZE_PANE_VIEWPORT>  Whether pane viewports are serialized along with the session, default is false
 # @option --session-name <SESSION_NAME>            The name of the session to create when starting Zellij
 # @option --session-serialization[true|false] <SESSION_SERIALIZATION>  Whether sessions should be serialized to the HD so that they can be later resurrected, default is true
+# @option --show-release-notes[true|false] <SHOW_RELEASE_NOTES>  Whether to show release notes on first run of a new version default is true
+# @option --show-startup-tips[true|false] <SHOW_STARTUP_TIPS>  Whether to show startup tips when starting a new session default is true
 # @option --simplified-ui[true|false] <SIMPLIFIED_UI>  Allow plugins to use a more simplified layout that is compatible with more fonts (true or false)
+# @option --stacked-resize[true|false] <STACKED_RESIZE>  Whether to stack panes when resizing beyond a certain size default is true
 # @option --styled-underlines[true|false] <STYLED_UNDERLINES>  Whether to use ANSI styled underlines
+# @option --support-kitty-keyboard-protocol[true|false] <SUPPORT_KITTY_KEYBOARD_PROTOCOL>  Whether to enable support for the Kitty keyboard protocol (must also be supported by the host terminal), defaults to true if the terminal supports it
 # @option --theme                                  Set the default theme
 # @option --theme-dir <THEME_DIR>                  Set the theme_dir, defaults to subdirectory of config dir
+# @option --web-server[true|false] <WEB_SERVER>    Whether to make sure a local web server is running when a new Zellij session starts.
+# @option --web-sharing[on|off|disabled] <WEB_SHARING>  Whether to allow new sessions to be shared through a local web server, assuming one is running (see the `web_server` option for more details).
+# @arg web_server_ip!
+# @arg web_server_port!
+# @arg web_server_cert!
+# @arg web_server_key!
+# @arg enforce_https_for_localhost!
 options() {
     :;
 }
@@ -696,6 +759,7 @@ pipe() {
 # @flag -h --help                 Print help information
 # @option --height                The height if the pane is floating as a bare integer (eg.
 # @flag -i --in-place             Open the new pane in place of the current pane, temporarily suspending it
+# @option --pinned                Whether to pin a floating pane so that it is always on top
 # @flag -s --skip-plugin-cache    Skip the memory and HD cache and force recompile of the plugin (good for development)
 # @option --width                 The width if the pane is floating as a bare integer (eg.
 # @option -x --x                  The x coordinates if the pane is floating as a bare integer (eg.
@@ -716,7 +780,9 @@ plugin() {
 # @option --height                    The height if the pane is floating as a bare integer (eg.
 # @flag -i --in-place                 Open the new pane in place of the current pane, temporarily suspending it
 # @option -n --name                   Name of the new pane
+# @option --pinned                    Whether to pin a floating pane so that it is always on top
 # @flag -s --start-suspended          Start the command suspended, only running after you first presses ENTER
+# @flag --stacked
 # @option --width                     The width if the pane is floating as a bare integer (eg.
 # @option -x --x                      The x coordinates if the pane is floating as a bare integer (eg.
 # @option -y --y                      The y coordinates if the pane is floating as a bare integer (eg.
@@ -741,6 +807,26 @@ setup() {
     :;
 }
 # }} zellij setup
+
+# {{ zellij web
+# @cmd Run a web server to serve terminal sessions
+# @flag --start                          Start the server (default unless other arguments are specified)
+# @flag --stop                           Stop the server
+# @flag --status                         Get the server status
+# @flag -d --daemonize                   Run the server in the background
+# @flag --create-token                   Create a login token for the web interface, will only be displayed once and cannot later be retrieved.
+# @option --revoke-token <TOKEN NAME>    Revoke a login token by its name
+# @flag --revoke-all-tokens              Revoke all login tokens
+# @flag --list-tokens                    List token names and their creation dates (cannot show actual tokens)
+# @option --ip                           The ip address to listen on locally for connections (defaults to 127.0.0.1)
+# @option --port                         The port to listen on locally for connections (defaults to 8082)
+# @option --cert                         The path to the SSL certificate (required if not listening on 127.0.0.1)
+# @option --key                          The path to the SSL key (required if not listening on 127.0.0.1)
+# @flag -h --help                        Print help information
+web() {
+    :;
+}
+# }} zellij web
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"
 

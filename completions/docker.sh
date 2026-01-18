@@ -25,6 +25,8 @@
 # @option --cgroup-parent <string>                 Optional parent cgroup for the container
 # @option --cgroupns <string>                      Cgroup namespace to use (host|private)
 # @option --cidfile <file>                         Write the container ID to the file
+# @option --cpu-count <int>                        CPU count (Windows only)
+# @option --cpu-percent <int>                      CPU percent (Windows only)
 # @option --cpu-period <int>                       Limit CPU CFS (Completely Fair Scheduler) period
 # @option --cpu-quota <int>                        Limit CPU CFS (Completely Fair Scheduler) quota
 # @option --cpu-rt-period <int>                    Limit CPU real-time period in microseconds
@@ -61,6 +63,8 @@
 # @option -h --hostname <string>                   Container host name
 # @flag --init                                     Run an init inside the container that forwards signals and reaps processes
 # @flag -i --interactive                           Keep STDIN open even if not attached
+# @option --io-maxbandwidth <bytes>                Maximum IO bandwidth limit for the system drive (Windows only)
+# @option --io-maxiops <uint>                      Maximum IOps limit for the system drive (Windows only)
 # @option --ip <ip>                                IPv4 address (e.g., 172.30.100.104)
 # @option --ip6 <ip>                               IPv6 address (e.g., 2001:db8::33)
 # @option --ipc <string>                           IPC mode to use
@@ -247,7 +251,7 @@ push() {
 
 # {{ docker images
 # @cmd List images
-# @flag -a --all               Show all images (default hides intermediate images)
+# @flag -a --all               Show all images (default hides intermediate and dangling images)
 # @flag --digests              Show digests
 # @option -f --filter[`_choice_image_ls_filter`] <filter>  Filter output based on conditions provided
 # @option --format <string>    Format output using a custom template:
@@ -306,6 +310,58 @@ info() {
     :;
 }
 # }} docker info
+
+# {{ docker ai
+# @cmd Docker AI Agent - Ask Gordon
+# @flag --send-files                Send files when asked to (default true)
+# @flag --send-project-structure    Send project structure when asked to (default true)
+# @flag -s --shell-out              Run commands after a confirmation
+# @option -C --working-dir <dir>    Sets the working directory for the command
+# @flag --write-files               Write files when asked to (default true)
+ai() {
+    :;
+}
+
+# {{{ docker ai config
+# @cmd Configuration management commands
+# @option -C --working-dir <dir>    Sets the working directory for the command
+ai::config() {
+    :;
+}
+
+# {{{{ docker ai config get
+# @cmd Get the current configuration
+# @option -C --working-dir <dir>    Sets the working directory for the command
+ai::config::get() {
+    :;
+}
+# }}}} docker ai config get
+
+# {{{{ docker ai config set-feature
+# @cmd Enable or disable a feature
+# @option -C --working-dir <dir>    Sets the working directory for the command
+ai::config::set-feature() {
+    :;
+}
+# }}}} docker ai config set-feature
+# }}} docker ai config
+
+# {{{ docker ai feedback
+# @cmd Share your feedback with Docker Inc.
+# @option -C --working-dir <dir>    Sets the working directory for the command
+ai::feedback() {
+    :;
+}
+# }}} docker ai feedback
+
+# {{{ docker ai version
+# @cmd Show the version information
+# @option -C --working-dir <dir>    Sets the working directory for the command
+ai::version() {
+    :;
+}
+# }}} docker ai version
+# }} docker ai
 
 # {{ docker builder
 # @cmd Manage builds
@@ -541,7 +597,7 @@ builder::build() {
 # @option --buildkitd-config <file>     BuildKit daemon config file
 # @option --buildkitd-flags <string>    BuildKit daemon flags
 # @flag -D --debug                      Enable debug logging
-# @option --driver[docker-container|kubernetes|remote] <string>  Driver to use
+# @option --driver[cloud|docker-container|kubernetes|remote] <string>  Driver to use
 # @option --driver-opt* <string>        Options for the driver
 # @flag --leave                         Remove a node from builder instead of changing it
 # @option --name <string>               Builder instance name
@@ -893,7 +949,7 @@ buildx::build() {
 # @option --buildkitd-config <file>     BuildKit daemon config file
 # @option --buildkitd-flags <string>    BuildKit daemon flags
 # @flag -D --debug                      Enable debug logging
-# @option --driver[docker-container|kubernetes|remote] <string>  Driver to use
+# @option --driver[cloud|docker-container|kubernetes|remote] <string>  Driver to use
 # @option --driver-opt* <string>        Options for the driver
 # @flag --leave                         Remove a node from builder instead of changing it
 # @option --name <string>               Builder instance name
@@ -1010,6 +1066,43 @@ buildx::version() {
 }
 # }}} docker buildx version
 # }} docker buildx
+
+# {{ docker checkpoint
+# @cmd Manage checkpoints
+checkpoint() {
+    :;
+}
+
+# {{{ docker checkpoint create
+# @cmd Create a checkpoint from a running container
+# @option --checkpoint-dir <dir>    Use a custom checkpoint storage directory
+# @flag --leave-running             Leave the container running after checkpoint
+# @arg container[`_choice_container_name`]
+# @arg checkpoint
+checkpoint::create() {
+    :;
+}
+# }}} docker checkpoint create
+
+# {{{ docker checkpoint ls
+# @cmd List checkpoints for a container
+# @option --checkpoint-dir <dir>    Use a custom checkpoint storage directory
+# @arg container[`_choice_container_name`]
+checkpoint::ls() {
+    :;
+}
+# }}} docker checkpoint ls
+
+# {{{ docker checkpoint rm
+# @cmd Remove a checkpoint
+# @option --checkpoint-dir <dir>    Use a custom checkpoint storage directory
+# @arg container[`_choice_container_name`]
+# @arg checkpoint
+checkpoint::rm() {
+    :;
+}
+# }}} docker checkpoint rm
+# }} docker checkpoint
 
 # {{ docker compose
 # @cmd Docker Compose
@@ -1624,6 +1717,8 @@ container::cp() {
 # @option --cgroup-parent <string>              Optional parent cgroup for the container
 # @option --cgroupns <string>                   Cgroup namespace to use (host|private)
 # @option --cidfile <file>                      Write the container ID to the file
+# @option --cpu-count <int>                     CPU count (Windows only)
+# @option --cpu-percent <int>                   CPU percent (Windows only)
 # @option --cpu-period <int>                    Limit CPU CFS (Completely Fair Scheduler) period
 # @option --cpu-quota <int>                     Limit CPU CFS (Completely Fair Scheduler) quota
 # @option --cpu-rt-period <int>                 Limit CPU real-time period in microseconds
@@ -1658,6 +1753,8 @@ container::cp() {
 # @option -h --hostname <string>                Container host name
 # @flag --init                                  Run an init inside the container that forwards signals and reaps processes
 # @flag -i --interactive                        Keep STDIN open even if not attached
+# @option --io-maxbandwidth <bytes>             Maximum IO bandwidth limit for the system drive (Windows only)
+# @option --io-maxiops <uint>                   Maximum IOps limit for the system drive (Windows only)
 # @option --ip <ip>                             IPv4 address (e.g., 172.30.100.104)
 # @option --ip6 <ip>                            IPv6 address (e.g., 2001:db8::33)
 # @option --ipc <string>                        IPC mode to use
@@ -1870,6 +1967,8 @@ container::rm() {
 # @option --cgroup-parent <string>                 Optional parent cgroup for the container
 # @option --cgroupns <string>                      Cgroup namespace to use (host|private)
 # @option --cidfile <file>                         Write the container ID to the file
+# @option --cpu-count <int>                        CPU count (Windows only)
+# @option --cpu-percent <int>                      CPU percent (Windows only)
 # @option --cpu-period <int>                       Limit CPU CFS (Completely Fair Scheduler) period
 # @option --cpu-quota <int>                        Limit CPU CFS (Completely Fair Scheduler) quota
 # @option --cpu-rt-period <int>                    Limit CPU real-time period in microseconds
@@ -1906,6 +2005,8 @@ container::rm() {
 # @option -h --hostname <string>                   Container host name
 # @flag --init                                     Run an init inside the container that forwards signals and reaps processes
 # @flag -i --interactive                           Keep STDIN open even if not attached
+# @option --io-maxbandwidth <bytes>                Maximum IO bandwidth limit for the system drive (Windows only)
+# @option --io-maxiops <uint>                      Maximum IOps limit for the system drive (Windows only)
 # @option --ip <ip>                                IPv4 address (e.g., 172.30.100.104)
 # @option --ip6 <ip>                               IPv6 address (e.g., 2001:db8::33)
 # @option --ipc <string>                           IPC mode to use
@@ -1969,6 +2070,8 @@ container::run() {
 # {{{ docker container start
 # @cmd Start one or more stopped containers
 # @flag -a --attach                 Attach STDOUT/STDERR and forward signals
+# @option --checkpoint <string>     Restore from this checkpoint
+# @option --checkpoint-dir <dir>    Use a custom checkpoint storage directory
 # @option --detach-keys <string>    Override the key sequence for detaching a container
 # @flag -i --interactive            Attach container's STDIN
 # @arg container*[`_choice_container_name`]
@@ -2134,6 +2237,228 @@ context::use() {
 # }}} docker context use
 # }} docker context
 
+# {{ docker debug
+# @cmd Get a shell into any image or container
+# @option -c --command <string>                  Evaluate the specified commands instead, passing additional positional arguments through $argv.
+# @option --host <string>                        Daemon docker socket to connect to.
+# @flag --preserve-user                          Running containers only: Use same user as the running container.
+# @flag --privileged                             Running containers only: Give privileges to the shell (all capabilities).
+# @option --shell[bash|fish|zsh|auto] <shell>    Select a shell.
+# @flag --version                                Display version of the docker-debug plugin
+debug() {
+    :;
+}
+
+# {{{ docker debug docker-cli-plugin-hooks
+# @cmd
+debug::docker-cli-plugin-hooks() {
+    :;
+}
+# }}} docker debug docker-cli-plugin-hooks
+# }} docker debug
+
+# {{ docker desktop
+# @cmd Docker Desktop commands
+desktop() {
+    :;
+}
+
+# {{{ docker desktop kubernetes
+# @cmd Manage Kubernetes
+desktop::kubernetes() {
+    :;
+}
+
+# {{{{ docker desktop kubernetes images
+# @cmd List Kubernetes images used by Docker Desktop
+# @option --format <string>    Format the output.
+desktop::kubernetes::images() {
+    :;
+}
+# }}}} docker desktop kubernetes images
+# }}} docker desktop kubernetes
+
+# {{{ docker desktop logs
+# @cmd Print log entries
+# @option -b --boot <int>             Show logs from a specified boot.
+# @flag -c --color                    Enable colored output.
+# @option -m --color-mode <string>    Color mode to use.
+# @option -D --directory <dir>        Specifies a custom directory to search for log entries.
+# @option -p --priority <int>         Filter output by log priorities.
+# @option -S --since <string>         Start showing entries on or newer than the specified date and time.
+# @option -u --unit* <string>         Filter by one or more categories (e.g. --unit=com.docker.backend.ipc,com.docker.backend.apiproxy)
+# @option -U --until <string>         Start showing entries on or before than the specified date and time.
+desktop::logs() {
+    :;
+}
+# }}} docker desktop logs
+
+# {{{ docker desktop restart
+# @cmd Restart Docker Desktop
+# @flag -d --detach              Do not synchronously wait for the requested operation to complete.
+# @option --timeout <seconds>    Terminate the running command after the specified timeout with a non-zero exit code.
+desktop::restart() {
+    :;
+}
+# }}} docker desktop restart
+
+# {{{ docker desktop start
+# @cmd Start Docker Desktop
+# @flag -d --detach              Do not synchronously wait for the requested operation to complete.
+# @option --timeout <seconds>    Terminate the running command after the specified timeout with a non-zero exit code.
+desktop::start() {
+    :;
+}
+# }}} docker desktop start
+
+# {{{ docker desktop status
+# @cmd Show the status of the Docker Desktop engines
+# @option --format <string>    Format the output.
+desktop::status() {
+    :;
+}
+# }}} docker desktop status
+
+# {{{ docker desktop stop
+# @cmd Stop Docker Desktop
+# @flag -d --detach              Do not synchronously wait for the requested operation to complete.
+# @flag --force                  Force Docker Desktop to stop
+# @option --timeout <seconds>    Terminate the running command after the specified timeout with a non-zero exit code.
+desktop::stop() {
+    :;
+}
+# }}} docker desktop stop
+
+# {{{ docker desktop update
+# @cmd Manage Docker Desktop updates
+# @flag -k --check-only    Check for updates without applying them
+# @flag -q --quiet         Quietly check and apply updates
+desktop::update() {
+    :;
+}
+# }}} docker desktop update
+
+# {{{ docker desktop version
+# @cmd Show the Docker Desktop CLI plugin version information
+# @option -f --format <string>    Format the output.
+# @flag --short                   Shows only the version number
+desktop::version() {
+    :;
+}
+# }}} docker desktop version
+# }} docker desktop
+
+# {{ docker extension
+# @cmd Manages Docker extensions
+# @option --socket <string>    The Desktop extension manager socket
+extension() {
+    :;
+}
+
+# {{{ docker extension dev
+# @cmd Extension development helpers
+extension::dev() {
+    :;
+}
+
+# {{{{ docker extension dev debug
+# @cmd Set the debug mode for an extension
+extension::dev::debug() {
+    :;
+}
+# }}}} docker extension dev debug
+
+# {{{{ docker extension dev reset
+# @cmd Reset the source and disables the debug mode for the extension UI
+extension::dev::reset() {
+    :;
+}
+# }}}} docker extension dev reset
+
+# {{{{ docker extension dev ui-source
+# @cmd Set a new source for the extension UI
+extension::dev::ui-source() {
+    :;
+}
+# }}}} docker extension dev ui-source
+# }}} docker extension dev
+
+# {{{ docker extension init
+# @cmd Create a new Docker Extension based on a template.
+# @option --image-repo <string>    Image Repository where the extension will be pushed (required with --quiet)
+# @flag -q --quiet                 Use quiet to not prompt questions and use default values as answers.
+# @option --title <string>         Title of your extension as it will appear in the Marketplace (required with --quiet)
+# @option --version <string>       Minimum extension SDK version the extension is compatible with
+# @arg folder
+extension::init() {
+    :;
+}
+# }}} docker extension init
+
+# {{{ docker extension install
+# @cmd Install a Docker extension with the specified image
+# @flag -f --force    Do not prompt for confirmation
+# @arg image-tag[`_module_oci_docker_image`] <IMAGE[:TAG]>
+extension::install() {
+    :;
+}
+# }}} docker extension install
+
+# {{{ docker extension ls
+# @cmd List installed Docker extensions
+# @option --format <string>    Format the output.
+# @flag -q --quiet             Only display IDs.
+extension::ls() {
+    :;
+}
+# }}} docker extension ls
+
+# {{{ docker extension rm
+# @cmd Remove a Docker extension
+# @arg extension
+extension::rm() {
+    :;
+}
+# }}} docker extension rm
+
+# {{{ docker extension share
+# @cmd Generate a link to share the extension.
+# @arg image-tag[`_module_oci_docker_image`] <IMAGE:[TAG]>
+extension::share() {
+    :;
+}
+# }}} docker extension share
+
+# {{{ docker extension update
+# @cmd Remove and re-install a Docker extension
+# @flag -f --force    Do not prompt for confirmation
+# @arg extension
+extension::update() {
+    :;
+}
+# }}} docker extension update
+
+# {{{ docker extension validate
+# @cmd Validate an extension image or metadata file
+# @flag -a --auto-resolve-tag              Use the greatest semver tag available in the DockerHub repository (overrides the tag specified, if any)
+# @flag -e --errors-only                   Only outputs validation errors (no log or debug messages).
+# @flag -s --sdk-compatibility             Validate the extension is compatible with the SDK version (requires having Docker Desktop running)
+# @flag -i --validate-install-uninstall    Validate the installation and uninstallation process
+# @flag -v --verbose                       Show a more verbose output
+# @arg image-metadata-json <IMAGE|metadata.json>
+extension::validate() {
+    :;
+}
+# }}} docker extension validate
+
+# {{{ docker extension version
+# @cmd Print the client and server versions
+extension::version() {
+    :;
+}
+# }}} docker extension version
+# }} docker extension
+
 # {{ docker image
 # @cmd Manage images
 image() {
@@ -2165,7 +2490,7 @@ image() {
 # @option --no-cache-filter* <string>    Do not cache specified stages
 # @option -o --output* <path>            Output destination (format: "type=local,dest=path")
 # @option --platform*[`_module_oci_docker_platform`] <string>  Set target platform for build
-# @option --progress <string>            Set type of progress output ("auto", "none",  "plain", "quiet", "rawjson", "tty").
+# @option --progress[auto|none|plain|quiet|rawjson|tty] <string>  Set type of progress output.
 # @option --provenance <string>          Shorthand for "--attest=type=provenance"
 # @flag --pull                           Always attempt to pull all referenced images
 # @flag --push                           Shorthand for "--output=type=registry"
@@ -2231,7 +2556,7 @@ image::load() {
 # {{{ docker image ls
 # @cmd List images
 # @alias list,ps
-# @flag -a --all               Show all images (default hides intermediate images)
+# @flag -a --all               Show all images (default hides intermediate and dangling images)
 # @flag --digests              Show digests
 # @option -f --filter[`_choice_image_ls_filter`] <filter>  Filter output based on conditions provided
 # @option --format <string>    Format output using a custom template:
@@ -2307,6 +2632,14 @@ image::tag() {
 # }}} docker image tag
 # }} docker image
 
+# {{ docker init
+# @cmd Creates Docker-related starter files for your project
+# @flag --version    Display version of the init plugin
+init() {
+    :;
+}
+# }} docker init
+
 # {{ docker manifest
 # @cmd Manage Docker image manifests and manifest lists
 manifest() {
@@ -2367,6 +2700,436 @@ manifest::rm() {
 }
 # }}} docker manifest rm
 # }} docker manifest
+
+# {{ docker mcp
+# @cmd Docker MCP Plugin
+# @flag -v --version    Print version information and quit
+mcp() {
+    :;
+}
+
+# {{{ docker mcp catalog
+# @cmd Manage MCP server catalogs
+mcp::catalog() {
+    :;
+}
+
+# {{{{ docker mcp catalog add
+# @cmd Add a server to a catalog
+# @flag --force    Overwrite existing server in the catalog
+# @arg catalog!
+# @arg server-name!
+# @arg catalog-file!
+mcp::catalog::add() {
+    :;
+}
+# }}}} docker mcp catalog add
+
+# {{{{ docker mcp catalog bootstrap
+# @cmd Create a starter catalog file with Docker and Docker Hub server entries as examples
+# @arg output-file-path!
+mcp::catalog::bootstrap() {
+    :;
+}
+# }}}} docker mcp catalog bootstrap
+
+# {{{{ docker mcp catalog create
+# @cmd Create a new empty catalog
+# @arg name!
+mcp::catalog::create() {
+    :;
+}
+# }}}} docker mcp catalog create
+
+# {{{{ docker mcp catalog export
+# @cmd Export a configured catalog to a file
+# @arg catalog-name!
+# @arg file-path!
+mcp::catalog::export() {
+    :;
+}
+# }}}} docker mcp catalog export
+
+# {{{{ docker mcp catalog fork
+# @cmd Create a copy of an existing catalog
+# @arg src-catalog!
+# @arg new-name!
+mcp::catalog::fork() {
+    :;
+}
+# }}}} docker mcp catalog fork
+
+# {{{{ docker mcp catalog import
+# @cmd Import a catalog from URL or file
+# @flag --dry-run                    Show Imported Data but do not update the Catalog
+# @option --mcp-registry <string>    Import server from MCP registry URL into existing catalog
+# @arg enum![alias|url|file]
+mcp::catalog::import() {
+    :;
+}
+# }}}} docker mcp catalog import
+
+# {{{{ docker mcp catalog init
+# @cmd Initialize the catalog system
+mcp::catalog::init() {
+    :;
+}
+# }}}} docker mcp catalog init
+
+# {{{{ docker mcp catalog ls
+# @cmd List all configured catalogs
+# @option --format[json|yaml] <format>    Output format.
+mcp::catalog::ls() {
+    :;
+}
+# }}}} docker mcp catalog ls
+
+# {{{{ docker mcp catalog reset
+# @cmd Reset the catalog system
+mcp::catalog::reset() {
+    :;
+}
+# }}}} docker mcp catalog reset
+
+# {{{{ docker mcp catalog rm
+# @cmd Remove a catalog
+# @arg name!
+mcp::catalog::rm() {
+    :;
+}
+# }}}} docker mcp catalog rm
+
+# {{{{ docker mcp catalog show
+# @cmd Display catalog contents
+# @option --format[json|yaml] <format>    Supported: "json", "yaml".
+# @arg name
+mcp::catalog::show() {
+    :;
+}
+# }}}} docker mcp catalog show
+
+# {{{{ docker mcp catalog update
+# @cmd Update catalog(s) from remote sources
+# @arg name
+mcp::catalog::update() {
+    :;
+}
+# }}}} docker mcp catalog update
+# }}} docker mcp catalog
+
+# {{{ docker mcp client
+# @cmd Manage MCP clients
+# @arg supported-claude-code-claude-desktop-cline-codex-continue-cursor-gemini-goose-gordon-kiro-lmstudio-opencode-sema4-vscode-zed <Supported: claude-code claude-desktop cline codex continue cursor gemini goose gordon kiro lmstudio opencode sema4 vscode zed>
+mcp::client() {
+    :;
+}
+
+# {{{{ docker mcp client connect
+# @cmd Connect the Docker MCP Toolkit to a client.
+# @flag -g --global    Change the system wide configuration or the clients setup in your current git repo.
+# @flag -q --quiet     Only display errors.
+# @arg mcp-client!
+mcp::client::connect() {
+    :;
+}
+# }}}} docker mcp client connect
+
+# {{{{ docker mcp client disconnect
+# @cmd Disconnect the Docker MCP Toolkit from a client.
+# @flag -g --global    Change the system wide configuration or the clients setup in your current git repo.
+# @flag -q --quiet     Only display errors.
+# @arg mcp-client!
+mcp::client::disconnect() {
+    :;
+}
+# }}}} docker mcp client disconnect
+
+# {{{{ docker mcp client ls
+# @cmd List client configurations
+# @flag -g --global    Change the system wide configuration or the clients setup in your current git repo.
+# @flag --json         Print as JSON.
+mcp::client::ls() {
+    :;
+}
+# }}}} docker mcp client ls
+# }}} docker mcp client
+
+# {{{ docker mcp config
+# @cmd Manage the configuration
+mcp::config() {
+    :;
+}
+
+# {{{{ docker mcp config read
+# @cmd Read the configuration
+mcp::config::read() {
+    :;
+}
+# }}}} docker mcp config read
+
+# {{{{ docker mcp config reset
+# @cmd Reset the configuration
+mcp::config::reset() {
+    :;
+}
+# }}}} docker mcp config reset
+
+# {{{{ docker mcp config write
+# @cmd Write the configuration
+mcp::config::write() {
+    :;
+}
+# }}}} docker mcp config write
+# }}} docker mcp config
+
+# {{{ docker mcp feature
+# @cmd Manage experimental features
+mcp::feature() {
+    :;
+}
+
+# {{{{ docker mcp feature disable
+# @cmd Disable an experimental feature
+# @arg feature-name!
+mcp::feature::disable() {
+    :;
+}
+# }}}} docker mcp feature disable
+
+# {{{{ docker mcp feature enable
+# @cmd Enable an experimental feature
+# @arg feature-name!
+mcp::feature::enable() {
+    :;
+}
+# }}}} docker mcp feature enable
+
+# {{{{ docker mcp feature ls
+# @cmd List all available features and their status
+mcp::feature::ls() {
+    :;
+}
+# }}}} docker mcp feature ls
+# }}} docker mcp feature
+
+# {{{ docker mcp gateway
+# @cmd Manage the MCP Server gateway
+mcp::gateway() {
+    :;
+}
+
+# {{{{ docker mcp gateway run
+# @cmd Run the gateway
+# @option --additional-catalog* <path>         Additional catalog paths to append to the default catalogs
+# @option --additional-config* <path>          Additional config paths to merge with the default config.yaml
+# @option --additional-registry* <path>        Additional registry paths to merge with the default registry.yaml
+# @option --additional-tools-config* <path>    Additional tools paths to merge with the default tools.yaml
+# @flag --block-network                        Block tools from accessing forbidden network resources
+# @flag --block-secrets                        Block secrets from being/received sent to/from tools (default true)
+# @option --catalog* <path>                    Paths to docker catalogs (absolute or relative to ~/.docker/mcp/catalogs/) (default [docker-mcp.yaml])
+# @option --config* <file>                     Paths to the config files (absolute or relative to ~/.docker/mcp/) (default [config.yaml])
+# @option --cpus <int>                         CPUs allocated to each MCP Server (default is 1) (default 1)
+# @flag --debug-dns                            Debug DNS resolution
+# @flag --dry-run                              Start the gateway but do not listen for connections (useful for testing the configuration)
+# @flag --enable-all-servers                   Enable all servers in the catalog (instead of using individual --servers options)
+# @option --interceptor* <path>                List of interceptors to use (format: when:type:path, e.g. 'before:exec:/bin/path')
+# @flag --log-calls                            Log calls to the tools (default true)
+# @flag --long-lived                           Containers are long-lived and will not be removed until the gateway is stopped, useful for stateful servers
+# @option --mcp-registry* <string>             MCP registry URLs to fetch servers from (can be repeated)
+# @option --memory <string>                    Memory allocated to each MCP Server (default is 2Gb) (default "2Gb")
+# @option --oci-ref* <string>                  OCI image references to use
+# @option --port <int>                         TCP port to listen on (default is to listen on stdio)
+# @option --registry* <file>                   Paths to the registry files (absolute or relative to ~/.docker/mcp/) (default [registry.yaml])
+# @option --secrets <docker-desktop>           Colon separated paths to search for secrets.
+# @option --servers* <string>                  Names of the servers to enable (if non empty, ignore --registry flag)
+# @flag --static                               Enable static mode (aka pre-started servers)
+# @option --tools* <string>                    List of tools to enable
+# @option --tools-config* <file>               Paths to the tools files (absolute or relative to ~/.docker/mcp/) (default [tools.yaml])
+# @option --transport <string>                 stdio, sse or streaming.
+# @flag --verbose                              Verbose output
+# @flag --verify-signatures                    Verify signatures of the server images
+# @flag --watch                                Watch for changes and reconfigure the gateway (default true)
+mcp::gateway::run() {
+    :;
+}
+# }}}} docker mcp gateway run
+# }}} docker mcp gateway
+
+# {{{ docker mcp policy
+# @cmd Manage secret policies
+mcp::policy() {
+    :;
+}
+
+# {{{{ docker mcp policy dump
+# @cmd Dump the policy content
+mcp::policy::dump() {
+    :;
+}
+# }}}} docker mcp policy dump
+
+# {{{{ docker mcp policy set
+# @cmd Set a policy for secret management in Docker Desktop
+# @arg content!
+mcp::policy::set() {
+    :;
+}
+# }}}} docker mcp policy set
+# }}} docker mcp policy
+
+# {{{ docker mcp secret
+# @cmd Manage secrets
+mcp::secret() {
+    :;
+}
+
+# {{{{ docker mcp secret ls
+# @cmd List all secret names in Docker Desktop's secret store
+# @flag --json    Print as JSON.
+mcp::secret::ls() {
+    :;
+}
+# }}}} docker mcp secret ls
+
+# {{{{ docker mcp secret rm
+# @cmd Remove secrets from Docker Desktop's secret store
+# @flag --all    Remove all secrets
+# @arg name1
+# @arg name2*
+mcp::secret::rm() {
+    :;
+}
+# }}}} docker mcp secret rm
+
+# {{{{ docker mcp secret set
+# @cmd Set a secret in Docker Desktop's secret store
+# @option --provider <string>    Supported: credstore, oauth/<provider>
+# @arg key-value <key[=value]>
+mcp::secret::set() {
+    :;
+}
+# }}}} docker mcp secret set
+# }}} docker mcp secret
+
+# {{{ docker mcp server
+# @cmd Manage servers
+mcp::server() {
+    :;
+}
+
+# {{{{ docker mcp server disable
+# @cmd Disable a server or multiple servers
+mcp::server::disable() {
+    :;
+}
+# }}}} docker mcp server disable
+
+# {{{{ docker mcp server enable
+# @cmd Enable a server or multiple servers
+mcp::server::enable() {
+    :;
+}
+# }}}} docker mcp server enable
+
+# {{{{ docker mcp server init
+# @cmd Initialize a new MCP server project
+# @option --language <string>    Programming language for the server (currently only 'go' is supported) (default "go")
+# @option --template[basic|chatgpt-app-basic] <string>  Template to use (default "basic")
+# @arg directory!
+mcp::server::init() {
+    :;
+}
+# }}}} docker mcp server init
+
+# {{{{ docker mcp server inspect
+# @cmd Get information about a server or inspect an OCI artifact
+mcp::server::inspect() {
+    :;
+}
+# }}}} docker mcp server inspect
+
+# {{{{ docker mcp server ls
+# @cmd List enabled servers
+# @flag --json    Output in JSON format
+mcp::server::ls() {
+    :;
+}
+# }}}} docker mcp server ls
+
+# {{{{ docker mcp server reset
+# @cmd Disable all the servers
+mcp::server::reset() {
+    :;
+}
+# }}}} docker mcp server reset
+# }}} docker mcp server
+
+# {{{ docker mcp tools
+# @cmd Manage tools
+# @option --format <string>          Output format (json|list) (default "list")
+# @option --gateway-arg* <string>    Additional arguments passed to the gateway
+# @flag --verbose                    Verbose output
+# @option --version <string>         Version of the gateway (default "2")
+mcp::tools() {
+    :;
+}
+
+# {{{{ docker mcp tools call
+# @cmd Call a tool
+mcp::tools::call() {
+    :;
+}
+# }}}} docker mcp tools call
+
+# {{{{ docker mcp tools count
+# @cmd Count tools
+mcp::tools::count() {
+    :;
+}
+# }}}} docker mcp tools count
+
+# {{{{ docker mcp tools disable
+# @cmd disable one or more tools
+# @option --server <string>    Specify which server provides the tools (optional, will auto-discover if not provided)
+# @arg tool1
+# @arg tool2*
+mcp::tools::disable() {
+    :;
+}
+# }}}} docker mcp tools disable
+
+# {{{{ docker mcp tools enable
+# @cmd enable one or more tools
+# @option --server <string>    Specify which server provides the tools (optional, will auto-discover if not provided)
+# @arg tool1
+# @arg tool2*
+mcp::tools::enable() {
+    :;
+}
+# }}}} docker mcp tools enable
+
+# {{{{ docker mcp tools inspect
+# @cmd Inspect a tool
+mcp::tools::inspect() {
+    :;
+}
+# }}}} docker mcp tools inspect
+
+# {{{{ docker mcp tools ls
+# @cmd List tools
+mcp::tools::ls() {
+    :;
+}
+# }}}} docker mcp tools ls
+# }}} docker mcp tools
+
+# {{{ docker mcp version
+# @cmd Show the version information
+mcp::version() {
+    :;
+}
+# }}} docker mcp version
+# }} docker mcp
 
 # {{ docker network
 # @cmd Manage networks
@@ -2464,6 +3227,50 @@ network::rm() {
 }
 # }}} docker network rm
 # }} docker network
+
+# {{ docker offload
+# @cmd Docker Offload
+offload() {
+    :;
+}
+
+# {{{ docker offload start
+# @cmd Start a Docker Offload session
+# @option -a --account <string>        The Docker account to use
+# @flag -g --gpu                       Request an engine with a gpu
+# @option --idle-timeout <duration>    How long before the engine idles
+# @option --timeout <duration>         How long to wait for the engine to be ready (default 10s)
+offload::start() {
+    :;
+}
+# }}} docker offload start
+
+# {{{ docker offload status
+# @cmd Show the status of the Docker Offload connection
+# @option -f --format <string>    Format of output (default: pretty, one of: pretty|json)
+# @flag -w --watch                Watch for status updates
+offload::status() {
+    :;
+}
+# }}} docker offload status
+
+# {{{ docker offload stop
+# @cmd Stop a Docker Offload session
+# @flag --terminate    Terminate the remote lease
+offload::stop() {
+    :;
+}
+# }}} docker offload stop
+
+# {{{ docker offload version
+# @cmd Prints the version
+# @flag --json     Prints the version as JSON
+# @flag --short    Prints the short version
+offload::version() {
+    :;
+}
+# }}} docker offload version
+# }} docker offload
 
 # {{ docker plugin
 # @cmd Manage plugins
@@ -2569,6 +3376,381 @@ plugin::upgrade() {
 # }}} docker plugin upgrade
 # }} docker plugin
 
+# {{ docker sbom
+# @cmd View the packaged-based Software Bill Of Materials (SBOM) for an image
+# @flag -D --debug              show debug logging
+# @option --exclude* <path>     exclude paths from being scanned using a glob expression
+# @option --format <string>     report output format, options=[syft-json cyclonedx-xml cyclonedx-json github-0-json spdx-tag-value spdx-json table text] (default "table")
+# @option --layers <string>     [experimental] selection of layers to catalog, options=[squashed all] (default "squashed")
+# @option -o --output <file>    file to write the default report output to (default is STDOUT)
+# @option --platform[`_module_oci_docker_platform`] <string>  an optional platform specifier for container image sources (e.g. 'linux/arm64', 'linux/arm64/v8', 'arm64', 'linux')
+# @flag --quiet                 suppress all non-report output
+# @flag -v --version            version for sbom
+sbom() {
+    :;
+}
+
+# {{{ docker sbom version
+# @cmd Show Docker sbom version information
+sbom::version() {
+    :;
+}
+# }}} docker sbom version
+# }} docker sbom
+
+# {{ docker scout
+# @cmd Docker Scout
+scout() {
+    :;
+}
+
+# {{{ docker scout attestation
+# @cmd Manage attestations on images
+scout::attestation() {
+    :;
+}
+
+# {{{{ docker scout attestation add
+# @cmd Add attestation to image
+# @option --file* <file>                    File location of attestations to attach
+# @option --org <string>                    Namespace of the Docker organization
+# @option --predicate-type <string>         Predicate-type for attestations
+# @flag --referrer                          Use OCI referrer API for pushing attestation
+# @option --referrer-repository <string>    Repository to push referrer to (default "registry.scout.docker.com")
+scout::attestation::add() {
+    :;
+}
+# }}}} docker scout attestation add
+
+# {{{{ docker scout attestation get
+# @cmd Get attestation for image
+# @option --key <string>               Signature key to use for verification (default "https://registry.scout.docker.com/keyring/dhi/latest.pub")
+# @option --org <string>               Namespace of the Docker organization
+# @option -o --output <file>           Write the report to a file
+# @option --platform[`_module_oci_docker_platform`] <string>  Platform of image to analyze
+# @flag --predicate                    Get in-toto predicate only dropping the subject
+# @option --predicate-type <string>    Predicate-type for attestation
+# @option --ref <string>               Reference to use if the provided tarball contains multiple references.
+# @flag --skip-tlog                    Skip signature verification against public transaction log
+# @flag --verify                       Verify the signature on the attestation
+scout::attestation::get() {
+    :;
+}
+# }}}} docker scout attestation get
+
+# {{{{ docker scout attestation list
+# @cmd List attestations for image
+# @option --format <string>            Output format:
+# @option --org <string>               Namespace of the Docker organization
+# @option -o --output <file>           Write the report to a file
+# @option --platform[`_module_oci_docker_platform`] <string>  Platform of image to analyze
+# @option --predicate-type <string>    Predicate-type for attestations
+# @option --ref <string>               Reference to use if the provided tarball contains multiple references.
+scout::attestation::list() {
+    :;
+}
+# }}}} docker scout attestation list
+# }}} docker scout attestation
+
+# {{{ docker scout cache
+# @cmd Manage Docker Scout cache and temporary files
+scout::cache() {
+    :;
+}
+
+# {{{{ docker scout cache df
+# @cmd Show Docker Scout disk usage
+scout::cache::df() {
+    :;
+}
+# }}}} docker scout cache df
+
+# {{{{ docker scout cache prune
+# @cmd Remove temporary or cached data
+# @flag -f --force    Do not prompt for confirmation
+# @flag --sboms       Prune cached SBOMs
+scout::cache::prune() {
+    :;
+}
+# }}}} docker scout cache prune
+# }}} docker scout cache
+
+# {{{ docker scout compare
+# @cmd Compare two images and display differences (experimental)
+# @option -x --exit-on*[vulnerability|policy|package] <string>  Comma separated list of conditions to fail the action step if worse or changed, options are: vulnerability, policy, package
+# @option --format <string>                Output format of the generated vulnerability report:
+# @flag --hide-policies                    Hide policy status from the output
+# @flag --ignore-base                      Filter out CVEs introduced from base image
+# @flag --ignore-suppressed                Filter CVEs found in Scout exceptions based on the specified exception scope
+# @flag --ignore-unchanged                 Filter out unchanged packages
+# @flag --multi-stage                      Show packages from multi-stage Docker builds
+# @flag --only-fixed                       Filter to fixable CVEs
+# @option --only-package-type* <string>    Comma separated list of package types (like apk, deb, rpm, npm, pypi, golang, etc)
+# @option --only-policy* <string>          Comma separated list of policies to evaluate
+# @option --only-severity*[critical|high|medium|low|unspecified] <string>  Comma separated list of severities to filter CVEs by
+# @option --only-stage* <string>           Comma separated list of multi-stage Docker build stage names
+# @flag --only-unfixed                     Filter to unfixed CVEs
+# @flag --only-vex-affected                Filter CVEs by VEX statements with status not affected
+# @option --org <string>                   Namespace of the Docker organization
+# @option -o --output <file>               Write the report to a file
+# @option --platform[`_module_oci_docker_platform`] <string>  Platform of image to analyze
+# @option --ref <string>                   Reference to use if the provided tarball contains multiple references.
+# @option --to <dir>                       Image, directory, or archive to compare to
+# @option --to-env <string>                Name of environment to compare to
+# @flag --to-latest                        Latest image processed to compare to
+# @option --to-ref <string>                Reference to use if the provided tarball contains multiple references.
+# @option --vex-author* <string>           List of VEX statement authors to accept (default [<.*@docker.com>])
+# @option --vex-location* <path>           File location of directory or file containing VEX statements
+scout::compare() {
+    :;
+}
+# }}} docker scout compare
+
+# {{{ docker scout config
+# @cmd Manage Docker Scout configuration
+scout::config() {
+    :;
+}
+# }}} docker scout config
+
+# {{{ docker scout cves
+# @cmd Display CVEs identified in a software artifact
+# @flag --details                          Print details on default text output
+# @option --env <string>                   Name of environment
+# @flag --epss                             Display the EPSS scores and organize the package's CVEs according to their EPSS score
+# @option --epss-percentile <float32>      Exclude CVEs with EPSS scores less than the specified percentile (0 to 1)
+# @option --epss-score <float32>           Exclude CVEs with EPSS scores less than the specified value (0 to 1)
+# @flag -e --exit-code                     Return exit code '2' if vulnerabilities are detected
+# @option --format <string>                Output format of the generated vulnerability report:
+# @flag --ignore-base                      Filter out CVEs introduced from base image
+# @flag --ignore-suppressed                Filter CVEs found in Scout exceptions based on the specified exception scope
+# @flag --locations                        Print package locations including file paths and layer diff_id
+# @flag --multi-stage                      Show packages from multi-stage Docker builds
+# @flag --only-base                        Only show CVEs introduced by the base image
+# @flag --only-cisa-kev                    Filter to CVEs listed in the CISA KEV catalog
+# @option --only-cve-id* <string>          Comma separated list of CVE ids (like CVE-2021-45105) to search for
+# @flag --only-fixed                       Filter to fixable CVEs
+# @option --only-metric* <string>          Comma separated list of CVSS metrics (like AV:N or PR:L) to filter CVEs by
+# @option --only-package* <string>         Comma separated regular expressions to filter packages by
+# @option --only-package-type* <string>    Comma separated list of package types (like apk, deb, rpm, npm, pypi, golang, etc)
+# @option --only-severity*[critical|high|medium|low|unspecified] <string>  Comma separated list of severities to filter CVEs by
+# @option --only-stage* <string>           Comma separated list of multi-stage Docker build stage names
+# @flag --only-unfixed                     Filter to unfixed CVEs
+# @flag --only-vex-affected                Filter CVEs by VEX statements with status not affected
+# @flag --only-vuln-packages               When used with --format=only-packages ignore packages with no vulnerabilities
+# @option --org <string>                   Namespace of the Docker organization
+# @option -o --output <file>               Write the report to a file
+# @option --platform[`_module_oci_docker_platform`] <string>  Platform of image to analyze
+# @option --ref <string>                   Reference to use if the provided tarball contains multiple references.
+# @option --vex-author* <string>           List of VEX statement authors to accept (default [<.*@docker.com>])
+# @option --vex-location* <path>           File location of directory or file containing VEX statements
+scout::cves() {
+    :;
+}
+# }}} docker scout cves
+
+# {{{ docker scout enroll
+# @cmd Enroll an organization with Docker Scout
+scout::enroll() {
+    :;
+}
+# }}} docker scout enroll
+
+# {{{ docker scout environment
+# @cmd Manage environments (experimental)
+# @option --org <string>        Namespace of the Docker organization
+# @option -o --output <file>    Write the report to a file
+# @option --platform[`_module_oci_docker_platform`] <string>  Platform of image to record
+scout::environment() {
+    :;
+}
+# }}} docker scout environment
+
+# {{{ docker scout integration
+# @cmd Commands to list, configure, and delete Docker Scout integrations
+scout::integration() {
+    :;
+}
+
+# {{{{ docker scout integration configure
+# @cmd Configure or update a new integration configuration
+# @option --name <string>          Name of integration configuration to create
+# @option --org <string>           Namespace of the Docker organization
+# @option --parameter* <string>    Integration parameters in the form of --parameter NAME=VALUE
+scout::integration::configure() {
+    :;
+}
+# }}}} docker scout integration configure
+
+# {{{{ docker scout integration delete
+# @cmd Delete a new integration configuration
+# @option --name <string>    Name of integration configuration to delete
+# @option --org <string>     Namespace of the Docker organization
+scout::integration::delete() {
+    :;
+}
+# }}}} docker scout integration delete
+
+# {{{{ docker scout integration list
+# @cmd List integrations which can be installed
+# @option --name <string>    Name of integration configuration to list
+# @option --org <string>     Namespace of the Docker organization
+scout::integration::list() {
+    :;
+}
+# }}}} docker scout integration list
+# }}} docker scout integration
+
+# {{{ docker scout policy
+# @cmd Evaluate policies against an image and display the policy evaluation results (experimental)
+# @flag -e --exit-code               Return exit code '2' if policies are not met, '0' otherwise
+# @option --only-policy* <string>    Comma separated list of policies to evaluate
+# @option --org <string>             Namespace of the Docker organization
+# @option -o --output <file>         Write the report to a file
+# @option --platform[`_module_oci_docker_platform`] <string>  Platform of image to pull policy results from
+# @option --to-env <string>          Name of the environment to compare to
+# @flag --to-latest                  Latest image processed to compare to
+scout::policy() {
+    :;
+}
+# }}} docker scout policy
+
+# {{{ docker scout push
+# @cmd Push an image or image index to Docker Scout
+# @option --author <string>       Name of the author of the image
+# @flag --dry-run                 Do not push the image but process it
+# @option --org <string>          Namespace of the Docker organization to which image will be pushed
+# @option -o --output <file>      Write the report to a file
+# @option --platform[`_module_oci_docker_platform`] <string>  Platform of image to be pushed
+# @flag --sbom                    Create and upload SBOMs
+# @flag --secrets                 Scan for secrets in the image
+# @option --timestamp <string>    Timestamp of image or tag creation
+scout::push() {
+    :;
+}
+# }}} docker scout push
+
+# {{{ docker scout quickview
+# @cmd Quick overview of an image
+# @option --env <string>             Name of the environment
+# @flag --ignore-suppressed          Filter CVEs found in Scout exceptions based on the specified exception scope
+# @flag --latest                     Latest indexed image
+# @option --only-policy* <string>    Comma separated list of policies to evaluate
+# @flag --only-vex-affected          Filter CVEs by VEX statements with status not affected
+# @option --org <string>             Namespace of the Docker organization
+# @option -o --output <file>         Write the report to a file
+# @option --platform[`_module_oci_docker_platform`] <string>  Platform of image to analyze
+# @option --ref <string>             Reference to use if the provided tarball contains multiple references.
+# @option --vex-author* <string>     List of VEX statement authors to accept (default [<.*@docker.com>])
+# @option --vex-location* <path>     File location of directory or file containing VEX statements
+scout::quickview() {
+    :;
+}
+# }}} docker scout quickview
+
+# {{{ docker scout recommendations
+# @cmd Display available base image updates and remediation recommendations
+# @flag --only-refresh          Only display base image refresh recommendations
+# @flag --only-update           Only display base image update recommendations
+# @option --org <string>        Namespace of the Docker organization
+# @option -o --output <file>    Write the report to a file
+# @option --platform[`_module_oci_docker_platform`] <string>  Platform of image to analyze
+# @option --ref <string>        Reference to use if the provided tarball contains multiple references.
+# @option --tag <string>        Specify tag
+scout::recommendations() {
+    :;
+}
+# }}} docker scout recommendations
+
+# {{{ docker scout repo
+# @cmd Commands to list, enable, and disable Docker Scout on repositories
+scout::repo() {
+    :;
+}
+
+# {{{{ docker scout repo disable
+# @cmd Disable Docker Scout
+# @flag --all                       Disable all repositories of the organization.
+# @option --filter <string>         Regular expression to filter repositories by name
+# @option --integration <string>    Name of the integration to use for enabling an image
+# @option --org <string>            Namespace of the Docker organization
+# @option --registry <string>       Container Registry
+scout::repo::disable() {
+    :;
+}
+# }}}} docker scout repo disable
+
+# {{{{ docker scout repo enable
+# @cmd Enable Docker Scout
+# @flag --all                       Enable all repositories of the organization.
+# @option --filter <string>         Regular expression to filter repositories by name
+# @option --integration <string>    Name of the integration to use for enabling an image
+# @option --org <string>            Namespace of the Docker organization
+# @option --registry <string>       Container Registry
+scout::repo::enable() {
+    :;
+}
+# }}}} docker scout repo enable
+
+# {{{{ docker scout repo list
+# @cmd List Docker Scout repositories
+# @option --filter <string>           Regular expression to filter repositories by name
+# @flag --only-disabled               Filter to disabled repositories only
+# @flag --only-enabled                Filter to enabled repositories only
+# @option --only-registry <string>    Filter to a specific registry only: - hub.docker.com - ecr (AWS ECR)
+# @option --org <string>              Namespace of the Docker organization
+scout::repo::list() {
+    :;
+}
+# }}}} docker scout repo list
+# }}} docker scout repo
+
+# {{{ docker scout version
+# @cmd Show Docker Scout version information
+scout::version() {
+    :;
+}
+# }}} docker scout version
+
+# {{{ docker scout vex
+# @cmd Manage VEX attestations on images
+scout::vex() {
+    :;
+}
+
+# {{{{ docker scout vex get
+# @cmd Get VEX attestation for image
+# @option --key <string>        Signature key to use for verification (default "https://registry.scout.docker.com/keyring/dhi/latest.pub")
+# @option --org <string>        Namespace of the Docker organization
+# @option -o --output <file>    Write the report to a file
+# @option --platform[`_module_oci_docker_platform`] <string>  Platform of image to analyze
+# @option --ref <string>        Reference to use if the provided tarball contains multiple references.
+# @flag --skip-tlog             Skip signature verification against public transaction log
+# @flag --verify                Verify the signature on the attestation
+scout::vex::get() {
+    :;
+}
+# }}}} docker scout vex get
+# }}} docker scout vex
+
+# {{{ docker scout watch
+# @cmd Watch repositories in a registry and push images and indexes to Docker Scout
+# @flag --all-images                Push all images instead of only the ones pushed during the watch command is running
+# @flag --dry-run                   Watch images and prepare them, but do not push them
+# @option --interval <int>          Interval in seconds between checks (default 60)
+# @option --org <string>            Namespace of the Docker organization to which image will be pushed
+# @flag --refresh-registry          Refresh the list of repositories of a registry at every run.
+# @option --registry <string>       Registry to watch
+# @option --repository* <string>    Repository to watch
+# @flag --sbom                      Create and upload SBOMs (default true)
+# @option --tag* <string>           Regular expression to match tags to watch
+# @option --workers <int>           Number of concurrent workers (default 3)
+scout::watch() {
+    :;
+}
+# }}} docker scout watch
+# }} docker scout
+
 # {{ docker system
 # @cmd Manage Docker
 system() {
@@ -2623,9 +3805,19 @@ volume() {
 
 # {{{ docker volume create
 # @cmd Create a volume
-# @option -d --driver <string>    Specify volume driver name (default "local")
-# @option --label <list>          Set metadata for a volume
-# @option -o --opt <map>          Set driver specific options (default map[])
+# @option --availability[active|pause|drain] <string>  Cluster Volume availability (default "active")
+# @option -d --driver <string>              Specify volume driver name (default "local")
+# @option --group <string>                  Cluster Volume group (cluster volumes)
+# @option --label <list>                    Set metadata for a volume
+# @option --limit-bytes <bytes>             Minimum size of the Cluster Volume in bytes
+# @option -o --opt <map>                    Set driver specific options (default map[])
+# @option --required-bytes <bytes>          Maximum size of the Cluster Volume in bytes
+# @option --scope[single|multi] <string>    Cluster Volume access scope (default "single")
+# @option --secret <map>                    Cluster Volume secrets (default map[])
+# @option --sharing[none|readonly|onewriter|all] <string>  Cluster Volume access sharing (default "none")
+# @option --topology-preferred <list>       A topology that the Cluster Volume would be preferred in
+# @option --topology-required <list>        A topology that the Cluster Volume must be accessible from
+# @option --type[mount|block] <string>      Cluster Volume access type (default "block")
 # @arg volume[`_choice_volume`]
 volume::create() {
     :;
@@ -2643,6 +3835,7 @@ volume::inspect() {
 
 # {{{ docker volume ls
 # @cmd List volumes
+# @flag --cluster                 Display only cluster volumes, and use cluster volume list formatting
 # @option -f --filter <filter>    Provide filter values (e.g. "dangling=true")
 # @option --format <string>       Format output using a custom template:
 # @flag -q --quiet                Only display volume names
@@ -2669,443 +3862,16 @@ volume::rm() {
     :;
 }
 # }}} docker volume rm
+
+# {{{ docker volume update
+# @cmd Update a volume (cluster volumes only)
+# @option --availability[active|pause|drain] <string>  Cluster Volume availability (default "active")
+# @arg volume[`_choice_volume`]
+volume::update() {
+    :;
+}
+# }}} docker volume update
 # }} docker volume
-
-# {{ docker swarm
-# @cmd Manage Swarm
-swarm() {
-    :;
-}
-
-# {{{ docker swarm init
-# @cmd Initialize a swarm
-# @option --advertise-addr <string>            Advertised address (format: "<ip|interface>[:port]")
-# @flag --autolock                             Enable manager autolocking (requiring an unlock key to start a stopped manager)
-# @option --availability[active|pause|drain] <string>  Availability of the node (default "active")
-# @option --cert-expiry <duration>             Validity period for node certificates (ns|us|ms|s|m|h) (default 2160h0m0s)
-# @option --data-path-addr <path>              Address or interface to use for data path traffic (format: "<ip|interface>")
-# @option --data-path-port <uint32>            Port number to use for data path traffic (1024 - 49151).
-# @option --default-addr-pool <ipNetSlice>     default address pool in CIDR format (default [])
-# @option --default-addr-pool-mask-length <uint32>  default address pool subnet mask length (default 24)
-# @option --dispatcher-heartbeat <duration>    Dispatcher heartbeat period (ns|us|ms|s|m|h) (default 5s)
-# @option --external-ca <external-ca>          Specifications of one or more certificate signing endpoints
-# @flag --force-new-cluster                    Force create a new cluster from current state
-# @option --listen-addr <node-addr>            Listen address (format: "<ip|interface>[:port]") (default 0.0.0.0:2377)
-# @option --max-snapshots <uint>               Number of additional Raft snapshots to retain
-# @option --snapshot-interval <uint>           Number of log entries between Raft snapshots (default 10000)
-# @option --task-history-limit <int>           Task history retention limit (default 5)
-swarm::init() {
-    :;
-}
-# }}} docker swarm init
-
-# {{{ docker swarm join
-# @cmd Join a swarm as a node and/or manager
-# @option --advertise-addr <string>    Advertised address (format: "<ip|interface>[:port]")
-# @option --availability[active|pause|drain] <string>  Availability of the node (default "active")
-# @option --data-path-addr <path>      Address or interface to use for data path traffic (format: "<ip|interface>")
-# @option --listen-addr <node-addr>    Listen address (format: "<ip|interface>[:port]") (default 0.0.0.0:2377)
-# @option --token <string>             Token for entry into the swarm
-# @arg host-port <HOST:PORT>
-swarm::join() {
-    :;
-}
-# }}} docker swarm join
-# }} docker swarm
-
-# {{ docker attach
-# @cmd Attach local standard input, output, and error streams to a running container
-# @option --detach-keys <string>    Override the key sequence for detaching a container
-# @flag --no-stdin                  Do not attach STDIN
-# @flag --sig-proxy                 Proxy all received signals to the process (default true)
-# @arg container[`_choice_container_name`]
-attach() {
-    :;
-}
-# }} docker attach
-
-# {{ docker commit
-# @cmd Create a new image from a container's changes
-# @option -a --author <string>     Author (e.g., "John Hannibal Smith <hannibal@a-team.com>")
-# @option -c --change <list>       Apply Dockerfile instruction to the created image
-# @option -m --message <string>    Commit message
-# @flag --no-pause                 Disable pausing container during commit
-# @arg container[`_choice_container_name`]
-# @arg repository-tag[`_module_oci_docker_image`] <REPOSITORY[:TAG]>
-commit() {
-    :;
-}
-# }} docker commit
-
-# {{ docker cp
-# @cmd Copy files/folders between a container and the local filesystem
-# @flag -a --archive        Archive mode (copy all uid/gid information)
-# @flag -L --follow-link    Always follow symbol link in SRC_PATH
-# @flag -q --quiet          Suppress progress output during copy.
-# @arg src[`_choice_container_cp`]
-# @arg dest[`_choice_container_cp`]
-cp() {
-    :;
-}
-# }} docker cp
-
-# {{ docker create
-# @cmd Create a new container
-# @option --add-host <list>                     Add a custom host-to-IP mapping (host:ip)
-# @option --annotation <map>                    Add an annotation to the container (passed through to the OCI runtime) (default map[])
-# @option -a --attach <list>                    Attach to STDIN, STDOUT or STDERR
-# @option --blkio-weight <uint16>               Block IO (relative weight), between 10 and 1000, or 0 to disable (default 0)
-# @option --blkio-weight-device <list>          Block IO weight (relative device weight) (default [])
-# @option --cap-add <list>                      Add Linux capabilities
-# @option --cap-drop <list>                     Drop Linux capabilities
-# @option --cgroup-parent <string>              Optional parent cgroup for the container
-# @option --cgroupns <string>                   Cgroup namespace to use (host|private)
-# @option --cidfile <file>                      Write the container ID to the file
-# @option --cpu-period <int>                    Limit CPU CFS (Completely Fair Scheduler) period
-# @option --cpu-quota <int>                     Limit CPU CFS (Completely Fair Scheduler) quota
-# @option --cpu-rt-period <int>                 Limit CPU real-time period in microseconds
-# @option --cpu-rt-runtime <int>                Limit CPU real-time runtime in microseconds
-# @option -c --cpu-shares <int>                 CPU shares (relative weight)
-# @option --cpus <decimal>                      Number of CPUs
-# @option --cpuset-cpus <string>                CPUs in which to allow execution (0-3, 0,1)
-# @option --cpuset-mems <string>                MEMs in which to allow execution (0-3, 0,1)
-# @option --device <list>                       Add a host device to the container
-# @option --device-cgroup-rule <list>           Add a rule to the cgroup allowed devices list
-# @option --device-read-bps <list>              Limit read rate (bytes per second) from a device (default [])
-# @option --device-read-iops <list>             Limit read rate (IO per second) from a device (default [])
-# @option --device-write-bps <list>             Limit write rate (bytes per second) to a device (default [])
-# @option --device-write-iops <list>            Limit write rate (IO per second) to a device (default [])
-# @option --dns <list>                          Set custom DNS servers
-# @option --dns-option <list>                   Set DNS options
-# @option --dns-search <list>                   Set custom DNS search domains
-# @option --domainname <string>                 Container NIS domain name
-# @option --entrypoint <string>                 Overwrite the default ENTRYPOINT of the image
-# @option -e --env <list>                       Set environment variables
-# @option --env-file <list>                     Read in a file of environment variables
-# @option --expose <list>                       Expose a port or a range of ports
-# @option --gpus <gpu-request>                  GPU devices to add to the container ('all' to pass all GPUs)
-# @option --group-add <list>                    Add additional groups to join
-# @option --health-cmd <string>                 Command to run to check health
-# @option --health-interval <duration>          Time between running the check (ms|s|m|h) (default 0s)
-# @option --health-retries <int>                Consecutive failures needed to report unhealthy
-# @option --health-start-interval <duration>    Time between running the check during the start period (ms|s|m|h) (default 0s)
-# @option --health-start-period <duration>      Start period for the container to initialize before starting health-retries countdown (ms|s|m|h) (default 0s)
-# @option --health-timeout <duration>           Maximum time to allow one check to run (ms|s|m|h) (default 0s)
-# @flag --help                                  Print usage
-# @option -h --hostname <string>                Container host name
-# @flag --init                                  Run an init inside the container that forwards signals and reaps processes
-# @flag -i --interactive                        Keep STDIN open even if not attached
-# @option --ip <ip>                             IPv4 address (e.g., 172.30.100.104)
-# @option --ip6 <ip>                            IPv6 address (e.g., 2001:db8::33)
-# @option --ipc <string>                        IPC mode to use
-# @option --isolation <string>                  Container isolation technology
-# @option -l --label <list>                     Set meta data on a container
-# @option --label-file <list>                   Read in a line delimited file of labels
-# @option --link <list>                         Add link to another container
-# @option --link-local-ip <list>                Container IPv4/IPv6 link-local addresses
-# @option --log-driver <string>                 Logging driver for the container
-# @option --log-opt <list>                      Log driver options
-# @option --mac-address <string>                Container MAC address (e.g., 92:d0:c6:0a:29:33)
-# @option -m --memory <bytes>                   Memory limit
-# @option --memory-reservation <bytes>          Memory soft limit
-# @option --memory-swap <bytes>                 Swap limit equal to memory plus swap: '-1' to enable unlimited swap
-# @option --memory-swappiness <int>             Tune container memory swappiness (0 to 100) (default -1)
-# @option --mount <mount>                       Attach a filesystem mount to the container
-# @option --name <string>                       Assign a name to the container
-# @option --network <network>                   Connect a container to a network
-# @option --network-alias <list>                Add network-scoped alias for the container
-# @flag --no-healthcheck                        Disable any container-specified HEALTHCHECK
-# @flag --oom-kill-disable                      Disable OOM Killer
-# @option --oom-score-adj <int>                 Tune host's OOM preferences (-1000 to 1000)
-# @option --pid <string>                        PID namespace to use
-# @option --pids-limit <int>                    Tune container pids limit (set -1 for unlimited)
-# @option --platform[`_module_oci_docker_platform`] <string>  Set platform if server is multi-platform capable
-# @flag --privileged                            Give extended privileges to this container
-# @option -p --publish <list>                   Publish a container's port(s) to the host
-# @flag -P --publish-all                        Publish all exposed ports to random ports
-# @option --pull <string>                       Pull image before creating ("always", "|missing", "never") (default "missing")
-# @flag -q --quiet                              Suppress the pull output
-# @flag --read-only                             Mount the container's root filesystem as read only
-# @option --restart <string>                    Restart policy to apply when a container exits (default "no")
-# @flag --rm                                    Automatically remove the container and its associated anonymous volumes when it exits
-# @option --runtime <string>                    Runtime to use for this container
-# @option --security-opt <list>                 Security Options
-# @option --shm-size <bytes>                    Size of /dev/shm
-# @option --stop-signal <string>                Signal to stop the container
-# @option --stop-timeout <int>                  Timeout (in seconds) to stop a container
-# @option --storage-opt <list>                  Storage driver options for the container
-# @option --sysctl <map>                        Sysctl options (default map[])
-# @option --tmpfs <list>                        Mount a tmpfs directory
-# @flag -t --tty                                Allocate a pseudo-TTY
-# @option --ulimit <ulimit>                     Ulimit options (default [])
-# @flag --use-api-socket                        Bind mount Docker API socket and required auth
-# @option -u --user <string>                    Username or UID (format: <name|uid>[:<group|gid>])
-# @option --userns <string>                     User namespace to use
-# @option --uts <string>                        UTS namespace to use
-# @option -v --volume <list>                    Bind mount a volume
-# @option --volume-driver <string>              Optional volume driver for the container
-# @option --volumes-from <list>                 Mount volumes from the specified container(s)
-# @option -w --workdir <dir>                    Working directory inside the container
-# @arg image[`_module_oci_docker_image`]
-# @arg command[`_module_os_command`]
-# @arg arg~[`_choice_args`]
-create() {
-    :;
-}
-# }} docker create
-
-# {{ docker diff
-# @cmd Inspect changes to files or directories on a container's filesystem
-# @arg container[`_choice_container_name`]
-diff() {
-    :;
-}
-# }} docker diff
-
-# {{ docker events
-# @cmd Get real time events from the server
-# @option -f --filter[`_choice_event_filter`] <filter>  Filter output based on conditions provided
-# @option --format <string>    Format output using a custom template:
-# @option --since <string>     Show all events created since timestamp
-# @option --until <string>     Stream events until this timestamp
-events() {
-    :;
-}
-# }} docker events
-
-# {{ docker export
-# @cmd Export a container's filesystem as a tar archive
-# @option -o --output <file>    Write to a file, instead of STDOUT
-# @arg container[`_choice_container_name`]
-export() {
-    :;
-}
-# }} docker export
-
-# {{ docker history
-# @cmd Show the history of an image
-# @option --format <string>    Format output using a custom template:
-# @flag -H --human             Print sizes and dates in human readable format (default true)
-# @flag --no-trunc             Don't truncate output
-# @option --platform[`_module_oci_docker_platform`] <string>  Show history for the given platform.
-# @flag -q --quiet             Only show image IDs
-# @arg image[`_module_oci_docker_image`]
-history() {
-    :;
-}
-# }} docker history
-
-# {{ docker import
-# @cmd Import the contents from a tarball to create a filesystem image
-# @option -c --change <list>       Apply Dockerfile instruction to the created image
-# @option -m --message <string>    Set commit message for imported image
-# @option --platform[`_module_oci_docker_platform`] <string>  Set platform if server is multi-platform capable
-# @arg file-url <file|URL|->
-# @arg repository-tag[`_module_oci_docker_image`] <REPOSITORY[:TAG]>
-import() {
-    :;
-}
-# }} docker import
-
-# {{ docker inspect
-# @cmd Return low-level information on Docker objects
-# @option -f --format <string>    Format output using a custom template:
-# @flag -s --size                 Display total file sizes if the type is container
-# @option --type <string>         Only inspect objects of the given type
-# @arg name-id* <NAME|ID>
-inspect() {
-    :;
-}
-# }} docker inspect
-
-# {{ docker kill
-# @cmd Kill one or more running containers
-# @option -s --signal <string>    Signal to send to the container
-# @arg container*[`_choice_container_name`]
-kill() {
-    :;
-}
-# }} docker kill
-
-# {{ docker load
-# @cmd Load an image from a tar archive or STDIN
-# @option -i --input <file>    Read from tar archive file, instead of STDIN
-# @option --platform*[`_module_oci_docker_platform`] <string>  Load only the given platform(s).
-# @flag -q --quiet             Suppress the load output
-load() {
-    :;
-}
-# }} docker load
-
-# {{ docker logs
-# @cmd Fetch the logs of a container
-# @flag --details               Show extra details provided to logs
-# @flag -f --follow             Follow log output
-# @option --since <string>      Show logs since timestamp (e.g. "2013-01-02T13:23:37Z") or relative (e.g. "42m" for 42 minutes)
-# @option -n --tail <string>    Number of lines to show from the end of the logs (default "all")
-# @flag -t --timestamps         Show timestamps
-# @option --until <string>      Show logs before a timestamp (e.g. "2013-01-02T13:23:37Z") or relative (e.g. "42m" for 42 minutes)
-# @arg container[`_choice_container_name_all`]
-logs() {
-    :;
-}
-# }} docker logs
-
-# {{ docker pause
-# @cmd Pause all processes within one or more containers
-# @arg container*[`_choice_container_name`]
-pause() {
-    :;
-}
-# }} docker pause
-
-# {{ docker port
-# @cmd List port mappings or a specific mapping for the container
-# @arg container[`_choice_container_name`]
-# @arg private_port-proto <PRIVATE_PORT[/PROTO]>
-port() {
-    :;
-}
-# }} docker port
-
-# {{ docker rename
-# @cmd Rename a container
-# @arg container[`_choice_container_name`]
-# @arg new_name
-rename() {
-    :;
-}
-# }} docker rename
-
-# {{ docker restart
-# @cmd Restart one or more containers
-# @option -s --signal <string>    Signal to send to the container
-# @option -t --timeout <int>      Seconds to wait before killing the container
-# @arg container*[`_choice_container_name`]
-restart() {
-    :;
-}
-# }} docker restart
-
-# {{ docker rm
-# @cmd Remove one or more containers
-# @flag -f --force      Force the removal of a running container (uses SIGKILL)
-# @flag -l --link       Remove the specified link
-# @flag -v --volumes    Remove anonymous volumes associated with the container
-# @arg container*[`_choice_container_name_all`]
-rm() {
-    :;
-}
-# }} docker rm
-
-# {{ docker rmi
-# @cmd Remove one or more images
-# @flag -f --force    Force removal of the image
-# @flag --no-prune    Do not delete untagged parents
-# @option --platform*[`_module_oci_docker_platform`] <string>  Remove only the given platform variant.
-# @arg image*[`_module_oci_docker_image`]
-rmi() {
-    :;
-}
-# }} docker rmi
-
-# {{ docker save
-# @cmd Save one or more images to a tar archive (streamed to STDOUT by default)
-# @option -o --output <file>    Write to a file, instead of STDOUT
-# @option --platform*[`_module_oci_docker_platform`] <path>  Save only the given platform(s).
-# @arg image*[`_module_oci_docker_image`]
-save() {
-    :;
-}
-# }} docker save
-
-# {{ docker start
-# @cmd Start one or more stopped containers
-# @flag -a --attach                 Attach STDOUT/STDERR and forward signals
-# @option --detach-keys <string>    Override the key sequence for detaching a container
-# @flag -i --interactive            Attach container's STDIN
-# @arg container*[`_choice_container_name`]
-start() {
-    :;
-}
-# }} docker start
-
-# {{ docker stats
-# @cmd Display a live stream of container(s) resource usage statistics
-# @flag -a --all               Show all containers (default shows just running)
-# @option --format <string>    Format output using a custom template:
-# @flag --no-stream            Disable streaming stats and only pull the first result
-# @flag --no-trunc             Do not truncate output
-# @arg container*[`_choice_container_name`]
-stats() {
-    :;
-}
-# }} docker stats
-
-# {{ docker stop
-# @cmd Stop one or more running containers
-# @option -s --signal <string>    Signal to send to the container
-# @option -t --timeout <int>      Seconds to wait before killing the container
-# @arg container*[`_choice_container_name`]
-stop() {
-    :;
-}
-# }} docker stop
-
-# {{ docker tag
-# @cmd Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
-# @arg source_image-tag[`_module_oci_docker_image`] <SOURCE_IMAGE[:TAG]>
-# @arg target_image-tag[`_module_oci_docker_image`] <TARGET_IMAGE[:TAG]>
-tag() {
-    :;
-}
-# }} docker tag
-
-# {{ docker top
-# @cmd Display the running processes of a container
-# @arg container[`_choice_container_name`]
-top() {
-    :;
-}
-# }} docker top
-
-# {{ docker unpause
-# @cmd Unpause all processes within one or more containers
-# @arg container*[`_choice_container_name`]
-unpause() {
-    :;
-}
-# }} docker unpause
-
-# {{ docker update
-# @cmd Update configuration of one or more containers
-# @option --blkio-weight <uint16>         Block IO (relative weight), between 10 and 1000, or 0 to disable (default 0)
-# @option --cpu-period <int>              Limit CPU CFS (Completely Fair Scheduler) period
-# @option --cpu-quota <int>               Limit CPU CFS (Completely Fair Scheduler) quota
-# @option --cpu-rt-period <int>           Limit the CPU real-time period in microseconds
-# @option --cpu-rt-runtime <int>          Limit the CPU real-time runtime in microseconds
-# @option -c --cpu-shares <int>           CPU shares (relative weight)
-# @option --cpus <decimal>                Number of CPUs
-# @option --cpuset-cpus <string>          CPUs in which to allow execution (0-3, 0,1)
-# @option --cpuset-mems <string>          MEMs in which to allow execution (0-3, 0,1)
-# @option -m --memory <bytes>             Memory limit
-# @option --memory-reservation <bytes>    Memory soft limit
-# @option --memory-swap <bytes>           Swap limit equal to memory plus swap: -1 to enable unlimited swap
-# @option --pids-limit <int>              Tune container pids limit (set -1 for unlimited)
-# @option --restart <string>              Restart policy to apply when a container exits
-# @arg container*[`_choice_container_name`]
-update() {
-    :;
-}
-# }} docker update
-
-# {{ docker wait
-# @cmd Block until one or more containers stop, then print their exit codes
-# @arg container*[`_choice_container_name`]
-wait() {
-    :;
-}
-# }} docker wait
 
 # {{ docker config
 # @cmd Manage Swarm configs
@@ -3619,6 +4385,505 @@ stack::services() {
 }
 # }}} docker stack services
 # }} docker stack
+
+# {{ docker swarm
+# @cmd Manage Swarm
+swarm() {
+    :;
+}
+
+# {{{ docker swarm ca
+# @cmd Display and rotate the root CA
+# @option --ca-cert <pem-file>           Path to the PEM-formatted root CA certificate to use for the new cluster
+# @option --ca-key <pem-file>            Path to the PEM-formatted root CA key to use for the new cluster
+# @option --cert-expiry <duration>       Validity period for node certificates (ns|us|ms|s|m|h) (default 2160h0m0s)
+# @flag -d --detach                      Exit immediately instead of waiting for the root rotation to converge
+# @option --external-ca <external-ca>    Specifications of one or more certificate signing endpoints
+# @flag -q --quiet                       Suppress progress output
+# @flag --rotate                         Rotate the swarm CA - if no certificate or key are provided, new ones will be generated
+swarm::ca() {
+    :;
+}
+# }}} docker swarm ca
+
+# {{{ docker swarm init
+# @cmd Initialize a swarm
+# @option --config <file>          Location of client config files (default "/home/skogix/.docker")
+# @option -c --context <string>    Name of the context to use to connect to the daemon (overrides DOCKER_HOST env var and default context set with "docker context use")
+# @flag -D --debug                 Enable debug mode
+# @option -H --host <list>         Daemon socket to connect to
+# @option -l --log-level[debug|info|warn|error|fatal] <string>  Set the logging level (default "info")
+# @flag --tls                      Use TLS; implied by --tlsverify
+# @option --tlscacert <string>     Trust certs signed only by this CA (default "/home/skogix/.docker/ca.pem")
+# @option --tlscert <file>         Path to TLS certificate file (default "/home/skogix/.docker/cert.pem")
+# @option --tlskey <file>          Path to TLS key file (default "/home/skogix/.docker/key.pem")
+# @flag --tlsverify                Use TLS and verify the remote
+swarm::init() {
+    :;
+}
+# }}} docker swarm init
+
+# {{{ docker swarm join
+# @cmd Join a swarm as a node and/or manager
+# @option --advertise-addr <string>    Advertised address (format: "<ip|interface>[:port]")
+# @option --availability[active|pause|drain] <string>  Availability of the node (default "active")
+# @option --data-path-addr <path>      Address or interface to use for data path traffic (format: "<ip|interface>")
+# @option --listen-addr <node-addr>    Listen address (format: "<ip|interface>[:port]") (default 0.0.0.0:2377)
+# @option --token <string>             Token for entry into the swarm
+# @arg host-port <HOST:PORT>
+swarm::join() {
+    :;
+}
+# }}} docker swarm join
+
+# {{{ docker swarm join-token
+# @cmd Manage join tokens
+# @flag -q --quiet    Only display token
+# @flag --rotate      Rotate join token
+# @arg enum[worker|manager]
+swarm::join-token() {
+    :;
+}
+# }}} docker swarm join-token
+
+# {{{ docker swarm leave
+# @cmd Leave the swarm
+# @flag -f --force    Force this node to leave the swarm, ignoring warnings
+swarm::leave() {
+    :;
+}
+# }}} docker swarm leave
+
+# {{{ docker swarm unlock
+# @cmd Unlock swarm
+swarm::unlock() {
+    :;
+}
+# }}} docker swarm unlock
+
+# {{{ docker swarm unlock-key
+# @cmd Manage the unlock key
+# @flag -q --quiet    Only display token
+# @flag --rotate      Rotate unlock key
+swarm::unlock-key() {
+    :;
+}
+# }}} docker swarm unlock-key
+
+# {{{ docker swarm update
+# @cmd Update the swarm
+# @flag --autolock                             Change manager autolocking setting (true|false)
+# @option --cert-expiry <duration>             Validity period for node certificates (ns|us|ms|s|m|h) (default 2160h0m0s)
+# @option --dispatcher-heartbeat <duration>    Dispatcher heartbeat period (ns|us|ms|s|m|h) (default 5s)
+# @option --external-ca <external-ca>          Specifications of one or more certificate signing endpoints
+# @option --max-snapshots <uint>               Number of additional Raft snapshots to retain
+# @option --snapshot-interval <uint>           Number of log entries between Raft snapshots (default 10000)
+# @option --task-history-limit <int>           Task history retention limit (default 5)
+swarm::update() {
+    :;
+}
+# }}} docker swarm update
+# }} docker swarm
+
+# {{ docker attach
+# @cmd Attach local standard input, output, and error streams to a running container
+# @option --detach-keys <string>    Override the key sequence for detaching a container
+# @flag --no-stdin                  Do not attach STDIN
+# @flag --sig-proxy                 Proxy all received signals to the process (default true)
+# @arg container[`_choice_container_name`]
+attach() {
+    :;
+}
+# }} docker attach
+
+# {{ docker commit
+# @cmd Create a new image from a container's changes
+# @option -a --author <string>     Author (e.g., "John Hannibal Smith <hannibal@a-team.com>")
+# @option -c --change <list>       Apply Dockerfile instruction to the created image
+# @option -m --message <string>    Commit message
+# @flag --no-pause                 Disable pausing container during commit
+# @arg container[`_choice_container_name`]
+# @arg repository-tag[`_module_oci_docker_image`] <REPOSITORY[:TAG]>
+commit() {
+    :;
+}
+# }} docker commit
+
+# {{ docker cp
+# @cmd Copy files/folders between a container and the local filesystem
+# @flag -a --archive        Archive mode (copy all uid/gid information)
+# @flag -L --follow-link    Always follow symbol link in SRC_PATH
+# @flag -q --quiet          Suppress progress output during copy.
+# @arg src[`_choice_container_cp`]
+# @arg dest[`_choice_container_cp`]
+cp() {
+    :;
+}
+# }} docker cp
+
+# {{ docker create
+# @cmd Create a new container
+# @option --add-host <list>                     Add a custom host-to-IP mapping (host:ip)
+# @option --annotation <map>                    Add an annotation to the container (passed through to the OCI runtime) (default map[])
+# @option -a --attach <list>                    Attach to STDIN, STDOUT or STDERR
+# @option --blkio-weight <uint16>               Block IO (relative weight), between 10 and 1000, or 0 to disable (default 0)
+# @option --blkio-weight-device <list>          Block IO weight (relative device weight) (default [])
+# @option --cap-add <list>                      Add Linux capabilities
+# @option --cap-drop <list>                     Drop Linux capabilities
+# @option --cgroup-parent <string>              Optional parent cgroup for the container
+# @option --cgroupns <string>                   Cgroup namespace to use (host|private)
+# @option --cidfile <file>                      Write the container ID to the file
+# @option --cpu-count <int>                     CPU count (Windows only)
+# @option --cpu-percent <int>                   CPU percent (Windows only)
+# @option --cpu-period <int>                    Limit CPU CFS (Completely Fair Scheduler) period
+# @option --cpu-quota <int>                     Limit CPU CFS (Completely Fair Scheduler) quota
+# @option --cpu-rt-period <int>                 Limit CPU real-time period in microseconds
+# @option --cpu-rt-runtime <int>                Limit CPU real-time runtime in microseconds
+# @option -c --cpu-shares <int>                 CPU shares (relative weight)
+# @option --cpus <decimal>                      Number of CPUs
+# @option --cpuset-cpus <string>                CPUs in which to allow execution (0-3, 0,1)
+# @option --cpuset-mems <string>                MEMs in which to allow execution (0-3, 0,1)
+# @option --device <list>                       Add a host device to the container
+# @option --device-cgroup-rule <list>           Add a rule to the cgroup allowed devices list
+# @option --device-read-bps <list>              Limit read rate (bytes per second) from a device (default [])
+# @option --device-read-iops <list>             Limit read rate (IO per second) from a device (default [])
+# @option --device-write-bps <list>             Limit write rate (bytes per second) to a device (default [])
+# @option --device-write-iops <list>            Limit write rate (IO per second) to a device (default [])
+# @option --dns <list>                          Set custom DNS servers
+# @option --dns-option <list>                   Set DNS options
+# @option --dns-search <list>                   Set custom DNS search domains
+# @option --domainname <string>                 Container NIS domain name
+# @option --entrypoint <string>                 Overwrite the default ENTRYPOINT of the image
+# @option -e --env <list>                       Set environment variables
+# @option --env-file <list>                     Read in a file of environment variables
+# @option --expose <list>                       Expose a port or a range of ports
+# @option --gpus <gpu-request>                  GPU devices to add to the container ('all' to pass all GPUs)
+# @option --group-add <list>                    Add additional groups to join
+# @option --health-cmd <string>                 Command to run to check health
+# @option --health-interval <duration>          Time between running the check (ms|s|m|h) (default 0s)
+# @option --health-retries <int>                Consecutive failures needed to report unhealthy
+# @option --health-start-interval <duration>    Time between running the check during the start period (ms|s|m|h) (default 0s)
+# @option --health-start-period <duration>      Start period for the container to initialize before starting health-retries countdown (ms|s|m|h) (default 0s)
+# @option --health-timeout <duration>           Maximum time to allow one check to run (ms|s|m|h) (default 0s)
+# @flag --help                                  Print usage
+# @option -h --hostname <string>                Container host name
+# @flag --init                                  Run an init inside the container that forwards signals and reaps processes
+# @flag -i --interactive                        Keep STDIN open even if not attached
+# @option --io-maxbandwidth <bytes>             Maximum IO bandwidth limit for the system drive (Windows only)
+# @option --io-maxiops <uint>                   Maximum IOps limit for the system drive (Windows only)
+# @option --ip <ip>                             IPv4 address (e.g., 172.30.100.104)
+# @option --ip6 <ip>                            IPv6 address (e.g., 2001:db8::33)
+# @option --ipc <string>                        IPC mode to use
+# @option --isolation <string>                  Container isolation technology
+# @option -l --label <list>                     Set meta data on a container
+# @option --label-file <list>                   Read in a line delimited file of labels
+# @option --link <list>                         Add link to another container
+# @option --link-local-ip <list>                Container IPv4/IPv6 link-local addresses
+# @option --log-driver <string>                 Logging driver for the container
+# @option --log-opt <list>                      Log driver options
+# @option --mac-address <string>                Container MAC address (e.g., 92:d0:c6:0a:29:33)
+# @option -m --memory <bytes>                   Memory limit
+# @option --memory-reservation <bytes>          Memory soft limit
+# @option --memory-swap <bytes>                 Swap limit equal to memory plus swap: '-1' to enable unlimited swap
+# @option --memory-swappiness <int>             Tune container memory swappiness (0 to 100) (default -1)
+# @option --mount <mount>                       Attach a filesystem mount to the container
+# @option --name <string>                       Assign a name to the container
+# @option --network <network>                   Connect a container to a network
+# @option --network-alias <list>                Add network-scoped alias for the container
+# @flag --no-healthcheck                        Disable any container-specified HEALTHCHECK
+# @flag --oom-kill-disable                      Disable OOM Killer
+# @option --oom-score-adj <int>                 Tune host's OOM preferences (-1000 to 1000)
+# @option --pid <string>                        PID namespace to use
+# @option --pids-limit <int>                    Tune container pids limit (set -1 for unlimited)
+# @option --platform[`_module_oci_docker_platform`] <string>  Set platform if server is multi-platform capable
+# @flag --privileged                            Give extended privileges to this container
+# @option -p --publish <list>                   Publish a container's port(s) to the host
+# @flag -P --publish-all                        Publish all exposed ports to random ports
+# @option --pull <string>                       Pull image before creating ("always", "|missing", "never") (default "missing")
+# @flag -q --quiet                              Suppress the pull output
+# @flag --read-only                             Mount the container's root filesystem as read only
+# @option --restart <string>                    Restart policy to apply when a container exits (default "no")
+# @flag --rm                                    Automatically remove the container and its associated anonymous volumes when it exits
+# @option --runtime <string>                    Runtime to use for this container
+# @option --security-opt <list>                 Security Options
+# @option --shm-size <bytes>                    Size of /dev/shm
+# @option --stop-signal <string>                Signal to stop the container
+# @option --stop-timeout <int>                  Timeout (in seconds) to stop a container
+# @option --storage-opt <list>                  Storage driver options for the container
+# @option --sysctl <map>                        Sysctl options (default map[])
+# @option --tmpfs <list>                        Mount a tmpfs directory
+# @flag -t --tty                                Allocate a pseudo-TTY
+# @option --ulimit <ulimit>                     Ulimit options (default [])
+# @flag --use-api-socket                        Bind mount Docker API socket and required auth
+# @option -u --user <string>                    Username or UID (format: <name|uid>[:<group|gid>])
+# @option --userns <string>                     User namespace to use
+# @option --uts <string>                        UTS namespace to use
+# @option -v --volume <list>                    Bind mount a volume
+# @option --volume-driver <string>              Optional volume driver for the container
+# @option --volumes-from <list>                 Mount volumes from the specified container(s)
+# @option -w --workdir <dir>                    Working directory inside the container
+# @arg image[`_module_oci_docker_image`]
+# @arg command[`_module_os_command`]
+# @arg arg~[`_choice_args`]
+create() {
+    :;
+}
+# }} docker create
+
+# {{ docker diff
+# @cmd Inspect changes to files or directories on a container's filesystem
+# @arg container[`_choice_container_name`]
+diff() {
+    :;
+}
+# }} docker diff
+
+# {{ docker events
+# @cmd Get real time events from the server
+# @option -f --filter[`_choice_event_filter`] <filter>  Filter output based on conditions provided
+# @option --format <string>    Format output using a custom template:
+# @option --since <string>     Show all events created since timestamp
+# @option --until <string>     Stream events until this timestamp
+events() {
+    :;
+}
+# }} docker events
+
+# {{ docker export
+# @cmd Export a container's filesystem as a tar archive
+# @option -o --output <file>    Write to a file, instead of STDOUT
+# @arg container[`_choice_container_name`]
+export() {
+    :;
+}
+# }} docker export
+
+# {{ docker history
+# @cmd Show the history of an image
+# @option --format <string>    Format output using a custom template:
+# @flag -H --human             Print sizes and dates in human readable format (default true)
+# @flag --no-trunc             Don't truncate output
+# @option --platform[`_module_oci_docker_platform`] <string>  Show history for the given platform.
+# @flag -q --quiet             Only show image IDs
+# @arg image[`_module_oci_docker_image`]
+history() {
+    :;
+}
+# }} docker history
+
+# {{ docker import
+# @cmd Import the contents from a tarball to create a filesystem image
+# @option -c --change <list>       Apply Dockerfile instruction to the created image
+# @option -m --message <string>    Set commit message for imported image
+# @option --platform[`_module_oci_docker_platform`] <string>  Set platform if server is multi-platform capable
+# @arg file-url <file|URL|->
+# @arg repository-tag[`_module_oci_docker_image`] <REPOSITORY[:TAG]>
+import() {
+    :;
+}
+# }} docker import
+
+# {{ docker inspect
+# @cmd Return low-level information on Docker objects
+# @option -f --format <string>    Format output using a custom template:
+# @flag -s --size                 Display total file sizes if the type is container
+# @option --type <string>         Only inspect objects of the given type
+# @arg name-id* <NAME|ID>
+inspect() {
+    :;
+}
+# }} docker inspect
+
+# {{ docker kill
+# @cmd Kill one or more running containers
+# @option -s --signal <string>    Signal to send to the container
+# @arg container*[`_choice_container_name`]
+kill() {
+    :;
+}
+# }} docker kill
+
+# {{ docker load
+# @cmd Load an image from a tar archive or STDIN
+# @option -i --input <file>    Read from tar archive file, instead of STDIN
+# @option --platform*[`_module_oci_docker_platform`] <string>  Load only the given platform(s).
+# @flag -q --quiet             Suppress the load output
+load() {
+    :;
+}
+# }} docker load
+
+# {{ docker logs
+# @cmd Fetch the logs of a container
+# @flag --details               Show extra details provided to logs
+# @flag -f --follow             Follow log output
+# @option --since <string>      Show logs since timestamp (e.g. "2013-01-02T13:23:37Z") or relative (e.g. "42m" for 42 minutes)
+# @option -n --tail <string>    Number of lines to show from the end of the logs (default "all")
+# @flag -t --timestamps         Show timestamps
+# @option --until <string>      Show logs before a timestamp (e.g. "2013-01-02T13:23:37Z") or relative (e.g. "42m" for 42 minutes)
+# @arg container[`_choice_container_name_all`]
+logs() {
+    :;
+}
+# }} docker logs
+
+# {{ docker pause
+# @cmd Pause all processes within one or more containers
+# @arg container*[`_choice_container_name`]
+pause() {
+    :;
+}
+# }} docker pause
+
+# {{ docker port
+# @cmd List port mappings or a specific mapping for the container
+# @arg container[`_choice_container_name`]
+# @arg private_port-proto <PRIVATE_PORT[/PROTO]>
+port() {
+    :;
+}
+# }} docker port
+
+# {{ docker rename
+# @cmd Rename a container
+# @arg container[`_choice_container_name`]
+# @arg new_name
+rename() {
+    :;
+}
+# }} docker rename
+
+# {{ docker restart
+# @cmd Restart one or more containers
+# @option -s --signal <string>    Signal to send to the container
+# @option -t --timeout <int>      Seconds to wait before killing the container
+# @arg container*[`_choice_container_name`]
+restart() {
+    :;
+}
+# }} docker restart
+
+# {{ docker rm
+# @cmd Remove one or more containers
+# @flag -f --force      Force the removal of a running container (uses SIGKILL)
+# @flag -l --link       Remove the specified link
+# @flag -v --volumes    Remove anonymous volumes associated with the container
+# @arg container*[`_choice_container_name_all`]
+rm() {
+    :;
+}
+# }} docker rm
+
+# {{ docker rmi
+# @cmd Remove one or more images
+# @flag -f --force    Force removal of the image
+# @flag --no-prune    Do not delete untagged parents
+# @option --platform*[`_module_oci_docker_platform`] <string>  Remove only the given platform variant.
+# @arg image*[`_module_oci_docker_image`]
+rmi() {
+    :;
+}
+# }} docker rmi
+
+# {{ docker save
+# @cmd Save one or more images to a tar archive (streamed to STDOUT by default)
+# @option -o --output <file>    Write to a file, instead of STDOUT
+# @option --platform*[`_module_oci_docker_platform`] <path>  Save only the given platform(s).
+# @arg image*[`_module_oci_docker_image`]
+save() {
+    :;
+}
+# }} docker save
+
+# {{ docker start
+# @cmd Start one or more stopped containers
+# @flag -a --attach                 Attach STDOUT/STDERR and forward signals
+# @option --checkpoint <string>     Restore from this checkpoint
+# @option --checkpoint-dir <dir>    Use a custom checkpoint storage directory
+# @option --detach-keys <string>    Override the key sequence for detaching a container
+# @flag -i --interactive            Attach container's STDIN
+# @arg container*[`_choice_container_name`]
+start() {
+    :;
+}
+# }} docker start
+
+# {{ docker stats
+# @cmd Display a live stream of container(s) resource usage statistics
+# @flag -a --all               Show all containers (default shows just running)
+# @option --format <string>    Format output using a custom template:
+# @flag --no-stream            Disable streaming stats and only pull the first result
+# @flag --no-trunc             Do not truncate output
+# @arg container*[`_choice_container_name`]
+stats() {
+    :;
+}
+# }} docker stats
+
+# {{ docker stop
+# @cmd Stop one or more running containers
+# @option -s --signal <string>    Signal to send to the container
+# @option -t --timeout <int>      Seconds to wait before killing the container
+# @arg container*[`_choice_container_name`]
+stop() {
+    :;
+}
+# }} docker stop
+
+# {{ docker tag
+# @cmd Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+# @arg source_image-tag[`_module_oci_docker_image`] <SOURCE_IMAGE[:TAG]>
+# @arg target_image-tag[`_module_oci_docker_image`] <TARGET_IMAGE[:TAG]>
+tag() {
+    :;
+}
+# }} docker tag
+
+# {{ docker top
+# @cmd Display the running processes of a container
+# @arg container[`_choice_container_name`]
+top() {
+    :;
+}
+# }} docker top
+
+# {{ docker unpause
+# @cmd Unpause all processes within one or more containers
+# @arg container*[`_choice_container_name`]
+unpause() {
+    :;
+}
+# }} docker unpause
+
+# {{ docker update
+# @cmd Update configuration of one or more containers
+# @option --blkio-weight <uint16>         Block IO (relative weight), between 10 and 1000, or 0 to disable (default 0)
+# @option --cpu-period <int>              Limit CPU CFS (Completely Fair Scheduler) period
+# @option --cpu-quota <int>               Limit CPU CFS (Completely Fair Scheduler) quota
+# @option --cpu-rt-period <int>           Limit the CPU real-time period in microseconds
+# @option --cpu-rt-runtime <int>          Limit the CPU real-time runtime in microseconds
+# @option -c --cpu-shares <int>           CPU shares (relative weight)
+# @option --cpus <decimal>                Number of CPUs
+# @option --cpuset-cpus <string>          CPUs in which to allow execution (0-3, 0,1)
+# @option --cpuset-mems <string>          MEMs in which to allow execution (0-3, 0,1)
+# @option -m --memory <bytes>             Memory limit
+# @option --memory-reservation <bytes>    Memory soft limit
+# @option --memory-swap <bytes>           Swap limit equal to memory plus swap: -1 to enable unlimited swap
+# @option --pids-limit <int>              Tune container pids limit (set -1 for unlimited)
+# @option --restart <string>              Restart policy to apply when a container exits
+# @arg container*[`_choice_container_name`]
+update() {
+    :;
+}
+# }} docker update
+
+# {{ docker wait
+# @cmd Block until one or more containers stop, then print their exit codes
+# @arg container*[`_choice_container_name`]
+wait() {
+    :;
+}
+# }} docker wait
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"
 

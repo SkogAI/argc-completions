@@ -476,7 +476,6 @@ search() {
 # @flag -n --dry-run                             Perform all checks without uploading
 # @option --index                                Registry index URL to upload the package to
 # @option --registry                             Registry to upload the package to
-# @option --token                                Token to use when uploading
 # @flag --no-verify                              Don't verify the contents by building them
 # @flag --allow-dirty                            Allow dirty working directories to be packaged
 # @flag -v --verbose*                            Use verbose output (-vv very verbose/build.rs output)
