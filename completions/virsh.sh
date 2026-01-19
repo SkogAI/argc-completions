@@ -10,7 +10,7 @@
 # @option -l --log <FILE>                  output logging to file
 # @flag -q --quiet                         quiet mode
 # @flag -r --readonly                      connect readonly
-# @flag -t --timing                        print timing information
+# @flag -t --timing                        print timing information --no-pkttyagent  suppress registration of pkttyagent
 # @flag -v                                 short version
 # @flag -V                                 long version --version[=TYPE]  version, TYPE is short or long (default short)
 
@@ -54,6 +54,7 @@ attach-device() {
 # @option --source-host-name <string>            host name for source of disk device
 # @option --source-host-transport <string>       host transport for source of disk device
 # @option --source-host-socket <string>          host socket for source of disk device
+# @option --throttle-groups <string>             comma separated list of throttle groups to be applied
 # @flag --persistent                             make live change persistent
 # @flag --config                                 affect next boot
 # @flag --live                                   affect running domain
@@ -97,6 +98,7 @@ attach-interface() {
 # @cmd autostart a domain
 # @option --domain[`_choice_domain`] <string>    domain name, id or uuid
 # @flag --disable                                disable autostarting
+# @flag --once                                   control next boot state
 # @arg domain![`_choice_domain`]
 autostart() {
     :;
@@ -107,6 +109,7 @@ autostart() {
 # @cmd Set or query a block device I/O tuning parameters.
 # @option --domain[`_choice_domain`] <string>      domain name, id or uuid
 # @option --device <string>                        block device
+# @option --group-name <string>                    group name to share I/O quota between multiple drives
 # @option --total-bytes-sec <number>               total throughput limit, as scaled integer (default bytes)
 # @option --read-bytes-sec <number>                read throughput limit, as scaled integer (default bytes)
 # @option --write-bytes-sec <number>               write throughput limit, as scaled integer (default bytes)
@@ -120,7 +123,6 @@ autostart() {
 # @option --read-iops-sec-max <number>             read I/O operations max
 # @option --write-iops-sec-max <number>            write I/O operations max
 # @option --size-iops-sec <number>                 I/O size in bytes
-# @option --group-name <string>                    group name to share I/O quota between multiple drives
 # @option --total-bytes-sec-max-length <number>    duration in seconds to allow total max bytes
 # @option --read-bytes-sec-max-length <number>     duration in seconds to allow read max bytes
 # @option --write-bytes-sec-max-length <number>    duration in seconds to allow write max bytes
@@ -136,6 +138,75 @@ blkdeviotune() {
     :;
 }
 # }} virsh blkdeviotune
+
+# {{ virsh domthrottlegroupset
+# @cmd Add or update a throttling group.
+# @option --domain[`_choice_domain`] <string>      domain name, id or uuid
+# @option --group-name <string>                    throttle group name
+# @option --total-bytes-sec <number>               total throughput limit, as scaled integer (default bytes)
+# @option --read-bytes-sec <number>                read throughput limit, as scaled integer (default bytes)
+# @option --write-bytes-sec <number>               write throughput limit, as scaled integer (default bytes)
+# @option --total-iops-sec <number>                total I/O operations limit per second
+# @option --read-iops-sec <number>                 read I/O operations limit per second
+# @option --write-iops-sec <number>                write I/O operations limit per second
+# @option --total-bytes-sec-max <number>           total max, as scaled integer (default bytes)
+# @option --read-bytes-sec-max <number>            read max, as scaled integer (default bytes)
+# @option --write-bytes-sec-max <number>           write max, as scaled integer (default bytes)
+# @option --total-iops-sec-max <number>            total I/O operations max
+# @option --read-iops-sec-max <number>             read I/O operations max
+# @option --write-iops-sec-max <number>            write I/O operations max
+# @option --size-iops-sec <number>                 I/O size in bytes
+# @option --total-bytes-sec-max-length <number>    duration in seconds to allow total max bytes
+# @option --read-bytes-sec-max-length <number>     duration in seconds to allow read max bytes
+# @option --write-bytes-sec-max-length <number>    duration in seconds to allow write max bytes
+# @option --total-iops-sec-max-length <number>     duration in seconds to allow total I/O operations max
+# @option --read-iops-sec-max-length <number>      duration in seconds to allow read I/O operations max
+# @option --write-iops-sec-max-length <number>     duration in seconds to allow write I/O operations max
+# @flag --config                                   affect next boot
+# @flag --live                                     affect running domain
+# @flag --current                                  affect current domain
+# @arg domain![`_choice_domain`]
+# @arg group-name!
+domthrottlegroupset() {
+    :;
+}
+# }} virsh domthrottlegroupset
+
+# {{ virsh domthrottlegroupdel
+# @cmd Delete a throttling group.
+# @option --domain[`_choice_domain`] <string>    domain name, id or uuid
+# @option --group-name <string>                  throttle group name
+# @flag --config                                 affect next boot
+# @flag --live                                   affect running domain
+# @flag --current                                affect current domain
+# @arg domain![`_choice_domain`]
+# @arg group-name!
+domthrottlegroupdel() {
+    :;
+}
+# }} virsh domthrottlegroupdel
+
+# {{ virsh domthrottlegroupinfo
+# @cmd Get a throttling group.
+# @option --domain[`_choice_domain`] <string>    domain name, id or uuid
+# @option --group-name <string>                  throttle group name
+# @flag --inactive                               get inactive rather than running configuration
+# @arg domain![`_choice_domain`]
+# @arg group-name!
+domthrottlegroupinfo() {
+    :;
+}
+# }} virsh domthrottlegroupinfo
+
+# {{ virsh domthrottlegrouplist
+# @cmd list all domain throttlegroups.
+# @option --domain[`_choice_domain`] <string>    domain name, id or uuid
+# @flag --inactive                               get inactive rather than running configuration
+# @arg domain![`_choice_domain`]
+domthrottlegrouplist() {
+    :;
+}
+# }} virsh domthrottlegrouplist
 
 # {{ virsh blkiotune
 # @cmd Get or set blkio parameters
@@ -960,6 +1031,7 @@ metadata() {
 # @flag --timeout-postcopy                       switch to post-copy after timeout
 # @option --xml <file>                           filename containing updated XML for the target
 # @option --migrate-disks <string>               comma separated list of disks to be migrated
+# @option --migrate-disks-detect-zeroes <string>  comma separated list of disks to be migrated with zero detection enabled
 # @option --disks-port <number>                  port to use by target server for incoming disks migration
 # @option --disks-uri <string>                   URI to use for disks migration (overrides --disks-port)
 # @option --comp-methods <string>                comma separated list of compression methods to be used
@@ -978,6 +1050,7 @@ metadata() {
 # @option --tls-destination <path>               override the destination host name used for TLS verification
 # @option --comp-zlib-level <number>             compress level for zlib compression
 # @option --comp-zstd-level <number>             compress level for zstd compression
+# @option --available-switchover-bandwidth <number>  bandwidth (in MiB/s) available for the final phase of migration
 # @arg domain![`_choice_domain`]
 # @arg desturi!
 migrate() {
@@ -1116,12 +1189,13 @@ reset() {
 
 # {{ virsh restore
 # @cmd restore a domain from a saved state in a file
-# @option --file <file>    the state to restore
-# @flag --bypass-cache     avoid file system cache when restoring
-# @option --xml <file>     filename containing updated XML for the target
-# @flag --running          restore domain into running state
-# @flag --paused           restore domain into paused state
-# @flag --reset-nvram      re-initialize NVRAM from its pristine template
+# @option --file <file>                   the state to restore
+# @flag --bypass-cache                    avoid file system cache when restoring
+# @option --parallel-channels <number>    number of IO channels to use for parallel restore
+# @option --xml <file>                    filename containing updated XML for the target
+# @flag --running                         restore domain into running state
+# @flag --paused                          restore domain into paused state
+# @flag --reset-nvram                     re-initialize NVRAM from its pristine template
 # @arg file!
 restore() {
     :;
@@ -1142,6 +1216,8 @@ resume() {
 # @option --domain[`_choice_domain`] <string>    domain name, id or uuid
 # @option --file <file>                          where to save the data
 # @flag --bypass-cache                           avoid file system cache when saving
+# @option --parallel-channels <number>           number of IO channels to use for parallel save
+# @option --image-format <file>                  format of the save image file
 # @option --xml <file>                           filename containing updated XML for the target
 # @flag --running                                set domain to be running on restore
 # @flag --paused                                 set domain to be paused on restore
@@ -1515,6 +1591,7 @@ domblkthreshold() {
 # @flag --filesystem                             report filesystem information
 # @flag --disk                                   report disk information
 # @flag --interface                              report interface information
+# @flag --load                                   report load averages information
 # @arg domain![`_choice_domain`]
 guestinfo() {
     :;
@@ -1777,6 +1854,18 @@ event() {
 }
 # }} virsh event
 
+# {{ virsh await
+# @cmd await a domain event
+# @option --domain[`_choice_domain`] <string>    domain name, id or uuid
+# @option --condition <string>                   which condition to wait until
+# @option --timeout <number>                     timeout seconds
+# @arg domain![`_choice_domain`]
+# @arg string!
+await() {
+    :;
+}
+# }} virsh await
+
 # {{ virsh allocpages
 # @cmd Manipulate pages pool size
 # @option --pagesize <number>     page size (in kibibytes)
@@ -1833,12 +1922,13 @@ cpu-models() {
 
 # {{ virsh domcapabilities
 # @cmd domain capabilities
-# @option --virttype <string>     virtualization type (/domain/@type)
-# @option --emulatorbin <path>    path to emulator binary (/domain/devices/emulator)
-# @option --arch <string>         domain architecture (/domain/os/type/@arch)
-# @option --machine <string>      machine type (/domain/os/type/@machine)
-# @option --xpath <path>          xpath expression to filter the XML document
-# @flag --wrap                    wrap xpath results in an common root element
+# @option --virttype <string>            virtualization type (/domain/@type)
+# @option --emulatorbin <path>           path to emulator binary (/domain/devices/emulator)
+# @option --arch <string>                domain architecture (/domain/os/type/@arch)
+# @option --machine <string>             machine type (/domain/os/type/@machine)
+# @option --xpath <path>                 xpath expression to filter the XML document
+# @flag --wrap                           wrap xpath results in an common root element
+# @flag --disable-deprecated-features    report host CPU model with deprecated features disabled
 domcapabilities() {
     :;
 }
@@ -1879,6 +1969,7 @@ hostname() {
 # @option --machine <string>     machine type (/domain/os/type/@machine)
 # @flag --features               Show features that are part of the CPU model type
 # @flag --migratable             Do not include features that block migration
+# @flag --ignore-host            when computing baseline from several CPUs, do not take hypervisor capabilities into account and work with input data only
 # @option --model <string>       Shortcut for calling the command with a single CPU model and no additional features
 hypervisor-cpu-baseline() {
     :;
@@ -1899,6 +1990,18 @@ hypervisor-cpu-compare() {
     :;
 }
 # }} virsh hypervisor-cpu-compare
+
+# {{ virsh hypervisor-cpu-models
+# @cmd Hypervisor reported CPU models
+# @option --virttype <string>    virtualization type (/domain/@type)
+# @option --emulator <path>      path to emulator binary (/domain/devices/emulator)
+# @option --arch <string>        CPU architecture (/domain/os/type/@arch)
+# @option --machine <string>     machine type (/domain/os/type/@machine)
+# @flag --all                    include all CPU models known to the hypervisor for the architecture
+hypervisor-cpu-models() {
+    :;
+}
+# }} virsh hypervisor-cpu-models
 
 # {{ virsh maxvcpus
 # @cmd connection vcpu maximum
@@ -2951,6 +3054,7 @@ snapshot-revert() {
 # @option --backupxml <string>                   domain backup XML
 # @option --checkpointxml <string>               domain checkpoint XML
 # @flag --reuse-external                         reuse files provided by caller
+# @flag --preserve-domain-on-shutdown            avoid shutdown of the domain while the backup is running
 # @arg domain![`_choice_domain`]
 # @arg backupxml
 backup-begin() {

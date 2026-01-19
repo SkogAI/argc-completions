@@ -58,7 +58,7 @@ insert() {
 # }} pass insert
 
 # {{ pass edit
-# @cmd Insert a new password or edit an existing password using vim.
+# @cmd Insert a new password or edit an existing password using nvim.
 # @arg pass-name![`_choice_pass_name`]
 edit() {
     :;

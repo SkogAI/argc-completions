@@ -8,11 +8,13 @@
 # @option -O[`_choice_charset`] <charset>     display/output charset
 # @flag -B                                    load bookmark
 # @option -bookmark <file>                    specify bookmark file
+# @flag -R                                    restore from session file
+# @option -session <file>                     specify session file
 # @option -T <type>                           specify content-type
 # @flag -m                                    internet message mode
 # @flag -v                                    visual startup mode
 # @flag -M                                    monochrome display
-# @flag -H                                    use high-intensity colors
+# @option -H <Deprecated!>                    Do not use! Use -o high-intensity=true instead
 # @flag -N                                    open URL of command line on each new tab
 # @flag -F                                    automatically render frames
 # @option -cols <width>                       specify column width (used with -dump)
@@ -32,6 +34,7 @@
 # @flag -insecure                             use insecure SSL config options
 # @flag -no-mouse                             don't use mouse
 # @flag -cookie                               use cookie (-no-cookie: don't use cookie)
+# @flag -cookie-jar                           file use file instead of default cookie file
 # @flag -graph                                use DEC special graphics for border of table and menu
 # @flag -no-graph                             use ASCII character for border of table and menu
 # @flag -s                                    squeeze multiple blank lines

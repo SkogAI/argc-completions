@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @flag --ignore-sigpipe            Do (not) ignore SIGPIPE.
-# @flag --no-ignore-sigpipe         Do (not) ignore SIGPIPE.
-# @flag --ignore-write-errors       Do (not) ignore write errors.
-# @flag --no-ignore-write-errors    Do (not) ignore write errors.
+# @option --- <--nnoo--iiggnnoorree--ssiiggppiippee>  Do (not) ignore SIGPIPE.
+# @option --- <--nnoo--iiggnnoorree--wwrriittee--eerrrroorrss>  Do (not) ignore write errors.
 # @arg command[`_module_os_command`]
 # @arg args~[`_module_os_command_args`]
 

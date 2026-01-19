@@ -79,6 +79,8 @@ new() {
 # @option -L --linked-by* <PATH,>     Find notes which are linked by the given ones.
 # @option --no-linked-by* <PATH,>     Find notes which are not linked by the given ones.
 # @flag --orphan                      Find notes which are not linked by any other note.
+# @flag --tagless                     Find notes which have no tags.
+# @flag --missing-backlink            Find notes with at least one missing backlink.
 # @option --related* <PATH,>          Find notes which might be related to the given ones.
 # @option --max-distance <COUNT>      Maximum distance between two linked notes.
 # @flag -r --recursive                Follow links recursively.
@@ -116,6 +118,8 @@ list() {
 # @option -L --linked-by* <PATH,>     Find notes which are linked by the given ones.
 # @option --no-linked-by* <PATH,>     Find notes which are not linked by the given ones.
 # @flag --orphan                      Find notes which are not linked by any other note.
+# @flag --tagless                     Find notes which have no tags.
+# @flag --missing-backlink            Find notes with at least one missing backlink.
 # @option --related* <PATH,>          Find notes which might be related to the given ones.
 # @option --max-distance <COUNT>      Maximum distance between two linked notes.
 # @flag -r --recursive                Follow links recursively.
@@ -152,6 +156,8 @@ graph() {
 # @option -L --linked-by* <PATH,>     Find notes which are linked by the given ones.
 # @option --no-linked-by* <PATH,>     Find notes which are not linked by the given ones.
 # @flag --orphan                      Find notes which are not linked by any other note.
+# @flag --tagless                     Find notes which have no tags.
+# @flag --missing-backlink            Find notes with at least one missing backlink.
 # @option --related* <PATH,>          Find notes which might be related to the given ones.
 # @option --max-distance <COUNT>      Maximum distance between two linked notes.
 # @flag -r --recursive                Follow links recursively.

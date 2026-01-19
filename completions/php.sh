@@ -22,12 +22,12 @@
 # @flag -s                      Output HTML syntax highlighted source.
 # @flag -v                      Version number
 # @flag -w                      Output source with stripped comments and whitespace.
-# @option -z <file>             Load Zend extension <file>.
-# @flag --ini                   Show configuration file names
+# @option --ini <diff>          Show INI entries that differ from the built-in default
 # @option --rf <name>           Show information about function <name>.
 # @option --rc <name>           Show information about class <name>.
 # @option --re <name>           Show information about extension <name>.
 # @option --rz <name>           Show information about Zend extension <name>.
 # @option --ri <name>           Show configuration for extension <name>.
+# @option --repeat <count>      Repeat script execution <count> times.
 
 command eval "$(argc --argc-eval "$0" "$@")"

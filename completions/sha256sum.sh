@@ -2,7 +2,7 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @flag -b --binary         read in binary mode
-# @flag -c --check          read SHA256 sums from the FILEs and check them
+# @flag -c --check          read checksums from the FILEs and check them
 # @flag --tag               create a BSD-style checksum
 # @flag -t --text           read in text mode (default)
 # @flag -z --zero           end each output line with NUL, not newline, and disable file name escaping

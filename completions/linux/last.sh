@@ -10,6 +10,7 @@
 # @flag -R --nohostname          don't display the hostname field
 # @option -s --since <time>      display the lines since the specified time
 # @option -t --until <time>      display the lines until the specified time
+# @flag -T --tab-separated       use tabs as delimiters
 # @option -p --present <time>    display who were present at the specified time
 # @flag -w --fullnames           display full user and domain names
 # @flag -x --system              display system shutdown entries and run level changes

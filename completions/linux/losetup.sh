@@ -14,6 +14,7 @@
 # @flag -P --partscan                     create a partitioned loop device
 # @flag -r --read-only                    set up a read-only loop device
 # @option --direct-io[on|off] <on|off>    open backing file with O_DIRECT
+# @option --loop-ref <string>             loop device reference
 # @flag --show                            print device name after setup (with -f)
 # @flag -v --verbose                      verbose mode
 # @flag -J --json                         use JSON --list output format

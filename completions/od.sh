@@ -6,7 +6,7 @@
 # @option --endian[big|little]                    swap input bytes according the specified order
 # @option -j --skip-bytes <BYTES>                 skip BYTES input bytes first
 # @option -N --read-bytes <BYTES>                 limit dump to BYTES input bytes
-# @option -S --strings <BYTES>                    output strings of at least BYTES graphic chars; 3 is implied when BYTES is not specified
+# @option -S --strings <BYTES>                    show only NUL terminated strings of at least BYTES (3) printable characters
 # @option -t --format[`_choice_format`] <TYPE>    select output format or formats
 # @flag -v --output-duplicates                    do not use * to mark line suppression
 # @option -w --width <BYTES>                      output BYTES bytes per output line; 32 is implied when BYTES is not specified

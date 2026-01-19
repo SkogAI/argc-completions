@@ -1,19 +1,7 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @flag -a --ask                                  When using this option nmcli will stop and ask for any missing required arguments, so do not use this option for non-interactive purposes like scripts.
-# @option -c --colors <value>                     This option controls color output (using terminal escape sequences).
-# @flag --complete-args                           Instead of conducting the desired action, nmcli will list possible completions for the last argument.
-# @option -e --escape[yes|no] <value>             Whether to escape : and \ characters in terse tabular mode.
-# @option -f --fields[`_choice_field`] <value>    This option is used to specify what fields (column names) should be printed.
-# @option -g --get-values[`_choice_field`] <value>  This option is used to print values from specific fields.
-# @flag -h --help                                 Print help information.
-# @option -m --mode[tabular|multiline] <value>    Switch between tabular and multiline output:
-# @flag -p --pretty                               Output is pretty.
-# @flag -s --show-secrets                         When using this option nmcli will display passwords and secrets that might be present in an output of an operation.
-# @flag -t --terse                                Output is terse.
-# @flag -v --version                              Show nmcli version.
-# @option -w --wait <seconds>                     This option sets a timeout period for which nmcli will wait for NetworkManager to finish operations.
+
 
 # {{ nmcli general
 # @cmd Use this command to show NetworkManager status and permissions.
@@ -414,47 +402,6 @@ agent::all() {
 }
 # }}} nmcli agent all
 # }} nmcli agent
-
-_choice_field() {
-    cat <<-'EOF'
-ACTIVE
-CONNECTION
-RATE
-TIMESTAMP
-ACTIVE-PATH
-CONNECTIVITY
-READONLY
-TIMESTAMP-REAL
-all
-CON-PATH
-RUNNING
-TYPE
-AUTOCONNECT
-CON-UUID
-SECURITY
-UUID
-AUTOCONNECT-PRIORITY
-DBUS-PATH
-SIGNAL
-VERSION
-BARS
-DEVICE
-SLAVE
-WIFI
-BSSID
-MODE
-SSID
-WIFI-HW
-CHAN
-NAME
-STARTUP
-WWAN
-common
-NETWORKING
-STATE
-WWAN-HW
-EOF
-}
 
 _choice_general_logging_args() {
     len=${#argc__positionals[@]}

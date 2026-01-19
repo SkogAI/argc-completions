@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @flag --system       Monitor the system message bus.
-# @flag --session      Monitor the session message bus.
-# @option --address    Monitor an arbitrary message bus given at ADDRESS.
-# @flag --profile      Use the profiling output format.
-# @flag --monitor      Use the monitoring output format.
+# @option --- <--ssyysstteemm>       Monitor the system message bus.
+# @option --- <--sseessssiioonn>    Monitor the session message bus.
+# @option --- <--aaddddrreessss> <AADDDDRREESSSS>  Monitor an arbitrary message bus given at ADDRESS.
+# @option --- <--pprrooffiillee>    Use the profiling output format.
+# @option --- <--mmoonniittoorr>    Use the monitoring output format.
 # @arg expr*,[`_choice_expr`]
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"

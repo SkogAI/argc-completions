@@ -7,6 +7,7 @@
 # @option --files0-from <FILE>    read input from the files specified by NUL-terminated names in file F; If F is - then read names from standard input
 # @flag -L --max-line-length      print the maximum display width
 # @flag -w --words                print the word counts
+# @option --total[auto|always|only|never] <WHEN>  when to print a line with total counts; WHEN can be: auto, always, only, never
 # @flag --help                    display this help and exit
 # @flag --version                 output version information and exit
 # @arg file*

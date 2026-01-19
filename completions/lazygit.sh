@@ -17,6 +17,8 @@
 # @option -g --git-dir <dir>            equivalent of the --git-dir git argument
 # @option -ucf*, <file>                 Comma separated list to custom config file(s)
 # @option --use-config-file*, <file>    Comma separated list to custom config file(s)
+# @flag -sm                             The initial screen-mode, which determines the size of the focused panel.
+# @flag --screen-mode                   The initial screen-mode, which determines the size of the focused panel.
 # @arg git-arg
 
 command eval "$(argc --argc-eval "$0" "$@")"

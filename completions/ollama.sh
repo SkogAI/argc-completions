@@ -13,10 +13,10 @@ serve() {
 # }} ollama serve
 
 # {{ ollama create
-# @cmd Create a model from a Modelfile
+# @cmd Create a model
 # @option -f --file <file>          Name of the Modelfile (default "Modelfile")
 # @flag -h --help                   help for create
-# @option -q --quantize <string>    Quantize model to this level (e.g. q4_0)
+# @option -q --quantize <string>    Quantize model to this level (e.g. q4_K_M)
 # @arg model[`_choice_model`]
 create() {
     :;
@@ -31,6 +31,7 @@ create() {
 # @flag --parameters    Show parameters of a model
 # @flag --system        Show system message of a model
 # @flag --template      Show template of a model
+# @flag -v --verbose    Show detailed model information
 # @arg model[`_choice_model`]
 show() {
     :;
@@ -39,18 +40,34 @@ show() {
 
 # {{ ollama run
 # @cmd Run a model
-# @option --format <string>       Response format (e.g. json)
-# @flag -h --help                 help for run
-# @flag --insecure                Use an insecure registry
-# @option --keepalive <string>    Duration to keep a model loaded (e.g. 5m)
-# @flag --nowordwrap              Don't wrap words to the next line automatically
-# @flag --verbose                 Show timings for response
+# @option --dimensions <int>           Truncate output embeddings to specified dimension (embedding models only)
+# @flag --experimental                 Enable experimental agent loop with tools
+# @flag --experimental-websearch       Enable web search tool in experimental mode
+# @flag --experimental-yolo            Skip all tool approval prompts (use with caution)
+# @option --format <string>            Response format (e.g. json)
+# @flag -h --help                      help for run
+# @flag --hidethinking                 Hide thinking output (if provided)
+# @flag --insecure                     Use an insecure registry
+# @option --keepalive <string>         Duration to keep a model loaded (e.g. 5m)
+# @flag --nowordwrap                   Don't wrap words to the next line automatically
+# @option --think <string[="true"]>    Enable thinking mode: true/false or high/medium/low for supported models
+# @flag --truncate                     For embedding models: truncate inputs exceeding context length (default: true).
+# @flag --verbose                      Show timings for response
 # @arg model[`_choice_model`]
 # @arg prompt
 run() {
     :;
 }
 # }} ollama run
+
+# {{ ollama stop
+# @cmd Stop a running model
+# @flag -h --help    help for stop
+# @arg model[`_choice_model`]
+stop() {
+    :;
+}
+# }} ollama stop
 
 # {{ ollama pull
 # @cmd Pull a model from a registry
@@ -71,6 +88,22 @@ push() {
     :;
 }
 # }} ollama push
+
+# {{ ollama signin
+# @cmd Sign in to ollama.com
+# @flag -h --help    help for signin
+signin() {
+    :;
+}
+# }} ollama signin
+
+# {{ ollama signout
+# @cmd Sign out from ollama.com
+# @flag -h --help    help for signout
+signout() {
+    :;
+}
+# }} ollama signout
 
 # {{ ollama list
 # @cmd List models

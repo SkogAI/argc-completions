@@ -9,7 +9,8 @@
 # @flag -T                                 test configuration, dump it and exit
 # @flag -q                                 suppress non-error messages during configuration testing
 # @option -s[`_choice_signal`] <signal>    send signal to a master process: stop, quit, reopen, reload
-# @option -p <prefix>                      set prefix path (default: /usr/share/nginx/)
+# @option -p <prefix>                      set prefix path (default: /etc/nginx/)
+# @option -e <filename>                    set error log file (default: stderr)
 # @option -c <filename>                    set configuration file (default: /etc/nginx/nginx.conf)
 # @option -g <directives>                  set global directives out of configuration file
 

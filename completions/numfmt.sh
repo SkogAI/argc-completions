@@ -3,7 +3,7 @@
 
 # @flag --debug                            print warnings about invalid input
 # @option -d --delimiter <X>               use X instead of whitespace for field delimiter
-# @option --field <FIELDS>                 replace the numbers in these input fields (default=1) see FIELDS below
+# @option --field <FIELDS>                 replace the numbers in these input fields (default=1); see FIELDS below
 # @option --format                         use printf style floating-point FORMAT; see FORMAT below for details
 # @option --from[`_choice_unit`] <UNIT>    auto-scale input numbers to UNITs; default is 'none'; see UNIT below
 # @option --from-unit <N>                  specify the input unit size (instead of the default 1)
@@ -13,6 +13,7 @@
 # @option --padding <N>                    pad the output to N characters; positive N will right-align; negative N will left-align; padding is ignored if the output is wider than N; the default is to automatically pad if a whitespace is found
 # @option --round[up|down|from-zero|towards-zero|nearest] <METHOD>  use METHOD for rounding when scaling; METHOD can be: up, down, from-zero (default), towards-zero, nearest
 # @option --suffix                         add SUFFIX to output numbers, and accept optional SUFFIX in input numbers
+# @option --unit-separator <SEP>           insert SEP between number and unit on output, and accept optional SEP in input numbers
 # @option --to[`_choice_unit`] <UNIT>      auto-scale output numbers to UNITs; see UNIT below
 # @option --to-unit <N>                    the output unit size (instead of the default 1)
 # @flag -z --zero-terminated               line delimiter is NUL, not newline

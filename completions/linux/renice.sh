@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @option -n --priority <num>             specify the nice value
+# @option -n <num>                        specify the nice value; if POSIXLY_CORRECT flag is set in environment, then the priority is 'relative' to current process priority; otherwise it is 'absolute'
+# @option --priority <num>                specify the 'absolute' nice value
+# @option --relative <num>                specify the 'relative' nice value
 # @option -p --pid[`_module_os_pid`]      interpret arguments as process ID (default)
 # @option -g --pgrp <value>               interpret arguments as process group ID
 # @option -u --user[`_module_os_user`]    interpret arguments as username or user ID

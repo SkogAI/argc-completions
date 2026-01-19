@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
+# @option -a --argv0 <ARG>                        pass ARG as the zeroth argument of COMMAND
 # @flag -i --ignore-environment                   start with an empty environment
 # @flag -0 --null                                 end each output line with NUL, not newline
 # @option -u --unset[`_choice_env_var`] <NAME>    remove variable from the environment
@@ -8,8 +9,8 @@
 # @option -S --split-string <S>                   process and split S into separate arguments; used to pass multiple arguments on shebang lines
 # @option --block-signal[`_module_os_signal`] <SIG>  block delivery of SIG signal(s) to COMMAND
 # @option --default-signal[`_module_os_signal`] <SIG>  reset handling of SIG signal(s) to the default
-# @option --ignore-signal[`_module_os_signal`] <SIG>  set handling of SIG signals(s) to do nothing
-# @flag --list-signal-handling                    list non default signal handling to stderr
+# @option --ignore-signal[`_module_os_signal`] <SIG>  set handling of SIG signal(s) to do nothing
+# @flag --list-signal-handling                    list non default signal handling to standard error
 # @flag -v --debug                                print verbose information for each processing step
 # @flag --help                                    display this help and exit
 # @flag --version                                 output version information and exit
