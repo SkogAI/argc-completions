@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @flag --version       show program's version number, config file location, configured module search path, module location, executable location and exit
-# @flag -h --help       show this help message and exit
-# @flag -v --verbose    Causes Ansible to print more debug messages.
-# @arg type*
 
 # {{ ansible-galaxy collection
 # @cmd Manage an Ansible Galaxy collection.

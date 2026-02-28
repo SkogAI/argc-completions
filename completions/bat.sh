@@ -42,12 +42,5 @@
 # @flag -V --version                             Print version
 # @arg file*                                     File(s) to print / concatenate.
 
-_choice_language() {
-    bat --list-languages  | cut -d: -f1
-}
-
-_choice_theme() {
-    bat --list-themes | cat
-}
 
 command eval "$(argc --argc-eval "$0" "$@")"

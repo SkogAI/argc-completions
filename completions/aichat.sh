@@ -30,24 +30,5 @@
 # @flag -V --version                         Print version
 # @arg text*                                 Input text
 
-_choice_model() {
-    aichat --list-models
-}
-
-_choice_role() {
-    aichat --list-roles
-}
-
-_choice_session() {
-    aichat --list-sessions
-}
-
-_choice_agent() {
-    aichat --list-agents
-}
-
-_choice_rag() {
-    aichat --list-rags
-}
 
 command eval "$(argc --argc-eval "$0" "$@")"

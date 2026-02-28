@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @flag --version       show program's version number, config file location, configured module search path, module location, executable location and exit
-# @flag -h --help       show this help message and exit
-# @flag -v --verbose    Causes Ansible to print more debug messages.
-# @arg create-decrypt-edit-view-encrypt-encrypt_string-rekey* <create,decrypt,edit,view,encrypt,encrypt_string,rekey>
 
 # {{ ansible-vault create
 # @cmd Create new vault encrypted file

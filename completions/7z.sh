@@ -50,16 +50,6 @@
 # @arg command[`_choice_command`]
 # @arg args*
 
-_choice_type() {
-    if [[ "$argc_command" == @(a|d|rn|u) ]]; then
-        printf "%s\n" 7z bzip2 gzip swfc tar wim xz zip    
-    else
-        printf "%s\n" 7z apm arj bzip2 cab chm cpio cramfs deb dmg elf fat flv \
-            gzip hfs iso lzh lzma lzma86 macho mbr mslz mub nsis ntfs pe ppmd rar \
-            rpm squashfs swf swfc tar udf vhd wim xar xz z zip
-    fi
-}
-
 _choice_command() {
     cat <<-'EOF'
 a	Add files to archive
