@@ -29,6 +29,10 @@ _patch_table() {
     
 }
 
+_choice_arch() {
+    find /lib/modules/$(uname -r)/build/arch/ -maxdepth 1 -type d ! -type l -printf "%P\n" | tail -n +2
+}
+
 _choice_kernel_arch() {
     _argc_util_mode_kv '/'
     if [[ -z "$argc__kv_prefix" ]]; then
@@ -36,10 +40,6 @@ _choice_kernel_arch() {
     else
         find /lib/modules/$argc__kv_prefix/build/arch/ -maxdepth 1 -type d ! -type l -printf "%P\n" | tail -n +2
     fi
-}
-
-_choice_arch() {
-    find /lib/modules/$(uname -r)/build/arch/ -maxdepth 1 -type d ! -type l -printf "%P\n" | tail -n +2
 }
 
 _choice_module_version() {

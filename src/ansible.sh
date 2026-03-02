@@ -12,6 +12,15 @@ _patch_table() {
     
 }
 
+_choice_become_method() {
+    ansible-doc -t become -l | sed 's/\s\+/\t/'
+}
+
+_choice_host() {
+    ansible-inventory $(_argc_util_param_select_options --inventory --playbook-dir) --list | \
+    yq  '.[].hosts // [] | .[], keys | filter(. != "_meta") | .[]'
+}
+
 _choice_plugin() {
     ansible-doc --list | \
     gawk '{
@@ -30,13 +39,4 @@ _choice_plugin() {
         }
     }' | \
     _argc_util_comp_parts '.'
-}
-
-_choice_become_method() {
-    ansible-doc -t become -l | sed 's/\s\+/\t/'
-}
-
-_choice_host() {
-    ansible-inventory $(_argc_util_param_select_options --inventory --playbook-dir) --list | \
-    yq  '.[].hosts // [] | .[], keys | filter(. != "_meta") | .[]'
 }

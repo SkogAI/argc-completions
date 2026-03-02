@@ -2,6 +2,9 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @arg words~[`_module_bridge_corba`]
+lfs() {
+    :;
+}
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"
 

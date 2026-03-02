@@ -15,6 +15,16 @@ _patch_table() {
     _patch_table_edit_arguments ';;' 'path...(file:.rs)'
 }
 
+_choice_unstable_option() {
+    if rustc +nightly >/dev/null 2>&1; then
+        rustc +nightly -Z help | _helper_format_options
+    fi
+}
+
+_choice_codegen_option() {
+    rustc -C help  | _helper_format_options
+}
+
 _choice_lib() {
     _argc_util_mode_kv =
     if _argc_util_has_path_prefix; then
@@ -48,6 +58,11 @@ _choice_link() {
     fi
 }
 
+_choice_link_modifier() {
+    printf "+%s\n" bundle verbatim whole-archive as-needed
+    printf -- "-%s\n" bundle verbatim whole-archive as-needed
+}
+
 _choice_lint_option() {
     rustc -W help  | \
     gawk '{
@@ -62,21 +77,6 @@ _choice_lint_option() {
             isGroup = 0
         }
     }'
-}
-
-_choice_codegen_option() {
-    rustc -C help  | _helper_format_options
-}
-
-_choice_unstable_option() {
-    if rustc +nightly >/dev/null 2>&1; then
-        rustc +nightly -Z help | _helper_format_options
-    fi
-}
-
-_choice_link_modifier() {
-    printf "+%s\n" bundle verbatim whole-archive as-needed
-    printf -- "-%s\n" bundle verbatim whole-archive as-needed
 }
 
 _helper_format_options() {

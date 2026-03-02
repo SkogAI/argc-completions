@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @flag -a    print all matching pathnames of each argument
 # @arg command[`_module_os_command`]
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"

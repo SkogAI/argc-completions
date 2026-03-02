@@ -2,19 +2,10 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @meta symbol @file
-# @option --target[`_choice_target`] <BFDNAME>    specify the target object format as BFDNAME
-# @option --output <DIRNAME>                      specify the output directory for extraction operations
-# @option --record-libdeps <text>                 specify the dependencies of this library
-# @flag --thin                                    make a thin archive
-# @option --plugin <p>                            load the specified plugin
 # @arg cmd[`_choice_cmd`]
 # @arg paths*
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"
-
-_choice_target() {
-    printf "%s\n" elf64-x86-64 elf32-i386 elf32-iamcu elf32-x86-64 pei-i386 pe-x86-64 pei-x86-64 elf64-l1om elf64-k1om elf64-little elf64-big elf32-little elf32-big pe-bigobj-x86-64 pe-i386 srec symbolsrec verilog tekhex binary ihex plugin
-}
 
 _choice_cmd() {
     if [[ -z "$ARGC_CWORD" ]]; then

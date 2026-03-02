@@ -10,26 +10,12 @@ _patch_table() {
 
 }
 
-_choice_column() {
-    findmnt -h | sed -n '/^Available output columns:/,/^\s*$/ {//d; s/^\s*\(\S\+\) \(.*\)/\1\t\2/p}'
-}
-
-_choice_source() {
-    cat <<-'EOF' | _argc_util_comp_kv =
-LABEL=`_choice_label`
-UUID=`_choice_uuid`
-PARTLABEL=`_choice_partlabel`
-PARTUUID=`_choice_partuuid`
-*=`_choice_device_maj_min`
-EOF
-}
-
-_choice_mountpoint() {
-    findmnt -lnve -o TARGET
-}
-
 _choice_device_mountpoint() {
     _argc_util_parallel _choice_device ::: _choice_mountpoint
+}
+
+_choice_column() {
+    findmnt -h | sed -n '/^Available output columns:/,/^\s*$/ {//d; s/^\s*\(\S\+\) \(.*\)/\1\t\2/p}'
 }
 
 _choice_device() {
@@ -48,12 +34,26 @@ _choice_maj_min() {
     findmnt -n -o MAJ:MIN
 }
 
+_choice_mountpoint() {
+    findmnt -lnve -o TARGET
+}
+
 _choice_partlabel() {
     findmnt -n -o PARTLABEL | sed '/^\s*$/ d'
 }
 
 _choice_partuuid() {
     findmnt -n -o PARTUUID | sed '/^\s*$/ d'
+}
+
+_choice_source() {
+    cat <<-'EOF' | _argc_util_comp_kv =
+LABEL=`_choice_label`
+UUID=`_choice_uuid`
+PARTLABEL=`_choice_partlabel`
+PARTUUID=`_choice_partuuid`
+*=`_choice_device_maj_min`
+EOF
 }
 
 _choice_uuid() {

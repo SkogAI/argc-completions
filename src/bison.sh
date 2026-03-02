@@ -18,6 +18,15 @@ _patch_table() {
 
 }
 
+_choice_color() {
+    cat <<-'EOF'
+always	colorize the output
+never	don't colorize the output
+auto	colorize if the output device is a tty
+EOF
+
+}
+
 _choice_feature() {
     cat <<-'EOF'
 caret	show errors with carets
@@ -26,15 +35,6 @@ syntax-only	do not generate any file
 all	all of the above
 none	disable all of the above
 EOF
-}
-
-_choice_color() {
-    cat <<-'EOF'
-always	colorize the output
-never	don't colorize the output
-auto	colorize if the output device is a tty
-EOF
-
 }
 
 _choice_report() {

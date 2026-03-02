@@ -24,44 +24,13 @@ _patch_table() {
 
 }
 
-_choice_identify() {
-    cat <<-'EOF'
-b	print all bits from valid words
-n	suppress printing bits from valid words
-v	print all bits from valid words
-wb	print all bits from all words
-wn	suppress printing bits from all words
-wv	print all bits from all words
-EOF
-}
-
-_choice_setting_get() {
-    _helper_raw_setting | sed -e 's/=.*;;/;;/' -e 's/;;/\t/'
-}
-
-_choice_quietmode() {
-    cat <<-'EOF'
-errorsonly	only print
-silent	print no output.
-noserial	Do not print the serial number of the device.
-EOF
-}
-
 _choice_device() {
     printf "%s\n" ata scsi nvme sat usbcypress usbjmicron usbprolific usbsunplus \
         marvell areca 3ware hpt megaraid cciss auto test
 }
 
-_choice_tolerance() {
-    printf "%s\n" normal conservative permissive verypermissive
-}
-
-_choice_report() {
-    printf "%s\n" ioctl ataioctl scsiioctl nvmeioctl    
-}
-
-_choice_setting_set() {
-    _helper_raw_setting | _argc_util_comp_kv ,
+_choice_firmwarebug() {
+    printf "%s\n" none nologdir samsung samsung2 samsung3 xerrorlba swapid
 }
 
 _choice_format() {
@@ -74,6 +43,17 @@ hex	Same as '-f hex,id -f hex,val'.
 EOF
 }
 
+_choice_identify() {
+    cat <<-'EOF'
+b	print all bits from valid words
+n	suppress printing bits from valid words
+v	print all bits from valid words
+wb	print all bits from all words
+wn	suppress printing bits from all words
+wv	print all bits from all words
+EOF
+}
+
 _choice_log() {
     printf "%s\n" error selftest selective directory xerror xselftest background \
         sasphy sataphy scttemp scttempsts scttemphist scttempint scterc devstat \
@@ -81,16 +61,36 @@ _choice_log() {
 
 }
 
-_choice_vendorattribute() {
-    smartctl -v help | sed -n 's/^\s\+\(\w\+,\w\+\).*/\1/p'
+_choice_quietmode() {
+    cat <<-'EOF'
+errorsonly	only print
+silent	print no output.
+noserial	Do not print the serial number of the device.
+EOF
 }
 
-_choice_firmwarebug() {
-    printf "%s\n" none nologdir samsung samsung2 samsung3 xerrorlba swapid
+_choice_report() {
+    printf "%s\n" ioctl ataioctl scsiioctl nvmeioctl    
+}
+
+_choice_setting_get() {
+    _helper_raw_setting | sed -e 's/=.*;;/;;/' -e 's/;;/\t/'
+}
+
+_choice_setting_set() {
+    _helper_raw_setting | _argc_util_comp_kv ,
 }
 
 _choice_test() {
     prinf "%s\n" offline short long conveyance force vendor select pending afterselect,on afterselect,off scttempint
+}
+
+_choice_tolerance() {
+    printf "%s\n" normal conservative permissive verypermissive
+}
+
+_choice_vendorattribute() {
+    smartctl -v help | sed -n 's/^\s\+\(\w\+,\w\+\).*/\1/p'
 }
 
 _helper_raw_setting() {

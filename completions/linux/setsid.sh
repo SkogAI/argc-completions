@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @flag -c --ctty       set the controlling terminal to the current one
-# @flag -f --fork       always fork
-# @flag -w --wait       wait program to exit, and use the same return
-# @flag -h --help       display this help
-# @flag -V --version    display version
 # @arg program[`_module_os_command`]
 # @arg arguments~[`_module_os_command_args`]
 

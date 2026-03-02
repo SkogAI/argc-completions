@@ -3,7 +3,13 @@ _patch_help() {
 }
 
 _patch_table() {
-    if [[ "$*" == "meson install" ]]; then
+    if [[ "$*" == "meson compile" ]]; then
+        _patch_table_edit_arguments 'target;[`_choice_target`]'
+
+    elif [[ "$*" == "meson format" ]]; then
+        _patch_table_edit_arguments 'sources(files...)'
+
+    elif [[ "$*" == "meson install" ]]; then
         _patch_table_edit_options \
             '--skip-subprojects;*[`_choice_subproject`]' \
 
@@ -13,12 +19,6 @@ _patch_table() {
             '--suite;[`_choice_test_suit`]' \
         | \
         _patch_table_edit_arguments 'args;*[`_choice_test`]'
-
-    elif [[ "$*" == "meson compile" ]]; then
-        _patch_table_edit_arguments 'target;[`_choice_target`]'
-
-    elif [[ "$*" == "meson format" ]]; then
-        _patch_table_edit_arguments 'sources(files...)'
 
     else
         cat
@@ -30,9 +30,9 @@ _choice_subproject() {
     yq '.subprojects[].name'
 }
 
-_choice_test_suit() {
-    meson introspect $(_argc_util_param_select_options -C) --tests | \
-    yq '.[].suite.[]'
+_choice_target() {
+    meson introspect $(_argc_util_param_select_options -C) --targets | \
+    yq '.[].name'
 }
 
 _choice_test() {
@@ -40,7 +40,7 @@ _choice_test() {
     sed 's| / .*||'
 }
 
-_choice_target() {
-    meson introspect $(_argc_util_param_select_options -C) --targets | \
-    yq '.[].name'
+_choice_test_suit() {
+    meson introspect $(_argc_util_param_select_options -C) --tests | \
+    yq '.[].suite.[]'
 }

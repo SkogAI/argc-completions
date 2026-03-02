@@ -40,36 +40,6 @@ test_fs;;Set a flag in the file system superblock indicating that it may be  mou
 EOF
 }
 
-_choice_journal_option() {
-    cat <<-'EOF' | _argc_util_comp_kv =
-size=;;Create  a  journal  stored  in the file system of size journal-size megabytes.
-fast_commit_size=;;Create an additional fast commit journal area of size fast-commit-size kilobytes.
-location=;;Specify  the  location of the journal. 
-device=;;Attach  the  file  system to the journal block device located on external-journal.
-EOF
-}
-
-_choice_mount_option() {
-    if [[ "$ARGC_CWORD" == '^'* ]]; then
-        echo __argc_prefix=^
-        echo __argc_filter="${ARGC_CWORD:1}"
-    fi
-    cat <<-'EOF'
-debug	Enable debugging code for this file system.
-bsdgroups	Emulate BSD behavior when creating new files
-user_xattr	Enable user-specified extended attributes.
-acl	Enable Posix Access Control Lists.
-uid16	Disables 32-bit UIDs and GIDs.
-journal_data	When  the file system is mounted with journaling enabled, all data (not just metadata) is committed into the journal prior to being written into the main file system.
-journal_data_ordered	When the file system is mounted with journaling enabled, all data is forced directly  out  to  the  main file system prior to its metadata being committed to the journal.
-journal_data_writeback	When  the  file system is mounted with journaling enabled, data may be written into the main file system after its metadata has been committed to the journal.
-nobarrier	The  file  system will be mounted with barrier operations in the journal disabled.
-block_validity	The file system will be mounted with the block_validity option enabled, which causes extra checks to  be performed  after  reading or writing from the file system.
-discard	The file system will be mounted with the discard mount option.
-nodelalloc	The file system will be mounted with the nodelalloc mount option.
-EOF
-}
-
 _choice_feature() {
     if [[ "$ARGC_CWORD" == '^'* ]]; then
         echo __argc_prefix=^
@@ -102,6 +72,36 @@ sparse_super	Limit the number of backup superblocks to save space on large file 
 stable_inodes	Prevent the file system from being shrunk or having its UUID changed, in order to allow the use of spe‐cialized encryption settings that make use of the inode numbers and UUID.
 uninit_bg	Allow the kernel to initialize bitmaps and inode tables lazily, and to keep a high watermark for the un‐used inodes in a file system, to reduce e2fsck(8) time.
 verity	Enable support for verity protected files.
+EOF
+}
+
+_choice_journal_option() {
+    cat <<-'EOF' | _argc_util_comp_kv =
+size=;;Create  a  journal  stored  in the file system of size journal-size megabytes.
+fast_commit_size=;;Create an additional fast commit journal area of size fast-commit-size kilobytes.
+location=;;Specify  the  location of the journal. 
+device=;;Attach  the  file  system to the journal block device located on external-journal.
+EOF
+}
+
+_choice_mount_option() {
+    if [[ "$ARGC_CWORD" == '^'* ]]; then
+        echo __argc_prefix=^
+        echo __argc_filter="${ARGC_CWORD:1}"
+    fi
+    cat <<-'EOF'
+debug	Enable debugging code for this file system.
+bsdgroups	Emulate BSD behavior when creating new files
+user_xattr	Enable user-specified extended attributes.
+acl	Enable Posix Access Control Lists.
+uid16	Disables 32-bit UIDs and GIDs.
+journal_data	When  the file system is mounted with journaling enabled, all data (not just metadata) is committed into the journal prior to being written into the main file system.
+journal_data_ordered	When the file system is mounted with journaling enabled, all data is forced directly  out  to  the  main file system prior to its metadata being committed to the journal.
+journal_data_writeback	When  the  file system is mounted with journaling enabled, data may be written into the main file system after its metadata has been committed to the journal.
+nobarrier	The  file  system will be mounted with barrier operations in the journal disabled.
+block_validity	The file system will be mounted with the block_validity option enabled, which causes extra checks to  be performed  after  reading or writing from the file system.
+discard	The file system will be mounted with the discard mount option.
+nodelalloc	The file system will be mounted with the nodelalloc mount option.
 EOF
 }
 

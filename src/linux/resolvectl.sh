@@ -18,6 +18,10 @@ _patch_table() {
     fi
 }
 
+_choice_class() {
+    resolvectl --class help | tail -n +2
+}
+
 _choice_interface() {
     resolvectl status | sed -n 's/^Link\s\+[0-9]\+\s\+(\(.*\))$/\1/p'
 }
@@ -28,8 +32,4 @@ _choice_protocol() {
 
 _choice_type() {
     resolvectl --type help | tail -n +2
-}
-
-_choice_class() {
-    resolvectl --class help | tail -n +2
 }

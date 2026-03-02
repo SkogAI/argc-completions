@@ -8,8 +8,16 @@ _patch_table() {
         
 }
 
+_choice_agent() {
+    aichat --list-agents
+}
+
 _choice_model() {
     aichat --list-models
+}
+
+_choice_rag() {
+    aichat --list-rags
 }
 
 _choice_role() {
@@ -18,12 +26,4 @@ _choice_role() {
 
 _choice_session() {
     aichat --list-sessions
-}
-
-_choice_agent() {
-    aichat --list-agents
-}
-
-_choice_rag() {
-    aichat --list-rags
 }

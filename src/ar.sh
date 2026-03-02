@@ -14,10 +14,6 @@ _patch_table() {
 
 }
 
-_choice_target() {
-    printf "%s\n" elf64-x86-64 elf32-i386 elf32-iamcu elf32-x86-64 pei-i386 pe-x86-64 pei-x86-64 elf64-l1om elf64-k1om elf64-little elf64-big elf32-little elf32-big pe-bigobj-x86-64 pe-i386 srec symbolsrec verilog tekhex binary ihex plugin
-}
-
 _choice_cmd() {
     if [[ -z "$ARGC_CWORD" ]]; then
         _choice_action | _argc_util_transform nospace
@@ -63,4 +59,8 @@ v	be verbose
 V	display the version number
 @	read options from <file>
 EOF
+}
+
+_choice_target() {
+    printf "%s\n" elf64-x86-64 elf32-i386 elf32-iamcu elf32-x86-64 pei-i386 pe-x86-64 pei-x86-64 elf64-l1om elf64-k1om elf64-little elf64-big elf32-little elf32-big pe-bigobj-x86-64 pe-i386 srec symbolsrec verilog tekhex binary ihex plugin
 }

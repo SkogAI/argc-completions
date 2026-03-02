@@ -19,22 +19,32 @@ EOF
 }
 
 _patch_table() {
-    if [[ "$*" == "dconf read" ]] \
-    || [[ "$*" == "dconf write" ]] \
-    || [[ "$*" == "dconf reset" ]] \
-    || [[ "$*" == "dconf watch" ]] \
-    ; then
-        _patch_table_edit_arguments ';;' 'key;[`_choice_key`]'
-
-    elif [[ "$*" == "dconf list" ]] \
-      || [[ "$*" == "dconf dump" ]] \
-      || [[ "$*" == "dconf load" ]] \
+    if [[ "$*" == "dconf dump" ]] \
+    || [[ "$*" == "dconf list" ]] \
+    || [[ "$*" == "dconf load" ]] \
     ; then
         _patch_table_edit_arguments ';;' 'key;[`_choice_group`]'
+
+    elif [[ "$*" == "dconf read" ]] \
+      || [[ "$*" == "dconf reset" ]] \
+      || [[ "$*" == "dconf watch" ]] \
+      || [[ "$*" == "dconf write" ]] \
+    ; then
+        _patch_table_edit_arguments ';;' 'key;[`_choice_key`]'
 
     else
         cat
     fi
+}
+
+_choice_group() {
+    dconf dump / | \
+    gawk '{
+        if (match($0, /^\[(.*)\]$/, arr)) {
+            print "/" arr[1] "/"
+        }
+    }' | \
+    _argc_util_comp_parts /
 }
 
 _choice_key() {
@@ -46,16 +56,6 @@ _choice_key() {
             dir = ""
         } else if (dir != "" && match($0, /^([^= ]+)=/, arr)) {
             print dir "/" arr[1]
-        }
-    }' | \
-    _argc_util_comp_parts /
-}
-
-_choice_group() {
-    dconf dump / | \
-    gawk '{
-        if (match($0, /^\[(.*)\]$/, arr)) {
-            print "/" arr[1] "/"
         }
     }' | \
     _argc_util_comp_parts /

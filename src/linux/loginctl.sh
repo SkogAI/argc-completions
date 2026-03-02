@@ -18,6 +18,10 @@ _patch_table() {
 
 }
 
+_choice_seat() {
+    loginctl list-seats --output json | yq '.[].seat'
+}
+
 _choice_session() {
     loginctl --no-legend --no-pager list-sessions | \
     sed -n 's/^\s*\(\S\+\)\s\+\(.*\)$/\1\t\2/p'
@@ -26,8 +30,4 @@ _choice_session() {
 _choice_user() {
     loginctl --no-legend --no-pager list-sessions | \
     sed -n 's/^\s*\(\S\+\)\s\+\(.*\)$/\1\t\2/p'
-}
-
-_choice_seat() {
-    loginctl list-seats --output json | yq '.[].seat'
 }

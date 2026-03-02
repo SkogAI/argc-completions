@@ -14,11 +14,7 @@ EOF
 }
 
 _patch_table() {
-    if [[ "$*" == "xdg-mime query" ]]; then
-        _patch_table_edit_arguments \
-            'value;[`_choice_query`]' \
-
-    elif [[ "$*" == "xdg-mime default" ]]; then
+    if [[ "$*" == "xdg-mime default" ]]; then
         _patch_table_edit_arguments \
             'application;[`_choice_application`]' \
             'mimetype;[`_choice_mimetype`]' \
@@ -29,16 +25,12 @@ _patch_table() {
         _patch_table_edit_arguments \
             'mimetypes-file;[`_choice_application`]' \
 
+    elif [[ "$*" == "xdg-mime query" ]]; then
+        _patch_table_edit_arguments \
+            'value;[`_choice_query`]' \
+
     else
         cat
-    fi
-}
-
-_choice_query() {
-    if [[ "$argc_enum" == "default" ]]; then
-        _choice_mimetype
-    else
-        _argc_util_comp_path
     fi
 }
 
@@ -57,6 +49,14 @@ _choice_mimetype() {
         done
     } | \
     sed -e '/\[MIME Cache\]/ d' -e 's/=/\t/'
+}
+
+_choice_query() {
+    if [[ "$argc_enum" == "default" ]]; then
+        _choice_mimetype
+    else
+        _argc_util_comp_path
+    fi
 }
 
 _helper_find_xdg_applications_directories() {

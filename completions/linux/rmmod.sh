@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @flag -f --force      forces a module unload and may crash your machine.
-# @flag -s --syslog     print to syslog, not stderr
-# @flag -v --verbose    enables more messages
-# @flag -V --version    show version
-# @flag -h --help       show this help
 # @arg modulename[`_choice_mod`]
 
 _choice_mod() {

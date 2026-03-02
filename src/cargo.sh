@@ -63,20 +63,6 @@ _patch_table() {
         | \
         _patch_table_edit_arguments 'dep_id;[`_choice_remote_crate`]'
 
-    elif [[ "$*" == "cargo remove" ]]; then
-        echo "$table" | _patch_table_edit_arguments 'dep_id;[`_choice_depid`]'
-
-    elif [[ "$*" == "cargo test" ]]; then
-        echo "$table" | _patch_table_edit_arguments 'testname;[`_choice_testname`]'
-
-    elif [[ "$*" == "cargo search" ]]; then
-        echo "$table" | \
-        _patch_table_edit_arguments 'query;[`_choice_remote_crate`]'
-    
-    elif [[ "$*" == "cargo install" ]]; then
-        echo "$table" | \
-        _patch_table_edit_arguments ';;' 'crate;[`_choice_remote_crate`]'
-
     elif [[ "$*" == "cargo clippy" ]]; then
         echo "$table" | \
         _patch_table_copy_options cargo fix | \
@@ -104,6 +90,10 @@ _patch_table() {
         echo "$table" | \
         _patch_table_edit_arguments ';;' 'args;~[`_choice_proxy_test`]'
 
+    elif [[ "$*" == "cargo install" ]]; then
+        echo "$table" | \
+        _patch_table_edit_arguments ';;' 'crate;[`_choice_remote_crate`]'
+
     elif [[ "$*" == "cargo llvm-cov nextest" ]]; then
         echo "$table" | \
         _patch_table_edit_arguments \
@@ -124,6 +114,13 @@ _patch_table() {
         _patch_table_edit_arguments \
             'cargo_args;~[`_choice_ndk_cmd`]' \
 
+    elif [[ "$*" == "cargo remove" ]]; then
+        echo "$table" | _patch_table_edit_arguments 'dep_id;[`_choice_depid`]'
+
+    elif [[ "$*" == "cargo search" ]]; then
+        echo "$table" | \
+        _patch_table_edit_arguments 'query;[`_choice_remote_crate`]'
+    
     elif [[ "$*" == "cargo sort" ]]; then
         echo "$table" | \
         _patch_table_edit_options \
@@ -131,6 +128,9 @@ _patch_table() {
         | \
         _patch_table_edit_arguments \
             ';;' 'paths...' \
+
+    elif [[ "$*" == "cargo test" ]]; then
+        echo "$table" | _patch_table_edit_arguments 'testname;[`_choice_testname`]'
 
     elif [[ "$*" == "cargo watch" ]]; then
         echo "$table" | \
@@ -148,57 +148,18 @@ _patch_table() {
     fi
 }
 
-_choice_cmd() {
-    cargo --list | sed -n 's/^    \(\S\+\)$/\1/p'
-}
-
-_choice_package() {
-    _helper_metadata_json | yq '.packages[].name'
-}
-
-_choice_bin() {
-    _helper_package_target bin
-}
-
-_choice_example() {
-    _helper_package_target example
-}
-
-_choice_test() {
-    _helper_package_target test
-}
-
-_choice_bench() {
-    _helper_package_target bench
-}
-
-_choice_feature() {
-    _helper_package_json | yq '.features | keys | .[]'
-}
-
-_choice_target() {
-    rustup target list --installed
-}
-
 _choice_add_feature() {
     if [[ "${#argc_dep_id[@]}" -eq 1 ]]; then
         curl -fsSL https://crates.io/api/v1/crates/$argc_dep_id | yq '.versions[0].features | keys | .[]'
     fi
 }
 
-_choice_remote_crate() {
-    if [[ "${#ARGC_CWORD}" -gt 2 ]]; then
-        curl -fsSL "https://crates.io/api/v1/crates?q=${ARGC_CWORD}&per_page=50" | \
-        yq '.crates[] | .name + "	" + .description'
-    fi
+_choice_bench() {
+    _helper_package_target bench
 }
 
-_choice_depid() {
-    _helper_package_json | yq '.dependencies[].name'
-}
-
-_choice_testname() {
-    cargo t -- --list | gawk '/: test$/ { print substr($1, 1, length($1) - 1) }' 
+_choice_bin() {
+    _helper_package_target bin
 }
 
 _choice_clippy() {
@@ -216,6 +177,22 @@ EOF
     else
         _argc_util_comp_subcommand 0 rustc
     fi
+}
+
+_choice_cmd() {
+    cargo --list | sed -n 's/^    \(\S\+\)$/\1/p'
+}
+
+_choice_depid() {
+    _helper_package_json | yq '.dependencies[].name'
+}
+
+_choice_example() {
+    _helper_package_target example
+}
+
+_choice_feature() {
+    _helper_package_json | yq '.features | keys | .[]'
 }
 
 _choice_fmt() {
@@ -239,6 +216,10 @@ _choice_nextest_cmd() {
     _argc_util_comp_subcommand 0 cargo nextest
 }
 
+_choice_package() {
+    _helper_metadata_json | yq '.packages[].name'
+}
+
 _choice_proxy_build() {
     _argc_util_comp_subcommand 0 cargo build
 }
@@ -253,6 +234,25 @@ _choice_proxy_run() {
 
 _choice_proxy_test() {
     _argc_util_comp_subcommand 0 cargo test
+}
+
+_choice_remote_crate() {
+    if [[ "${#ARGC_CWORD}" -gt 2 ]]; then
+        curl -fsSL "https://crates.io/api/v1/crates?q=${ARGC_CWORD}&per_page=50" | \
+        yq '.crates[] | .name + "	" + .description'
+    fi
+}
+
+_choice_target() {
+    rustup target list --installed
+}
+
+_choice_test() {
+    _helper_package_target test
+}
+
+_choice_testname() {
+    cargo t -- --list | gawk '/: test$/ { print substr($1, 1, length($1) - 1) }' 
 }
 
 _choice_toolchain() {

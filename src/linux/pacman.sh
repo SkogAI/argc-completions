@@ -28,6 +28,10 @@ _patch_table() {
         echo "$table" | \
         _patch_table_edit_arguments 'package;[`_choice_database`]'
 
+    elif [[ "$*" == "pacman --deptest" ]]; then
+        echo "$table" | \
+        _patch_table_edit_arguments 'package;[`_choice_package`]'
+
     elif [[ "$*" == "pacman --files" ]]; then
         echo "$table" | \
         _patch_table_edit_arguments 'file;[`_choice_file_database`]'
@@ -53,10 +57,6 @@ _patch_table() {
             '--list;[`_choice_repo`]' \
         | \
         _patch_table_edit_arguments 'package;[`_choice_sync_package`]'
-
-    elif [[ "$*" == "pacman --deptest" ]]; then
-        echo "$table" | \
-        _patch_table_edit_arguments 'package;[`_choice_package`]'
 
     elif [[ "$*" == "pacman --upgrade" ]]; then
         echo "$table" | \
@@ -86,20 +86,20 @@ _choice_file_database() {
     _choice_package
 }
 
-_choice_package_group() {
-    pacman -Sg
-}
-
 _choice_installed_package() {
     pacman -Q | sed 's/ /\t/'
 }
 
-_choice_repo() {
-    cat /etc/pacman.conf  | sed -n -e '/^\[options\]/ d' -e '/^\[.*\]/ s/^\[\(.*\)\]/\1/p'
-}
-
 _choice_package() {
     pacman -Ssq 
+}
+
+_choice_package_group() {
+    pacman -Sg
+}
+
+_choice_repo() {
+    cat /etc/pacman.conf  | sed -n -e '/^\[options\]/ d' -e '/^\[.*\]/ s/^\[\(.*\)\]/\1/p'
 }
 
 _choice_sync_package() {

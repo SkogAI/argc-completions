@@ -10,44 +10,49 @@ _patch_table() {
     if [[ "$*" == "machinectl" ]]; then
         _patch_table_add_metadata 'inherit-flag-options'
 
-    elif [[ "$*" == "machinectl status" ]] \
+    elif [[ "$*" == "machinectl bind" ]] \
+      || [[ "$*" == "machinectl copy-from" ]] \
+      || [[ "$*" == "machinectl copy-to" ]] \
+      || [[ "$*" == "machinectl disable" ]] \
+      || [[ "$*" == "machinectl enable" ]] \
+      || [[ "$*" == "machinectl kill" ]] \
+      || [[ "$*" == "machinectl login" ]] \
+      || [[ "$*" == "machinectl poweroff" ]] \
       || [[ "$*" == "machinectl show" ]] \
       || [[ "$*" == "machinectl start" ]] \
-      || [[ "$*" == "machinectl login" ]] \
-      || [[ "$*" == "machinectl enable" ]] \
-      || [[ "$*" == "machinectl disable" ]] \
-      || [[ "$*" == "machinectl poweroff" ]] \
+      || [[ "$*" == "machinectl status" ]] \
       || [[ "$*" == "machinectl terminate" ]] \
-      || [[ "$*" == "machinectl kill" ]] \
-      || [[ "$*" == "machinectl copy-to" ]] \
-      || [[ "$*" == "machinectl copy-from" ]] \
-      || [[ "$*" == "machinectl bind" ]] \
     ; then
         _patch_table_edit_arguments 'name;[`_choice_machine`]'
+
+    elif [[ "$*" == "machinectl clone" ]] \
+      || [[ "$*" == "machinectl export-raw" ]] \
+      || [[ "$*" == "machinectl export-tar" ]] \
+      || [[ "$*" == "machinectl image-status" ]] \
+      || [[ "$*" == "machinectl import-fs" ]] \
+      || [[ "$*" == "machinectl import-raw" ]] \
+      || [[ "$*" == "machinectl import-tar" ]] \
+      || [[ "$*" == "machinectl pull-raw" ]] \
+      || [[ "$*" == "machinectl pull-tar" ]] \
+      || [[ "$*" == "machinectl read-only" ]] \
+      || [[ "$*" == "machinectl remove" ]] \
+      || [[ "$*" == "machinectl rename" ]] \
+      || [[ "$*" == "machinectl set-limit" ]] \
+      || [[ "$*" == "machinectl show-image" ]] \
+    ; then
+        _patch_table_edit_arguments 'name;[`_choice_image`]'
 
     elif [[ "$*" == "machinectl shell" ]]; then
         _patch_table_edit_arguments ';;' 'name;[`_choice_machine`]' 'command;~[`_choice_shell_command`]'
 
-    elif [[ "$*" == "machinectl image-status" ]] \
-      || [[ "$*" == "machinectl show-image" ]] \
-      || [[ "$*" == "machinectl clone" ]] \
-      || [[ "$*" == "machinectl rename" ]] \
-      || [[ "$*" == "machinectl read-only" ]] \
-      || [[ "$*" == "machinectl remove" ]] \
-      || [[ "$*" == "machinectl set-limit" ]] \
-      || [[ "$*" == "machinectl pull-tar" ]] \
-      || [[ "$*" == "machinectl pull-raw" ]] \
-      || [[ "$*" == "machinectl import-tar" ]] \
-      || [[ "$*" == "machinectl import-raw" ]] \
-      || [[ "$*" == "machinectl import-fs" ]] \
-      || [[ "$*" == "machinectl export-tar" ]] \
-      || [[ "$*" == "machinectl export-raw" ]] \
-    ; then
-        _patch_table_edit_arguments 'name;[`_choice_image`]'
-
     else
         cat
     fi
+}
+
+_choice_image() {
+    machinectl --no-legend --no-pager list-images | \
+    sed -n 's/^\(\S\+\).*$/\1/p'
 }
 
 _choice_machine() {
@@ -61,9 +66,4 @@ _choice_shell_command() {
     else
         _argc_util_comp_subcommand 1
     fi
-}
-
-_choice_image() {
-    machinectl --no-legend --no-pager list-images | \
-    sed -n 's/^\(\S\+\).*$/\1/p'
 }

@@ -73,22 +73,23 @@ _patch_table() {
     if [[ "$*" == "pnpm" ]]; then
         echo "$table" | _patch_table_edit_arguments ';;' 'cmd;[`_choice_script`]'
 
+    elif [[ "$*" == "pnpm config" ]]; then
+        echo "$table" | _patch_table_edit_arguments ';;'
+
+    elif [[ "$*" == "pnpm config "* ]]; then
+        echo "$table" | _patch_table_edit_arguments 'key;[`_choice_config_key`]'
+
+    elif [[ "$*" == "pnpm dlx" ]] \
+      || [[ "$*" == "pnpm env" ]] \
+    ; then
+        echo "$table" | _patch_table_edit_arguments ';;'
+
+    elif [[ "$*" == "pnpm exec" ]]; then
+        echo "$table" | _patch_table_edit_arguments ';;' 'command;[`_choice_bin`]' 'args...'
+
     elif [[ "$*" == "pnpm install" ]]; then
         echo "$table" | \
         _patch_table_edit_options '--package-import-method;[`_choice_pacakge_import_method`];Import package method'
-
-    elif [[ "$*" == "pnpm rb" ]] \
-      || [[ "$*" == "pnpm up" ]] \
-      || [[ "$*" == "pnpm outdated" ]] \
-      || [[ "$*" == "pnpm why" ]] \
-    ; then
-        echo "$table" | _patch_table_edit_arguments 'pkg;[`_choice_dependency`]'
-
-    elif [[ "$*" == "pnpm rm" ]]; then
-        echo "$table" | _patch_table_edit_arguments 'pkg-version;[`_choice_dependency`]'
-
-    elif [[ "$*" == "pnpm unlink" ]]; then
-        echo "$table" | _patch_table_edit_arguments ';;' 'pkg;[`_choice_dependency`]'
 
     elif [[ "$*" == "pnpm licenses" ]]; then
         echo "$table" | _patch_table_edit_arguments ';;' 'cmd;[list]'
@@ -98,30 +99,25 @@ _patch_table() {
         _patch_table_edit_options '--depth(<number>)' | \
         _patch_table_edit_arguments 'pkg;[`_choice_dependency`]'
 
-    elif [[ "$*" == "pnpm exec" ]]; then
-        echo "$table" | _patch_table_edit_arguments ';;' 'command;[`_choice_bin`]' 'args...'
+    elif [[ "$*" == "pnpm outdated" ]] \
+      || [[ "$*" == "pnpm rb" ]] \
+      || [[ "$*" == "pnpm up" ]] \
+      || [[ "$*" == "pnpm why" ]] \
+    ; then
+        echo "$table" | _patch_table_edit_arguments 'pkg;[`_choice_dependency`]'
+
+    elif [[ "$*" == "pnpm rm" ]]; then
+        echo "$table" | _patch_table_edit_arguments 'pkg-version;[`_choice_dependency`]'
 
     elif [[ "$*" == "pnpm run" ]]; then
         echo "$table" | _patch_table_edit_arguments ';;' 'command;[`_choice_script`]' 'args...'
 
-    elif [[ "$*" == "pnpm dlx" ]] \
-      || [[ "$*" == "pnpm env" ]] \
-    ; then
-        echo "$table" | _patch_table_edit_arguments ';;'
-
-    elif [[ "$*" == "pnpm config" ]]; then
-        echo "$table" | _patch_table_edit_arguments ';;'
-
-    elif [[ "$*" == "pnpm config "* ]]; then
-        echo "$table" | _patch_table_edit_arguments 'key;[`_choice_config_key`]'
+    elif [[ "$*" == "pnpm unlink" ]]; then
+        echo "$table" | _patch_table_edit_arguments ';;' 'pkg;[`_choice_dependency`]'
 
     else
         echo "$table"
     fi
-}
-
-_choice_workspace() {
-    pnpm recursive list --json | yq '.[] | .name'
 }
 
 _choice_script() {
@@ -129,6 +125,28 @@ _choice_script() {
     _helper_find_pkg_json_path
     if [[ -n "$pkg_json_path" ]]; then
         cat "$pkg_json_path" | yq '(.scripts // {}) | keys | .[]'
+    fi
+}
+
+_choice_bin() {
+    _helper_find_pkg_json_path
+    if [[ -f "$pkg_json_path" ]]; then
+        bin_dir="$(dirname "$pkg_json_path")/node_modules/.bin"
+        if [[ -d "$bin_dir" ]]; then
+            ls -1 "$bin_dir" | sed -e 's/\..*$//' | uniq
+        fi
+    fi
+}
+
+_choice_config_key() {
+    pnpm config list --json | yq 'keys | .[]'
+}
+
+_choice_dependency() {
+    _helper_apply_filter
+    _helper_find_pkg_json_path
+    if [[ -n "$pkg_json_path" ]]; then
+        cat "$pkg_json_path" | yq '(.dependencies // {}) + (.devDependencies // {}) + (.optionalDependencies // {}) | keys | .[]'
     fi
 }
 
@@ -150,26 +168,8 @@ silent	No output is logged to the console, except fatal errors"
 EOF
 }
 
-_choice_dependency() {
-    _helper_apply_filter
-    _helper_find_pkg_json_path
-    if [[ -n "$pkg_json_path" ]]; then
-        cat "$pkg_json_path" | yq '(.dependencies // {}) + (.devDependencies // {}) + (.optionalDependencies // {}) | keys | .[]'
-    fi
-}
-
-_choice_bin() {
-    _helper_find_pkg_json_path
-    if [[ -f "$pkg_json_path" ]]; then
-        bin_dir="$(dirname "$pkg_json_path")/node_modules/.bin"
-        if [[ -d "$bin_dir" ]]; then
-            ls -1 "$bin_dir" | sed -e 's/\..*$//' | uniq
-        fi
-    fi
-}
-
-_choice_config_key() {
-    pnpm config list --json | yq 'keys | .[]'
+_choice_workspace() {
+    pnpm recursive list --json | yq '.[] | .name'
 }
 
 _helper_apply_filter() {

@@ -39,12 +39,12 @@ _patch_table() {
     fi
 }
 
-_choice_tunnel() {
-    cloudflared tunnel list | _argc_util_transform_table 'NAME' ''
-}
-
 _choice_cidr() {
     cloudflared tunnel ip show | _argc_util_transform_table 'NETWORK' ''
+}
+
+_choice_tunnel() {
+    cloudflared tunnel list | _argc_util_transform_table 'NAME' ''
 }
 
 _choice_vnet() {

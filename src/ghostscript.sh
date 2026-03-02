@@ -22,10 +22,34 @@ _patch_table() {
 
 }
 
+_choice_autorotatepage() {
+    printf "%s\n" /None /All /PageByPage 
+}
+
+_choice_compatibilitylevel() {
+    printf "1.%s\n" 2 3 4
+}
+
+_choice_device() {
+    ghostscript -q -o /dev/null -DNODISPLAY -c 'devicenames { dup length string cvs print (\n) print } forall'
+}
+
 _choice_dname() {
     ghostscript -q -o /dev/null -DNODISPLAY -c 'systemdict { type /booleantype eq { = } if } forall'
     printf "%s\n" FirstPage LastPage
     ghostscript -q -o /dev/null -sDEVICE='*' -DNODISPLAY -c 'currentpagedevice { type /integertype eq { = } if } forall'
+}
+
+_choice_font() {
+    ghostscript -q -o /dev/null -DNODISPLAY -c '(*) { = } 256 string /Font resourceforall'
+}
+
+_choice_pagesize() {
+    ghostscript -q -o /dev/null -DNODISPLAY -c 'statusdict /.pagetypenames get { = } forall'
+}
+
+_choice_pdfsetting() {
+    printf "%s\n" /screen /ebook /printer /prepress /default
 }
 
 _choice_sname() {
@@ -45,28 +69,4 @@ GraphicsAlphaBit=
 PageList=
 SUBSTFONT=`_choice_font`
 EOF
-}
-
-_choice_autorotatepage() {
-    printf "%s\n" /None /All /PageByPage 
-}
-
-_choice_compatibilitylevel() {
-    printf "1.%s\n" 2 3 4
-}
-
-_choice_device() {
-    ghostscript -q -o /dev/null -DNODISPLAY -c 'devicenames { dup length string cvs print (\n) print } forall'
-}
-
-_choice_font() {
-    ghostscript -q -o /dev/null -DNODISPLAY -c '(*) { = } 256 string /Font resourceforall'
-}
-
-_choice_pagesize() {
-    ghostscript -q -o /dev/null -DNODISPLAY -c 'statusdict /.pagetypenames get { = } forall'
-}
-
-_choice_pdfsetting() {
-    printf "%s\n" /screen /ebook /printer /prepress /default
 }
