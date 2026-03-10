@@ -1,4 +1,6 @@
 ## Common
+
+- [gptodo](http:localhost:9999): GPTME-todo [src](src/gptodo.sh) [completion](completions/gptodo.sh)
 - [7z](https://www.7-zip.org): A file archiver with high compression ratio format [src](src/7z.sh) [completion](completions/7z.sh)
 - [7za](https://www.7-zip.org): A file archiver with high compression ratio format [src](src/7za.sh) [completion](completions/7za.sh)
 - [7zr](https://www.7-zip.org): A file archiver with high compression ratio format [src](src/7zr.sh) [completion](completions/7zr.sh)
@@ -871,12 +873,14 @@
 - [zoxide](https://github.com/ajeetdsouza/zoxide): A smarter cd command. [completion](completions/zoxide.sh)
 
 ## Windows
+
 - [nssm](https://github.com/kirillkovalenko/nssm): Non-Sucking Service Manager [src](src/windows/nssm.sh) [completion](completions/windows/nssm.sh)
 - [scoop](https://github.com/ScoopInstaller/Scoop): A command-line installer for Windows. [src](src/windows/scoop.sh) [completion](completions/windows/scoop.sh)
 - [winget](https://github.com/microsoft/winget-cli): Windows Package Manager. [src](src/windows/winget.sh) [completion](completions/windows/winget.sh)
 - [wsl](https://github.com/microsoft/WSL): CLI for Windows Subsytem for Linux. [src](src/windows/wsl.sh) [completion](completions/windows/wsl.sh)
 
 ## MacOS
+
 - [afplay](https://ss64.com/osx/afplay.html): Audio File Play. [src](src/macos/afplay.sh) [completion](completions/macos/afplay.sh)
 - [arp](https://keith.github.io/xcode-man-pages/arp.8.html): address resolution display and control [src](src/macos/arp.sh) [completion](completions/macos/arp.sh)
 - [asr](https://ss64.com/osx/asr.html): Apple Software Restore; copy volumes [src](src/macos/asr.sh) [completion](completions/macos/asr.sh)
@@ -920,6 +924,7 @@
 - [xcrun](https://keith.github.io/xcode-man-pages/xcrun.1.html): Run or locate development tools and properties. [src](src/macos/xcrun.sh) [completion](completions/macos/xcrun.sh)
 
 ## Linux
+
 - [acpi](http://sourceforge.net/projects/acpiclient): shows battery status and other ACPI information [completion](completions/linux/acpi.sh)
 - [acpitool](http://sourceforge.net/projects/acpitool): a Linux ACPI client, allowing you to query or set ACPI values [src](src/linux/acpitool.sh) [completion](completions/linux/acpitool.sh)
 - [adduser](https://salsa.debian.org/debian/adduser): add a user or group to the system [src](src/linux/adduser.sh) [completion](completions/linux/adduser.sh)
