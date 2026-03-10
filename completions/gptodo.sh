@@ -60,7 +60,7 @@ check-waiting() {
 # @flag --skip-subtasks            Skip subtask completion verification
 # @flag --skip-deps                Skip dependency resolution verification
 # @flag --help                     Show this message and exit.
-# @arg task_id
+# @arg task_id[`_choice_task_id`]
 checker() {
     :;
 }
@@ -97,7 +97,7 @@ dep::check() {
 # @option -d --direction[up|down|both]    Direction: up (requires), down (required_by), both
 # @option --depth <INTEGER>               Maximum tree depth to display (default: 5)
 # @flag --help                            Show this message and exit.
-# @arg task_id
+# @arg task_id[`_choice_task_id`]
 dep::tree() {
     :;
 }
@@ -111,7 +111,7 @@ dep::tree() {
 # @option --remove*[depends|tags] <TEXT TEXT>    Remove value from a list field
 # @option --set-subtask*[subtask_text|state] <TEXT TEXT>  Set subtask state.
 # @flag --help                                   Show this message and exit.
-# @arg task_ids*
+# @arg task_ids*[`_choice_task_id`]
 edit() {
     :;
 }
@@ -120,7 +120,7 @@ edit() {
 # {{ gptodo effective
 # @cmd Show the effective state of a task including blocking...
 # @flag --help    Show this message and exit.
-# @arg task_id
+# @arg task_id[`_choice_task_id`]
 effective() {
     :;
 }
@@ -172,7 +172,7 @@ import() {
 # {{ gptodo kill
 # @cmd Kill a running sub-agent session.
 # @flag --help    Show this message and exit.
-# @arg session_id
+# @arg session_id[`_choice_session_id`]
 kill() {
     :;
 }
@@ -198,7 +198,7 @@ list() {
 # @flag -f --force                Force acquire even if locked by another
 # @flag --json                    Output as JSON
 # @flag --help                    Show this message and exit.
-# @arg task_id
+# @arg task_id[`_choice_task_id`]
 lock() {
     :;
 }
@@ -242,7 +242,7 @@ next() {
 # {{ gptodo output
 # @cmd Get output from a sub-agent session.
 # @flag --help    Show this message and exit.
-# @arg session_id
+# @arg session_id[`_choice_session_id`]
 output() {
     :;
 }
@@ -252,7 +252,7 @@ output() {
 # @cmd Show the impact of completing a task.
 # @flag --json    Output as JSON for machine consumption
 # @flag --help    Show this message and exit.
-# @arg task_id
+# @arg task_id[`_choice_task_id`]
 plan() {
     :;
 }
@@ -281,7 +281,7 @@ ready() {
 # @flag --coordination                            Enable inter-agent coordination (auto-generates agent ID, announces presence)
 # @option --coordination-db <TEXT>                Path to coordination DB (implies --coordination)
 # @flag --help                                    Show this message and exit.
-# @arg task_id
+# @arg task_id[`_choice_task_id`]
 run() {
     :;
 }
@@ -300,7 +300,7 @@ sessions() {
 # {{ gptodo show
 # @cmd Show detailed information about a task.
 # @flag --help    Show this message and exit.
-# @arg task_id
+# @arg task_id[`_choice_task_id`]
 show() {
     :;
 }
@@ -319,7 +319,7 @@ show() {
 # @flag --coordination                            Enable inter-agent coordination (auto-generates agent ID, announces presence)
 # @option --coordination-db <TEXT>                Path to coordination DB (implies --coordination)
 # @flag --help                                    Show this message and exit.
-# @arg task_id
+# @arg task_id[`_choice_task_id`]
 spawn() {
     :;
 }
@@ -359,7 +359,7 @@ status() {
 # @option --isolation[none|worktree|container]    Isolation mode for subtasks
 # @option --priority[high|medium|low]             Priority for all subtasks
 # @flag --help                                    Show this message and exit.
-# @arg parent_id
+# @arg parent_id[`_choice_task_id`]
 subtask() {
     :;
 }
@@ -405,7 +405,7 @@ transitions() {
 # @flag -f --force              Force release even if not owner
 # @flag --json                  Output as JSON
 # @flag --help                  Show this message and exit.
-# @arg task_id
+# @arg task_id[`_choice_task_id`]
 unlock() {
     :;
 }
@@ -446,7 +446,7 @@ worktree::cleanup() {
 # @option --base <TEXT>         Base branch to branch from (default: origin/master)
 # @flag --json                  Output as JSON
 # @flag --help                  Show this message and exit.
-# @arg task_id
+# @arg task_id[`_choice_task_id`]
 worktree::create() {
     :;
 }
@@ -467,7 +467,7 @@ worktree::list() {
 # @flag --keep               Keep worktree after merge (default: remove)
 # @flag --yes                Confirm the action without prompting.
 # @flag --help               Show this message and exit.
-# @arg worktree_path
+# @arg worktree_path[`_choice_worktree_path`]
 worktree::merge() {
     :;
 }
@@ -479,7 +479,7 @@ worktree::merge() {
 # @option -b --body <TEXT>     PR body/description
 # @flag --draft                Create as draft PR
 # @flag --help                 Show this message and exit.
-# @arg worktree_path
+# @arg worktree_path[`_choice_worktree_path`]
 worktree::pr() {
     :;
 }
@@ -490,7 +490,7 @@ worktree::pr() {
 # @flag -f --force    Force removal even if dirty
 # @flag --yes         Confirm the action without prompting.
 # @flag --help        Show this message and exit.
-# @arg worktree_path
+# @arg worktree_path[`_choice_worktree_path`]
 worktree::remove() {
     :;
 }
@@ -500,11 +500,23 @@ worktree::remove() {
 # @cmd Show status of a worktree.
 # @flag --json    Output as JSON
 # @flag --help    Show this message and exit.
-# @arg worktree_path
+# @arg worktree_path[`_choice_worktree_path`]
 worktree::status() {
     :;
 }
 # }}} gptodo worktree status
 # }} gptodo worktree
+
+_choice_task_id() {
+    gptodo list --json 2>/dev/null | yq '.tasks[] | .id + "\t" + .state'
+}
+
+_choice_session_id() {
+    gptodo sessions --json 2>/dev/null | yq '.[] | .id + "\t" + .status'
+}
+
+_choice_worktree_path() {
+    gptodo worktree list --json 2>/dev/null | yq '.[] | .path + "\t" + .branch'
+}
 
 command eval "$(argc --argc-eval "$0" "$@")"
