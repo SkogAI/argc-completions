@@ -1,6 +1,23 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
+# @flag -b --beep                         beep if command has a non-zero exit
+# @flag -c --color                        interpret ANSI color and style sequences
+# @flag -C --no-color                     do not interpret ANSI color and style sequences
+# @option -d --differences <permanent>    highlight changes between updates
+# @flag -e --errexit                      exit if command has a non-zero exit
+# @flag -f --follow                       Follow the output and don't clear screen
+# @flag -g --chgexit                      exit when output from command changes
+# @option -q --equexit <cycles>           exit when output from command does not change
+# @option -n --interval <secs>            seconds to wait between updates
+# @flag -p --precise                      -n includes command running time
+# @flag -r --no-rerun                     do not rerun program on window resize
+# @flag -s --shotsdir                     directory to store screenshots
+# @flag -t --no-title                     turn off header
+# @flag -w --no-wrap                      turn off line wrapping
+# @flag -x --exec                         pass command to exec instead of "sh -c"
+# @flag -h --help                         display this help and exit
+# @flag -v --version                      output version information and exit
 # @arg command[`_module_os_command`]
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"

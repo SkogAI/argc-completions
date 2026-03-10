@@ -7,14 +7,21 @@ open() {
     :;
 }
 
-. "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"
-
-_choice_remote() {
-    _git remote
+# {{{ git open repo
+# @cmd
+open::repo() {
+    :;
 }
+# }}} git open repo
+
+. "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"
 
 _choice_local_branch() {
     _git branch --format '%(refname:short)	%(subject)'
+}
+
+_choice_remote() {
+    _git remote
 }
 
 _git() {

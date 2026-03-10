@@ -6,6 +6,13 @@ lfs() {
     :;
 }
 
+# {{{ git lfs dfs
+# @cmd
+lfs::dfs() {
+    :;
+}
+# }}} git lfs dfs
+
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"
 
 _module_bridge_corba() {
