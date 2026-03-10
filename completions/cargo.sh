@@ -53,7 +53,7 @@
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @option --artifact-dir <PATH>                  Copy final artifacts to this directory (unstable)
 # @flag --unit-graph                             Output build graph in JSON (unstable)
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
+# @flag --timings                                Output a build timing report at the end of the build
 # @option --manifest-path <PATH>                 Path to Cargo.toml
 # @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
@@ -100,7 +100,7 @@ build() {
 # @option --target[`_choice_target`] <TRIPLE>    Check for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @flag --unit-graph                             Output build graph in JSON (unstable)
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
+# @flag --timings                                Output a build timing report at the end of the build
 # @option --manifest-path <PATH>                 Path to Cargo.toml
 # @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
@@ -170,7 +170,7 @@ clean() {
 # @option --target[`_choice_target`] <TRIPLE>    Build for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @flag --unit-graph                             Output build graph in JSON (unstable)
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
+# @flag --timings                                Output a build timing report at the end of the build
 # @option --manifest-path <PATH>                 Path to Cargo.toml
 # @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
@@ -315,7 +315,7 @@ remove() {
 # @option --target[`_choice_target`] <TRIPLE>    Build for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @flag --unit-graph                             Output build graph in JSON (unstable)
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
+# @flag --timings                                Output a build timing report at the end of the build
 # @option --manifest-path <PATH>                 Path to Cargo.toml
 # @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
@@ -365,7 +365,7 @@ run() {
 # @option --target[`_choice_target`] <TRIPLE>    Build for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @flag --unit-graph                             Output build graph in JSON (unstable)
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
+# @flag --timings                                Output a build timing report at the end of the build
 # @option --manifest-path <PATH>                 Path to Cargo.toml
 # @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
@@ -412,7 +412,7 @@ test() {
 # @option --target[`_choice_target`] <TRIPLE>    Build for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @flag --unit-graph                             Output build graph in JSON (unstable)
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
+# @flag --timings                                Output a build timing report at the end of the build
 # @option --manifest-path <PATH>                 Path to Cargo.toml
 # @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
@@ -544,7 +544,7 @@ publish() {
 # @option --profile <PROFILE-NAME>               Install artifacts with the specified profile
 # @option --target[`_choice_target`] <TRIPLE>    Build for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
+# @flag --timings                                Output a build timing report at the end of the build
 # @arg crate[`_choice_remote_crate`]
 install() {
     :;
@@ -608,7 +608,7 @@ uninstall() {
 # @option --profile <PROFILE-NAME>               Build artifacts with the specified profile
 # @option --target[`_choice_target`] <TRIPLE>    Fix for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
+# @flag --timings                                Output a build timing report at the end of the build
 # @option --manifest-path <PATH>                 Path to Cargo.toml
 # @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
@@ -719,7 +719,7 @@ fetch() {
 # @option --profile <PROFILE-NAME>               Build artifacts with the specified profile
 # @option --target[`_choice_target`] <TRIPLE>    Fix for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
+# @flag --timings                                Output a build timing report at the end of the build
 # @option --manifest-path <PATH>                 Path to Cargo.toml
 # @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
@@ -981,6 +981,61 @@ report::future-incompatibilities() {
     :;
 }
 # }}} cargo report future-incompatibilities
+
+# {{{ cargo report timings
+# @cmd Reports the build timings of previous sessions (unstable)
+# @flag --open                                 Opens the timing report in a browser
+# @option --id                                 Session ID to report on
+# @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
+# @flag -q --quiet                             Do not print cargo log messages
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
+# @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
+# @flag -h --help                              Print help
+# @option --manifest-path <PATH>               Path to Cargo.toml
+# @flag --locked                               Assert that `Cargo.lock` will remain unchanged
+# @flag --offline                              Run without accessing the network
+# @flag --frozen                               Equivalent to specifying both --locked and --offline
+report::timings() {
+    :;
+}
+# }}} cargo report timings
+
+# {{{ cargo report sessions
+# @cmd Reports the previous sessions (unstable)
+# @option --limit <N>                          Limit the number of results [default: 10]
+# @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
+# @flag -q --quiet                             Do not print cargo log messages
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
+# @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
+# @flag -h --help                              Print help
+# @option --manifest-path <PATH>               Path to Cargo.toml
+# @flag --locked                               Assert that `Cargo.lock` will remain unchanged
+# @flag --offline                              Run without accessing the network
+# @flag --frozen                               Equivalent to specifying both --locked and --offline
+report::sessions() {
+    :;
+}
+# }}} cargo report sessions
+
+# {{{ cargo report rebuilds
+# @cmd Reports rebuild reasons from previous sessions (unstable)
+# @option --id                                 Session ID to report on
+# @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
+# @flag -q --quiet                             Do not print cargo log messages
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
+# @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
+# @flag -h --help                              Print help
+# @option --manifest-path <PATH>               Path to Cargo.toml
+# @flag --locked                               Assert that `Cargo.lock` will remain unchanged
+# @flag --offline                              Run without accessing the network
+# @flag --frozen                               Equivalent to specifying both --locked and --offline
+report::rebuilds() {
+    :;
+}
+# }}} cargo report rebuilds
 # }} cargo report
 
 # {{ cargo rustc
@@ -1016,7 +1071,7 @@ report::future-incompatibilities() {
 # @option --target[`_choice_target`] <TRIPLE>    Target triple which compiles will be for
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @flag --unit-graph                             Output build graph in JSON (unstable)
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
+# @flag --timings                                Output a build timing report at the end of the build
 # @option --manifest-path <PATH>                 Path to Cargo.toml
 # @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
@@ -1061,7 +1116,7 @@ rustc() {
 # @option --target[`_choice_target`] <TRIPLE>    Build for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @flag --unit-graph                             Output build graph in JSON (unstable)
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
+# @flag --timings                                Output a build timing report at the end of the build
 # @option --manifest-path <PATH>                 Path to Cargo.toml
 # @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
