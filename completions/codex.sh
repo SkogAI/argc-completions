@@ -755,6 +755,32 @@ archive() {
 }
 # }} codex archive
 
+# {{ codex delete
+# @cmd Permanently delete a saved session by id or session name
+# @option --remote <ADDR>                      Connect the TUI to a remote app server endpoint.
+# @option --enable <FEATURE>                   Enable a feature (repeatable).
+# @option --remote-auth-token-env <ENV_VAR>    Name of the environment variable containing the bearer token to send to a remote app server websocket
+# @option --disable <FEATURE>                  Disable a feature (repeatable).
+# @option -i --image* <FILE>                   Optional image(s) to attach to the initial prompt
+# @option -m --model                           Model the agent should use
+# @flag --oss                                  Use open-source provider
+# @option --local-provider <OSS_PROVIDER>      Specify which local provider to use (lmstudio or ollama).
+# @option -p --profile <CONFIG_PROFILE_V2>     Layer $CODEX_HOME/<name>.config.toml on top of the base user config
+# @option -s --sandbox[read-only|workspace-write|danger-full-access] <SANDBOX_MODE>  Select the sandbox policy to use when executing model-generated shell commands
+# @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
+# @flag --dangerously-bypass-hook-trust        Run enabled hooks without requiring persisted hook trust for this invocation.
+# @option -C --cd <DIR>                        Tell the agent to use the specified directory as its working root
+# @option --add-dir <DIR>                      Additional directories that should be writable alongside the primary workspace
+# @flag --strict-config                        Error out when config.toml contains fields that are not recognized by this version of Codex
+# @option -c --config <key=value>              Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
+# @flag --force                                Delete without prompting.
+# @flag -h --help                              Print help (see a summary with '-h')
+# @arg session!                                Session id (UUID) or session name.
+delete() {
+    :;
+}
+# }} codex delete
+
 # {{ codex unarchive
 # @cmd Unarchive a saved session by id or session name
 # @option --remote <ADDR>                      Connect the TUI to a remote app server endpoint.

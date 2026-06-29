@@ -4,38 +4,36 @@
 # @meta inherit-flag-options
 # @flag -h --help                      Show this help
 # @flag --version                      Show package version
-# @flag --no-pager                     Do not pipe output into a pager
-# @flag --no-legend                    Do not show the headers and footers
-# @flag --no-ask-password              Do not ask for system passwords
 # @option -H --host <[USER@]HOST>      Operate on remote host
 # @option -M --machine <CONTAINER>     Operate on local container
-# @option -p --property <NAME>         Show only properties by this name
-# @flag -q --quiet                     Suppress output
-# @flag -a --all                       Show all properties, including empty ones
+# @flag --system                       Connect to system machine manager
+# @flag --user                         Connect to user machine manager
 # @flag --value                        When showing properties, only print the value
+# @option -p --property <NAME>         Show only properties by this name
+# @option -P <NAME>                    Equivalent to --value --property=NAME
+# @flag -a --all                       Show all properties, including empty ones
 # @flag -l --full                      Do not ellipsize output
-# @option --kill-who <WHO>             Who to send signal to
+# @option --kill-whom <WHOM>           Whom to send signal to
 # @option -s --signal                  Which signal to send
 # @option --uid <USER>                 Specify user ID to invoke shell as
-# @option -E --setenv <VAR=VALUE>      Add an environment variable for shell
-# @flag --read-only                    Create read-only bind mount
+# @option -E --setenv <VAR[=VALUE]>    Add an environment variable for shell
+# @flag --read-only                    Create read-only bind mount or clone
 # @flag --mkdir                        Create directory before bind mounting, if missing
 # @option -n --lines <INTEGER>         Number of journal entries to show
 # @option --max-addresses <INTEGER>    Number of internet addresses to show at most
-# @option -o --output[short|short-precise|short-iso|short-iso-precise|short-full|short-monotonic|short-unix|verbose|export|json|json-pretty|json-sse|json-seq|cat|with-unit] <STRING>  Change journal output mode
-# @option --verify[no|checksum|signature] <MODE>  Verification mode for downloaded images
-# @flag --force                        Download image even if already exists
-
-# {{ machinectl list
-# @cmd List running VMs and containers
-list() {
-    :;
-}
-# }} machinectl list
+# @option -o --output[short|short-precise|short-iso|short-iso-precise|short-full|short-monotonic|short-unix|short-delta|json|json-pretty|json-sse|json-seq|cat|verbose|export|with-unit] <STRING>  Change journal output mode
+# @flag --force                        Replace target file when copying, if necessary
+# @flag --now                          Start or power off container after enabling or disabling it
+# @option --runner                     Select between nspawn and vmspawn as the runner
+# @flag -V                             Short for --runner=vmspawn
+# @flag --no-pager                     Do not start a pager
+# @flag --no-legend                    Do not show headers and footers
+# @flag --no-ask-password              Do not prompt for password
+# @flag -q --quiet                     Suppress output
 
 # {{ machinectl status
 # @cmd Show VM/container details
-# @arg name*[`_choice_machine`]
+# @arg name[`_choice_machine`] <NAME…>
 status() {
     :;
 }
@@ -43,7 +41,7 @@ status() {
 
 # {{ machinectl show
 # @cmd Show properties of one or more VMs/containers
-# @arg name*[`_choice_machine`]
+# @arg name[`_choice_machine`] <NAME…>
 show() {
     :;
 }
@@ -51,7 +49,7 @@ show() {
 
 # {{ machinectl start
 # @cmd Start container as a service
-# @arg name*[`_choice_machine`]
+# @arg name[`_choice_machine`] <NAME…>
 start() {
     :;
 }
@@ -66,7 +64,7 @@ login() {
 # }} machinectl login
 
 # {{ machinectl shell
-# @cmd Invoke a shell (or other command) in a container or on the local host
+# @cmd
 # @arg name[`_choice_machine`]
 # @arg command~[`_choice_shell_command`]
 shell() {
@@ -76,7 +74,7 @@ shell() {
 
 # {{ machinectl enable
 # @cmd Enable automatic container start at boot
-# @arg name*[`_choice_machine`]
+# @arg name[`_choice_machine`] <NAME…>
 enable() {
     :;
 }
@@ -84,46 +82,62 @@ enable() {
 
 # {{ machinectl disable
 # @cmd Disable automatic container start at boot
-# @arg name*[`_choice_machine`]
+# @arg name[`_choice_machine`] <NAME…>
 disable() {
     :;
 }
 # }} machinectl disable
 
 # {{ machinectl poweroff
-# @cmd Power off one or more containers
-# @arg name*[`_choice_machine`]
+# @cmd Power off one or more machines
+# @arg name[`_choice_machine`] <NAME…>
 poweroff() {
     :;
 }
 # }} machinectl poweroff
 
 # {{ machinectl reboot
-# @cmd Reboot one or more containers
-# @arg name*
+# @cmd Reboot one or more machines
+# @arg name <NAME…>
 reboot() {
     :;
 }
 # }} machinectl reboot
 
+# {{ machinectl pause
+# @cmd Pause one or more machines
+# @arg name <NAME…>
+pause() {
+    :;
+}
+# }} machinectl pause
+
+# {{ machinectl resume
+# @cmd Resume one or more paused machines
+# @arg name <NAME…>
+resume() {
+    :;
+}
+# }} machinectl resume
+
 # {{ machinectl terminate
-# @cmd Terminate one or more VMs/containers
-# @arg name*[`_choice_machine`]
+# @cmd Terminate one or more machines
+# @arg name[`_choice_machine`] <NAME…>
 terminate() {
     :;
 }
 # }} machinectl terminate
 
 # {{ machinectl kill
-# @cmd Send signal to processes of a VM/container
-# @arg name*[`_choice_machine`]
+# @cmd Send signal to processes of a machine
+# @arg name[`_choice_machine`] <NAME…>
 kill() {
     :;
 }
 # }} machinectl kill
 
 # {{ machinectl copy-to
-# @cmd Copy files from the host to a container
+# @cmd NAME PATH  Copy files from the host to a container
 # @arg name[`_choice_machine`]
 # @arg path
 copy-to() {
@@ -132,7 +146,7 @@ copy-to() {
 # }} machinectl copy-to
 
 # {{ machinectl copy-from
-# @cmd Copy files from a container to the host
+# @cmd NAME PATH  Copy files from a container to the host
 # @arg name[`_choice_machine`]
 # @arg path
 copy-from() {
@@ -141,7 +155,7 @@ copy-from() {
 # }} machinectl copy-from
 
 # {{ machinectl bind
-# @cmd Bind mount a path from the host into a container
+# @cmd NAME PATH [PATH]  Bind mount a path from the host into a container
 # @arg name[`_choice_machine`]
 # @arg path
 bind() {
@@ -158,7 +172,7 @@ list-images() {
 
 # {{ machinectl image-status
 # @cmd Show image details
-# @arg name*[`_choice_image`]
+# @arg name[`_choice_image`] <NAME…>
 image-status() {
     :;
 }
@@ -166,14 +180,30 @@ image-status() {
 
 # {{ machinectl show-image
 # @cmd Show properties of image
-# @arg name*[`_choice_image`]
+# @arg name[`_choice_image`] <NAME…>
 show-image() {
     :;
 }
 # }} machinectl show-image
 
+# {{ machinectl edit
+# @cmd Edit settings of one or more VMs/containers
+# @arg name-file <NAME|FILE…>
+edit() {
+    :;
+}
+# }} machinectl edit
+
+# {{ machinectl cat
+# @cmd Show settings of one or more VMs/containers
+# @arg name-file <NAME|FILE…>
+cat_() {
+    :;
+}
+# }} machinectl cat
+
 # {{ machinectl clone
-# @cmd Clone an image
+# @cmd NAME NAME  Clone an image
 # @arg name[`_choice_image`]
 clone() {
     :;
@@ -181,7 +211,7 @@ clone() {
 # }} machinectl clone
 
 # {{ machinectl rename
-# @cmd Rename an image
+# @cmd NAME NAME  Rename an image
 # @arg name[`_choice_image`]
 rename() {
     :;
@@ -199,7 +229,7 @@ read-only() {
 
 # {{ machinectl remove
 # @cmd Remove an image
-# @arg name*[`_choice_image`]
+# @arg name[`_choice_image`] <NAME…>
 remove() {
     :;
 }
@@ -221,82 +251,21 @@ clean() {
 }
 # }} machinectl clean
 
-# {{ machinectl pull-tar
-# @cmd Download a TAR container image
-# @arg url
-# @arg name[`_choice_image`]
-pull-tar() {
+# {{ machinectl bind-volume
+# @cmd Attach a volume to a running machine
+# @arg machine
+bind-volume() {
     :;
 }
-# }} machinectl pull-tar
+# }} machinectl bind-volume
 
-# {{ machinectl pull-raw
-# @cmd Download a RAW container or VM image
-# @arg url
-# @arg name[`_choice_image`]
-pull-raw() {
+# {{ machinectl unbind-volume
+# @cmd Detach a volume from a running machine
+# @arg machine
+unbind-volume() {
     :;
 }
-# }} machinectl pull-raw
-
-# {{ machinectl import-tar
-# @cmd Import a local TAR container image
-# @arg file
-# @arg name[`_choice_image`]
-import-tar() {
-    :;
-}
-# }} machinectl import-tar
-
-# {{ machinectl import-raw
-# @cmd Import a local RAW container or VM image
-# @arg file
-# @arg name[`_choice_image`]
-import-raw() {
-    :;
-}
-# }} machinectl import-raw
-
-# {{ machinectl import-fs
-# @cmd Import a local directory container image
-# @arg directory
-# @arg name[`_choice_image`]
-import-fs() {
-    :;
-}
-# }} machinectl import-fs
-
-# {{ machinectl export-tar
-# @cmd Export a TAR container image locally
-# @arg name[`_choice_image`]
-# @arg file
-export-tar() {
-    :;
-}
-# }} machinectl export-tar
-
-# {{ machinectl export-raw
-# @cmd Export a RAW container or VM image locally
-# @arg name[`_choice_image`]
-# @arg file
-export-raw() {
-    :;
-}
-# }} machinectl export-raw
-
-# {{ machinectl list-transfers
-# @cmd Show list of downloads in progress
-list-transfers() {
-    :;
-}
-# }} machinectl list-transfers
-
-# {{ machinectl cancel-transfer
-# @cmd Cancel a download
-cancel-transfer() {
-    :;
-}
-# }} machinectl cancel-transfer
+# }} machinectl unbind-volume
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"
 

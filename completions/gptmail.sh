@@ -3,6 +3,94 @@
 
 # @flag --help    Show this message and exit.
 
+# {{ gptmail agent
+# @cmd Inter-agent SSH messaging (filesystem...
+# @flag --help    Show this message and exit.
+agent() {
+    :;
+}
+
+# {{{ gptmail agent broadcast
+# @cmd Send a message to every agent in the registry except self.
+# @option --mailbox <TEXT>    Mailbox to send from.
+# @flag --help                Show this message and exit.
+# @arg subject
+# @arg content
+agent::broadcast() {
+    :;
+}
+# }}} gptmail agent broadcast
+
+# {{{ gptmail agent list
+# @cmd List messages in a folder (default: inbox, unread only).
+# @flag -a --all              Include already-read messages.
+# @option --mailbox <TEXT>    Mailbox to inspect.
+# @flag --all-mailboxes       Scan default plus every named mailbox.
+# @flag --help                Show this message and exit.
+# @arg folder
+agent::list() {
+    :;
+}
+# }}} gptmail agent list
+
+# {{{ gptmail agent pending
+# @cmd Show inbox messages awaiting a reply (timely-reply SLA).
+# @option --mailbox <TEXT>    Mailbox to inspect.
+# @flag --all-mailboxes       Scan default plus every named mailbox.
+# @option --for <TEXT>        Show messages pending for a recipient.
+# @flag --fleet               Fan out across all registered agents.
+# @flag --json                Emit machine-readable JSON.
+# @flag --help                Show this message and exit.
+agent::pending() {
+    :;
+}
+# }}} gptmail agent pending
+
+# {{{ gptmail agent read
+# @cmd Read a message (marks it read), optionally with its thread.
+# @flag --thread              Include locally-available ancestors.
+# @option --mailbox <TEXT>    Restrict lookup to a specific mailbox.
+# @flag --help                Show this message and exit.
+# @arg message_id
+agent::read() {
+    :;
+}
+# }}} gptmail agent read
+
+# {{{ gptmail agent reply
+# @cmd Reply to an inbox message, threading via in_reply_to.
+# @option --mailbox <TEXT>    Restrict lookup to a specific mailbox.
+# @flag --help                Show this message and exit.
+# @arg message_id
+# @arg content
+agent::reply() {
+    :;
+}
+# }}} gptmail agent reply
+
+# {{{ gptmail agent send
+# @cmd Send a message to another agent.
+# @option --mailbox <TEXT>    Mailbox to send from.
+# @flag --help                Show this message and exit.
+# @arg to
+# @arg subject
+# @arg content
+agent::send() {
+    :;
+}
+# }}} gptmail agent send
+
+# {{{ gptmail agent status
+# @cmd Show messaging status (self, registry, inbox/outbox/pending...
+# @option --mailbox <TEXT>    Mailbox to inspect.
+# @flag --all-mailboxes       Scan default plus every named mailbox.
+# @flag --help                Show this message and exit.
+agent::status() {
+    :;
+}
+# }}} gptmail agent status
+# }} gptmail agent
+
 # {{ gptmail archive
 # @cmd Archive message.
 # @flag --help    Show this message and exit.

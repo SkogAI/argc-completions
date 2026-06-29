@@ -12,7 +12,7 @@
 # {{ paseo ls
 # @cmd List agents.
 # @flag -a --all                 Include archived agents
-# @flag -g --global              Legacy no-op (kept for compatibility)
+# @flag -g --global              List agents across all directories
 # @option --label <key=value>    Filter by label (can be used multiple times) (default: [])
 # @option --thinking <id>        Filter by thinking option ID
 # @flag --json                   Output in JSON format
@@ -33,6 +33,7 @@ ls() {
 # @option --mode <mode>                Provider-specific mode (e.g., plan, default, bypass)
 # @option --worktree <name>            Create agent in a new git worktree
 # @option --base <branch>              Base branch for worktree (default: current branch)
+# @option --workspace <id>             Run in an existing workspace (default: a new workspace is created per run; falls back to $PASEO_WORKSPACE_ID)
 # @option --image <path>               Attach image(s) to the initial prompt (can be used multiple times) (default: [])
 # @option --cwd <path>                 Working directory (default: current)
 # @option --env <key=value>            Set environment variable(s) for the agent process (can be used multiple times) (default: [])
@@ -50,13 +51,13 @@ run() {
 
 # {{ paseo import
 # @cmd Import an existing provider session as a Paseo agent
-# @option --provider[claude|codex|opencode|pi|acp] <provider>  Agent provider: claude, codex, opencode, pi, acp
-# @option --cwd <path>           Working directory for providers that require it
-# @option --label <key=value>    Add label(s) to the agent (can be used multiple times) (default: [])
-# @flag --json                   Output in JSON format
-# @option --host <host>          Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
-# @flag -h --help                display help for command
-# @arg id                        Provider session/thread ID to import
+# @option --provider <provider>    Agent provider id
+# @option --cwd <path>             Working directory for providers that require it
+# @option --label <key=value>      Add label(s) to the agent (can be used multiple times) (default: [])
+# @flag --json                     Output in JSON format
+# @option --host <host>            Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @flag -h --help                  display help for command
+# @arg id                          Provider session/thread ID to import
 import() {
     :;
 }
@@ -196,6 +197,16 @@ start() {
 }
 # }} paseo start
 
+# {{ paseo hooks
+# @cmd Record agent hook activity
+# @flag -h --help    display help for command
+# @arg agent         Agent hook source
+# @arg event         Agent hook event
+hooks() {
+    :;
+}
+# }} paseo hooks
+
 # {{ paseo status
 # @cmd Show local daemon status (alias for "paseo daemon status")
 # @flag --json             Output in JSON format
@@ -233,7 +244,7 @@ agent() {
 # {{{ paseo agent ls
 # @cmd List agents.
 # @flag -a --all                 Include archived agents
-# @flag -g --global              Legacy no-op (kept for compatibility)
+# @flag -g --global              List agents across all directories
 # @option --label <key=value>    Filter by label (can be used multiple times) (default: [])
 # @option --thinking <id>        Filter by thinking option ID
 # @flag --json                   Output in JSON format
@@ -254,6 +265,7 @@ agent::ls() {
 # @option --mode <mode>                Provider-specific mode (e.g., plan, default, bypass)
 # @option --worktree <name>            Create agent in a new git worktree
 # @option --base <branch>              Base branch for worktree (default: current branch)
+# @option --workspace <id>             Run in an existing workspace (default: a new workspace is created per run; falls back to $PASEO_WORKSPACE_ID)
 # @option --image <path>               Attach image(s) to the initial prompt (can be used multiple times) (default: [])
 # @option --cwd <path>                 Working directory (default: current)
 # @option --env <key=value>            Set environment variable(s) for the agent process (can be used multiple times) (default: [])
@@ -271,13 +283,13 @@ agent::run() {
 
 # {{{ paseo agent import
 # @cmd Import an existing provider session as a Paseo agent
-# @option --provider[claude|codex|opencode|pi|acp] <provider>  Agent provider: claude, codex, opencode, pi, acp
-# @option --cwd <path>           Working directory for providers that require it
-# @option --label <key=value>    Add label(s) to the agent (can be used multiple times) (default: [])
-# @flag --json                   Output in JSON format
-# @option --host <host>          Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
-# @flag -h --help                display help for command
-# @arg id                        Provider session/thread ID to import
+# @option --provider <provider>    Agent provider id
+# @option --cwd <path>             Working directory for providers that require it
+# @option --label <key=value>      Add label(s) to the agent (can be used multiple times) (default: [])
+# @flag --json                     Output in JSON format
+# @option --host <host>            Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @flag -h --help                  display help for command
+# @arg id                          Provider session/thread ID to import
 agent::import() {
     :;
 }

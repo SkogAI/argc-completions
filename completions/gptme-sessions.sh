@@ -43,6 +43,19 @@ append() {
 }
 # }} gptme-sessions append
 
+# {{ gptme-sessions auto-tag
+# @cmd Assign categories to session records from...
+# @flag --limit                    INTEGER RANGE  Maximum number of matching records to process [default: 10; x>=1]
+# @flag --retag-all                Retag records even when they already have a category
+# @option --mapping-file <PATH>    Optional YAML mapping of 'pattern: category' overrides
+# @flag --dry-run                  Show category changes without rewriting the store
+# @flag --json                     Output results as JSON
+# @flag --help                     Show this message and exit.
+auto-tag() {
+    :;
+}
+# }} gptme-sessions auto-tag
+
 # {{ gptme-sessions classify
 # @cmd Classify sessions by work category (code,...
 # @option --journal-dir <PATH>    Path to journal directory (default: ./journal)
@@ -71,9 +84,33 @@ classify-stats() {
 }
 # }} gptme-sessions classify-stats
 
+# {{ gptme-sessions cost
+# @cmd Show session cost breakdown.
+# @option --days <INTEGER>    Include sessions from last N days  [default: 7]
+# @flag --daily               Show day-by-day cost breakdown
+# @flag --by-model            Show per-model cost breakdown
+# @flag --last-7d             Shorthand for --days 7
+# @flag --json                Output JSON instead of formatted text
+# @flag --help                Show this message and exit.
+cost() {
+    :;
+}
+# }} gptme-sessions cost
+
+# {{ gptme-sessions dedup
+# @cmd Merge duplicate session records into the richer record.
+# @flag --min-overlap    FLOAT RANGE  Minimum Jaccard time-overlap (intersection/union) for two same-harness records to count as duplicates  [default: 0.6; 0.0<=x<=1.0]
+# @flag --dry-run        Show the merge plan without rewriting the store
+# @flag --json           Output results as JSON
+# @flag --help           Show this message and exit.
+dedup() {
+    :;
+}
+# }} gptme-sessions dedup
+
 # {{ gptme-sessions discover
 # @cmd Discover trajectory files from gptme, Claude Code,...
-# @option --harness[gptme|claude-code|codex|copilot]  Limit to a specific harness (default: all)
+# @option --harness[gptme|claude-code|codex|copilot-cli]  Limit to a specific harness (default: all)
 # @option --since <TEXT>    How far back to scan (e.g. 7d, 30d).
 # @flag --signals           Extract and display productivity signals for each session
 # @flag --unsynced          Show only sessions not yet imported into the store
@@ -101,11 +138,13 @@ judge() {
 
 # {{ gptme-sessions post-session
 # @cmd Record a completed session: extract signals, determine...
-# @option --harness[claude-code|gptme|codex|copilot] <gptme|claude-code|codex|copilot>  Harness name  [required]
+# @option --harness[claude-code|gptme|codex|copilot] <gptme|claude-code|codex|copilot-cli>  Harness name  [required]
 # @option --model <TEXT>                    Model name
 # @option --run-type <TEXT>                 Run type (autonomous, etc.)
 # @option --trigger[timer|dispatch|manual|spawn] <TEXT>  Session trigger: timer, dispatch, manual, spawn
 # @option --category <TEXT>                 Work category (code, triage, ...)
+# @option --recommended-category <TEXT>     Category recommended by the selector before the session ran
+# @option --selector-mode <TEXT>            Selector strategy used (e.g. scored, llm-context)
 # @option --exit-code <INTEGER>             Exit code from the agent process (non-zero = failed, 124 = timeout/noop)
 # @option --duration <INTEGER>              Duration in seconds
 # @option --trajectory <PATH>               Path to trajectory .jsonl for signal extraction
@@ -149,6 +188,19 @@ repair-grades() {
     :;
 }
 # }} gptme-sessions repair-grades
+
+# {{ gptme-sessions replay
+# @cmd Replay a completed session in the terminal.
+# @flag --raw-system                           Show initial system messages instead of collapsing them
+# @flag --tool-input                           Show structured tool inputs for tool calls
+# @option --tool-results[summary|full|hide]    How to render tool result payloads [default: summary]
+# @flag --tail                                 INTEGER RANGE  Render only the last N normalized messages [x>=1]
+# @flag --help                                 Show this message and exit.
+# @arg target
+replay() {
+    :;
+}
+# }} gptme-sessions replay
 
 # {{ gptme-sessions runs
 # @cmd Run analytics (duration, NOOP rate, trends).
@@ -204,7 +256,7 @@ stats() {
 
 # {{ gptme-sessions sync
 # @cmd Discover trajectory files and import them into the...
-# @option --harness[gptme|claude-code|codex|copilot]  Limit to a specific harness (default: all)
+# @option --harness[gptme|claude-code|codex|copilot-cli]  Limit to a specific harness (default: all)
 # @option --since <TEXT>    How far back to scan (e.g. 7d, 30d).
 # @flag --signals           Extract productivity signals from each trajectory (slower but richer)
 # @flag --dry-run           Show what would be imported without writing

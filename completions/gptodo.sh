@@ -15,7 +15,7 @@
 # @flag --help                           Show this message and exit.
 # @arg title
 add() {
-  :
+    :;
 }
 # }} gptodo add
 
@@ -23,11 +23,12 @@ add() {
 # @cmd List all registered agents.
 # @flag --all                    gptodo agents --json
 # @flag --cleanup                Remove stale agent registrations
+# @flag --all                    Include stale agents
 # @flag --json                   Output as JSON
 # @option --timeout <INTEGER>    Heartbeat timeout in minutes (default: 30)
 # @flag --help                   Show this message and exit.
 agents() {
-  :
+    :;
 }
 # }} gptodo agents
 
@@ -37,7 +38,7 @@ agents() {
 # @flag --help    Show this message and exit.
 # @arg task_files*
 check() {
-  :
+    :;
 }
 # }} gptodo check
 
@@ -47,7 +48,7 @@ check() {
 # @flag -v --verbose    Show detailed status
 # @flag --help          Show this message and exit.
 check-waiting() {
-  :
+    :;
 }
 # }} gptodo check-waiting
 
@@ -62,7 +63,7 @@ check-waiting() {
 # @flag --help                     Show this message and exit.
 # @arg task_id
 checker() {
-  :
+    :;
 }
 # }} gptodo checker
 
@@ -72,7 +73,7 @@ checker() {
 # @flag --help              Show this message and exit.
 # @arg task_id
 claim() {
-  :
+    :;
 }
 # }} gptodo claim
 
@@ -81,7 +82,7 @@ claim() {
 # @option --older-than <INTEGER>    Remove sessions older than N hours
 # @flag --help                      Show this message and exit.
 cleanup-sessions() {
-  :
+    :;
 }
 # }} gptodo cleanup-sessions
 
@@ -89,7 +90,7 @@ cleanup-sessions() {
 # @cmd Dependency management and visualization commands.
 # @flag --help    Show this message and exit.
 dep() {
-  :
+    :;
 }
 
 # {{{ gptodo dep check
@@ -97,7 +98,7 @@ dep() {
 # @flag --json    Output as JSON
 # @flag --help    Show this message and exit.
 dep::check() {
-  :
+    :;
 }
 # }}} gptodo dep check
 
@@ -108,7 +109,7 @@ dep::check() {
 # @flag --no-power             Hide unblocking power scores
 # @flag --help                 Show this message and exit.
 dep::dag() {
-  :
+    :;
 }
 # }}} gptodo dep dag
 
@@ -120,7 +121,7 @@ dep::dag() {
 # @flag --help                            Show this message and exit.
 # @arg task_id
 dep::tree() {
-  :
+    :;
 }
 # }}} gptodo dep tree
 # }} gptodo dep
@@ -134,7 +135,7 @@ dep::tree() {
 # @flag --help                                   Show this message and exit.
 # @arg task_ids*
 edit() {
-  :
+    :;
 }
 # }} gptodo edit
 
@@ -143,7 +144,7 @@ edit() {
 # @flag --help    Show this message and exit.
 # @arg task_id
 effective() {
-  :
+    :;
 }
 # }} gptodo effective
 
@@ -155,7 +156,7 @@ effective() {
 # @flag --help       Show this message and exit.
 # @arg urls*
 fetch() {
-  :
+    :;
 }
 # }} gptodo fetch
 
@@ -169,7 +170,7 @@ fetch() {
 # @option --state-dir <TEXT>          State directory name (default: state)
 # @flag --help                        Show this message and exit.
 generate-queue() {
-  :
+    :;
 }
 # }} gptodo generate-queue
 
@@ -186,7 +187,7 @@ generate-queue() {
 # @flag --json                        Output as JSON for machine consumption
 # @flag --help                        Show this message and exit.
 import() {
-  :
+    :;
 }
 # }} gptodo import
 
@@ -195,7 +196,7 @@ import() {
 # @flag --help    Show this message and exit.
 # @arg session_id
 kill() {
-  :
+    :;
 }
 # }} gptodo kill
 
@@ -208,7 +209,7 @@ kill() {
 # @flag --jsonl                                 Output as JSONL (one task per line) -compact for LLM consumption
 # @flag --help                                  Show this message and exit.
 list() {
-  :
+    :;
 }
 # }} gptodo list
 
@@ -222,17 +223,18 @@ list() {
 # @flag --help                    Show this message and exit.
 # @arg task_id
 lock() {
-  :
+    :;
 }
 # }} gptodo lock
 
 # {{ gptodo locks
 # @cmd List all current task locks.
+# @flag --json
 # @flag --cleanup    Remove expired locks
 # @flag --json       Output as JSON
 # @flag --help       Show this message and exit.
 locks() {
-  :
+    :;
 }
 # }} gptodo locks
 
@@ -248,7 +250,7 @@ locks() {
 # @option -p --parallel <INTEGER>                 Number of parallel agents (1 = sequential)
 # @flag --help                                    Show this message and exit.
 loop() {
-  :
+    :;
 }
 # }} gptodo loop
 
@@ -258,7 +260,7 @@ loop() {
 # @flag --use-cache    Check URL-based requires against cached states (run 'fetch' first)
 # @flag --help         Show this message and exit.
 next() {
-  :
+    :;
 }
 # }} gptodo next
 
@@ -267,7 +269,7 @@ next() {
 # @flag --help    Show this message and exit.
 # @arg session_id
 output() {
-  :
+    :;
 }
 # }} gptodo output
 
@@ -277,7 +279,7 @@ output() {
 # @flag --help    Show this message and exit.
 # @arg task_id
 plan() {
-  :
+    :;
 }
 # }} gptodo plan
 
@@ -289,12 +291,13 @@ plan() {
 # @flag --use-cache    Check URL-based requires against cached states (run 'fetch' first)
 # @flag --help         Show this message and exit.
 ready() {
-  :
+    :;
 }
 # }} gptodo ready
 
 # {{ gptodo run
 # @cmd Run a task synchronously (foreground).
+# @option --type <explore>                        gptodo run my-task --backend claude --coordination
 # @option -p --prompt <TEXT>                      Custom prompt for the agent (default: derived from task)
 # @option --type[general|explore|plan|execute]    Type of agent behavior
 # @option --backend <gptme|claude>                Which backend to use
@@ -306,7 +309,7 @@ ready() {
 # @flag --help                                    Show this message and exit.
 # @arg task_id
 run() {
-  :
+    :;
 }
 # }} gptodo run
 
@@ -316,7 +319,7 @@ run() {
 # @flag --json    Output as JSON
 # @flag --help    Show this message and exit.
 sessions() {
-  :
+    :;
 }
 # }} gptodo sessions
 
@@ -325,7 +328,7 @@ sessions() {
 # @flag --help    Show this message and exit.
 # @arg task_id
 show() {
-  :
+    :;
 }
 # }} gptodo show
 
@@ -344,7 +347,7 @@ show() {
 # @flag --help                                    Show this message and exit.
 # @arg task_id
 spawn() {
-  :
+    :;
 }
 # }} gptodo spawn
 
@@ -357,7 +360,7 @@ spawn() {
 # @flag --jsonl                                  Output as JSONL (one task per line) -compact for LLM consumption
 # @flag --help                                   Show this message and exit.
 stale() {
-  :
+    :;
 }
 # }} gptodo stale
 
@@ -370,9 +373,10 @@ stale() {
 # @flag --issues           Only show items with issues
 # @flag --github           Include open GitHub issues not yet tracked as task files
 # @option --repo <TEXT>    GitHub repo for --github (default: auto-detect via gh CLI)
+# @flag --json             Emit machine-readable JSON instead of rendered output (stable contract for scripts)
 # @flag --help             Show this message and exit.
 status() {
-  :
+    :;
 }
 # }} gptodo status
 
@@ -385,7 +389,7 @@ status() {
 # @flag --help                                    Show this message and exit.
 # @arg parent_id
 subtask() {
-  :
+    :;
 }
 # }} gptodo subtask
 
@@ -399,7 +403,7 @@ subtask() {
 # @flag --changes-only    Only show items where state changed from cached (detect stale queue entries)
 # @flag --help            Show this message and exit.
 sync() {
-  :
+    :;
 }
 # }} gptodo sync
 
@@ -411,7 +415,7 @@ sync() {
 # @flag --help              Show this message and exit.
 # @arg filter_tags*
 tags() {
-  :
+    :;
 }
 # }} gptodo tags
 
@@ -420,7 +424,7 @@ tags() {
 # @flag --json    Output as JSON
 # @flag --help    Show this message and exit.
 transitions() {
-  :
+    :;
 }
 # }} gptodo transitions
 
@@ -432,7 +436,7 @@ transitions() {
 # @flag --help                  Show this message and exit.
 # @arg task_id
 unlock() {
-  :
+    :;
 }
 # }} gptodo unlock
 
@@ -445,7 +449,7 @@ unlock() {
 # @flag -v --verbose                 Show detailed status
 # @flag --help                       Show this message and exit.
 watch() {
-  :
+    :;
 }
 # }} gptodo watch
 
@@ -453,7 +457,7 @@ watch() {
 # @cmd Git worktree management for isolated agent execution.
 # @flag --help    Show this message and exit.
 worktree() {
-  :
+    :;
 }
 
 # {{{ gptodo worktree cleanup
@@ -461,7 +465,7 @@ worktree() {
 # @flag --json    Output as JSON
 # @flag --help    Show this message and exit.
 worktree::cleanup() {
-  :
+    :;
 }
 # }}} gptodo worktree cleanup
 
@@ -473,7 +477,7 @@ worktree::cleanup() {
 # @flag --help                  Show this message and exit.
 # @arg task_id
 worktree::create() {
-  :
+    :;
 }
 # }}} gptodo worktree create
 
@@ -482,7 +486,7 @@ worktree::create() {
 # @flag --json    Output as JSON
 # @flag --help    Show this message and exit.
 worktree::list() {
-  :
+    :;
 }
 # }}} gptodo worktree list
 
@@ -494,7 +498,7 @@ worktree::list() {
 # @flag --help               Show this message and exit.
 # @arg worktree_path
 worktree::merge() {
-  :
+    :;
 }
 # }}} gptodo worktree merge
 
@@ -506,7 +510,7 @@ worktree::merge() {
 # @flag --help                 Show this message and exit.
 # @arg worktree_path
 worktree::pr() {
-  :
+    :;
 }
 # }}} gptodo worktree pr
 
@@ -517,7 +521,7 @@ worktree::pr() {
 # @flag --help        Show this message and exit.
 # @arg worktree_path
 worktree::remove() {
-  :
+    :;
 }
 # }}} gptodo worktree remove
 
@@ -527,7 +531,7 @@ worktree::remove() {
 # @flag --help    Show this message and exit.
 # @arg worktree_path
 worktree::status() {
-  :
+    :;
 }
 # }}} gptodo worktree status
 # }} gptodo worktree
