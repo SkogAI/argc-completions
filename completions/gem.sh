@@ -9,7 +9,6 @@
 # @flag --force                        skip validation of the spec
 # @flag --strict                       consider warnings as errors when validating the spec
 # @option -o --output <FILE>           output gem with the given filename
-# @option -C <PATH>                    Run as if gem build was started in <PATH> instead of the current working directory.
 # @flag -h --help                      Get help on this command
 # @flag -V                             Set the verbose level of output
 # @flag --verbose                      Set the verbose level of output
@@ -315,11 +314,13 @@ info() {
 # @option -v --version                   Specify version of gem to install
 # @flag --prerelease                     Allow prerelease versions of a gem to be installed.
 # @flag --no-prerelease                  Allow prerelease versions of a gem to be installed.
+# @flag --default                        Add the gem's full specification to specifications/default and extract only its bin
 # @flag -u                               Update local source cache
 # @flag --update-sources                 Update local source cache
 # @flag --no-update-sources              Update local source cache
 # @option -i --install-dir <DIR>         Gem repository directory to get installed gems
 # @option -n --bindir <DIR>              Directory where executables will be placed when the gem is installed
+# @option -j --build-jobs <VALUE>        Specify the number of jobs to pass to `make` when installing gems with native extensions.
 # @option --document <TYPES>             Generate documentation for installed gems List the documentation types you wish to generate.
 # @option --build-root <DIR>             Temporary installation root.
 # @flag --vendor                         Install gem into the vendor directory.
@@ -348,12 +349,12 @@ info() {
 # @flag --no-post-install-message        Print post install message
 # @option -g --file                      Read from a gem dependencies API file and install the listed gems
 # @option --without <GROUPS>             Omit the named groups (comma separated) when installing from a gem dependencies file
-# @flag --default                        Add the gem's full specification to specifications/default and extract only its bin
 # @flag --explain                        Rather than install the gems, indicate which would be installed
 # @flag --lock                           Create a lock file (when used with -g/--file)
 # @flag --no-lock                        Create a lock file (when used with -g/--file)
 # @flag --suggestions                    Suggest alternates when gems are not found
 # @flag --no-suggestions                 Suggest alternates when gems are not found
+# @option --target-rbconfig <FILE>       rbconfig.rb for the deployment target platform
 # @flag -l --local                       Restrict operations to the LOCAL domain
 # @flag -r --remote                      Restrict operations to the REMOTE domain
 # @flag -b --both                        Allow LOCAL and REMOTE operations
@@ -513,7 +514,7 @@ outdated() {
 
 # {{ gem owner
 # @cmd Manage gem owners of a gem on the push server
-# @option -k --key <KEYNAME>         Use the given API key from /home/sigo/.local/share/gem/credentials
+# @option -k --key <KEYNAME>         Use the given API key from /home/skogix/.local/share/gem/credentials
 # @option --otp <CODE>               Digit code for multifactor authentication You can also use the environment variable GEM_HOST_OTP_CODE
 # @option -a --add <NEW_OWNER>       Add an owner by user identifier
 # @option -r --remove <OLD_OWNER>    Remove an owner by user identifier
@@ -570,9 +571,10 @@ pristine() {
 
 # {{ gem push
 # @cmd Push a gem up to the gem server
-# @option -k --key <KEYNAME>       Use the given API key from /home/sigo/.local/share/gem/credentials
+# @option -k --key <KEYNAME>       Use the given API key from /home/skogix/.local/share/gem/credentials
 # @option --otp <CODE>             Digit code for multifactor authentication You can also use the environment variable GEM_HOST_OTP_CODE
 # @option --host                   Push to another gemcutter-compatible host (e.g. https://rubygems.org)
+# @option --attestation <FILE>     Push with sigstore attestations
 # @option -p <URL>                 Use HTTP proxy for remote operations
 # @option --http-proxy <URL>       Use HTTP proxy for remote operations
 # @option --no-http-proxy <URL>    Use HTTP proxy for remote operations
@@ -744,6 +746,8 @@ signout() {
 # {{ gem sources
 # @cmd Manage the sources and cache file RubyGems uses to search for gems
 # @option -a --add <SOURCE_URI>       Add source
+# @option --append <SOURCE_URI>       Append source (can be used multiple times)
+# @option --prepend <SOURCE_URI>      Prepend source (can be used multiple times)
 # @flag -l --list                     List sources
 # @option -r --remove <SOURCE_URI>    Remove source
 # @flag -c --clear-all                Remove all sources (clear the cache)
@@ -771,38 +775,38 @@ sources() {
 
 # {{ gem specification
 # @cmd Display gem specification (in yaml)
-# @option -v --version                         Specify version of gem to examine
-# @option --platform                           Specify the platform of gem to specification
-# @flag --prerelease                           Allow prerelease versions of a gem
-# @flag --no-prerelease                        Allow prerelease versions of a gem
-# @flag --all                                  Output specifications for all versions of the gem
-# @flag --ruby                                 Output ruby format
-# @flag --yaml                                 Output YAML format
-# @flag --marshal                              Output Marshal format
-# @flag -u                                     Update local source cache
-# @flag --update-sources                       Update local source cache
-# @flag --no-update-sources                    Update local source cache
-# @flag -l --local                             Restrict operations to the LOCAL domain
-# @flag -r --remote                            Restrict operations to the REMOTE domain
-# @flag -b --both                              Allow LOCAL and REMOTE operations
-# @option -B --bulk-threshold <COUNT>          Threshold for switching to bulk synchronization (default 1000)
-# @flag --clear-sources                        Clear the gem sources
-# @option -s --source <URL>                    Append URL to list of remote gem sources
-# @option -p <URL>                             Use HTTP proxy for remote operations
-# @option --http-proxy <URL>                   Use HTTP proxy for remote operations
-# @option --no-http-proxy <URL>                Use HTTP proxy for remote operations
-# @flag -h --help                              Get help on this command
-# @flag -V                                     Set the verbose level of output
-# @flag --verbose                              Set the verbose level of output
-# @flag --no-verbose                           Set the verbose level of output
-# @flag -q --quiet                             Silence command progress meter
-# @flag --silent                               Silence RubyGems output
-# @option --config-file <FILE>                 Use this config file instead of default
-# @flag --backtrace                            Show stack backtrace on errors
-# @flag --debug                                Turn on Ruby debugging
-# @flag --norc                                 Avoid loading any .gemrc file
-# @arg gemfile[`_choice_installed_package`]    name of gem to show the gemspec for
-# @arg field[`_choice_spec_field`]             name of gemspec field to show
+# @option -v --version                   Specify version of gem to examine
+# @option --platform                     Specify the platform of gem to specification
+# @flag --prerelease                     Allow prerelease versions of a gem
+# @flag --no-prerelease                  Allow prerelease versions of a gem
+# @flag --all                            Output specifications for all versions of the gem
+# @flag --ruby                           Output ruby format
+# @flag --yaml                           Output YAML format
+# @flag --marshal                        Output Marshal format
+# @flag -u                               Update local source cache
+# @flag --update-sources                 Update local source cache
+# @flag --no-update-sources              Update local source cache
+# @flag -l --local                       Restrict operations to the LOCAL domain
+# @flag -r --remote                      Restrict operations to the REMOTE domain
+# @flag -b --both                        Allow LOCAL and REMOTE operations
+# @option -B --bulk-threshold <COUNT>    Threshold for switching to bulk synchronization (default 1000)
+# @flag --clear-sources                  Clear the gem sources
+# @option -s --source <URL>              Append URL to list of remote gem sources
+# @option -p <URL>                       Use HTTP proxy for remote operations
+# @option --http-proxy <URL>             Use HTTP proxy for remote operations
+# @option --no-http-proxy <URL>          Use HTTP proxy for remote operations
+# @flag -h --help                        Get help on this command
+# @flag -V                               Set the verbose level of output
+# @flag --verbose                        Set the verbose level of output
+# @flag --no-verbose                     Set the verbose level of output
+# @flag -q --quiet                       Silence command progress meter
+# @flag --silent                         Silence RubyGems output
+# @option --config-file <FILE>           Use this config file instead of default
+# @flag --backtrace                      Show stack backtrace on errors
+# @flag --debug                          Turn on Ruby debugging
+# @flag --norc                           Avoid loading any .gemrc file
+# @arg gem_or_file                       gem name or a .gem file to show the gemspec for
+# @arg field[`_choice_spec_field`]       name of gemspec field to show
 specification() {
     :;
 }
@@ -896,11 +900,13 @@ unpack() {
 # @option --platform                     Specify the platform of gem to update
 # @flag --prerelease                     Allow prerelease versions of a gem as update targets
 # @flag --no-prerelease                  Allow prerelease versions of a gem as update targets
+# @flag --default                        Add the gem's full specification to specifications/default and extract only its bin
 # @flag -u                               Update local source cache
 # @flag --update-sources                 Update local source cache
 # @flag --no-update-sources              Update local source cache
 # @option -i --install-dir <DIR>         Gem repository directory to get installed gems
 # @option -n --bindir <DIR>              Directory where executables will be placed when the gem is installed
+# @option -j --build-jobs <VALUE>        Specify the number of jobs to pass to `make` when installing gems with native extensions.
 # @option --document <TYPES>             Generate documentation for installed gems List the documentation types you wish to generate.
 # @option --build-root <DIR>             Temporary installation root.
 # @flag --vendor                         Install gem into the vendor directory.
@@ -929,12 +935,12 @@ unpack() {
 # @flag --no-post-install-message        Print post install message
 # @option -g --file                      Read from a gem dependencies API file and install the listed gems
 # @option --without <GROUPS>             Omit the named groups (comma separated) when installing from a gem dependencies file
-# @flag --default                        Add the gem's full specification to specifications/default and extract only its bin
 # @flag --explain                        Rather than install the gems, indicate which would be installed
 # @flag --lock                           Create a lock file (when used with -g/--file)
 # @flag --no-lock                        Create a lock file (when used with -g/--file)
 # @flag --suggestions                    Suggest alternates when gems are not found
 # @flag --no-suggestions                 Suggest alternates when gems are not found
+# @option --target-rbconfig <FILE>       rbconfig.rb for the deployment target platform
 # @flag -l --local                       Restrict operations to the LOCAL domain
 # @flag -r --remote                      Restrict operations to the REMOTE domain
 # @flag -b --both                        Allow LOCAL and REMOTE operations
@@ -990,7 +996,7 @@ which() {
 # @option --platform              Specify the platform of gem to remove
 # @option --otp <CODE>            Digit code for multifactor authentication You can also use the environment variable GEM_HOST_OTP_CODE
 # @option --host                  Yank from another gemcutter-compatible host (e.g. https://rubygems.org)
-# @option -k --key <KEYNAME>      Use the given API key from /home/sigo/.local/share/gem/credentials
+# @option -k --key <KEYNAME>      Use the given API key from /home/skogix/.local/share/gem/credentials
 # @flag -h --help                 Get help on this command
 # @flag -V                        Set the verbose level of output
 # @flag --verbose                 Set the verbose level of output

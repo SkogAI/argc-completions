@@ -4,9 +4,6 @@
 # @meta inherit-flag-options
 # @flag -h --help                     Show this help
 # @flag --version                     Show package version
-# @flag --no-pager                    Do not pipe output into a pager
-# @flag --no-legend                   Do not show the headers and footers
-# @flag --no-ask-password             Don't prompt for password
 # @option -H --host <[USER@]HOST>     Operate on remote host
 # @option -M --machine <CONTAINER>    Operate on local container
 # @option -p --property <NAME>        Show only properties by this name
@@ -14,21 +11,19 @@
 # @flag -a --all                      Show all properties, including empty ones
 # @flag --value                       When showing properties, only print the value
 # @flag -l --full                     Do not ellipsize output
-# @option --kill-who <WHO>            Who to send signal to
+# @option --kill-whom <WHOM>          Whom to send signal to
 # @option -s --signal                 Which signal to send
 # @option -n --lines <INTEGER>        Number of journal entries to show
-# @option -o --output[short|short-precise|short-iso|short-iso-precise|short-full|short-monotonic|short-unix|verbose|export|json|json-pretty|json-sse|json-seq|cat|with-unit] <STRING>  Change journal output mode
-
-# {{ loginctl list-sessions
-# @cmd List sessions
-list-sessions() {
-    :;
-}
-# }} loginctl list-sessions
+# @option --json <FORMAT>             Generate JSON output (pretty, short, or off)
+# @flag -j                            Equivalent to --json=pretty (on TTY) or --json=short (otherwise)
+# @option -o --output[short|short-precise|short-iso|short-iso-precise|short-full|short-monotonic|short-unix|short-delta|json|json-pretty|json-sse|json-seq|cat|verbose|export|with-unit] <MODE>  Change journal output mode
+# @flag --no-pager                    Do not start a pager
+# @flag --no-legend                   Do not show headers and footers
+# @flag --no-ask-password             Do not prompt for password
 
 # {{ loginctl session-status
 # @cmd Show session status
-# @arg id*[`_choice_session`]
+# @arg id[`_choice_session`] <ID…>
 session-status() {
     :;
 }
@@ -36,7 +31,7 @@ session-status() {
 
 # {{ loginctl show-session
 # @cmd Show properties of sessions or the manager
-# @arg id*[`_choice_session`]
+# @arg id[`_choice_session`] <ID…>
 show-session() {
     :;
 }
@@ -52,7 +47,7 @@ activate() {
 
 # {{ loginctl lock-session
 # @cmd Screen lock one or more sessions
-# @arg id*[`_choice_session`]
+# @arg id[`_choice_session`] <ID…>
 lock-session() {
     :;
 }
@@ -60,7 +55,7 @@ lock-session() {
 
 # {{ loginctl unlock-session
 # @cmd Screen unlock one or more sessions
-# @arg id*[`_choice_session`]
+# @arg id[`_choice_session`] <ID…>
 unlock-session() {
     :;
 }
@@ -82,7 +77,7 @@ unlock-sessions() {
 
 # {{ loginctl terminate-session
 # @cmd Terminate one or more sessions
-# @arg id*[`_choice_session`]
+# @arg id[`_choice_session`] <ID…>
 terminate-session() {
     :;
 }
@@ -90,7 +85,7 @@ terminate-session() {
 
 # {{ loginctl kill-session
 # @cmd Send signal to processes of a session
-# @arg id*[`_choice_session`]
+# @arg id[`_choice_session`] <ID…>
 kill-session() {
     :;
 }
@@ -105,7 +100,7 @@ list-users() {
 
 # {{ loginctl user-status
 # @cmd Show user status
-# @arg user*[`_choice_user`]
+# @arg user[`_choice_user`] <USER…>
 user-status() {
     :;
 }
@@ -113,7 +108,7 @@ user-status() {
 
 # {{ loginctl show-user
 # @cmd Show properties of users or the manager
-# @arg user*[`_choice_user`]
+# @arg user[`_choice_user`] <USER…>
 show-user() {
     :;
 }
@@ -121,7 +116,7 @@ show-user() {
 
 # {{ loginctl enable-linger
 # @cmd Enable linger state of one or more users
-# @arg user*[`_choice_user`]
+# @arg user[`_choice_user`] <USER…>
 enable-linger() {
     :;
 }
@@ -136,7 +131,7 @@ disable-linger() {
 
 # {{ loginctl terminate-user
 # @cmd Terminate all sessions of one or more users
-# @arg user*[`_choice_user`]
+# @arg user[`_choice_user`] <USER…>
 terminate-user() {
     :;
 }
@@ -144,7 +139,7 @@ terminate-user() {
 
 # {{ loginctl kill-user
 # @cmd Send signal to processes of a user
-# @arg user*[`_choice_user`]
+# @arg user[`_choice_user`] <USER…>
 kill-user() {
     :;
 }
@@ -159,7 +154,7 @@ list-seats() {
 
 # {{ loginctl seat-status
 # @cmd Show seat status
-# @arg name*[`_choice_seat`]
+# @arg name[`_choice_seat`] <NAME…>
 seat-status() {
     :;
 }
@@ -167,16 +162,16 @@ seat-status() {
 
 # {{ loginctl show-seat
 # @cmd Show properties of seats or the manager
-# @arg name*[`_choice_seat`]
+# @arg name[`_choice_seat`] <NAME…>
 show-seat() {
     :;
 }
 # }} loginctl show-seat
 
 # {{ loginctl attach
-# @cmd Attach one or more devices to a seat
+# @cmd NAME DEVICE…  Attach one or more devices to a seat
 # @arg name[`_choice_seat`]
-# @arg device*
+# @arg device <DEVICE…>
 attach() {
     :;
 }
@@ -191,7 +186,7 @@ flush-devices() {
 
 # {{ loginctl terminate-seat
 # @cmd Terminate all sessions on one or more seats
-# @arg name*[`_choice_seat`]
+# @arg name[`_choice_seat`] <NAME…>
 terminate-seat() {
     :;
 }

@@ -11,6 +11,8 @@
 # @flag -b --branch-tree                      show an ASCII graph of the git repo branch history
 # @flag -D --branches-by-date                 show branches by date
 # @flag -C --contributors                     see a list of everyone who contributed to the repo
+# @flag -n --new-contributors                 list everyone who made their first contribution since a specified date
+# @flag -N --new-contributors-since-tag       list everyone who made their first contribution since a specified git tag
 # @flag -a --commits-per-author               displays a list of commits per author
 # @flag -d --commits-per-day                  displays a list of commits per day
 # @flag -m --commits-by-month                 displays a list of commits per month
@@ -21,9 +23,7 @@
 # @flag -A --commits-by-author-by-hour        displays a list of commits per hour by author
 # @flag -z --commits-by-timezone              displays a list of commits per timezone
 # @flag -Z --commits-by-author-by-timezone    displays a list of commits per timezone by author
+# @flag --activity-calendar                   displays a calendar-style grid of commit activity per day-of-week and month for a selected author.
 # @flag -r --suggest-reviewers                show the best people to contact to review code
-# @flag -h                                    display this help text in the terminal
-# @flag -?                                    display this help text in the terminal
-# @flag --help                                display this help text in the terminal
 
 command eval "$(argc --argc-eval "$0" "$@")"

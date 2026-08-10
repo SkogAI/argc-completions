@@ -14,7 +14,7 @@
 # @flag -K --rawsequences              Fix numeric keypad key confusion problem
 # @flag -L --nonewlines                Don't add an automatic newline
 # @flag -M --trimblanks                Trim tail spaces when hard-wrapping
-# @flag -N --noconvert                 Don't convert files from DOS/Mac format
+# @flag -N --noconvert                 Don't convert files from DOS format
 # @flag -O --bookstyle                 Leading whitespace means new paragraph
 # @flag -P --positionlog               Save & restore position of the cursor
 # @option -Q --quotestr <regex>        Regular expression to match quoting
@@ -52,9 +52,14 @@
 # @flag -w --nowrap                    Don't hard-wrap long lines [default]
 # @flag -x --nohelp                    Don't show the two help lines
 # @flag -y --afterends                 Make Ctrl+Right stop at word ends
+# @flag -z --listsyntaxes              List the names of available syntaxes
+# @flag -! --magic                     Also try magic to determine syntax
+# @flag -@ --colonparsing              Accept 'filename:linenumber' notation
 # @flag -% --stateflags                Show some states on the title bar
 # @flag -_ --minibar                   Show a feedback bar at the bottom
 # @flag -0 --zero                      Hide all bars, use whole terminal
+# @flag -1 --solosidescroll            Scroll only the current line sideways
+# @flag -/ --modernbindings            Use better-known key bindings
 # @arg files*
 
 command eval "$(argc --argc-eval "$0" "$@")"

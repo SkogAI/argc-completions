@@ -4,10 +4,11 @@
 # @meta inherit-flag-options
 # @flag -h --help                       Show this help
 # @flag --version                       Show package version
-# @flag --system                        Connect to system manager
-# @flag --user                          Connect to user service manager
+# @flag --system                        Connect to the system service manager
+# @flag --user                          Connect to the user service manager
+# @option -C --capsule <NAME>           Connect to service manager of specified capsule
 # @option -H --host <[USER@]HOST>       Operate on remote host
-# @option -M --machine <CONTAINER>      Operate on a local container
+# @option -M --machine <CONTAINER>      Operate on local container
 # @option -t --type[`_choice_type`]     List units of a particular type
 # @option --state                       List units with particular LOAD or SUB or ACTIVE state
 # @flag --failed                        Shortcut for --state=failed
@@ -17,52 +18,72 @@
 # @flag -l --full                       Don't ellipsize unit names on output
 # @flag -r --recursive                  Show unit list of host and local containers
 # @flag --reverse                       Show reverse dependencies with 'list-dependencies'
-# @flag --with-dependencies             Show unit dependencies with 'status', 'cat', 'list-units', and 'list-unit-files'.
+# @flag --before                        Show units ordered before with 'list-dependencies'
+# @flag --after                         Show units ordered after with 'list-dependencies'
+# @flag --with-dependencies             Show unit dependencies with 'status', 'cat', 'list-units', and 'list-unit-files'
 # @option --job-mode <MODE>             Specify how to deal with already queued jobs, when queueing a new job
 # @flag -T --show-transaction           When enqueuing a unit job, show full transaction
 # @flag --show-types                    When showing sockets, explicitly show their type
 # @flag --value                         When showing properties, only print the value
-# @option --check-inhibitors <MODE>     Specify if checking inhibitors before shutting down, sleeping or hibernating
+# @option --check-inhibitors <MODE>     Whether to check inhibitors before shutting down, sleeping, or hibernating
 # @flag -i                              Shortcut for --check-inhibitors=no
-# @option --kill-who <WHO>              Whom to send signal to
 # @option -s --signal                   Which signal to send
+# @option --kill-whom <WHOM>            Whom to send signal to
+# @option --kill-value <INT>            Signal value to enqueue
+# @option --kill-subgroup <PATH>        Send signal to sub-control group only
 # @option --what <RESOURCES>            Which types of resources to remove
 # @flag --now                           Start or stop unit after enabling or disabling it
-# @flag --dry-run                       Only print what would be done Currently supported by verbs: halt, poweroff, reboot,
+# @flag --dry-run                       Only print what would be done.
 # @flag -q --quiet                      Suppress output
-# @flag --wait                          For (re)start, wait until service stopped again For is-system-running, wait until startup is completed
+# @flag -v --verbose                    Show unit logs while executing operation
+# @flag --no-warn                       Suppress several warnings shown by default
+# @flag --wait                          For (re)start, wait until service stopped again.
 # @flag --no-block                      Do not wait until operation finished
 # @flag --no-wall                       Don't send wall message before halt/power-off/reboot
+# @option --message                     Specify human-readable reason for system shutdown
 # @flag --no-reload                     Don't reload daemon after en-/dis-abling unit files
 # @option --legend <BOOL>               Enable/disable the legend (column headers and hints)
-# @flag --no-pager                      Do not pipe output into a pager
-# @flag --no-ask-password               Do not ask for system passwords
-# @flag --global                        Enable/disable/mask default user unit files globally
-# @flag --runtime                       Enable/disable/mask unit files temporarily until next reboot
-# @flag -f --force                      When enabling unit files, override existing symlinks When shutting down, execute action immediately
-# @option --preset-mode                 Apply only enable, only disable, or all presets
-# @option --root <PATH>                 Enable/disable/mask unit files in the specified root directory
+# @flag --no-pager                      Do not start a pager
+# @flag --no-ask-password               Do not prompt for password
+# @flag --global                        Edit/enable/disable/mask default user unit files globally
+# @flag --runtime                       Edit/enable/disable/mask unit files temporarily until next reboot
+# @flag -f --force                      When enabling unit files, override existing symlinks.
+# @option --preset-mode <MODE>          Apply only enable, only disable, or all presets
+# @option --root <PATH>                 Edit/enable/disable/mask unit files in the specified root directory
+# @option --image <PATH>                Edit/enable/disable/mask unit files in the specified disk image
+# @option --image-policy <POLICY>       Specify disk image dissection policy
 # @option -n --lines <INTEGER>          Number of journal entries to show
-# @option -o --output[short|short-precise|short-iso|short-iso-precise|short-full|short-monotonic|short-unix|verbose|export|json|json-pretty|json-sse|cat] <STRING>  Change journal output mode
+# @option -o --output[short|short-precise|short-iso|short-iso-precise|short-full|short-monotonic|short-unix|short-delta|verbose|export|json|json-pretty|json-sse|cat] <STRING>  Change journal output mode
 # @flag --firmware-setup                Tell the firmware to show the setup menu on next boot
 # @option --boot-loader-menu <TIME>     Boot into boot loader menu on next boot
 # @option --boot-loader-entry <NAME>    Boot into a specific boot loader entry on next boot
+# @option --reboot-argument <ARG>       Specify argument string to pass to reboot()
+# @option --kernel-cmdline <CMDLINE>    Append to the kernel command line when loading the kernel from the booted boot loader entry
 # @flag --plain                         Print unit dependencies as a list instead of a tree
-# @option --timestamp <FORMAT>          Change format of printed timestamps.
+# @option --timestamp <FORMAT>          Change format of printed timestamps (pretty, unix, us, utc, us+utc)
 # @flag --read-only                     Create read-only bind mount
 # @flag --mkdir                         Create directory before mounting, if missing
 # @flag --marked                        Restart/reload previously marked units
+# @option --drop-in <NAME>              Edit unit files using the specified drop-in file name
+# @option --when <TIME>                 Schedule halt/power-off/reboot/kexec action after a certain timestamp
+# @flag --stdin                         Read new contents of edited file from stdin
 
-# {{ systemctl list-units
-# @cmd List units currently in memory
-# @arg pattern*[`_choice_unit`]
-list-units() {
+# {{ systemctl list-automounts
+# @cmd List automount units currently in memory, ordered
+list-automounts() {
     :;
 }
-# }} systemctl list-units
+# }} systemctl list-automounts
+
+# {{ systemctl list-paths
+# @cmd List path units currently in memory, ordered by path
+list-paths() {
+    :;
+}
+# }} systemctl list-paths
 
 # {{ systemctl list-sockets
-# @cmd List socket units currently in memory, ordered by address
+# @cmd List socket units currently in memory, ordered by
 # @arg pattern*[`_choice_socket_unit`]
 list-sockets() {
     :;
@@ -70,7 +91,7 @@ list-sockets() {
 # }} systemctl list-sockets
 
 # {{ systemctl list-timers
-# @cmd List timer units currently in memory, ordered by next elapse
+# @cmd List timer units currently in memory, ordered by
 # @arg pattern*[`_choice_timer_unit`]
 list-timers() {
     :;
@@ -86,7 +107,7 @@ is-active() {
 # }} systemctl is-active
 
 # {{ systemctl is-failed
-# @cmd Check whether units are failed
+# @cmd Check whether units are failed or system is in degraded state
 # @arg pattern*[`_choice_unit`]
 is-failed() {
     :;
@@ -102,7 +123,7 @@ status() {
 # }} systemctl status
 
 # {{ systemctl show
-# @cmd Show properties of one or more units/jobs or the manager
+# @cmd Show properties of one or more units/jobs or the
 # @arg pattern-job*[`_choice_unit_job`]
 show() {
     :;
@@ -118,7 +139,7 @@ cat_() {
 # }} systemctl cat
 
 # {{ systemctl list-dependencies
-# @cmd Recursively show units which are required or wanted by the units or by which those units are required or wanted
+# @cmd Recursively show units which are required or required or wanted
 # @arg pattern*[`_choice_unit`]
 list-dependencies() {
     :;
@@ -165,8 +186,15 @@ try-restart() {
 }
 # }} systemctl try-restart
 
+# {{ systemctl enqueue-marked
+# @cmd Enqueue jobs for all marked units
+enqueue-marked() {
+    :;
+}
+# }} systemctl enqueue-marked
+
 # {{ systemctl reload-or-restart
-# @cmd Reload one or more units if possible, otherwise start or restart
+# @cmd Reload one or more units if possible, otherwise
 # @arg unit*[`_choice_unit`]
 reload-or-restart() {
     :;
@@ -174,7 +202,7 @@ reload-or-restart() {
 # }} systemctl reload-or-restart
 
 # {{ systemctl try-reload-or-restart
-# @cmd If active, reload one or more units, if supported, otherwise restart
+# @cmd If active, reload one or more units, if
 # @arg unit*[`_choice_unit`]
 try-reload-or-restart() {
     :;
@@ -231,7 +259,7 @@ set-property() {
 # }} systemctl set-property
 
 # {{ systemctl bind
-# @cmd Bind-mount a path from the host into a unit's namespace
+# @cmd UNIT PATH [PATH]  Bind-mount a path from the host into a unit's namespace
 # @arg unit[`_choice_unit`]
 # @arg path*
 bind() {
@@ -240,7 +268,7 @@ bind() {
 # }} systemctl bind
 
 # {{ systemctl mount-image
-# @cmd Mount an image from the host into a unit's namespace
+# @cmd UNIT PATH [PATH  Mount an image from the host into a unit's
 # @arg unit[`_choice_unit`]
 # @arg path*
 mount-image() {
@@ -273,6 +301,13 @@ reset-failed() {
     :;
 }
 # }} systemctl reset-failed
+
+# {{ systemctl whoami
+# @cmd Return unit caller or specified PIDs are part of
+whoami() {
+    :;
+}
+# }} systemctl whoami
 
 # {{ systemctl list-unit-files
 # @cmd List installed unit files
@@ -362,7 +397,7 @@ revert() {
 # }} systemctl revert
 
 # {{ systemctl add-wants
-# @cmd Add 'Wants' dependency for the target on specified one or more units
+# @cmd Add 'Wants' dependency for the target on
 # @arg target-_choice_target <target:[`_choice_target`]>
 # @arg unit*[`_choice_unit`]
 add-wants() {
@@ -371,7 +406,7 @@ add-wants() {
 # }} systemctl add-wants
 
 # {{ systemctl add-requires
-# @cmd Add 'Requires' dependency for the target on specified one or more units
+# @cmd Add 'Requires' dependency for the target on
 # @arg target-_choice_target <target:[`_choice_target`]>
 # @arg unit*[`_choice_unit`]
 add-requires() {
@@ -549,6 +584,13 @@ kexec() {
 }
 # }} systemctl kexec
 
+# {{ systemctl soft-reboot
+# @cmd Shut down and reboot userspace
+soft-reboot() {
+    :;
+}
+# }} systemctl soft-reboot
+
 # {{ systemctl exit
 # @cmd Request user instance or container exit
 exit() {
@@ -557,11 +599,18 @@ exit() {
 # }} systemctl exit
 
 # {{ systemctl switch-root
-# @cmd Change to a different root file system
+# @cmd
 switch-root() {
     :;
 }
 # }} systemctl switch-root
+
+# {{ systemctl sleep
+# @cmd Put the system to sleep (through one of the operations below)
+sleep() {
+    :;
+}
+# }} systemctl sleep
 
 # {{ systemctl suspend
 # @cmd Suspend the system

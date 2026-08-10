@@ -3,20 +3,29 @@
 
 # @option -p --pattern                           AST pattern to match
 # @option --selector <KIND>                      AST kind to extract sub-part of pattern to match.
+# @option --strictness                           The strictness of the pattern.
+# @option -k --kind                              AST kind to match.
 # @option -r --rewrite <FIX>                     String to replace the matched AST node
 # @option -l --lang[`_choice_lang`]              The language of the pattern.
 # @option --debug-query <format>                 Print query pattern's tree-sitter AST.
-# @option --strictness                           The strictness of the pattern
+# @option -c --config <CONFIG_FILE>              Path to ast-grep root config, default is sgconfig.yml
+# @flag --follow                                 Follow symbolic links.
 # @option --no-ignore[`_choice_no_ignore`] <FILE_TYPE>  Do not respect hidden file system or ignore files (.gitignore, .ignore, etc.).
 # @flag --stdin                                  Enable search code from StdIn.
+# @option --globs                                Include or exclude file paths.
+# @option -j --threads <NUM>                     Set the approximate number of threads to use.
 # @flag -i --interactive                         Start interactive edit session.
 # @flag -U --update-all                          Apply all rewrite without confirmation if true
-# @option --json[`_choice_json`] <style>         Output matches in structured JSON .
+# @flag --files-with-matches                     Print only the paths with at least one match and suppress match contents.
+# @option --json[`_choice_json`] <STYLE>         Output matches in structured JSON.
 # @option --color[`_choice_color`] <WHEN>        Controls output color.
-# @option --heading[`_choice_heading`] <WHEN>    Controls whether to print the file name as heading.
+# @option --inspect <GRANULARITY>                Inspect information for file/rule discovery and scanning.
 # @option -A --after <NUM>                       Show NUM lines after each match.
 # @option -B --before <NUM>                      Show NUM lines before each match.
 # @option -C --context <NUM>                     Show NUM lines around each match.
+# @option --heading[`_choice_heading`] <WHEN>    Controls whether to print the file name as heading.
+# @flag -h --help                                Print help (see a summary with '-h')
+# @option -c --config <CONFIG_FILE>              Path to ast-grep root config, default is sgconfig.yml
 # @flag -h --help                                Print help (see a summary with '-h')
 # @flag -V --version                             Print version
 
@@ -24,20 +33,27 @@
 # @cmd Run one time search or rewrite in command line.
 # @option -p --pattern                           AST pattern to match
 # @option --selector <KIND>                      AST kind to extract sub-part of pattern to match.
+# @option --strictness                           The strictness of the pattern.
+# @option -k --kind                              AST kind to match.
 # @option -r --rewrite <FIX>                     String to replace the matched AST node
 # @option -l --lang[`_choice_lang`]              The language of the pattern.
 # @option --debug-query <format>                 Print query pattern's tree-sitter AST.
-# @option --strictness                           The strictness of the pattern
+# @option -c --config <CONFIG_FILE>              Path to ast-grep root config, default is sgconfig.yml
+# @flag --follow                                 Follow symbolic links.
 # @option --no-ignore[`_choice_no_ignore`] <FILE_TYPE>  Do not respect hidden file system or ignore files (.gitignore, .ignore, etc.).
 # @flag --stdin                                  Enable search code from StdIn.
+# @option --globs                                Include or exclude file paths.
+# @option -j --threads <NUM>                     Set the approximate number of threads to use.
 # @flag -i --interactive                         Start interactive edit session.
 # @flag -U --update-all                          Apply all rewrite without confirmation if true
-# @option --json[`_choice_json`] <style>         Output matches in structured JSON .
+# @flag --files-with-matches                     Print only the paths with at least one match and suppress match contents.
+# @option --json[`_choice_json`] <STYLE>         Output matches in structured JSON.
 # @option --color[`_choice_color`] <WHEN>        Controls output color.
-# @option --heading[`_choice_heading`] <WHEN>    Controls whether to print the file name as heading.
+# @option --inspect <GRANULARITY>                Inspect information for file/rule discovery and scanning.
 # @option -A --after <NUM>                       Show NUM lines after each match.
 # @option -B --before <NUM>                      Show NUM lines before each match.
 # @option -C --context <NUM>                     Show NUM lines around each match.
+# @option --heading[`_choice_heading`] <WHEN>    Controls whether to print the file name as heading.
 # @flag -h --help                                Print help (see a summary with '-h')
 # @arg paths*                                    The paths to search.
 run() {
@@ -47,18 +63,33 @@ run() {
 
 # {{ sg scan
 # @cmd Scan and rewrite code by configuration
-# @option -c --config <CONFIG_FILE>          Path to ast-grep root config, default is sgconfig.yml
 # @option -r --rule <RULE_FILE>              Scan the codebase with the single rule located at the path RULE_FILE.
 # @option --inline-rules <RULE_TEXT>         Scan the codebase with a rule defined by the provided RULE_TEXT.
+# @option --format[github|sarif]             Output warning/error messages in different formats.
+# @option --report-style <REPORT_STYLE>      Possible values:
+# @flag --include-metadata                   Include rule metadata in the json output.
 # @option --filter <REGEX>                   Scan the codebase with rules with ids matching REGEX.
-# @option --format[github]                   Output warning/error messages in GitHub Action format.
-# @option --report-style <REPORT_STYLE>      [default: rich]
+# @option --error* <RULE_ID>                 Set rule severity to error
+# @option -c --config <CONFIG_FILE>          Path to ast-grep root config, default is sgconfig.yml
+# @option --warning* <RULE_ID>               Set rule severity to warning
+# @option --info* <RULE_ID>                  Set rule severity to info
+# @option --hint* <RULE_ID>                  Set rule severity to hint
+# @option --off* <RULE_ID>                   Turn off rule
+# @flag --follow                             Follow symbolic links.
 # @option --no-ignore[`_choice_no_ignore`] <FILE_TYPE>  Do not respect hidden file system or ignore files (.gitignore, .ignore, etc.).
 # @flag --stdin                              Enable search code from StdIn.
+# @option --globs                            Include or exclude file paths.
+# @option -j --threads <NUM>                 Set the approximate number of threads to use.
 # @flag -i --interactive                     Start interactive edit session.
 # @flag -U --update-all                      Apply all rewrite without confirmation if true
-# @option --json[`_choice_json`] <style>     Output matches in structured JSON .
+# @flag --files-with-matches                 Print only the paths with at least one match and suppress match contents.
+# @option --json[`_choice_json`] <STYLE>     Output matches in structured JSON.
 # @option --color[`_choice_color`] <WHEN>    Controls output color.
+# @option --inspect <GRANULARITY>            Inspect information for file/rule discovery and scanning.
+# @option -A --after <NUM>                   Show NUM lines after each match.
+# @option -B --before <NUM>                  Show NUM lines before each match.
+# @option -C --context <NUM>                 Show NUM lines around each match.
+# @option --max-results <NUM>                Show at most NUM results and stop running once the limit is reached.
 # @flag -h --help                            Print help (see a summary with '-h')
 # @arg paths*                                The paths to search.
 scan() {
@@ -68,14 +99,17 @@ scan() {
 
 # {{ sg test
 # @cmd Test ast-grep rules
-# @option -c --config                      Path to the root ast-grep config YAML
-# @option -t --test-dir <TEST_DIR>         the directories to search test YAML files
-# @option --snapshot-dir <SNAPSHOT_DIR>    Specify the directory name storing snapshots.
-# @flag --skip-snapshot-tests              Only check if the test code is valid, without checking rule output.
-# @flag -U --update-all                    Update the content of all snapshots that have changed in test.
-# @flag -i --interactive                   Start an interactive review to update snapshots selectively
-# @option -f --filter <REGEX>              Only run rule test cases that matches REGEX
-# @flag -h --help                          Print help
+# @option -t --test-dir <TEST_DIR>           the directories to search test YAML files
+# @option --snapshot-dir <SNAPSHOT_DIR>      Specify the directory name storing snapshots.
+# @flag --skip-snapshot-tests                Only check if the test code is valid, without checking rule output.
+# @flag -U --update-all                      Update the content of all snapshots that have changed in test.
+# @flag -i --interactive                     Start an interactive review to update snapshots selectively
+# @option -f --filter <REGEX>                Only run rule test cases that matches REGEX
+# @flag --include-off                        Include `severity:off` rules in test
+# @option -c --config <CONFIG_FILE>          Path to ast-grep root config, default is sgconfig.yml
+# @flag --follow                             Follow symbolic links while searching test YAML files
+# @option --color[`_choice_color`] <WHEN>    Controls output color.
+# @flag -h --help                            Print help (see a summary with '-h')
 test() {
     :;
 }
@@ -85,7 +119,7 @@ test() {
 # @cmd Create new ast-grep project or items like rules/tests
 # @option -l --lang[`_choice_lang`]    The language of the item to create.
 # @flag -y --yes                       Accept all default options without interactive input during creation.
-# @option -b --base-dir <BASE_DIR>     Create new project/items in the folder specified by this argument
+# @option -c --config <CONFIG_FILE>    Path to ast-grep root config, default is sgconfig.yml
 # @flag -h --help                      Print help (see a summary with '-h')
 # @arg name                            The id of the item to create
 new() {
@@ -96,7 +130,7 @@ new() {
 # @cmd Create an new project by scaffolding
 # @option -l --lang[`_choice_lang`]    The language of the item to create.
 # @flag -y --yes                       Accept all default options without interactive input during creation.
-# @option -b --base-dir <BASE_DIR>     Create new project/items in the folder specified by this argument
+# @option -c --config <CONFIG_FILE>    Path to ast-grep root config, default is sgconfig.yml
 # @flag -h --help                      Print help (see a summary with '-h')
 # @arg name                            The id of the item to create
 new::project() {
@@ -108,7 +142,7 @@ new::project() {
 # @cmd Create a new rule
 # @option -l --lang[`_choice_lang`]    The language of the item to create.
 # @flag -y --yes                       Accept all default options without interactive input during creation.
-# @option -b --base-dir <BASE_DIR>     Create new project/items in the folder specified by this argument
+# @option -c --config <CONFIG_FILE>    Path to ast-grep root config, default is sgconfig.yml
 # @flag -h --help                      Print help (see a summary with '-h')
 # @arg name                            The id of the item to create
 new::rule() {
@@ -120,7 +154,7 @@ new::rule() {
 # @cmd Create a new test case
 # @option -l --lang[`_choice_lang`]    The language of the item to create.
 # @flag -y --yes                       Accept all default options without interactive input during creation.
-# @option -b --base-dir <BASE_DIR>     Create new project/items in the folder specified by this argument
+# @option -c --config <CONFIG_FILE>    Path to ast-grep root config, default is sgconfig.yml
 # @flag -h --help                      Print help (see a summary with '-h')
 # @arg name                            The id of the item to create
 new::test() {
@@ -132,7 +166,7 @@ new::test() {
 # @cmd Create a new global utility rule
 # @option -l --lang[`_choice_lang`]    The language of the item to create.
 # @flag -y --yes                       Accept all default options without interactive input during creation.
-# @option -b --base-dir <BASE_DIR>     Create new project/items in the folder specified by this argument
+# @option -c --config <CONFIG_FILE>    Path to ast-grep root config, default is sgconfig.yml
 # @flag -h --help                      Print help (see a summary with '-h')
 # @arg name                            The id of the item to create
 new::util() {
@@ -150,22 +184,40 @@ lsp() {
 }
 # }} sg lsp
 
+# {{ sg outline
+# @cmd Explore code structure for symbols, imports, exports, and members
+# @option -l --lang[`_choice_lang`]          Specify the input language.
+# @option --json[`_choice_json`] <STYLE>     Output outline entries in structured JSON.
+# @option --color[`_choice_color`] <WHEN>    Controls output color.
+# @option --items                            Select which top-level items to include.
+# @option --type <TYPE[,TYPE...]>            Keep only top-level items with these comma-separated symbol types.
+# @option --match <REGEX>                    Keep only top-level items matching this regex.
+# @flag --pub-members                        Display only public members in member views.
+# @option -c --config <CONFIG_FILE>          Path to ast-grep root config, default is sgconfig.yml
+# @option --view                             Select the text presentation.
+# @option --outline-rules <FILE>             Load additional outline extractor definitions
+# @flag --no-default-outline-rules           Do not load bundled outline extractor definitions
+# @flag --follow                             Follow symbolic links.
+# @option --no-ignore[`_choice_no_ignore`] <FILE_TYPE>  Do not respect hidden file system or ignore files (.gitignore, .ignore, etc.).
+# @flag --stdin                              Enable search code from StdIn.
+# @option --globs                            Include or exclude file paths.
+# @option -j --threads <NUM>                 Set the approximate number of threads to use.
+# @flag -h --help                            Print help (see a summary with '-h')
+# @arg paths*                                The paths to search.
+outline() {
+    :;
+}
+# }} sg outline
+
 # {{ sg completions
 # @cmd Generate shell completion script
+# @option -c --config <CONFIG_FILE>              Path to ast-grep root config, default is sgconfig.yml
 # @flag -h --help                                Print help
 # @arg shell[bash|elvish|fish|powershell|zsh]    Output the completion file for given shell.
 completions() {
     :;
 }
 # }} sg completions
-
-# {{ sg docs
-# @cmd Generate rule docs for current configuration.
-# @flag -h --help    Print help
-docs() {
-    :;
-}
-# }} sg docs
 
 _choice_lang() {
     cat <<-'EOF' | sed 's/, /\n/g'
